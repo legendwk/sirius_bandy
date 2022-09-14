@@ -5,17 +5,21 @@ import datetime
 class Game:
     
     # class variables
-    events = {'skott', 'frislag', 'vunnenboll', 'hörna', 'inslag', 'utkast',
-     'avslag', 'mål', 'utvisning', 'lagvarning', 'stopp', 'farligpassning', 'friläge'}
+    events = {'skott', 'frislag', 'bolltapp', 'närkamp', 'hörna', 'inslag', 'utkast',
+     'avslag', 'mål', 'utvisning', 'stop', 'passning', 'friläge', 'straff',
+     'offside', 'rensning', 'timeout', 'boll'}
     events_and_their_subevents = {'skott' : {'utanför', 'räddning', 'täckt'}, 
-                                    'vunnenboll': {'närkamp', 'tappadboll', 'dåligpassning'},
-                                    'farligpassning' : {'straffområde', 'lång'}}
+                                    'bolltapp': {'tappad', 'passförsök'},
+                                    'passning' : {'straffområde', 'lång'},
+                                    'mål' : {'straffområde', 'utanför', 'fast'}
+                                    }
     zones = {'z' + str(i) for i in range(1, 10)}
 
     # constructor
     def __init__(self, team1: str, team2: str) -> None:
-        self.team1 = team1.lower()
-        self.team2 = team2.lower()
+        self.teams = {team1.lower(), team2.lower()}
+        #self.team1 = team1.lower()
+        #self.team2 = team2.lower()
         return
 
     # methods
@@ -34,6 +38,7 @@ class Game:
         '''collects data and exports into filename csv
             csv structre is event, time
             terminates when input is STOP
+            change time by input clock HH:MM:SS
             '''     
         print(f'creating file {filename}')
 
@@ -52,13 +57,16 @@ class Game:
             
             # we're not interested in double taps on enter!
             if inp != '':
-                values[0].append(inp)
-                values[1].append(str(datetime.timedelta(seconds = (t-start_time)//1)))
-                self.save_data_to_csv(filename, keys, values)
+                # command for chaning time is 'clock HH:MM:SS'
+                if inp.lower().split()[0] == 'clock':
+                    start_time = self.set_game_clock(inp.lower().split()[1], t)
+                # event input
+                else:
+                    values[0].append(inp)
+                    values[1].append(str(datetime.timedelta(seconds = (t-start_time)//1)))
+                    self.save_data_to_csv(filename, keys, values)
         return 
 
-
-    # this method can probably be split into smaller and more general methods,
     def clean_csv(self, filename_in: str, filename_out: str) -> None:
         '''cleans raw csv file, creating a more easily worked one
             asks user when it does not understand, make sure to check if correct 
@@ -66,41 +74,80 @@ class Game:
         # variables 
         event_keys = ['time', 'team', 'event', 'subevent', 'zone']
         event_values = [[] for i in range(len(event_keys))]
-        
-        # open the raw csv, maybe shouldn't be done like this but whatever
-        try:
-            df = pd.read_csv(filename_in)
-        except:
-            df = pd.read_csv(filename_in + '.csv')
 
+        df = self.read_csv_as_df(filename_in)
         for index, row in df.iterrows():
-            if row['event'] == 'stop': # done!
-                event_values[0].append(row['time'])
-                event_values[1].append('0')
-                event_values[2].append('stopp')
-                event_values[3].append('0')
-                event_values[4].append('0')
-                break
-
+            split_set = set(row['event'].lower().split())
+            if 'stop' in split_set:
+                self.set_stop(row['time'], event_values)
             # del is the 'undo' command
-            else:
+            elif 'del' not in split_set:
                 # the or operator doesn't work with pandas (| also gives me errors)
-                if str(df.iloc[[index + 1]]['event']) != 'del':
-                    #print('inne i första if ')
-                    if row['event'] != 'del': 
-                        #print('inne i andra if ')
-                    # each data type
-                        event_values[0].append(row['time'])
-                        split_set = set(row['event'].lower().split())
-                        event_values[1].append(self.find_team(split_set))
-                        event_values[2].append(self.find_event(split_set)) 
-                        if event_values[2][-1] in Game.events_and_their_subevents:
-                            event_values[3].append(self.find_subevent(split_set, event_values[2][-1]))
-                        else:
-                            event_values[3].append('0')
-                        event_values[4].append(self.find_zone(split_set))
+                if 'del' not in set(str(df.iloc[[index + 1]]['event']).lower().split()):
+                    # no 'del' -> POPULATE!
+                    self.set_time(row['time'], event_values)
+                    self.set_team(self.find_team(split_set), event_values)
+                    event = self.find_event(split_set)
+                    self.set_event(event, event_values)
+                    self.set_subevent(event, split_set, event_values)
+                    self.set_zone(self.find_zone(split_set), event_values)
 
         self.save_data_to_csv(filename_out, event_keys, event_values)
+        return
+
+    def set_game_clock(self, new_time: str, t: float) -> int:
+        '''returns start_time to sync game clock to new_time at t'''
+        return t - sum(int(x) * 60 ** i for i, x in enumerate(reversed(new_time.split(':'))))
+ 
+
+    def read_csv_as_df(self, filename: str) -> pd.core.frame.DataFrame:
+        '''returns the csv as a df object'''
+        try:
+            return pd.read_csv(filename)
+        except:
+            return pd.read_csv(filename + '.csv')
+
+    def set_subevent(self, event: str, split_set: set, event_values: list) -> None:
+        '''sets subevent based on event'''
+        # the event has a subevent
+        if event in Game.events_and_their_subevents:
+            event_values[3].append(self.find_subevent(split_set, event))
+        # the event does not have a subevent
+        else:
+            event_values[3].append('0')
+
+    def set_stop(self, time: str, event_values: list) -> None:
+        '''populates event_values with data that indicates that the game is over'''
+        event_values[0].append(time)
+        event_values[1].append('0')
+        event_values[2].append('stopp')
+        event_values[3].append('0')
+        event_values[4].append('0')
+        return
+
+    def set_time(self, time: str, event_values: list) -> None:
+        '''sets time'''
+        event_values[0].append(time)
+        return
+
+    def set_team(self, team: str, event_values: list) -> None:
+        '''sets team'''
+        event_values[1].append(team)
+        return
+
+    def set_event(self, event: str, event_values: list) -> None:
+        '''sets event'''
+        event_values[2].append(event)
+        return
+    
+    def set_subevent1(self, subevent: str, event_values: list) -> None:
+        '''sets event'''
+        event_values[3].append(subevent)
+        return
+
+    def set_zone(self, zone: str, event_values: list) -> None:
+        '''sets zone'''
+        event_values[4].append(zone)
         return
 
     def ask_for_team(self, entry: set) -> str:
@@ -108,7 +155,7 @@ class Game:
         inp = ''
         while True:
             inp = input(f'{entry} \n what team are we looking for? ')
-            if inp == self.team1 or inp == self.team2 or inp == 0:
+            if inp in self.teams or inp == 0:
                 return inp
 
     def ask_for_event(self, entry: set) -> str:
@@ -134,12 +181,10 @@ class Game:
 
     def find_team(self, split_set: set) -> str:
         '''attempts to find team, if not successful asks user to do it manually'''
-        if self.team1 in split_set:
-            return self.team1
-        elif self.team2 in split_set:
-            return self.team2
-        else: 
-            return self.ask_for_team(split_set)
+        for team in self.teams:
+            if team in split_set:
+                return team
+        return self.ask_for_team(split_set)
     
     def find_event(self, split_set: set) -> str:
         '''attempts to find event, if not successful asks user to do it manually'''
@@ -163,38 +208,10 @@ class Game:
         return self.ask_for_zone(split_set)
 
 
-# TODO:
-    def compile_stats(self):
-        '''makes some sort of big stats page'''
-        pass
-
-
 if __name__ == "__main__":
-    print('print från get_data')
-    print(f'{__name__}')
-
+    print(f'hej')
 
     '''
     TODO:
-        * spara data efter n = 1 input 
-            * DONE
-        * discard tomma entries 
-            * DONE
-        * hur haterar vi "del"?
-            * ska vi skriva över föregående tid med nästa input? 
-            * ska vi bara ta bort föregående input? 
-
-
-
-    FÖRSLAG
-        * var på isen saker händer? ex zoner?
-        * spara data för passar "in i boxen"
-            * det här tror jag på!
-        * sida hörnor slås från? 
-
-    * filnamn:
-        * lag lag halvlek raw
-    * ta bort förra:
-        * del
 
     '''

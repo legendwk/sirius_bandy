@@ -1,10 +1,12 @@
 from get_data import Game
 
+# 37 matcher under 21/22 
 
-filename = 'träningsmatch u21'
-clean = 'träningsmatch u21 clean'
-g = Game('blå', 'gul')
-g.collector_raw(filename)
+# match 6: 2022-02-23 sirius vetlanda
 
-#g.clean_csv(filename, clean)
+filename = '20220223 sirius vetlanda halvlek 2'
+clean = '20220223 sirius vetlanda halvlek 2 clean'
+g = Game('sirius', 'vetlanda')
+#g.collector_raw(filename)
 
+g.clean_csv(filename, clean)
