@@ -7,7 +7,7 @@ class Game:
     # class variables
     events = {'skott', 'frislag', 'bolltapp', 'närkamp', 'hörna', 'inslag', 'utkast',
      'avslag', 'mål', 'utvisning', 'stop', 'passning', 'friläge', 'straff',
-     'offside', 'rensning', 'timeout', 'boll'}
+     'offside', 'rensning', 'timeout', 'boll', 'brytning'}
     events_and_their_subevents = {'skott' : {'utanför', 'räddning', 'täckt'}, 
                                     'bolltapp': {'tappad', 'passförsök'},
                                     'passning' : {'straffområde', 'lång'},
@@ -21,7 +21,22 @@ class Game:
         self.teams = {team1.lower(), team2.lower()}
         return
 
-    # methods
+    # static methods 
+    def append_clean(filename: str) -> str:
+        '''makes sure that the output ends in clean.csv'''
+        if len(filename) <= 4 or filename[-4:] != '.csv':
+            return filename + ' clean.csv'
+        else:
+            return filename[:-4] + ' clean.csv'
+
+    def read_csv_as_df(filename: str) -> pd.core.frame.DataFrame:
+        '''returns the csv as a df object'''
+        try:
+            return pd.read_csv(filename)
+        except:
+            return pd.read_csv(filename + '.csv')
+
+    # non-static methods
     def save_data_to_csv(self, filename: str, keys: list, values: list) -> None:
         # makes sure path is good
         if len(filename) <= 4 or filename[-4:] != '.csv':
@@ -66,15 +81,17 @@ class Game:
                     self.save_data_to_csv(filename, keys, values)
         return 
 
-    def clean_csv(self, filename_in: str, filename_out: str) -> None:
+    
+    def clean_csv(self, filename_in: str) -> None:
         '''cleans raw csv file, creating a more easily worked one
             asks user when it does not understand, make sure to check if correct 
         '''
         # variables 
+        filename_out = Game.append_clean(filename_in)
         event_keys = ['time', 'team', 'event', 'subevent', 'zone']
         event_values = [[] for i in range(len(event_keys))]
 
-        df = self.read_csv_as_df(filename_in)
+        df = Game.read_csv_as_df(filename_in)
         for index, row in df.iterrows():
             split_set = set(row['event'].lower().split())
             if 'stop' in split_set:
@@ -98,13 +115,6 @@ class Game:
         '''returns start_time to sync game clock to new_time at t'''
         return t - sum(int(x) * 60 ** i for i, x in enumerate(reversed(new_time.split(':'))))
  
-
-    def read_csv_as_df(self, filename: str) -> pd.core.frame.DataFrame:
-        '''returns the csv as a df object'''
-        try:
-            return pd.read_csv(filename)
-        except:
-            return pd.read_csv(filename + '.csv')
 
     def set_subevent(self, event: str, split_set: set, event_values: list) -> None:
         '''sets subevent based on event'''
@@ -209,6 +219,12 @@ class Game:
 
 if __name__ == "__main__":
     print(f'hej')
+    filename = '20220208 sirius edsbyn'
+    print(f'filename {filename}')
+    print(f'.append_clean(filename) {Game.append_clean(filename)}')
+    filename = '20220208 sirius edsbyn.csv'
+    print(f'filename {filename}')
+    print(f'Game.append_clean(filename) {Game.append_clean(filename)}')
 
     '''
     TODO:

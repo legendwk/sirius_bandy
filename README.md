@@ -26,12 +26,13 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
   * **täckt** - skottet når inte mål då det täcks undan av spelare
 * **mål** - det blir mål
   * **straffområde** - bollen skjuts inifrån straffområdet 
-  * **utanför** - bollen skjuts utanför straffområdet
+  * **lång** - bollen skjuts utanför straffområdet
   * **fast** - det blir mål på en fast situation (hörna, straff, frislag)
 * **bolltapp** - en spelare förlorar bollen "av egen maskin"
   * **tappad** - spelaren tappar bara kontrollen (dålig dribbling)
   * **passförsök** - spelaren försöker sig på en passning och tappar bollen (dålig passning)
 * **närkamp** - det uppstår en närkampssituation som vinns av spelare i laget som anges. 
+* **brytning** - spelare i laget som anges bryter boll påväg till motståndare.
 * **frislag** - domaren dömer frislag
 * **hörna** - domaren dömer hörna
 * **straff** - domaren dömer straff
@@ -39,7 +40,7 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
   * **5** - fem minuters utvisning
   * **10** - tio minuters utvisning 
 * **inslag** - bollen går ut och det blir inslag
-* **utkast** - bollen går ut och det blir inkast. Zonen som anges är där bollen hamnar
+* **utkast** - bollen hamnar hos målvakten
 * **avslag** - det blir avslag
 * **passning** - ett lag lägger en farlig passning 
   * **straffområde** - "inlägg" från kant in i straffområde
