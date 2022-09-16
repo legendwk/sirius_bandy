@@ -11,15 +11,14 @@ class Game:
     events_and_their_subevents = {'skott' : {'utanför', 'räddning', 'täckt'}, 
                                     'bolltapp': {'tappad', 'passförsök'},
                                     'passning' : {'straffområde', 'lång'},
-                                    'mål' : {'straffområde', 'utanför', 'fast'}
+                                    'mål' : {'straffområde', 'lång', 'fast'},
+                                    'utvisning' : {'5', '10'} 
                                     }
     zones = {'z' + str(i) for i in range(1, 10)}
 
     # constructor
     def __init__(self, team1: str, team2: str) -> None:
         self.teams = {team1.lower(), team2.lower()}
-        #self.team1 = team1.lower()
-        #self.team2 = team2.lower()
         return
 
     # methods
@@ -155,7 +154,7 @@ class Game:
         inp = ''
         while True:
             inp = input(f'{entry} \n what team are we looking for? ')
-            if inp in self.teams or inp == 0:
+            if inp in self.teams or inp == '0':
                 return inp
 
     def ask_for_event(self, entry: set) -> str:

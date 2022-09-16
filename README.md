@@ -4,6 +4,12 @@ Instruktioner kring hur man hanterar all kod.
 
 Koden är skriven i Python 3.9.5
 
+### Använda paket
+```
+pandas
+pptx
+```
+
 ## Datainsamling
 Datainsamlingen kan startas genom:
 ```
@@ -30,6 +36,8 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
 * **hörna** - domaren dömer hörna
 * **straff** - domaren dömer straff
 * **utvisning** - domaren dömer utvisning
+  * **5** - fem minuters utvisning
+  * **10** - tio minuters utvisning 
 * **inslag** - bollen går ut och det blir inslag
 * **utkast** - bollen går ut och det blir inkast. Zonen som anges är där bollen hamnar
 * **avslag** - det blir avslag
