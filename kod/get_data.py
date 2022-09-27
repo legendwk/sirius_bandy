@@ -22,8 +22,13 @@ class Game:
         return
 
     # static methods 
-    def append_clean(filename: str) -> str:
-        '''makes sure that the output ends in clean.csv'''
+    def append_clean(filename: str, change_dirr = True) -> str:
+        '''makes sure that the output ends in clean.csv
+            if change_dirr == True we expect to be able to
+            backtrack one folder and open the folder clean'''
+        if change_dirr:
+            if len(filename) <= 9 or filename[:9] != "..\\clean\\":
+                filename = "..\\clean\\" + filename
         if len(filename) <= 4 or filename[-4:] != '.csv':
             return filename + ' clean.csv'
         else:
@@ -35,6 +40,14 @@ class Game:
             return pd.read_csv(filename)
         except:
             return pd.read_csv(filename + '.csv')
+
+    def readable_to_sec(t: str) -> int:
+        '''returns the readable time in seconds'''
+        return sum(int(x) * 60 ** i for i, x in enumerate(reversed(t.split(':'))))  
+    
+    def sec_to_readable(t: float) -> str:
+        '''returns the seconds as readable time'''
+        return str(datetime.timedelta(seconds = t//1))
 
     # non-static methods
     def save_data_to_csv(self, filename: str, keys: list, values: list) -> None:
@@ -77,11 +90,10 @@ class Game:
                 # event input
                 else:
                     values[0].append(inp)
-                    values[1].append(str(datetime.timedelta(seconds = (t-start_time)//1)))
+                    values[1].append(Game.sec_to_readable(t-start_time))
                     self.save_data_to_csv(filename, keys, values)
         return 
-
-    
+       
     def clean_csv(self, filename_in: str) -> None:
         '''cleans raw csv file, creating a more easily worked one
             asks user when it does not understand, make sure to check if correct 
@@ -113,8 +125,7 @@ class Game:
 
     def set_game_clock(self, new_time: str, t: float) -> int:
         '''returns start_time to sync game clock to new_time at t'''
-        return t - sum(int(x) * 60 ** i for i, x in enumerate(reversed(new_time.split(':'))))
- 
+        return t - Game.readable_to_sec(new_time)
 
     def set_subevent(self, event: str, split_set: set, event_values: list) -> None:
         '''sets subevent based on event'''
@@ -129,7 +140,7 @@ class Game:
         '''populates event_values with data that indicates that the game is over'''
         event_values[0].append(time)
         event_values[1].append('0')
-        event_values[2].append('stopp')
+        event_values[2].append('stop')
         event_values[3].append('0')
         event_values[4].append('0')
         return

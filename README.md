@@ -44,7 +44,8 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
 * **avslag** - det blir avslag
 * **passning** - ett lag lägger en farlig passning 
   * **straffområde** - "inlägg" från kant in i straffområde
-  * **lång** - långboll
+  * **lång** - långboll som går fram
+  * **långtapp** - långboll som inte går fram
 * **friläge** - spelare får ett friläge
 * **offside** - spelar i lag åker offside, motstådarna får bollen
 * **resning** - laget i fråga rensar bort bollen, motståndarna får den utan närkamp
@@ -57,7 +58,6 @@ För att ändra tiden i realtid vid datainsamling i ```collector_raw``` (t.ex. o
 ```
 clock HH:MM:SS
 ```
-
 kommer ändra tiden att matcha input.
 
 ### Clean CSV
@@ -67,7 +67,7 @@ För att starta krävs
 ```
 from get_data import Game
 g = Game('sirius', 'edsbyn')
-g.clean_csv('20221121 sirius edsbyn halvlek 1', '20221221 sirius edsbyn halvlek 1 CLEAN')
+g.clean_csv('20221121 sirius edsbyn halvlek 1')
 ```
 
 ### Ask for-metoderna
