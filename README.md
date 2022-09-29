@@ -49,6 +49,10 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
 * **friläge** - spelare får ett friläge
 * **offside** - spelar i lag åker offside, motstådarna får bollen
 * **resning** - laget i fråga rensar bort bollen, motståndarna får den utan närkamp
+* **anfall** - 
+  * **direkt** - direkt anfall, en spelare kör
+  * **kontring** - samlad kontring, flera spelare
+  * **långt** - långt, strukturerat anfall 
 * **stop** - halvleken slut, programmet avslutas
 * **boll** - laget har bollinnehav
 * **timeout** - lag tar timeout. Kan även användas utan lag för valfritt (längre) matchstopp. 
@@ -56,9 +60,9 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
 ### Synca klockan i collector_raw:
 För att ändra tiden i realtid vid datainsamling i ```collector_raw``` (t.ex. om videon pausats).
 ```
-clock HH:MM:SS
+clock MM:SS
 ```
-kommer ändra tiden att matcha input.
+kommer ändra tiden att matcha input. Notera att vi oftast kommer skapa en fil för varje halvlek så det kan bli konstigt att gå efter matchuret. 
 
 ### Clean CSV
 Kommer bara fungera ifall Raw CSV slutar med "tid, stop".
@@ -74,5 +78,23 @@ g.clean_csv('20221121 sirius edsbyn halvlek 1')
 * Man ska alltid kunna kringgå frågorna genom att ange 0
 
 
+## Skottinsamling
+Starta matchen genom att skriva vad som helst, men gör detta precis när matchen startar. Det som ska anges är lag, anfallstyp, skottyp och utfall. Har lagt till **övrigt** som skotttyp. Använd 0 för att strunta i någon annan typ. 
 
+### Anfallstyper
+* **Direkt** -  vi kommer över bollen i ett läge där det finns en rak väg till mål, ofta kan en enskild spelare driva bollen hela vägen från att ha vunnit den till avslut.
+* **Samlat** - vi skapar en konting med fler än en spelare. Det är inte en helt rak väg till mål, men anfallet går snabbt och vi vänder aldrig hem.
+* **Långt** - anfallet är helt strukturerat, ofta börjar vi på egen planhalva och har tid att vända tillbaka ifall första eller andra läget inte är bra nog.
 
+### Skottyper
+* **Friställande** - en längre passning når fram till en anfallspelare i ett läge där denna antingen är fri, eller i ett sådant läge att den snabbt kan ta sig fram till ett skottläge i straffområdet.
+* **Inlägg** - bollen passas in i straffområdet från endera kant. 
+* **Utifrån** - skott från håll. 
+* **Dribbling** - enskild spelare för bollen in i straffområdet och skapar skottläge. Ofta tydligt stark individuell prestation. 
+* **Centralt** - ett anfall där flera spelare (ofta två eller tre) driver in bollen centralt i straffområde, ofta genom passningsspel såväl i som utanför straffområdet.
+* **Fast** - fast situation. Exempelvis straff, hörna eller frislag. 
+
+### Utfall
+* **Mål** - det blir mål.
+* **Hörna** - det blir hörna.
+* **Annat** - målvaktens boll, bollen lös etc. 

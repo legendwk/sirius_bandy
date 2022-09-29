@@ -7,13 +7,15 @@ class Game:
     # class variables
     events = {'skott', 'frislag', 'bolltapp', 'närkamp', 'hörna', 'inslag', 'utkast',
      'avslag', 'mål', 'utvisning', 'stop', 'passning', 'friläge', 'straff',
-     'offside', 'rensning', 'timeout', 'boll', 'brytning'}
+     'offside', 'rensning', 'timeout', 'boll', 'brytning', 'anfall'}
     events_and_their_subevents = {'skott' : {'utanför', 'räddning', 'täckt'}, 
                                     'bolltapp': {'tappad', 'passförsök'},
-                                    'passning' : {'straffområde', 'lång'},
+                                    'passning' : {'straffområde', 'lång', 'långtapp'},
                                     'mål' : {'straffområde', 'lång', 'fast'},
-                                    'utvisning' : {'5', '10'} 
+                                    'utvisning' : {'5', '10'},
+                                    'anfall': {'direkt', 'kontring', 'långt'} 
                                     }
+    
     zones = {'z' + str(i) for i in range(1, 10)}
 
     # constructor
@@ -49,8 +51,7 @@ class Game:
         '''returns the seconds as readable time'''
         return str(datetime.timedelta(seconds = t//1))
 
-    # non-static methods
-    def save_data_to_csv(self, filename: str, keys: list, values: list) -> None:
+    def save_data_to_csv(filename: str, keys: list, values: list) -> None:
         # makes sure path is good
         if len(filename) <= 4 or filename[-4:] != '.csv':
             filename += '.csv'
@@ -60,6 +61,13 @@ class Game:
         df = pd.DataFrame(dic)
         df.to_csv(filename, index=False) 
         return
+
+    def set_game_clock(new_time: str, t: float) -> int:
+        '''returns start_time to sync game clock to new_time at t'''
+        return t - Game.readable_to_sec(new_time)
+    
+
+    # non-static methods
 
     def collector_raw(self, filename: str) -> None:
         '''collects data and exports into filename csv
@@ -86,12 +94,12 @@ class Game:
             if inp != '':
                 # command for chaning time is 'clock HH:MM:SS'
                 if inp.lower().split()[0] == 'clock':
-                    start_time = self.set_game_clock(inp.lower().split()[1], t)
+                    start_time = Game.set_game_clock(inp.lower().split()[1], t)
                 # event input
                 else:
                     values[0].append(inp)
                     values[1].append(Game.sec_to_readable(t-start_time))
-                    self.save_data_to_csv(filename, keys, values)
+                    Game.save_data_to_csv(filename, keys, values)
         return 
        
     def clean_csv(self, filename_in: str) -> None:
@@ -120,12 +128,8 @@ class Game:
                     self.set_subevent(event, split_set, event_values)
                     self.set_zone(self.find_zone(split_set), event_values)
 
-        self.save_data_to_csv(filename_out, event_keys, event_values)
+        Game.save_data_to_csv(filename_out, event_keys, event_values)
         return
-
-    def set_game_clock(self, new_time: str, t: float) -> int:
-        '''returns start_time to sync game clock to new_time at t'''
-        return t - Game.readable_to_sec(new_time)
 
     def set_subevent(self, event: str, split_set: set, event_values: list) -> None:
         '''sets subevent based on event'''
@@ -229,13 +233,6 @@ class Game:
 
 
 if __name__ == "__main__":
-    print(f'hej')
-    filename = '20220208 sirius edsbyn'
-    print(f'filename {filename}')
-    print(f'.append_clean(filename) {Game.append_clean(filename)}')
-    filename = '20220208 sirius edsbyn.csv'
-    print(f'filename {filename}')
-    print(f'Game.append_clean(filename) {Game.append_clean(filename)}')
 
     '''
     TODO:
