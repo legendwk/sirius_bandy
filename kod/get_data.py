@@ -7,8 +7,9 @@ class Game:
     # class variables
     events = {'skott', 'frislag', 'bolltapp', 'närkamp', 'hörna', 'inslag', 'utkast',
      'avslag', 'mål', 'utvisning', 'stop', 'passning', 'friläge', 'straff',
-     'offside', 'rensning', 'timeout', 'boll', 'brytning', 'anfall'}
+     'offside', 'rensning', 'timeout', 'boll', 'brytning', 'anfall', 'skottyp'}
     events_and_their_subevents = {'skott' : {'utanför', 'räddning', 'täckt'}, 
+                                    'skottyp': {'friställande', 'inlägg', 'utifrån', 'dribbling', 'centralt'},
                                     'bolltapp': {'tappad', 'passförsök'},
                                     'passning' : {'straffområde', 'lång', 'långtapp'},
                                     'mål' : {'straffområde', 'lång', 'fast'},

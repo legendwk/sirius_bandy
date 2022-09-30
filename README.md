@@ -24,6 +24,12 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
   * **utanför** - skottet missar mål och går till utkast
   * **räddning** - målvakten räddar
   * **täckt** - skottet når inte mål då det täcks undan av spelare
+* **skottyp** - notera efter skott för varje avslut
+  * **friställande** - friställande passning
+  * **inlägg** - inläggspassning
+  * **utifrån** - skott utifrån
+  * **dribbling** - individuell dribbling in i straffområdet
+  * **centralt** - centralt anfall med flera spelare
 * **mål** - det blir mål
   * **straffområde** - bollen skjuts inifrån straffområdet 
   * **lång** - bollen skjuts utanför straffområdet

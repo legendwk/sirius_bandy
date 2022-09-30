@@ -16,7 +16,6 @@ class Stats:
         self.df = Game.read_csv_as_df(filename)
         self.create_instance_variables()
 
-
         # individual stats dictionaries 
     def create_instance_variables(self) -> None:
         '''creates instance variables for the object'''
@@ -62,7 +61,6 @@ class Stats:
             # vi har tappat bort metoden för att sammanfställa innehvaet : -)))))
         self.get_possession()
         return
-
 
     def get_duels(self, team: str) -> None:
         '''populates the stats_dict with info concerning duels'''
