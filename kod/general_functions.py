@@ -37,12 +37,17 @@ def save_data_to_csv(filename: str, keys: list, values: list) -> None:
     # makes sure path is good
     if len(filename) <= 4 or filename[-4:] != '.csv':
         filename += '.csv'
+    df = make_df(keys, values)
+    df.to_csv(filename, index=False) 
+    return
+
+def make_df(keys, values) -> pd.core.frame.DataFrame:
+    '''converts the two lists into a dataframe object'''
     dic = dict()
     for i, key in enumerate(keys):
         dic[key] = values[i]
-    df = pd.DataFrame(dic)
-    df.to_csv(filename, index=False) 
-    return
+    return pd.DataFrame(dic)
+    
 
 # time 
 def readable_to_sec(t: str) -> int:

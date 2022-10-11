@@ -1,6 +1,7 @@
 from pptx import Presentation
 from pptx.dml.color import ColorFormat, RGBColor
 from pptx.util import Inches, Pt
+import general_functions
 
 
 from get_stats import Stats

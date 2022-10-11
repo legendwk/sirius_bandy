@@ -4,6 +4,8 @@ Instruktioner kring hur man hanterar all kod.
 
 Koden är skriven i Python 3.9.5
 
+Generellt antar vi att mapp-arkitekturen ser ut som den gör på Github. Flera metoder är specialanpassade för att placera olika filer i rätt mapp, men det fungerar bara ifall upplägget ser likadant ut på allas datorer. 
+
 ### Använda paket
 ```
 pandas
@@ -30,6 +32,7 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
   * **utifrån** - skott utifrån
   * **dribbling** - individuell dribbling in i straffområdet
   * **centralt** - centralt anfall med flera spelare
+  * **fast** - skott på fast situation
 * **mål** - det blir mål
   * **straffområde** - bollen skjuts inifrån straffområdet 
   * **lång** - bollen skjuts utanför straffområdet
@@ -54,8 +57,8 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
   * **långtapp** - långboll som inte går fram
 * **friläge** - spelare får ett friläge
 * **offside** - spelar i lag åker offside, motstådarna får bollen
-* **resning** - laget i fråga rensar bort bollen, motståndarna får den utan närkamp
-* **anfall** - 
+* **rensning** - laget i fråga rensar bort bollen, motståndarna får den utan närkamp
+* **anfall** - anfallstyp. Behövs eventuellt inte
   * **direkt** - direkt anfall, en spelare kör
   * **kontring** - samlad kontring, flera spelare
   * **långt** - långt, strukturerat anfall 
@@ -83,10 +86,6 @@ g.clean_csv('20221121 sirius edsbyn halvlek 1')
 ### Ask for-metoderna
 * Man ska alltid kunna kringgå frågorna genom att ange 0
 
-
-## Skottinsamling
-Starta matchen genom att skriva vad som helst, men gör detta precis när matchen startar. Det som ska anges är lag, anfallstyp, skottyp och utfall. Har lagt till **övrigt** som skotttyp. Använd 0 för att strunta i någon annan typ. 
-
 ### Anfallstyper
 * **Direkt** -  vi kommer över bollen i ett läge där det finns en rak väg till mål, ofta kan en enskild spelare driva bollen hela vägen från att ha vunnit den till avslut.
 * **Samlat** - vi skapar en konting med fler än en spelare. Det är inte en helt rak väg till mål, men anfallet går snabbt och vi vänder aldrig hem.
@@ -103,4 +102,33 @@ Starta matchen genom att skriva vad som helst, men gör detta precis när matche
 ### Utfall
 * **Mål** - det blir mål.
 * **Hörna** - det blir hörna.
-* **Annat** - målvaktens boll, bollen lös etc. 
+* **Annat** - målvaktens boll, bollen lös etc.
+
+
+## Stats
+Filen ```get_stats.py``` har klassen ```Stats```. Det är här vi sammanställer datan från ```get_data.py```:s ```Game```. 
+
+För att skapa en läsbar (men relativt ful) .txt-fil kan nedstående kod användas. Notera att vi antar att mapp-arkitekturen är som i Github. Har man en annan mapparkitetktur kan man ta bort alla ```os```-anrop, då kommer alla filer hamna i samma mapp.
+
+```
+from get_stats import Stats
+import os
+teams = {'sirius', 'villa'}
+filename = '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv'
+s = Stats(teams, filename)
+os.chdir(r"..\..\..\txt") 
+s.write_stats()
+```
+
+För att kringgå det fakturm att vi sparar data halvleksvis har jag implementerat en ```__add__```-metod i ```Stats```-objektet. Detta medför att vi kan "plussa" två Stats-objekt:
+ ```
+ f1 = '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv'
+f2 = '20220930 IK Sirius - Villa Lidköping halvlek 2 clean.csv'
+
+ s1 = Stats(teams, f1) 
+ s2 =  Stats(teams, f2)
+ s = s1 + s2
+ os.chdir(r"..\..\..\txt") 
+ s.write_stats()
+ ``` 
+ Objektet ska ha en fullständig ```Stats.prints```-dictionary, vilket medför att dess ```write_stats```-metod fungerar. Däremot finns det inga Dataframe-objekt i det nya objektet, så mer ingående statistik kan inte göras (om inte ```__add__```) uppdateras. Vi antar även att additionen bara görs för objekt skapade på samma match; ser de olika addend-objektens ```self.teams```-set olika ut kommer det bli problem. 

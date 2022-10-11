@@ -1,0 +1,35 @@
+Sirius - Villa 
+	data från: 20220930 IK Sirius - Villa Lidköping halvlek 2 clean.csv
+Mål 
+	Sirius: 2 
+	Villa: 3 
+Bollinnehav 
+Sirius: 0:14:03 
+Villa: 0:11:07 
+Närkamper och brytningar 
+	Sirius: 7 
+	Villa: 9 
+Skottyper 
+Sirius 
+	friställande: 1 
+	utifrån: 4 
+	inlägg: 1 
+	centralt: 3 
+Villa 
+	friställande: 2 
+	utifrån: 3 
+	dribbling: 1 
+	centralt: 6 
+Skottens ursprung
+Sirius:
+	utkast: 4
+	hörna: 2
+	boll: 1
+	närkamp: 2
+	frislag: 2
+Villa:
+	hörna: 5
+	boll: 4
+	närkamp: 4
+	brytning: 1
+	utkast: 3

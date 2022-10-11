@@ -1,0 +1,131 @@
+event,time
+avslag villa z5,0:00:00
+hörna villa z3,0:00:20
+skott räddning villa z2,0:00:49
+boll sirius z2,0:00:56
+bolltapp tappad sirius z1,0:01:01
+boll villa z5,0:01:11
+skott räddning villa z2,0:01:28
+skottyp centralt z2,0:01:37
+hörna villa z1,0:01:40
+skott villa täckt z2,0:02:00
+boll villa ,0:02:03
+skott täckt villa z2,0:02:30
+skottyp utifrån villa z2,0:02:37
+boll sirius z3,0:02:47
+bolltapp passförsök sirius z7,0:03:11
+boll villa ,0:03:15
+skott utanför villa z2,0:03:42
+skottyp utifrån villa z2,0:03:47
+utkast sirius z3,0:03:51
+närkamp villa z6,0:04:36
+mål villa straffområde z2,0:05:01
+skottyp centralt villa z2,0:05:13
+avslag z2 sirius ,0:05:18
+utkast sirius z3,0:05:52
+mål sirius z8,0:06:13
+skottyp friställande sirius z2,0:06:26
+del,0:06:30
+skottyp friställande sirius z8,0:06:33
+avslag villa z5,0:06:41
+närkamp sirius z5,0:07:32
+brytning villa z5,0:07:41
+mål straffområde villa z2,0:07:49
+skottyp centralt z2 villa,0:08:02
+avslag sirius z2,0:08:08
+passning straffområde sirius z8,0:08:39
+närkamp villa z8,0:08:44
+mål villa z2 straffområde ,0:08:58
+skottyp centralt villa z2,0:09:16
+avslag sirius z2,0:09:25
+frislag sirius z2,0:09:44
+passning lång sirius z8,0:10:01
+utkast villa z7,0:10:08
+skott utanför sirius z8,0:10:46
+skottyp centralt sirius z8,0:10:52
+boll sirius ,0:10:57
+utkast villa z4,0:11:03
+närkamp sirius z2,0:11:23
+passning straffområde sirius z8,0:11:47
+boll villa z8,0:12:14
+skott räddning villa z2,0:12:25
+skottyp dribbling z2,0:12:30
+hörna z1 villa,0:12:35
+skott utanför villa z2,0:12:51
+utkast siirus z3,0:12:55
+skott utanför sirius z2,0:13:21
+skottyp centralt z2,0:13:27
+boll villa z7,0:13:32
+skott utanför villa z2,0:14:03
+skottyp utifrån z2 villa ,0:14:15
+utkast sirius,0:14:20
+hörna sirius z3,0:14:40
+skott täckt sirius z8,0:14:52
+närkamp villa z8,0:14:58
+närkamp sirius z4,0:15:05
+närkamp villa z9,0:15:52
+skott utanför villa z2,0:16:04
+skottyp friställande z2,0:16:10
+utkast sirius z2,0:16:15
+närkamp villa z8,0:16:30
+närkamp sirius z2,0:16:50
+frislag villa z1,0:16:59
+passning låpng villa z2,0:17:23
+bol l sirius z2,0:17:27
+skott räddning sirius z8,0:17:55
+skottyp utifrån sirius z8,0:18:05
+utkast villa ,0:18:07
+närkamp sirius z4,0:18:20
+utkast villa z8,0:18:44
+boll sirius z5,0:18:55
+passning straffområde sirius z8,0:19:54
+rensning villa ,0:20:00
+boll sirius ,0:20:07
+närkamp villa z6,0:20:18
+skott villa räddning z2,0:20:57
+skottyp centralt villa z2,0:21:09
+utkast sirius ,0:21:12
+skott täckt sirius z2,0:21:46
+skottyp centralt z2,0:21:50
+boll sirius ,0:21:58
+mål lång sirius z8,0:22:13
+skottyp utifrån sirius z8,0:22:27
+avslag villa ,0:22:30
+boll siirus ,0:22:58
+närkamp villa ,0:23:05
+bärkamp sirius ,0:23:24
+skott utanför sirius z8,0:23:32
+skottyp utifrån z8,0:23:37
+utkast villa ,0:23:39
+skott räddning villa z2,0:23:50
+skottyp friställande z2,0:24:04
+boll sirius z2,0:24:12
+frislag sirius z6,0:24:17
+skott utanför sirius ,0:24:31
+utkast villa ,0:24:35
+närkamp sirius z1,0:24:38
+skott utanför sirius z2,0:25:22
+skottyp utifrån sirius z2,0:25:30
+utkast villa ,0:25:38
+utkast sirius ,0:25:43
+frislag sirius z8,0:25:53
+passning straffområde sirius z8,0:26:09
+skott täckt sirius z8,0:26:15
+skottyp inlägg sirius z8,0:26:23
+hörna sirius z3,0:26:25
+skott utnaför sirius z8,0:26:41
+utkast villa z9,0:26:47
+offside villa ,0:27:04
+boll sirius z2,0:27:09
+brytning villa z8,0:27:34
+bolltapp tappad villa ,0:28:10
+utkast villa z7,0:28:28
+passning lång villa z2,0:28:36
+boll sirius ,0:28:38
+passning lång sirius z8,0:29:07
+utkast villa z9,0:29:11
+skott täckt villa z2,0:29:35
+skottyp villa z2 centralt ,0:29:45
+horna villa z1,0:29:47
+skott utanför villa z2,0:29:59
+stop,0:30:00
