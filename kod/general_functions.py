@@ -12,7 +12,6 @@ def combine_dictionaries(dict_1: dict, dict_2: dict) -> dict:
                 dict_3[key] = [value , dict_1[key]]
     return dict_3
 
-
 # open csv
 def append_clean(filename: str, change_dirr = True) -> str:
     '''makes sure that the output ends in clean.csv
@@ -47,7 +46,6 @@ def make_df(keys, values) -> pd.core.frame.DataFrame:
     for i, key in enumerate(keys):
         dic[key] = values[i]
     return pd.DataFrame(dic)
-    
 
 # time 
 def readable_to_sec(t: str) -> int:

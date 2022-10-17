@@ -98,6 +98,7 @@ g.clean_csv('20221121 sirius edsbyn halvlek 1')
 * **Dribbling** - enskild spelare för bollen in i straffområdet och skapar skottläge. Ofta tydligt stark individuell prestation. 
 * **Centralt** - ett anfall där flera spelare (ofta två eller tre) driver in bollen centralt i straffområde, ofta genom passningsspel såväl i som utanför straffområdet.
 * **Fast** - fast situation. Exempelvis straff, hörna eller frislag. 
+* **Retur** - skott efter retur. 
 
 ### Utfall
 * **Mål** - det blir mål.

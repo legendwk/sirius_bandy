@@ -10,7 +10,7 @@ class Game:
      'avslag', 'mål', 'utvisning', 'stop', 'passning', 'friläge', 'straff',
      'offside', 'rensning', 'timeout', 'boll', 'brytning', 'anfall', 'skottyp'}
     events_and_their_subevents = {'skott' : {'utanför', 'räddning', 'täckt'}, 
-                                    'skottyp': {'friställande', 'inlägg', 'utifrån', 'dribbling', 'centralt', 'fast'},
+                                    'skottyp': {'friställande', 'inlägg', 'utifrån', 'dribbling', 'centralt', 'fast', 'retur'},
                                     'bolltapp': {'tappad', 'passförsök'},
                                     'passning' : {'straffområde', 'lång', 'långtapp'},
                                     'mål' : {'straffområde', 'lång', 'fast'},

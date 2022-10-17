@@ -15,14 +15,15 @@ class Stats:
     def __init__(self, teams: set, filename: str, dummy = False) -> None:
         # this is where we put everything we're printing
         self.prints = dict()
+        self.possession_list = list()
+        self.goal_origins_list = list()
         # dummy is only used if we are adding two ojects
         if not dummy: 
             self.teams = teams
             self.big_df = gf.read_csv_as_df(filename)
             self.df_dict = dict()
             self.out = filename + '.txt'
-            self.possession_list = list()
-            
+            self.compile_stats()
         return
 
 # dunder add, for Stats() + Stats()
@@ -31,6 +32,8 @@ class Stats:
             return NotImplemented
         # new empty object
         obj = Stats(set(), str(), dummy = True)
+        obj.possession_list = self.possession_list + other.possession_list
+        obj.goal_origins_list = self.goal_origins_list + other.goal_origins_list
         obj.out = f'{self.out[:-4]} och {other.out}'
         obj.teams = self.teams
         obj.prints['score'] = self.add_score(other)
@@ -52,6 +55,15 @@ class Stats:
         self.write_shottypes()
         self.write_shot_origins()
         return
+    
+    def compile_stats(self) -> None:
+        '''calls all methods needed to compile all the stats'''
+        self.get_score_dict()
+        self.get_possession_dict()
+        self.get_duels_dict()
+        self.get_shottypes_dict()
+        self.get_shot_origins_dict()
+        self.goal_origins_list = self.get_goal_origins_list()
 
     def write_header(self) -> None:
         '''writes the team names
@@ -76,7 +88,7 @@ class Stats:
         '''prints the score to the output file'''
         score_dict = self.get_score_dict()
         with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('Mål \n')
+            f.write('\nMål \n')
             for team in score_dict:
                 f.write(f'\t{team.title()}: {score_dict[team]} \n')
         return
@@ -104,7 +116,7 @@ class Stats:
         '''calculates the score and writes it to the output file'''
         duels_dict = self.get_duels_dict()
         with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('Närkamper och brytningar \n')
+            f.write('\nNärkamper och brytningar \n')
             for team in duels_dict:
                 f.write(f'\t{team.title()}: {duels_dict[team]} \n')
         return
@@ -136,9 +148,9 @@ class Stats:
             possession_list looks like [[team, time], [team, time] ... ]'''
         poss_dict = self.get_possession_dict()
         with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('Bollinnehav \n')
+            f.write('\nBollinnehav \n')
             for team in poss_dict:
-                f.write(f'{team.title()}: {poss_dict[team]} \n')
+                f.write(f'\t{team.title()}: {poss_dict[team]} \n')
         return
 
     def add_possession(self, other) -> dict:
@@ -166,7 +178,7 @@ class Stats:
         '''writes the shot types for each team to output'''
         st_dict = self.get_shottypes_dict()
         with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('Skottyper \n')
+            f.write('\nSkottyper \n')
             for team in st_dict:
                 f.write(f'{team.title()} \n')
                 for shottype in st_dict[team]:
@@ -188,11 +200,24 @@ class Stats:
                     return_dict[team][shottype] = other.prints['shot types'][team][shottype]
         return return_dict
 
-    def shot_origins_df(self) -> pd.core.frame.DataFrame:
+    def get_goal_origins_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df object of only goals and their origins
+            fils df_dict if need be'''
+        if 'goal origins' not in self.df_dict:
+            goals_df = self.get_shot_origins_df().loc[self.get_shot_origins_df()['goal'] == True].drop('goal', axis=1)
+            self.df_dict['goal origins'] = goals_df
+        return self.df_dict['goal origins']
+
+    def get_goal_origins_list(self) -> list:
+        '''returns a list of the goal events'''
+        return self.get_goal_origins_df().values.tolist()
+       
+
+    def get_shot_origins_df(self) -> pd.core.frame.DataFrame:
         '''returns a df object of shot origins
             fills the df_dict if need be'''
         if 'shot origins' not in self.df_dict:
-            keys = ['team', 'shot origin', 'attack time', 'goal']
+            keys = ['team', 'shot origin', 'attack time',  'shot time', 'goal']
             values = [[] for i in range(len(keys))]
             possession_team = None
             possession_gained = None
@@ -204,7 +229,8 @@ class Stats:
                     values[0].append(possession_team)
                     values[1].append(possession_gained)
                     values[2].append(gf.readable_to_sec(row['time']) - time_gained)
-                    values[3].append(row['event'] == 'mål')
+                    values[3].append(row['time'])
+                    values[4].append(row['event'] == 'mål')
                 # new team gains possession OR new start of play
                 elif (row['event'] in Stats.possession_gained and row['team'] != possession_team) or row['event'] in Stats.start_of_play:
                     possession_team = row['team']
@@ -218,11 +244,11 @@ class Stats:
             self.df_dict['shot origins'] = gf.make_df(keys, values)
         return self.df_dict['shot origins']
 
-    def shot_origins_dict(self) -> dict:
+    def get_shot_origins_dict(self) -> dict:
         '''returns a dictionary of the shot origins
             if need be it fills self.prints'''
         if 'shot origins' not in self.prints:
-            so_df = self.shot_origins_df()
+            so_df = self.get_shot_origins_df()
             so_dict = {team: dict() for team in self.teams}
             for index, row in so_df.iterrows():
                 if row['shot origin'] in so_dict[row['team']]:
@@ -234,9 +260,9 @@ class Stats:
 
     def write_shot_origins(self) -> None:
         '''writes the shot origin info to output'''
-        so_dict = self.shot_origins_dict()
+        so_dict = self.get_shot_origins_dict()
         with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('Skottens ursprung\n')
+            f.write('\nSkottens ursprung\n')
             for team in so_dict:
                 f.write(f'{team.title()}:\n')
                 for so in so_dict[team]:
