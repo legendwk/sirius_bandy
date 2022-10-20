@@ -92,10 +92,18 @@ class Game:
                     event = self.find_event(split_set)
                     self.set_event(event, event_values)
                     self.set_subevent(event, split_set, event_values)
-                    self.set_zone(self.find_zone(split_set), event_values)
+                    # if we want to answer which zone then change this method
+                    self.set_zone(self.dont_ask_for_zone(split_set), event_values)
 
         gf.save_data_to_csv(filename_out, event_keys, event_values)
         return
+
+    def dont_ask_for_zone(self, split_set: set) -> str:
+        '''returns zone if it finds one, else 0'''
+        for zone in Game.zones:
+            if zone in split_set:
+                return zone
+        return '0'
 
     def set_subevent(self, event: str, split_set: set, event_values: list) -> None:
         '''sets subevent based on event'''

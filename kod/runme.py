@@ -4,8 +4,6 @@ import os
 from get_pp import PP
 import general_functions
 import pandas as pd
-
-
 # 37 matcher under 21/22 
 
 # match 6: 2022-02-23 sirius vetlanda
@@ -15,38 +13,36 @@ import pandas as pd
 # match 15: 2022-01-23 IK Sirius - IK Tellus
 # match 11: 2022-02-04 IK Sirius - IFK Vänersborg
 
+# collect data 
+# remeber to change to the correct season!
+
+os.chdir(r"data\2023\clean")
+vsk1 = Stats('20221001 IK Sirius - Västerås SK halvlek 1 clean')
+vsk2 = Stats('20221001 IK Sirius - Västerås SK halvlek 2 clean')
+os.chdir(r"..\..\..\txt") 
+
+os.chdir(r"..\powerpointer") 
+# make a powerpoint 
+PP(vsk1 + vsk2)
+
+'''
 os.chdir(r"data\2022\clean")
-teams = {'sirius', 'vänersborg'}
+teams = {'sirius', 'vsk'}
 s1 = Stats(teams, '20220204 IK Sirius - IFK Vänersborg halvlek 1 clean.csv')
 s2 = Stats(teams, '20220204 IK Sirius - IFK Vänersborg halvlek 1 clean.csv')
 os.chdir(r"..\..\..\txt") 
 s = s1 + s2
 
 os.chdir(r"..\powerpointer") 
-# make something nice looking 
+# make a powerpoint 
 pp = PP(s)
 
 
-
-'''
-os.chdir(r"data\2023\clean")
-teams = {'sirius', 'villa'}
-s1 = Stats(teams, '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv')
-s2 = Stats(teams, '20220930 IK Sirius - Villa Lidköping halvlek 2 clean.csv')
-os.chdir(r"..\..\..\txt") 
-s = s1 + s2
-
-os.chdir(r"..\powerpointer") 
-# make something nice looking 
-pp = PP(s1)
-
-
-
-# collect data 
-filename = '20220930 IK Sirius - Villa Lidköping halvlek 2'
-g = Game('sirius', 'villa')
+# collect data
+filename = '20221001 IK Sirius - Västerås SK halvlek 2'
 # remember to change to data\2023 for current season!
 os.chdir(r"data\2023\raw")
+g = Game('sirius', 'vsk')
 g.collector_raw(filename)
 g.clean_csv(filename)
 

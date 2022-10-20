@@ -1,6 +1,7 @@
 import pandas as pd 
 from get_data import Game
 import general_functions as gf
+from bisect import bisect_left
 
 
 class Stats:
@@ -12,15 +13,15 @@ class Stats:
     start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'hörna', 'straff'}
 
 # constructor
-    def __init__(self, teams: set, filename: str, dummy = False) -> None:
+    def __init__(self, filename: str, dummy = False) -> None:
         # this is where we put everything we're printing
         self.prints = dict()
         self.possession_list = list()
         self.goal_origins_list = list()
         # dummy is only used if we are adding two ojects
         if not dummy: 
-            self.teams = teams
             self.big_df = gf.read_csv_as_df(filename)
+            self.teams = {team for team in self.big_df['team'].tolist() if team != '0'}
             self.df_dict = dict()
             self.out = filename + '.txt'
             self.compile_stats()
@@ -31,9 +32,10 @@ class Stats:
         if not isinstance(other, Stats):
             return NotImplemented
         # new empty object
-        obj = Stats(set(), str(), dummy = True)
+        obj = Stats(str(), dummy = True)
         obj.possession_list = self.possession_list + other.possession_list
         obj.goal_origins_list = self.goal_origins_list + other.goal_origins_list
+        obj.goals_info_list = self.goals_info_list + other.goals_info_list
         obj.out = f'{self.out[:-4]} och {other.out}'
         obj.teams = self.teams
         obj.prints['score'] = self.add_score(other)
@@ -41,10 +43,15 @@ class Stats:
         obj.prints['duels'] = self.add_duels(other)
         obj.prints['shot types'] = self.add_shottypes(other)
         obj.prints['shot origins'] = self.add_shot_origins(other)
-        #obj.write_stats() removing this to better resemble the constructor
+        obj.prints['interceptions'] = self.add_interceptions(other)
+        obj.prints['lost balls'] = self.add_lost_balls(other)
+        obj.prints['scrimmages'] = self.add_scrimmages(other)
+        obj.prints['possession changes'] = self.add_possession_changes(other)
+        obj.prints['shots on goal'] = self.add_sog(other)
         return obj
 
 # non-static methods
+
     def write_stats(self) -> None:
         '''calls all write methods in order
             writing to the output file'''
@@ -63,7 +70,15 @@ class Stats:
         self.get_duels_dict()
         self.get_shottypes_dict()
         self.get_shot_origins_dict()
+        self.get_interceptions_dict()
+        self.get_lost_balls_dict()
+        self.get_scrimmages_dict()
+        self.get_sog_dict()
+        self.get_possession_changes_dict()
+
+        # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
+        self.goals_info_list = self.get_goals_info_list()
 
     def write_header(self) -> None:
         '''writes the team names
@@ -101,6 +116,36 @@ class Stats:
             return_dict[team] = self.prints['score'][team] + other.prints['score'][team]
         return return_dict
 
+    def get_possession_changes_dict(self, maintained = 15) -> dict:
+        '''returns a dictionary of the possession changes for each team
+            we are looking for events when a team wins takes possession of the ball from the other team
+            and sorting by how long the possession is maintained'''
+        duels_df = self.get_duels_df()
+        poss_dict = {team: {'long': 0, 'short': 0} for team in self.teams}
+        #team_list = [x[0] for x in self.possession_list]
+        time_list = [x[1] for x in self.possession_list]
+        if 'possession changes' not in self.prints:
+            for index, row in duels_df.iterrows():
+                # we find a possession change from duel
+                # binary search is O(logn)
+                i = bisect_left(time_list, row['time'])
+                if time_list[i] == row['time']:
+                    # next possession change in more than maintained
+                    if (gf.readable_to_sec(time_list[i + 1]) - gf.readable_to_sec(time_list[i]) >= maintained):
+                        poss_dict[row['team']]['long'] += 1
+                    else:
+                        poss_dict[row['team']]['short'] += 1
+            self.prints['possession changes'] = poss_dict
+        return self.prints['possession changes']
+    
+    def add_possession_changes(self, other) -> dict:
+        '''handels addition for possession changes'''
+        return_dict = {team: dict() for team in self.teams} 
+        for team in self.prints['possession changes']:
+            for event in self.prints['possession changes'][team]:
+                return_dict[team][event] = self.prints['possession changes'][team][event] + other.prints['possession changes'][team][event]
+        return return_dict
+
     def get_duels_dict(self) -> dict:
         '''returns a dictionary of the duels
             if need be it fills self.prints'''
@@ -111,6 +156,50 @@ class Stats:
                 duels_dict[team] = len(duels_df.loc[duels_df['team'] == team].index)
             self.prints['duels'] = duels_dict
         return self.prints['duels']
+
+    def get_interceptions_dict(self) -> dict:
+        '''returns a dictionary of the interceptions
+            if need be it fills self.prints'''
+        if 'interceptions' not in self.prints:
+            interceptions_df = self.get_interceptions_df()
+            interceptions_dict = {team: 0 for team in self.teams}
+            for team in interceptions_dict:
+                interceptions_dict[team] = len(interceptions_df.loc[interceptions_df['team'] == team].index)
+            self.prints['interceptions'] = interceptions_dict
+        return self.prints['interceptions']
+
+    def get_lost_balls_dict(self) -> dict:
+        '''returns a dictionary of the lost balls
+            if need be it fills self.prints'''
+        if 'lost balls' not in self.prints:
+            lost_balls_df = self.get_lost_balls_df()
+            lost_balls_dict = {team: 0 for team in self.teams}
+            for team in lost_balls_dict:
+                lost_balls_dict[team] = len(lost_balls_df.loc[lost_balls_df['team'] == team].index)
+            self.prints['lost balls'] = lost_balls_dict
+        return self.prints['lost balls']
+
+    def get_scrimmages_dict(self) -> dict:
+        '''returns a dictionary of the scrimmages
+            if need be it fills self.prints'''
+        if 'scrimmages' not in self.prints:
+            scrimmages_df = self.get_scrimmages_df()
+            scrimmages_dict = {team: 0 for team in self.teams}
+            for team in scrimmages_dict:
+                scrimmages_dict[team] = len(scrimmages_df.loc[scrimmages_df['team'] == team].index)
+            self.prints['scrimmages'] = scrimmages_dict
+        return self.prints['scrimmages']
+    
+    def get_sog_dict(self) -> dict:
+        '''returns a dictionary of the shots on goal
+            if need be it fills self.prints'''
+        if 'shots on goal' not in self.prints:
+            sog_df = self.get_sog_df()
+            sog_dict = {team: 0 for team in self.teams}
+            for team in sog_dict:
+                sog_dict[team] = len(sog_df.loc[sog_df['team'] == team].index)
+            self.prints['shots on goal'] = sog_dict
+        return self.prints['shots on goal']
 
     def write_duels(self) -> None:
         '''calculates the score and writes it to the output file'''
@@ -128,6 +217,38 @@ class Stats:
         for team in self.prints['duels']:
             return_dict[team] = self.prints['duels'][team] + other.prints['duels'][team]
         return return_dict
+
+    def add_interceptions(self, other) -> dict:
+        '''returns the interceptions of the added objects
+            expects type to already have been checked'''
+        return_dict = dict()
+        for team in self.prints['interceptions']:
+            return_dict[team] = self.prints['interceptions'][team] + other.prints['interceptions'][team]
+        return return_dict
+
+    def add_lost_balls(self, other) -> dict:
+        '''returns the lost balls of the added objects
+            expects type to already have been checked'''
+        return_dict = dict()
+        for team in self.prints['lost balls']:
+            return_dict[team] = self.prints['lost balls'][team] + other.prints['lost balls'][team]
+        return return_dict
+    
+    def add_scrimmages(self, other) -> dict:
+        '''returns the scrimmages of the added objects
+            expects type to already have been checked'''
+        return_dict = dict()
+        for team in self.prints['scrimmages']:
+            return_dict[team] = self.prints['scrimmages'][team] + other.prints['scrimmages'][team]
+        return return_dict
+
+    def add_sog(self, other) -> dict:
+        '''returns the shots on goal of the added objects
+            expects type to already have been checked'''
+        return_dict = dict()
+        for team in self.prints['shots on goal']:
+            return_dict[team] = self.prints['shots on goal'][team] + other.prints['shots on goal'][team]
+        return return_dict    
 
     def get_possession_dict(self) -> dict:
         '''returns a dictionary of the possession
@@ -208,11 +329,27 @@ class Stats:
             self.df_dict['goal origins'] = goals_df
         return self.df_dict['goal origins']
 
+    def get_goals_info_list(self) -> list:
+        '''returns a list with the info for all goals'''
+        goals_list = list()
+        df = self.big_df.loc[self.big_df['event'] == 'mål']
+        for index, row in df.iterrows():
+            d = dict()
+            d['time'] = row['time']
+            d['team'] = row['team']
+            d['subevent'] = row['subevent']
+            d['zone'] = row['zone']
+            d['shot type'] = self.big_df.loc[index + 1]['subevent']
+            goals_list.append(d)
+        for i, d in enumerate(goals_list):
+            d['origin'] = self.get_goal_origins_list()[i][1]
+            d['attack time'] = self.get_goal_origins_list()[i][2]
+        return goals_list        
+
     def get_goal_origins_list(self) -> list:
         '''returns a list of the goal events'''
         return self.get_goal_origins_df().values.tolist()
        
-
     def get_shot_origins_df(self) -> pd.core.frame.DataFrame:
         '''returns a df object of shot origins
             fills the df_dict if need be'''
@@ -313,6 +450,15 @@ class Stats:
             self.df_dict['shots'] = self.big_df.loc[self.big_df['event'].isin(['skott', 'mål'])]
         return self.df_dict['shots'] 
 
+    def get_sog_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with the shots on goal
+            populates the df_dict if not already done'''
+        if 'shots on goal' not in self.df_dict:
+            # bitwise comparison
+            self.df_dict['shots on goal'] = self.big_df.loc[(self.big_df['subevent'] == 'räddning') | (self.big_df['event'] == 'mål')]
+        return self.df_dict['shots on goal'] 
+             
+
     def get_shottypes_df(self) -> pd.core.frame.DataFrame:
         '''returns a df with only the the shot types
             populates the df_dict if not already done'''
@@ -338,3 +484,24 @@ class Stats:
         '''returns the opposite team of input
             only works if input is correct'''
         return self.teams.difference(team).pop()
+
+    def get_interceptions_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the the interceptions
+            populates the df_dict if not already done'''
+        if 'interceptions' not in self.df_dict:
+            self.df_dict['interceptions'] = self.big_df.loc[self.big_df['event'] == 'brytning']
+        return self.df_dict['interceptions'] 
+
+    def get_lost_balls_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the the lost balls
+            populates the df_dict if not already done'''
+        if 'lost balls' not in self.df_dict:
+            self.df_dict['lost balls'] = self.big_df.loc[self.big_df['event'] == 'bolltapp']
+        return self.df_dict['lost balls'] 
+
+    def get_scrimmages_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the the scrimmages
+            populates the df_dict if not already done'''
+        if 'scrimmages' not in self.df_dict:
+            self.df_dict['scrimmages'] = self.big_df.loc[self.big_df['event'] == 'närkamp']
+        return self.df_dict['scrimmages'] 

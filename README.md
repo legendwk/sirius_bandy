@@ -79,7 +79,7 @@ Kommer bara fungera ifall Raw CSV slutar med "tid, stop".
 För att starta krävs
 ```
 from get_data import Game
-g = Game('sirius', 'edsbyn')
+g = Game({'sirius', 'edsbyn'})
 g.clean_csv('20221121 sirius edsbyn halvlek 1')
 ```
 
@@ -114,9 +114,8 @@ För att skapa en läsbar (men relativt ful) .txt-fil kan nedstående kod använ
 ```
 from get_stats import Stats
 import os
-teams = {'sirius', 'villa'}
 filename = '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv'
-s = Stats(teams, filename)
+s = Stats(filename)
 os.chdir(r"..\..\..\txt") 
 s.write_stats()
 ```
@@ -124,10 +123,10 @@ s.write_stats()
 För att kringgå det fakturm att vi sparar data halvleksvis har jag implementerat en ```__add__```-metod i ```Stats```-objektet. Detta medför att vi kan "plussa" två Stats-objekt:
  ```
  f1 = '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv'
-f2 = '20220930 IK Sirius - Villa Lidköping halvlek 2 clean.csv'
+ f2 = '20220930 IK Sirius - Villa Lidköping halvlek 2 clean.csv'
 
- s1 = Stats(teams, f1) 
- s2 =  Stats(teams, f2)
+ s1 = Stats(f1) 
+ s2 =  Stats(f2)
  s = s1 + s2
  os.chdir(r"..\..\..\txt") 
  s.write_stats()

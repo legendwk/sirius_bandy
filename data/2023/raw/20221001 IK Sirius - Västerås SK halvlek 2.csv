@@ -1,0 +1,127 @@
+event,time
+avslag sirius z5,0:00:00
+passning lång sirius z2,0:01:50
+skott täckt sirius z2,0:02:01
+skottyp utifrån sirisu z2,0:02:06
+boll vsk,0:02:08
+passning lång vsk z9,0:02:13
+hörna vsk z9,0:02:16
+skott vsk z8 utanför ,0:02:45
+skottyp vsk fast ,0:02:50
+utkast sirius z7,0:02:53
+bolltapp sirius z2 passförsök ,0:03:11
+bolltapp vsk passförösk z5,0:03:19
+passning lång sirius z2,0:04:02
+utkast vsk z1,0:04:05
+skott räddning vsk z8,0:04:29
+skottyp utifrån vsk ,0:04:34
+resning sirius z8,0:04:39
+boll vsk z6,0:04:41
+skott räddning vsk z5,0:04:56
+skottyp utifrån vsk z5,0:05:01
+utkast sirius ,0:05:03
+skott utanför sirius z2,0:05:12
+skottyp sirius utifrån z2,0:05:16
+utkast vsk z1,0:05:21
+offside vsk z8,0:05:29
+boll sirius ,0:05:41
+frislag sirius z3,0:06:08
+boll sirius ,0:06:30
+passning straffområde sirius z2,0:06:47
+boll vsk,0:06:49
+frislag vsk z8,0:06:57
+boll vsk ,0:07:12
+skott utanför vsk z8,0:07:40
+skottyp utifrån vsk z8,0:07:45
+utkast sirius z8,0:07:48
+skott räddning sirius z2,0:08:04
+skottyp central sirius z2,0:08:09
+närkamp vsk ,0:08:11
+skott räddning vsk z8,0:08:23
+skottyp vsk centralt z8,0:08:25
+utkast sirius ,0:08:30
+närkamp sriius z3,0:09:45
+skott utanför sirius z2,0:11:17
+skottyp utifrån sirius z2,0:11:23
+utkast vsk ,0:11:24
+närkamp sirius z8,0:12:09
+bolltapp tappad sirius z4,0:12:16
+mål vsk z8,0:12:32
+skotyp vsk z8 centralt ,0:12:39
+avslag sirius ,0:13:20
+närkamp vsk z2,0:13:26
+passning straffområde vsk z8,0:13:46
+frislag sirius z9,0:13:51
+närkamp vsk z5,0:14:35
+frislag vsk z8,0:14:52
+passning straffområpde vsk z8,0:15:06
+nörkamp vsk ,0:15:13
+bolltapp tappad vsk ,0:15:30
+närkamp vsk ,0:15:40
+utkast sirius z9,0:15:53
+utvisning vsk z2,0:16:39
+del,0:16:41
+utvisning vsk 10,0:16:44
+frislag sirius z2,0:16:51
+boll sirius ,0:16:56
+inslag sirius z1,0:17:02
+närkamp vsk z2,0:17:36
+skott utanför vsk z8,0:17:52
+skottyp dribbling z8,0:17:59
+utkast sirius z8,0:18:04
+närkamp sirisu z5,0:18:11
+skott täckt sirius z2,0:18:19
+skottyp centralt sirius ,0:18:24
+närkamp sisiur z6,0:18:33
+tieout,0:18:54
+del,0:18:56
+timeout,0:18:57
+frislag vsk z6,0:19:09
+frislag vsk z9,0:19:28
+skott täckt vsk z8,0:20:21
+skottyp vsk utfriån,0:20:29
+närkamp sirius ,0:20:33
+närkamp vsk ,0:20:35
+brytning sirius z8,0:20:41
+närkamp vsk z4,0:21:03
+närkamp sirius z8,0:21:29
+skott täckt sirius z3,0:21:50
+skottyp utifrån sirius z3,0:21:55
+hörna sirius z3,0:21:59
+skott sirius täckt z2,0:22:20
+skottyp fast sirius z2,0:22:24
+närkamp vsk ,0:22:28
+skott räddning vsk z8,0:22:36
+skottyp centralt vsk ,0:22:41
+utkast sirius z8,0:22:44
+timeout sirius ,0:23:24
+frislag sirius z2,0:25:11
+resning vsk z2,0:25:22
+närkamp vsk z3,0:25:34
+närkamp sirius z5,0:25:38
+närkamp sirius z2,0:26:13
+passning straffområde sirius z2,0:26:17
+närkamp sirisu ,0:26:19
+skott räddning sirius z2,0:26:34
+skottyp centlralt sirisu ,0:26:39
+närkamp vsk z2,0:26:47
+frislag vsk,0:26:57
+resning vsk,0:27:11
+passning straffområde sirius z2,0:27:47
+boll vsk z2,0:27:52
+resning vsk ,0:27:58
+boll sirius ,0:28:02
+passning straffområde sirius z2,0:28:14
+boll vsk ,0:28:21
+passning straffområde vsk z8,0:28:35
+mål vsk z8,0:28:41
+skottyp inlägg vsk z8,0:28:46
+avslag sirius z5,0:29:13
+utvisning vsk 10,0:29:24
+frislag sirius ,0:29:34
+utkast vsk z2,0:30:38
+närkamp sirius z4,0:30:48
+bolltapp passförösk sirius ,0:31:00
+frislag vsk z6,0:31:03
+utkast sirius ,0:32:01
+stop,0:32:32

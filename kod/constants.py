@@ -26,5 +26,22 @@ logos = {
     'edsbyn': 'edsbyn logo.png', 'frillesås': 'frillesas logo.png', 'gripen': 'gripen logo.png',
     'hammarby': 'hammarby logo.png', 'motala': 'motala logo.png', 'saik': 'saik logo.png', 
     'sirius': 'sirius logo.png', 'vänersborg': 'vanersborg logo.png', 'vetlanda': 'vetlanda logo.png',
-    'villa': 'villa logo.png', 'vsk': 'vsk.logo'
+    'villa': 'villa logo.png', 'vsk': 'vsk logo.png'
+}
+
+nicknames = {
+    'aik' : {'full': 'AIK Bandy', 'short': 'AIK', 'abbreviation': 'AIK'}, 
+    'bollnäs' : {'full': 'Bollnäs GIF', 'short': 'Bollnäs', 'abbreviation': 'BGIF'},
+    'broberg': {'full': 'Broberg/ Söderhamn Bandy IF', 'short': 'Broberg', 'abbreviation': 'BRO'},
+    'edsbyn': {'full': 'Edsbyns IF', 'short': 'Edsbyn', 'abbreviation': 'EIF'},
+    'frillesås': {'full': 'Frillesås Bandy', 'short': 'Frillesås', 'abbreviation': 'FBK'},
+    'gripen': {'full': 'Gripen Trollhättan BK', 'short': 'Gripen', 'abbreviation': 'GBK'},
+    'hammarby': {'full': 'Hammarby IF Bandy', 'short': 'Hammarby', 'abbreviation': 'HIF'},
+    'motala': {'full': 'IFK Motala', 'short': 'Motala', 'abbreviation': 'MOT'},
+    'vänersborg': {'full': 'IFK Vänersborg', 'short': 'Vänersborg', 'abbreviation': 'VÄN'},
+    'sirius': {'full': 'IK Sirius', 'short': 'Sirius', 'abbreviation': 'IKS'},
+    'saik' : {'full': 'Sandvikens AIK Bandy', 'short': 'Sandviken', 'abbreviation': 'SAIK'},
+    'vetlanda' : {'full': 'Vetlanda BK', 'short': 'Vetlanda',  'abbreviation': 'VBK'},
+    'villa': {'full': 'Villa Lidköping BK', 'short': 'Villa', 'abbreviation': 'VLBK'},
+    'vsk': {'full' : 'Västerås SK Bandy', 'short': 'Västerås', 'abbreviation': 'VSK'}
 }
