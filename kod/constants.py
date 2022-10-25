@@ -20,7 +20,6 @@ colors = {
 }
 
 # logo images wihout relative link 
-
 logos = {
     'aik': 'aik logo.png', 'bollnäs': 'bollnas logo.png', 'broberg': 'broberg logo.png',
     'edsbyn': 'edsbyn logo.png', 'frillesås': 'frillesas logo.png', 'gripen': 'gripen logo.png',
@@ -45,3 +44,8 @@ nicknames = {
     'villa': {'full': 'Villa Lidköping BK', 'short': 'Villa', 'abbreviation': 'VLBK'},
     'vsk': {'full' : 'Västerås SK Bandy', 'short': 'Västerås', 'abbreviation': 'VSK'}
 }
+
+# five colors from dark to light in Sirius blue 
+color_scale = [RGBColor(0,55,100), RGBColor(0,74,152), 
+                RGBColor(0,85,184), RGBColor(0,154,222), RGBColor(94,179,228)]
+

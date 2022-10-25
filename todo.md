@@ -1,15 +1,6 @@
 # TODO
 ## Allmänt
 # Stats
-* Närkamper och bollar
-  * **Ta fram**
-    * brytningar KLAR
-    * bolltapp KLAR
-    * närkamper KLAR
-    * motståndaren har boll:
-      * vi tar boll och förlorar den direkt (15 sekunder?)
-      * vi tar boll och behåller den
-      * vi gör en stor df och hämtar data från den här
 * **Allmänt**
   * Listor
     * De borde ligga i typ ett dict eller något
@@ -18,3 +9,16 @@
 ## Presentation
 * kolla på den här tidslinjegrejen
 * fundera på hur man gör med zonerna och avståndet till boll och spelare
+
+# Allmänt 
+* fundera över vilken statistik som ska spara och hur 
+  * ALL? 
+  * csv-fil med varje match och sirius: all statistik motståndare: all statistik 
+  * confusion matrix: 
+    * vilka färger ska det vara var?
+      * kanske göra en funktion som sätter rätt färg på rätt plats
+      * 
+
+## David
+* tidlinje med skottyper och lag? 
+* färgskala 

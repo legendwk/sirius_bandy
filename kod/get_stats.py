@@ -46,7 +46,7 @@ class Stats:
         obj.prints['interceptions'] = self.add_interceptions(other)
         obj.prints['lost balls'] = self.add_lost_balls(other)
         obj.prints['scrimmages'] = self.add_scrimmages(other)
-        obj.prints['possession changes'] = self.add_possession_changes(other)
+        obj.prints['before and after'] = self.add_before_and_after(other)
         obj.prints['shots on goal'] = self.add_sog(other)
         return obj
 
@@ -74,7 +74,7 @@ class Stats:
         self.get_lost_balls_dict()
         self.get_scrimmages_dict()
         self.get_sog_dict()
-        self.get_possession_changes_dict()
+        self.get_before_and_after_dict()
 
         # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
@@ -116,34 +116,33 @@ class Stats:
             return_dict[team] = self.prints['score'][team] + other.prints['score'][team]
         return return_dict
 
-    def get_possession_changes_dict(self, maintained = 15) -> dict:
-        '''returns a dictionary of the possession changes for each team
-            we are looking for events when a team wins takes possession of the ball from the other team
-            and sorting by how long the possession is maintained'''
-        duels_df = self.get_duels_df()
-        poss_dict = {team: {'long': 0, 'short': 0} for team in self.teams}
-        #team_list = [x[0] for x in self.possession_list]
-        time_list = [x[1] for x in self.possession_list]
-        if 'possession changes' not in self.prints:
+    def get_before_and_after_dict(self) -> dict:
+        '''returns a dictionary vaof the before and after possession from each duel
+            if not already done, it'll fill sekf.prints'''
+        if 'before and after' not in self.prints:
+            duels_df = self.get_duels_df()
+            before_after_dict = {team : {t : 0 for t in self.teams} for team in self.teams}   
+            #team_list = [x[0] for x in self.possession_list]
+            time_list = [x[1] for x in self.possession_list]
             for index, row in duels_df.iterrows():
-                # we find a possession change from duel
                 # binary search is O(logn)
                 i = bisect_left(time_list, row['time'])
+                # we find a possession change from duel
                 if time_list[i] == row['time']:
-                    # next possession change in more than maintained
-                    if (gf.readable_to_sec(time_list[i + 1]) - gf.readable_to_sec(time_list[i]) >= maintained):
-                        poss_dict[row['team']]['long'] += 1
-                    else:
-                        poss_dict[row['team']]['short'] += 1
-            self.prints['possession changes'] = poss_dict
-        return self.prints['possession changes']
+                    # other team used to have possession, now we do
+                    before_after_dict[self.opposite_team(row['team'])][row['team']] += 1
+                # the duel didn't result in possession change
+                else:
+                    before_after_dict[row['team']][row['team']] += 1
+            self.prints['before and after'] = before_after_dict
+        return self.prints['before and after']
     
-    def add_possession_changes(self, other) -> dict:
-        '''handels addition for possession changes'''
+    def add_before_and_after(self, other) -> dict:
+        '''handels addition for the before and after stats'''
         return_dict = {team: dict() for team in self.teams} 
-        for team in self.prints['possession changes']:
-            for event in self.prints['possession changes'][team]:
-                return_dict[team][event] = self.prints['possession changes'][team][event] + other.prints['possession changes'][team][event]
+        for before in self.prints['before and after']:
+            for after in self.prints['before and after'][before]:
+                return_dict[before][after] = self.prints['before and after'][before][after] + other.prints['before and after'][before][after]
         return return_dict
 
     def get_duels_dict(self) -> dict:
@@ -483,7 +482,7 @@ class Stats:
     def opposite_team(self, team: str) -> str:
         '''returns the opposite team of input
             only works if input is correct'''
-        return self.teams.difference(team).pop()
+        return self.teams.difference({team}).pop()
 
     def get_interceptions_df(self) -> pd.core.frame.DataFrame:
         '''returns a df with only the the interceptions
