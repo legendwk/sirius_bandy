@@ -9,6 +9,8 @@ import os
 import constants
 from pptx.util import Pt
 from pptx.enum.text import MSO_ANCHOR
+import pptx.table  
+import pptx.slide 
 
 
 class PP:
@@ -30,7 +32,7 @@ class PP:
         return
     
     # static methods
-    def iter_cells(table):
+    def iter_cells(table: pptx.table.Table) -> pptx.table._Cell:
         '''yeilds the cells of a table, 
             used to style them'''
         for row in table.rows:
@@ -38,7 +40,7 @@ class PP:
                 yield cell
 
     # non-static methods
-    def set_background_color(self, slide) -> None:
+    def set_background_color(self, slide: pptx.slide.Slide) -> None:
         '''sets the background color of current slide to match
             class variable background_color'''
         background = slide.background
@@ -285,8 +287,10 @@ class PP:
             #fill = cell.fill
             #fill.solid()
             #fill.fore_color.rgb = PP.background_color
-
-
+        
+    def color_table(self, table: pptx.table.Table) -> None:
+        '''sets the background and text colors of the table
+            only used for the confusion matrix of before and after'''
         
 
     def make_pres(self) -> None:
