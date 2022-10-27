@@ -21,20 +21,16 @@ class Game:
     zones = {'z' + str(i) for i in range(1, 10)}
 
     # constructor
-    def __init__(self, team1: str, team2: str) -> None:
-        self.teams = {team1.lower(), team2.lower()}
+    def __init__(self, teams: set) -> None:
+        self.teams = teams
         return
 
     # static methods 
-    
-
     def set_game_clock(new_time: str, t: float) -> int:
         '''returns start_time to sync game clock to new_time at t'''
         return t - gf.readable_to_sec(new_time)
     
-
     # non-static methods
-
     def collector_raw(self, filename: str) -> None:
         '''collects data and exports into filename csv
             csv structre is event, time
@@ -60,7 +56,7 @@ class Game:
             if inp != '':
                 # command for chaning time is 'clock HH:MM:SS'
                 if inp.lower().split()[0] == 'clock':
-                    start_time = gf.set_game_clock(inp.lower().split()[1], t)
+                    start_time = Game.set_game_clock(inp.lower().split()[1], t)
                 # event input
                 else:
                     values[0].append(inp)

@@ -9,6 +9,8 @@ import os
 import constants
 from pptx.util import Pt
 from pptx.enum.text import MSO_ANCHOR
+# importeras typ bara för läslighet och typing 
+import pptx.shapes
 import pptx.table  
 import pptx.slide 
 
@@ -20,6 +22,7 @@ class PP:
     background_color = RGBColor(190,190,190)  # (223,223,223) 
     third_color = RGBColor(250, 226, 12)
     halftime = 45
+    background_image = r"C:\Users\vikin\Documents\Sirius Bandy\sirius_bandy\bilder\pptx\background.png"
 
     # relative link to image folder
     image_link = "..\\..\\bilder\\logos\\"
@@ -49,7 +52,17 @@ class PP:
         fill.fore_color.rgb = PP.background_color
         #fill.fore_color.brightness = 0.1
         #fill.transparency = 0.1
-        return    
+        return   
+
+    def set_background_image(self, slide: pptx.slide.Slide) -> None:
+        '''sets the background image of current slide to match
+            class variable background_image'''  
+        left = top = Inches(0)
+        img_path = PP.background_image
+        pic = slide.shapes.add_picture(img_path, left, top, width=self.pres.slide_width, height=self.pres.slide_height)
+        # This moves it to the background
+        slide.shapes._spTree.remove(pic._element)
+        slide.shapes._spTree.insert(2, pic._element)
 
     def add_logo_images(self, slide, from_left = 0.7, from_top = 0.4, width = 2) -> None:
         '''adds the logos of the teams to the slide
@@ -65,6 +78,8 @@ class PP:
         '''makes the front page layout'''
         slide_register = self.pres.slide_layouts[0]
         slide = self.pres.slides.add_slide(slide_register)
+        # den ligger här för att hamna först? 
+        self.set_background_image(slide)
         title = slide.shapes.title
         title.text = " - ".join(constants.nicknames[team]['full'] for team in self.stats.teams)
         title.text_frame.paragraphs[0].font.color.rgb = PP.text_color
@@ -73,15 +88,16 @@ class PP:
         subtitle.text = ' - '.join(str(self.stats.prints['score'][team]) for team in self.stats.prints['score']) 
         subtitle.text_frame.paragraphs[0].font.color.rgb = PP.third_color
         self.add_logo_images(slide, width = 2)
-        self.set_background_color(slide)
+        #self.set_background_color(slide)
         return 
 
     def make_overview_stats_page(self) -> None:
         '''makes the overview stats page layout'''
         slide_register = self.pres.slide_layouts[4]
         slide = self.pres.slides.add_slide(slide_register)
+        self.set_background_image(slide)
         self.add_logo_images(slide, width = 1.5)
-        self.set_background_color(slide)
+        #self.set_background_color(slide)
         title = slide.shapes.title
         title.text = 'Matchstatistik'
         bpb = slide.shapes
@@ -111,8 +127,9 @@ class PP:
         '''makes the shots types stats page'''
         slide_register = self.pres.slide_layouts[4]
         slide = self.pres.slides.add_slide(slide_register)
+        self.set_background_image(slide)
         self.add_logo_images(slide, width = 1.5)
-        self.set_background_color(slide)
+        #self.set_background_color(slide)
         title = slide.shapes.title
         title.text = 'Skottstatistik \nSkotttyper'
         # this is just all the shot types for both teams sorted in alphabetical order
@@ -138,8 +155,9 @@ class PP:
         '''makes the duels stats page'''
         slide_register = self.pres.slide_layouts[4]
         slide = self.pres.slides.add_slide(slide_register)
+        self.set_background_image(slide)
         self.add_logo_images(slide, width = 1.5)
-        self.set_background_color(slide)
+        #self.set_background_color(slide)
         title = slide.shapes.title
         title.text = 'Bollvinster'
 
@@ -163,13 +181,13 @@ class PP:
             res.level = 0
             res.font.color.rgb = constants.colors[team][0]
 
-
     def make_scimmages_page(self) -> None:
         '''makes the scrimmages stats page'''
         slide_register = self.pres.slide_layouts[4]
         slide = self.pres.slides.add_slide(slide_register)
+        self.set_background_image(slide)
         self.add_logo_images(slide, width = 1.5)
-        self.set_background_color(slide)
+        #self.set_background_color(slide)
         title = slide.shapes.title
         title.text = 'Närkampssituationer \noch deras utfall'
 
@@ -192,8 +210,9 @@ class PP:
         '''makes the shots types stats page'''
         slide_register = self.pres.slide_layouts[4]
         slide = self.pres.slides.add_slide(slide_register)
+        self.set_background_image(slide)
         self.add_logo_images(slide, width = 1.5)
-        self.set_background_color(slide)
+        #self.set_background_color(slide)
         title = slide.shapes.title
         title.text = 'Skottstatistik \nSkottens ursprung'
         # this is the shot origins for both teams sorted 
@@ -222,8 +241,9 @@ class PP:
         '''makes the goals stats page'''
         slide_register = self.pres.slide_layouts[1]
         slide = self.pres.slides.add_slide(slide_register)
+        self.set_background_image(slide)
         self.add_logo_images(slide)
-        self.set_background_color(slide)
+        #self.set_background_color(slide)
         title = slide.shapes.title
         title.text = 'Målen'
         bpb = slide.shapes
@@ -236,14 +256,13 @@ class PP:
             res.font.color.rgb = constants.colors[goal['team']][0]
             res.level = 0
 
-
     def make_before_and_after_table_page(self) -> None:
         '''creates the page with the table for the before and after possessions'''
-        # THIS IS SO AWFUL :------)))))
         slide_register = self.pres.slide_layouts[5]
         slide = self.pres.slides.add_slide(slide_register)
+        self.set_background_image(slide)
         self.add_logo_images(slide, width = 1.5)
-        self.set_background_color(slide)
+        #self.set_background_color(slide)
         title = slide.shapes.title
 
         title.text = 'Närkamper \noch deras utfall'
@@ -253,45 +272,53 @@ class PP:
         height_table = Inches(4)
         table_frame = slide.shapes.add_table(3,3, left_table, top_table, width_table, height_table)
         table = table_frame.table
-        
-        tbl =  table_frame._element.graphic.graphicData.tbl
-        style_id = '{69CF1AB2-1976-4502-BF36-3FF5EA218861}'
-        tbl[0][-1].text = style_id
-        # första cellen ska inte 
-        for i in range(3):
-            fill = table.cell(i, i).fill
-            fill.solid()
-            if i == 0:
-                fill.fore_color.rgb = PP.background_color
-            else:
-                fill.fore_color.rgb = constants.color_scale[3]
-
         for i, team in enumerate(self.stats.prints['before and after']):
             table.cell(i+1, 0).text = f"Före {constants.nicknames[team]['short']}"
+            table.cell(i+1, 0).text_frame.paragraphs[0].font.color.rgb = constants.colors[team][1]
+
             table.cell(0, i+1).text = f"Efter {constants.nicknames[team]['short']}"
+            table.cell(0, i+1).text_frame.paragraphs[0].font.color.rgb = constants.colors[team][1]
+
             table.cell(i+1, i+1).text = f"{self.stats.prints['before and after'][team][team]}"
-            # this solution is horrible : -)
+            table.cell(i+1, i+1).fill.solid()
+            # background is team's secondary color with opacity 80 % against a white background
+            table.cell(i+1, i+1).fill.fore_color.rgb = RGBColor(*gf.faded_rgb_color(constants.colors[team][1], 0.8))
             if i == 0:
                 j,k = 1,2
             else:
                 j,k = 2,1
+            # a blend of the two team's colors at 50 %
+            blended_color = RGBColor(*gf.faded_rgb_color(constants.colors[self.stats.teams.copy().pop()][1], 0.5, background = constants.colors[self.stats.opposite_team(self.stats.teams.copy().pop())][1]))
+            # fading the color at 60 % on white background
+            faded_color = RGBColor(*gf.faded_rgb_color(blended_color, 0.6))
             table.cell(j,k).text = f"{self.stats.prints['before and after'][team][self.stats.opposite_team(team)]}"
+            table.cell(j,k).fill.solid()
+            table.cell(j,k).fill.fore_color.rgb = faded_color
+        self.style_before_and_after_table(table_frame)
+
+    def style_before_and_after_table(self, table_frame: pptx.shapes.graphfrm.GraphicFrame) -> None:
+        '''sets the background and text colors of the table
+            only used for the confusion matrix of before and after'''
+        # table style
+        tbl =  table_frame._element.graphic.graphicData.tbl
+        style_id = '{69CF1AB2-1976-4502-BF36-3FF5EA218861}'
+        tbl[0][-1].text = style_id
+    
+        table = table_frame.table
+        # sets the outer cells to transparent 
+        table.cell(0,0).fill.background()
+        for i in range(1,3):
+            table.cell(i,0).fill.background()
+            table.cell(0,i).fill.background()
         
+        # deals with text 
         for cell in PP.iter_cells(table):
             cell.vertical_anchor = MSO_ANCHOR.MIDDLE
             paragraph = cell.text_frame.paragraphs[0]
             paragraph.font.size = Pt(25)
             paragraph.font.bold = True
             paragraph.alignment = PP_ALIGN.CENTER
-            # här kan vi ändra färg om vi vill.......
-            #fill = cell.fill
-            #fill.solid()
-            #fill.fore_color.rgb = PP.background_color
-        
-    def color_table(self, table: pptx.table.Table) -> None:
-        '''sets the background and text colors of the table
-            only used for the confusion matrix of before and after'''
-        
+        return  
 
     def make_pres(self) -> None:
         '''calls the methods needed to make a presentation '''

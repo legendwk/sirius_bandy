@@ -56,3 +56,14 @@ def sec_to_readable(t: float) -> str:
     '''returns the seconds as readable time'''
     return str(datetime.timedelta(seconds = t//1))
 
+# colors
+def faded_rgb_color(rgb: tuple, a: float, background = (255, 255, 255)) -> tuple:
+    '''returns the color code in rgb rgb faded with a % opacity 
+     ontop of background, default white'''
+    r, g, b = rgb
+    br, bg, bb = background
+    return (int((1-a)*br+a*r), int((1-a)*bg+a*g), int((1-a)*bb+a*b))
+
+def hex_to_rgb(h: str) -> tuple:
+    '''returns the hex of a color as a (r, g, b) tuple'''
+    return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))

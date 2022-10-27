@@ -41,7 +41,7 @@ nicknames = {
     'sirius': {'full': 'IK Sirius', 'short': 'Sirius', 'abbreviation': 'IKS'},
     'saik' : {'full': 'Sandvikens AIK Bandy', 'short': 'Sandviken', 'abbreviation': 'SAIK'},
     'vetlanda' : {'full': 'Vetlanda BK', 'short': 'Vetlanda',  'abbreviation': 'VBK'},
-    'villa': {'full': 'Villa Lidköping BK', 'short': 'Villa', 'abbreviation': 'VLBK'},
+    'villa': {'full': 'Villa Lidköping BK', 'short': 'Villa Lidköping', 'abbreviation': 'VLBK'},
     'vsk': {'full' : 'Västerås SK Bandy', 'short': 'Västerås', 'abbreviation': 'VSK'}
 }
 

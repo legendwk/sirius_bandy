@@ -16,9 +16,11 @@ pptx
 Datainsamlingen kan startas genom:
 ```
 from get_data import Game
-g = Game('sirius', 'edsbyn')
+g = Game({'sirius', 'edsbyn'})
 g.collector_raw('20221121 sirius edsbyn halvlek 1')
 ```
+Jätteviktigt är att man inte kan ha snedstreck eller andra "konstiga" skiljetecken i filnamnet! Undvik helst alla skiljtetecken.
+
 
 ### Händelser
 Följande händelser och eventuella underhändelser är vi intresserade av:
