@@ -6,11 +6,14 @@ from bisect import bisect_left
 
 class Stats:
 # class variables
+    # used for possession data
     possession_gained = {'skott', 'frislag', 'närkamp', 'inslag', 'utkast', 'avslag', 
                         'friläge', 'boll', 'brytning', 'passning'}    
     possession_lost = {'bolltapp', 'rensning', 'offside'}
     await_next = {'timeout', 'mål', 'stop', 'utvisning', 'hörna', 'straff', 'skottyp'}
     start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'hörna', 'straff'}
+    zone_change = {'z1':'z7', 'z2':'z8', 'z3': 'z9', 'z4':'z4', 'z5':'z5', 'z6':'z6', 'z7':'z1', 'z8':'z2', 'z9':'z3'}
+
 
 # constructor
     def __init__(self, filename: str, dummy = False) -> None:
@@ -26,6 +29,11 @@ class Stats:
             self.out = filename + '.txt'
             self.compile_stats()
         return
+
+    def other_direction(zone: str) -> str:
+        '''returns the zone in the other direction
+            does not accept non-zone entry'''
+        return Stats.zone_change[zone]
 
 # dunder add, for Stats() + Stats()
     def __add__(self, other) -> None:
@@ -51,18 +59,6 @@ class Stats:
         return obj
 
 # non-static methods
-
-    def write_stats(self) -> None:
-        '''calls all write methods in order
-            writing to the output file'''
-        self.write_header()
-        self.write_score()
-        self.write_possession()
-        self.write_duels()
-        self.write_shottypes()
-        self.write_shot_origins()
-        return
-    
     def compile_stats(self) -> None:
         '''calls all methods needed to compile all the stats'''
         self.get_score_dict()
@@ -80,13 +76,38 @@ class Stats:
         self.goal_origins_list = self.get_goal_origins_list()
         self.goals_info_list = self.get_goals_info_list()
 
-    def write_header(self) -> None:
-        '''writes the team names
-            must be called first in order for the txt file to look good'''
-        with open(self.out, 'w', encoding='utf-8') as f:
-            f.write(f'{" - ".join(self.teams).title()} \n')
-            f.write(f'\tdata från: {self.out[:-4]}\n')
-        return 
+
+    def team_attacks_up(self, team = 'sirius') -> bool:
+        '''does team score in z8? 
+            None if team does not play'''
+        if team not in self.teams:
+            return None
+        attacking_zone = {t: {'up': 0, 'down': 0} for t in self.teams}
+        up = {'z7', 'z8', 'z9'}
+        down = {'z1', 'z2', 'z3'}
+        events = self.big_df.loc[self.big_df['event'].isin(['hörna', 'mål', 'skott'])]
+        for index, row in events.iterrows():
+            if row['zone'] in up:
+                attacking_zone[row['team']]['up'] += 1
+            elif row['zone'] in down:
+                attacking_zone[row['team']]['down'] += 1
+        # does team attack up and opposite down?
+        return max(attacking_zone[team], key=attacking_zone[team].get) == 'up' and max(attacking_zone[self.opposite_team(team)], key=attacking_zone[self.opposite_team(team)].get) == 'down'
+
+    def get_duels_zones_dict(self, up_team = 'sirius') -> dict:
+        '''returns a dictionary of where the duels happened, and who won them
+            will alter to make sure that up_team always scores in z8'''
+        duel_zones = {'z' + str(i): {team: 0 for team in self.teams} for i in range(1, 10)}
+        change_dir = not self.team_attacks_up(team = up_team)
+        duels_df = self.get_duels_df()
+        for index, row in duels_df.iterrows():
+            if row['zone'] != '0':
+                if change_dir:
+                    z = Stats.zone_change(row['zone'])
+                else:
+                    z = row['zone']
+                duel_zones[z][row['team']] += 1
+        return duel_zones
 
     def get_score_dict(self) -> dict:
         '''returns a dictionary of the score
@@ -98,15 +119,6 @@ class Stats:
                 score_dict[team] = len(score_df.loc[score_df['team'] == team].index)
             self.prints['score'] = score_dict
         return self.prints['score']
-
-    def write_score(self) -> None:
-        '''prints the score to the output file'''
-        score_dict = self.get_score_dict()
-        with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('\nMål \n')
-            for team in score_dict:
-                f.write(f'\t{team.title()}: {score_dict[team]} \n')
-        return
 
     def add_score(self, other) -> dict:
         '''returns the score of the added objects
@@ -200,15 +212,6 @@ class Stats:
             self.prints['shots on goal'] = sog_dict
         return self.prints['shots on goal']
 
-    def write_duels(self) -> None:
-        '''calculates the score and writes it to the output file'''
-        duels_dict = self.get_duels_dict()
-        with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('\nNärkamper och brytningar \n')
-            for team in duels_dict:
-                f.write(f'\t{team.title()}: {duels_dict[team]} \n')
-        return
-
     def add_duels(self, other) -> dict:
         '''returns the duels of the added objects
             expects type to already have been checked'''
@@ -263,16 +266,6 @@ class Stats:
             self.prints['possession'] = poss_dict
         return self.prints['possession']
 
-    def write_possession(self) -> None:
-        '''calculates the possession based on poss_list and writes it to output
-            possession_list looks like [[team, time], [team, time] ... ]'''
-        poss_dict = self.get_possession_dict()
-        with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('\nBollinnehav \n')
-            for team in poss_dict:
-                f.write(f'\t{team.title()}: {poss_dict[team]} \n')
-        return
-
     def add_possession(self, other) -> dict:
         '''returns the possession of the two added objects
             expects type to already have been checked'''
@@ -293,17 +286,6 @@ class Stats:
                         st_dict[team][shottype] = len(st_df.loc[st_df['subevent'] == shottype].index)
             self.prints['shot types'] = st_dict
         return self.prints['shot types']
-
-    def write_shottypes(self) -> None:
-        '''writes the shot types for each team to output'''
-        st_dict = self.get_shottypes_dict()
-        with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('\nSkottyper \n')
-            for team in st_dict:
-                f.write(f'{team.title()} \n')
-                for shottype in st_dict[team]:
-                    f.write(f'\t{shottype}: {st_dict[team][shottype]} \n')
-        return 
 
     def add_shottypes(self, other) -> dict:
         '''returns the shot types of the added objects
@@ -393,16 +375,6 @@ class Stats:
                     so_dict[row['team']][row['shot origin']] = 1
             self.prints['shot origins'] = so_dict
         return self.prints['shot origins']
-
-    def write_shot_origins(self) -> None:
-        '''writes the shot origin info to output'''
-        so_dict = self.get_shot_origins_dict()
-        with open(self.out, 'a', encoding='utf-8') as f:
-            f.write('\nSkottens ursprung\n')
-            for team in so_dict:
-                f.write(f'{team.title()}:\n')
-                for so in so_dict[team]:
-                    f.write(f'\t{so}: {so_dict[team][so]}\n')
 
     def add_shot_origins(self, other) -> dict:
         '''returns the shot origins of the added objects
