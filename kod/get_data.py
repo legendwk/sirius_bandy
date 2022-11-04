@@ -28,7 +28,11 @@ class Game:
     # static methods 
     def set_game_clock(new_time: str, t: float) -> int:
         '''returns start_time to sync game clock to new_time at t'''
+        # i'm so sick of accedentally changing the clock to 45 + game time in the second half
+        if gf.readable_to_sec(new_time) > 45*60:
+            new_time = gf.sec_to_readable(gf.readable_to_sec(new_time) - 45*60)
         return t - gf.readable_to_sec(new_time)
+    
     
     # non-static methods
     def collector_raw(self, filename: str) -> None:

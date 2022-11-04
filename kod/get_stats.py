@@ -16,11 +16,12 @@ class Stats:
 
 
 # constructor
-    def __init__(self, filename: str, dummy = False) -> None:
+    def __init__(self, filename: str, dummy = False, main_team = 'sirius') -> None:
         # this is where we put everything we're printing
         self.prints = dict()
         self.possession_list = list()
         self.goal_origins_list = list()
+        self.main_team = main_team
         # dummy is only used if we are adding two ojects
         if not dummy: 
             self.big_df = gf.read_csv_as_df(filename)
@@ -40,7 +41,7 @@ class Stats:
         if not isinstance(other, Stats):
             return NotImplemented
         # new empty object
-        obj = Stats(str(), dummy = True)
+        obj = Stats(str(), dummy = True, main_team = self.main_team)
         obj.possession_list = self.possession_list + other.possession_list
         obj.goal_origins_list = self.goal_origins_list + other.goal_origins_list
         obj.goals_info_list = self.goals_info_list + other.goals_info_list
@@ -56,6 +57,7 @@ class Stats:
         obj.prints['scrimmages'] = self.add_scrimmages(other)
         obj.prints['before and after'] = self.add_before_and_after(other)
         obj.prints['shots on goal'] = self.add_sog(other)
+        obj.prints['duel zones'] = self.add_duel_zones(other)
         return obj
 
 # non-static methods
@@ -71,13 +73,14 @@ class Stats:
         self.get_scrimmages_dict()
         self.get_sog_dict()
         self.get_before_and_after_dict()
+        self.get_duel_zones_dict()
 
         # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
         self.goals_info_list = self.get_goals_info_list()
 
 
-    def team_attacks_up(self, team = 'sirius') -> bool:
+    def team_attacks_up(self, team: str) -> bool:
         '''does team score in z8? 
             None if team does not play'''
         if team not in self.teams:
@@ -94,20 +97,30 @@ class Stats:
         # does team attack up and opposite down?
         return max(attacking_zone[team], key=attacking_zone[team].get) == 'up' and max(attacking_zone[self.opposite_team(team)], key=attacking_zone[self.opposite_team(team)].get) == 'down'
 
-    def get_duels_zones_dict(self, up_team = 'sirius') -> dict:
+    def get_duel_zones_dict(self) -> dict:
         '''returns a dictionary of where the duels happened, and who won them
-            will alter to make sure that up_team always scores in z8'''
-        duel_zones = {'z' + str(i): {team: 0 for team in self.teams} for i in range(1, 10)}
-        change_dir = not self.team_attacks_up(team = up_team)
-        duels_df = self.get_duels_df()
-        for index, row in duels_df.iterrows():
-            if row['zone'] != '0':
-                if change_dir:
-                    z = Stats.zone_change(row['zone'])
-                else:
-                    z = row['zone']
-                duel_zones[z][row['team']] += 1
-        return duel_zones
+            will alter to make sure that self.main_team always scores in z8'''
+        if 'duel zones' not in self.prints:
+            duel_zones = {'z' + str(i): {team: 0 for team in self.teams} for i in range(1, 10)}
+            change_dir = not self.team_attacks_up(team = self.main_team)
+            duels_df = self.get_duels_df()
+            for index, row in duels_df.iterrows():
+                if row['zone'] != '0':
+                    if change_dir:
+                        z = Stats.zone_change[row['zone']]
+                    else:
+                        z = row['zone']
+                    duel_zones[z][row['team']] += 1
+            self.prints['duel zones'] = duel_zones
+        return self.prints['duel zones']
+
+    def add_duel_zones(self, other) -> dict:
+        '''returns the duel zones of the added objects'''
+        return_dict = {'z' + str(i): {team: 0 for team in self.teams} for i in range(1, 10)}
+        for zone in self.prints['duel zones']:
+            for team in self.prints['duel zones'][zone]:
+                return_dict[zone][team] = self.prints['duel zones'][zone][team] + other.prints['duel zones'][zone][team]
+        return return_dict
 
     def get_score_dict(self) -> dict:
         '''returns a dictionary of the score
