@@ -10,18 +10,21 @@ class Stats:
     possession_gained = {'skott', 'frislag', 'närkamp', 'inslag', 'utkast', 'avslag', 
                         'friläge', 'boll', 'brytning', 'passning'}    
     possession_lost = {'bolltapp', 'rensning', 'offside'}
-    await_next = {'timeout', 'mål', 'stop', 'utvisning', 'hörna', 'straff', 'skottyp'}
-    start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'hörna', 'straff'}
+    await_next = {'timeout', 'mål', 'stop', 'utvisning', 'hörna', 'straff'}#, 'skottyp'}
+    # used for shot origins
+    start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'skott', 'hörna', 'straff'}
+    # used for zone specific data, coverts zones 180 degrees
     zone_change = {'z1':'z7', 'z2':'z8', 'z3': 'z9', 'z4':'z4', 'z5':'z5', 'z6':'z6', 'z7':'z1', 'z8':'z2', 'z9':'z3'}
 
 
 # constructor
-    def __init__(self, filename: str, dummy = False, main_team = 'sirius') -> None:
+    def __init__(self, filename: str, dummy = False, main_team = 'sirius', N = 3) -> None:
         # this is where we put everything we're printing
         self.prints = dict()
         self.possession_list = list()
         self.goal_origins_list = list()
         self.main_team = main_team
+        self.N = N
         # dummy is only used if we are adding two ojects
         if not dummy: 
             self.big_df = gf.read_csv_as_df(filename)
@@ -58,6 +61,8 @@ class Stats:
         obj.prints['before and after'] = self.add_before_and_after(other)
         obj.prints['shots on goal'] = self.add_sog(other)
         obj.prints['duel zones'] = self.add_duel_zones(other)
+        obj.prints['per time lists'] = self.add_per_time_lists(other)
+
         return obj
 
 # non-static methods
@@ -74,11 +79,11 @@ class Stats:
         self.get_sog_dict()
         self.get_before_and_after_dict()
         self.get_duel_zones_dict()
+        self.make_per_time_lists()
 
         # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
         self.goals_info_list = self.get_goals_info_list()
-
 
     def team_attacks_up(self, team: str) -> bool:
         '''does team score in z8? 
@@ -96,6 +101,56 @@ class Stats:
                 attacking_zone[row['team']]['down'] += 1
         # does team attack up and opposite down?
         return max(attacking_zone[team], key=attacking_zone[team].get) == 'up' and max(attacking_zone[self.opposite_team(team)], key=attacking_zone[self.opposite_team(team)].get) == 'down'
+
+    def make_per_time_lists(self) -> None:
+        '''populates the prints["per time lists"]'''
+        self.prints['per time lists'] = dict()
+        self.prints['per time lists']['duels'] = self.get_per_time_list(self.get_duels_df())
+        self.prints['per time lists']['shots'] = self.get_per_time_list(self.get_shots_df())
+        self.prints['per time lists']['goals'] = self.get_per_time_list(self.get_score_df())
+        self.prints['per time lists']['possession'] = self.get_possession_per_time_list()
+        return 
+
+    def add_per_time_lists(self, other) -> dict:
+        '''returns a dict containing the added per time lists'''
+        per_time_dict = dict()
+        for event_type in self.prints['per time lists']:
+            per_time_dict[event_type] = self.prints['per time lists'][event_type] + other.prints['per time lists'][event_type]
+        return per_time_dict
+    
+    def get_possession_per_time_list(self) -> list:
+        '''returns the possession per time list'''
+        parts = [gf.readable_to_sec(self.big_df.iloc[-1]['time'])/self.N * i for i in range(self.N+1)][1:]
+        per_time_list = [{team: 0 for team in self.teams} for n in range(self.N)]
+        current_part = 0
+        for i in range(len(self.possession_list) -1):
+            team, time = self.possession_list[i]
+            if team in self.teams:
+                next_time = self.possession_list[i+1][1]
+                # we are still within our part, only including the equals for edge case last index.
+                if gf.readable_to_sec(next_time) <= parts[current_part]:
+                    per_time_list[current_part][team] += gf.readable_to_sec(next_time) - gf.readable_to_sec(time)
+                # we are entering the next part
+                else:
+                    # handling of the possession within this part
+                    per_time_list[current_part][team] += parts[current_part] - gf.readable_to_sec(time)
+                    per_time_list[current_part + 1][team] += gf.readable_to_sec(next_time) - parts[current_part]
+                    current_part += 1
+        for i, part in enumerate(per_time_list):
+            for team in part:
+                part[team] = gf.sec_to_readable(per_time_list[i][team])
+        return per_time_list
+        
+    def get_per_time_list(self, df: pd.core.frame.DataFrame) -> list:
+        '''returns a list of the occurrence of the events in the df'''
+        times = [gf.readable_to_sec(df.iloc[-1]['time'])/self.N * i for i in range(self.N+1)]
+        limits = [(times[i], times[i+1]) for i in range(self.N)]
+        per_time_list = [{team: 0 for team in self.teams} for n in range(self.N)]
+        for index, row in df.iterrows():
+            for i, span in enumerate(limits):
+                if gf.readable_to_sec(row['time']) > span[0] and gf.readable_to_sec(row['time']) <= span[1]:
+                    per_time_list[i][row['team']] += 1
+        return per_time_list
 
     def get_duel_zones_dict(self) -> dict:
         '''returns a dictionary of where the duels happened, and who won them
@@ -142,8 +197,8 @@ class Stats:
         return return_dict
 
     def get_before_and_after_dict(self) -> dict:
-        '''returns a dictionary vaof the before and after possession from each duel
-            if not already done, it'll fill sekf.prints'''
+        '''returns a dictionary of the before and after possession from each duel
+            if not already done, it'll fill self.prints'''
         if 'before and after' not in self.prints:
             duels_df = self.get_duels_df()
             before_after_dict = {team : {t : 0 for t in self.teams} for team in self.teams}   
@@ -415,9 +470,6 @@ class Stats:
         elif row['event'] in Stats.await_next:
             if index != 0 and self.possession_list[-1][0] != None:
                 self.possession_list.append((None, row['time']))
-        else: # we should never get here?
-            print(f"error in get_possession_list, event: {row['event']} not recognized by Stats")
-            self.possession_list.append((None, None))
         return     
     
     def make_possession_list(self) -> None:
@@ -442,7 +494,6 @@ class Stats:
             self.df_dict['shots on goal'] = self.big_df.loc[(self.big_df['subevent'] == 'räddning') | (self.big_df['event'] == 'mål')]
         return self.df_dict['shots on goal'] 
              
-
     def get_shottypes_df(self) -> pd.core.frame.DataFrame:
         '''returns a df with only the the shot types
             populates the df_dict if not already done'''

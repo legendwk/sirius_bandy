@@ -23,6 +23,8 @@ class PP:
 
     text_color_main = RGBColor(0, 0, 0)
     text_color_opponent = RGBColor(255, 0, 0)
+    image_color_main =RGBColor(0, 0, 0)
+    image_color_opponent = RGBColor(255, 0, 0)
     background_color = RGBColor(255,255,255)  
     background_image = "..\\..\\bilder\\pptx\\background.png"
 
@@ -99,7 +101,6 @@ class PP:
         subtitle.text_frame.paragraphs[0].font.color.rgb = PP.text_color
         self.add_logo_images(slide, width = 2)
         #self.set_background_color(slide)
-        return 
 
     def make_overview_stats_page(self) -> None:
         '''makes the overview stats page layout'''
@@ -246,7 +247,7 @@ class PP:
                 res.text = f"{so.title()}: {i}"
                 res.level = 0
                 res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
-        
+
     def make_goals_stats_page(self) -> None:
         '''makes the goals stats page'''
         slide_register = self.pres.slide_layouts[1]
@@ -318,6 +319,27 @@ class PP:
         img = image_link
         slide.shapes.add_picture(img, Inches(from_left), Inches(from_top), Inches(width))
 
+    def make_per_time_page(self) -> None:
+        '''makes the page with the parts of game stats'''
+        slide_register = self.pres.slide_layouts[5]
+        slide = self.pres.slides.add_slide(slide_register)
+        #self.set_background_image(slide)
+        self.set_background_color(slide)
+        #self.add_logo_images(slide, width = 1.5)
+        title = slide.shapes.title
+        main_team_color = gf.rgb255_to_rgb1(PP.image_color_main)
+        opponent_color = gf.rgb255_to_rgb1(PP.image_color_opponent)
+        title.text = f"Halvleken uppdelad i {constants.readable_numbers[self.stats.N]} delar"
+        poss_image = self.plot.make_time_vertical_bars(self.stats.prints['per time lists']['possession'], xlabel='Halvleksdel', ylabel='Innehav (HH:MM:SS)', title='Bollinnehav', main_team_color = main_team_color, other_team_color= opponent_color)
+        shots_image = self.plot.make_value_vertical_bars(self.stats.prints['per time lists']['shots'], xlabel='Halvleksdel', ylabel='Skottförsök (antal)', title='Skottförsök', main_team_color = main_team_color, other_team_color = opponent_color)
+        duels_image = self.plot.make_value_vertical_bars(self.stats.prints['per time lists']['duels'], xlabel='Halvleksdel', ylabel='Närkamper och brytningar (antal)', title='Närkamper och brytningar', main_team_color = main_team_color, other_team_color = opponent_color)
+        goals_image = self.plot.make_value_vertical_bars(self.stats.prints['per time lists']['goals'], xlabel='Halvleksdel', ylabel='Mål (antal)', title='Mål', main_team_color = main_team_color, other_team_color = opponent_color)
+        slide.shapes.add_picture(poss_image, Inches(0.25), Inches(1), Inches(4.5))
+        slide.shapes.add_picture(shots_image, Inches(5.25), Inches(1), Inches(4.5))
+        slide.shapes.add_picture(duels_image, Inches(0.25), Inches(4.1), Inches(4.5))
+        slide.shapes.add_picture(goals_image, Inches(5.25), Inches(4.1), Inches(4.5))
+
+
     def style_before_and_after_table(self, table_frame: pptx.shapes.graphfrm.GraphicFrame) -> None:
         '''sets the background and text colors of the table
             only used for the confusion matrix of before and after'''
@@ -340,7 +362,6 @@ class PP:
             paragraph.font.size = Pt(25)
             paragraph.font.bold = True
             paragraph.alignment = PP_ALIGN.CENTER
-        return  
 
     def make_pres(self) -> None:
         '''calls the methods needed to make a presentation '''
@@ -353,7 +374,8 @@ class PP:
         self.make_shot_origins_page()
         self.make_goals_stats_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
-        self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='frac'), f"{constants.nicknames[self.stats.main_team]['full']} vunna närkamper och brytningar per zon")
+        self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{constants.nicknames[self.stats.main_team]['full']} vunna närkamper och brytningar per zon")
+        self.make_per_time_page()
 
         self.save_presentation()
 

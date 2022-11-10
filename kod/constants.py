@@ -49,3 +49,4 @@ nicknames = {
 color_scale = [RGBColor(0,55,100), RGBColor(0,74,152), 
                 RGBColor(0,85,184), RGBColor(0,154,222), RGBColor(94,179,228)]
 
+readable_numbers = {1: 'en', 2: 'två', 3: 'tre', 4: 'fyra', 5: 'fem', 6: 'sex', 7: 'sju', 8: 'åtta', 9: 'nio', 10: 'tio', 11: 'elva', 12: 'tolv'}

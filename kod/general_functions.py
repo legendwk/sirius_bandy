@@ -2,6 +2,7 @@
 import pandas as pd
 import time 
 import datetime
+import os
 
 # other 
 def combine_dictionaries(dict_1: dict, dict_2: dict) -> dict:
@@ -67,3 +68,22 @@ def faded_rgb_color(rgb: tuple, a: float, background = (255, 255, 255)) -> tuple
 def hex_to_rgb(h: str) -> tuple:
     '''returns the hex of a color as a (r, g, b) tuple'''
     return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+
+def rgb255_to_rgb1(rgb: tuple) -> tuple:
+    '''converts an RGB color from [0, 255] to [0, 1]'''
+    return tuple([x/255 for x in rgb])
+
+def rgb1_to_rgb255(rgb: tuple) -> tuple:
+    '''converts an RGB color from [0, 1] to [0, 255]'''
+    return tuple([x * 255 for x in rgb])
+
+def clean_up() -> None:
+    '''cleans the autogen image and game report powerpoint folders'''
+    os.chdir('powerpointer\matchrapporter')
+    for f in os.listdir(os.getcwd()):
+        os.remove(f)
+    os.chdir('..\\..\\bilder\\autogen')
+    for f in os.listdir(os.getcwd()):
+        os.remove(f)
+    os.chdir('..\\..')
+    return
