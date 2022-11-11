@@ -37,7 +37,7 @@ class PP:
         self.stats = stats
         self.plot = Plot(stats)
         self.pres = Presentation()
-        self.make_pres()
+        self.make_game_report()
         return
     
     # static methods
@@ -129,7 +129,7 @@ class PP:
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()
-            res.text = f"Bollinnehav: \n\t{self.stats.prints['possession'][team]}"
+            res.text = f"Bollinnehav: \n\t{self.stats.prints['possession'][team]} ({round(gf.readable_to_sec(self.stats.prints['possession'][team])/(gf.readable_to_sec(self.stats.prints['possession'][team]) + gf.readable_to_sec(self.stats.prints['possession'][self.stats.opposite_team(team)]))* 100)} %)"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
   
@@ -363,15 +363,15 @@ class PP:
             paragraph.font.bold = True
             paragraph.alignment = PP_ALIGN.CENTER
 
-    def make_pres(self) -> None:
-        '''calls the methods needed to make a presentation '''
+    def make_game_report(self) -> None:
+        '''calls the methods needed to make a game report presentation '''
         self.make_front_page()
         self.make_overview_stats_page()
         self.make_duels_page()
         #self.make_scimmages_page()
         self.make_before_and_after_table_page()
         self.make_shot_types_page()
-        self.make_shot_origins_page()
+        #self.make_shot_origins_page()
         self.make_goals_stats_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
         self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{constants.nicknames[self.stats.main_team]['full']} vunna närkamper och brytningar per zon")

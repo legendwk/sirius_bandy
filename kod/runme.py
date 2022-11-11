@@ -5,26 +5,29 @@ import os
 from get_pp import PP
 import general_functions as gf
 import pandas as pd
+from compile_stats import CompileStats
+import time
 # 37 matcher under 21/22 
 
 # vi kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
+
 # hämta data och gör presentation (avnänds typ live?)
-filename = '20221108 IK Sirius - Edsbyns IF halvlek 2'
-os.chdir(r"data\2023\raw")
-teams = {'sirius', 'edsbyn'}
+filename = '20220221 Vetlanda BK - IK Sirius halvlek 2'
+os.chdir(r"data\2022\raw")
+teams = {'sirius', 'vetlanda'}
 
 g = Game(teams)
 g.collector_raw(filename)
 g.clean_csv(filename)
 
 os.chdir(r"..\\clean")
-byn = Stats('20221108 IK Sirius - Edsbyns IF halvlek 2 clean', N=3)
+vetlanda = Stats('20220221 Vetlanda BK - IK Sirius halvlek 2 clean', N=3)
 os.chdir(r"..\..\..\powerpointer\matchrapporter") 
-PP(byn)
-
-
+PP(vetlanda)
 '''
+
+
 
 os.chdir(r"data\2023\clean")
 vsk1 = Stats('20221001 IK Sirius - Västerås SK halvlek 1 clean')

@@ -8,6 +8,13 @@
 * kolla på den här tidslinjegrejen
   * inte för mycket information i varje 
   * vem har mest boll per minut?
+* långa anfall?
+  * anfallet är en viss tid? 
+  * var har vi varit? 
+* anfallens längd över halvleken
+  * varje bollinnehav och hur långa de varit
+  * målen också 
+  * 
 
 ## Allmänt 
 * fundera över vilken statistik som ska spara och hur 
