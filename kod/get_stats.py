@@ -326,9 +326,10 @@ class Stats:
         if 'possession' not in self.prints:
             poss_dict = {team: 0 for team in self.teams}
             self.make_possession_list()
-            for i in range(len(self.possession_list) - 1):
-                if self.possession_list[i][0] in self.teams: # this is the current team
-                    poss_dict[self.possession_list[i][0]] += gf.readable_to_sec(self.possession_list[i+1][1]) - gf.readable_to_sec(self.possession_list[i][1])
+            self.make_per_time_lists()
+            for d in self.prints['per time lists']['possession']:
+                for team in d:
+                    poss_dict[team] += gf.readable_to_sec(d[team]) 
             for team in poss_dict:
                 poss_dict[team] = gf.sec_to_readable(poss_dict[team])
             self.prints['possession'] = poss_dict

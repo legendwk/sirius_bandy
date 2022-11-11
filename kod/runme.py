@@ -13,13 +13,13 @@ import time
 gf.clean_up()
 
 # hämta data och gör presentation (avnänds typ live?)
-filename = '20220221 Vetlanda BK - IK Sirius halvlek 2'
+filename = '20220223 Vetlanda BK - IK Sirius halvlek 1'
 os.chdir(r"data\2022\raw")
 teams = {'sirius', 'vetlanda'}
 
-g = Game(teams)
-g.collector_raw(filename)
-g.clean_csv(filename)
+#g = Game(teams)
+#g.collector_raw(filename)
+#g.clean_csv(filename)
 
 os.chdir(r"..\\clean")
 vetlanda = Stats('20220221 Vetlanda BK - IK Sirius halvlek 2 clean', N=3)

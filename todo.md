@@ -5,7 +5,7 @@
   * Snygga till med add-metoder för dem
 
 ## Presentation
-* kolla på den här tidslinjegrejen
+* kolla på den här tidslinjegrejen SÄKERT BRA!
   * inte för mycket information i varje 
   * vem har mest boll per minut?
 * långa anfall?
