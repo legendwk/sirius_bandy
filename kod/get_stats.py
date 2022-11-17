@@ -8,17 +8,19 @@ class Stats:
 # class variables
     # used for possession data
     possession_gained = {'skott', 'frislag', 'närkamp', 'inslag', 'utkast', 'avslag', 
-                        'friläge', 'boll', 'brytning', 'passning'}    
+                        'friläge', 'boll', 'brytning', 'passning', '40'}    
     possession_lost = {'bolltapp', 'rensning', 'offside'}
     await_next = {'timeout', 'mål', 'stop', 'utvisning', 'hörna', 'straff'}#, 'skottyp'}
     # used for shot origins
     start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'skott', 'hörna', 'straff'}
     # used for zone specific data, coverts zones 180 degrees
-    zone_change = {'z1':'z7', 'z2':'z8', 'z3': 'z9', 'z4':'z4', 'z5':'z5', 'z6':'z6', 'z7':'z1', 'z8':'z2', 'z9':'z3'}
-
+    zone_change = {'z1':'z9', 'z2':'z8', 'z3': 'z7', 'z4':'z4', 'z5':'z5', 'z6':'z6', 'z7':'z3', 'z8':'z2', 'z9':'z1'}
 
 # constructor
     def __init__(self, filename: str, dummy = False, main_team = 'sirius', N = 3) -> None:
+        '''makes and calculates the Stats object. 
+        main_team is which team we highlight. N is how many parts the half is divided into for the per-part stats.
+        Dummy is only used by dunder add'''
         # this is where we put everything we're printing
         self.prints = dict()
         self.possession_list = list()
@@ -62,6 +64,7 @@ class Stats:
         obj.prints['shots on goal'] = self.add_sog(other)
         obj.prints['duel zones'] = self.add_duel_zones(other)
         obj.prints['per time lists'] = self.add_per_time_lists(other)
+        obj.prints['40'] = self.add_40_list(other)
 
         return obj
 
@@ -80,6 +83,7 @@ class Stats:
         self.get_before_and_after_dict()
         self.get_duel_zones_dict()
         self.make_per_time_lists()
+        self.make_40_list()
 
         # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
@@ -118,6 +122,41 @@ class Stats:
             per_time_dict[event_type] = self.prints['per time lists'][event_type] + other.prints['per time lists'][event_type]
         return per_time_dict
     
+    # TODO: GÖÖÖÖÖÖÖÖÖÖÖÖR, hur kan det vara så svårt??????
+    def sustained_attacks(self, min_attack_length = 45, max_disruption_time = 10) -> dict:
+        """returns a dict of each team's sustained attacks that are longer than min_attack_length s
+            we accept that the opponent gets the ball if it is won back within max_disruption_time s"""
+        attacks = {team : list() for team in self.teams}
+        current_team, start_time = self.possession_list[0]
+        for i in range(len(self.possession_list) - 1):
+            team, time = self.possession_list[i]
+            if team in self.teams:
+                if team != current_team:
+                    pass
+    
+    def make_40_list(self) -> list:
+        '''makes the list of 40 situations for main_team''' 
+        if '40' not in self.prints:
+            fourty_list = [0 * i for i in range(gf.readable_to_sec(self.big_df.iloc[-1]['time']) // 60 + 1)]
+            df_40 = self.get_40_df()
+            for index, row in df_40.iterrows():
+                if row['team'] == self.main_team:
+                    fourty_list[gf.readable_to_sec(row['time']) // 60] += 1
+            self.prints['40'] = fourty_list
+        return self.prints['40']
+    
+    def add_40_list(self, other):
+        '''handels the addition of the 40 lists'''
+        return self.prints['40'] + other.prints['40']
+
+    def add_sustained_attack(self, other) -> dict:
+        '''returns a dict contianind the added sustained attack dicts'''
+        d = {team : list() for team in self.teams}
+        for team in self.prints['sustained attack']:
+            d[team] = self.prints['sustained attack'][team] + other.prints['sustained attack'][team] 
+        return d
+    
+
     def get_possession_per_time_list(self) -> list:
         '''returns the possession per time list'''
         parts = [gf.readable_to_sec(self.big_df.iloc[-1]['time'])/self.N * i for i in range(self.N+1)][1:]
@@ -399,7 +438,7 @@ class Stats:
     def get_goal_origins_list(self) -> list:
         '''returns a list of the goal events'''
         return self.get_goal_origins_df().values.tolist()
-       
+    
     def get_shot_origins_df(self) -> pd.core.frame.DataFrame:
         '''returns a df object of shot origins
             fills the df_dict if need be'''
@@ -474,7 +513,7 @@ class Stats:
         return     
     
     def make_possession_list(self) -> None:
-        '''returns the possession list'''
+        '''makes the possession list'''
         if len(self.possession_list) == 0:
             for index, row in self.big_df.iterrows():
                 self.note_possession(row, index)
@@ -486,6 +525,13 @@ class Stats:
         if 'shots' not in self.df_dict:
             self.df_dict['shots'] = self.big_df.loc[self.big_df['event'].isin(['skott', 'mål'])]
         return self.df_dict['shots'] 
+
+    def get_40_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the 40 events
+            populates the df_dict if not already done'''
+        if '40' not in self.df_dict:
+            self.df_dict['40'] = self.big_df.loc[(self.big_df['event'] == '40')]
+        return self.df_dict['40'] 
 
     def get_sog_df(self) -> pd.core.frame.DataFrame:
         '''returns a df with the shots on goal

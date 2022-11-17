@@ -11,16 +11,27 @@
 * långa anfall?
   * anfallet är en viss tid? 
   * var har vi varit? 
-* anfallens längd över halvleken
-  * varje bollinnehav och hur långa de varit
-  * målen också 
-  * 
+  * har vi gjort farliga grejer?
+  * anfallens längd över halvleken
+    * varje bollinnehav och hur långa de varit
+    * målen också 
+* några countstats:
+  * passning: 
+    * lång
+    * straffområde
+  * 40 för sirius
+    * antal
+    * tidsaxel
+      * försök koppla det till anfall
+      * 
+
+## Events
+* drag
+* spel på tre
 
 ## Allmänt 
-* fundera över vilken statistik som ska spara och hur 
-  * ALL? 
-  * csv-fil med varje match och sirius: all statistik motståndare: all statistik 
-
+* jobba vidare med compile_stats.py
+* 
 
 ## David
 * när matchen är avgjord blir statistiken väldigt speciell? 

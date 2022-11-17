@@ -17,11 +17,8 @@ class CompileStats:
     def fill_games(self, N: int) -> None: 
         '''populates the self.games list with Stats objects of the last self.N games'''
         self.games = list()
-        l = [CompileStats.current_season + '\\' + x for x in sorted(os.listdir(CompileStats.current_season), reverse=True)[: N]]
+        l = [f'{CompileStats.current_season}\\{x}' for x in sorted(os.listdir(CompileStats.current_season), reverse=True)[: N]]
         if len(l) < N:
-            l = l + [CompileStats.last_season + '\\' + x for x in sorted(os.listdir(CompileStats.last_season), reverse=True)[: N- len(l)]]
+            l = l + [f'{CompileStats.last_season}\\{x}' for x in sorted(os.listdir(CompileStats.last_season), reverse=True)[: N- len(l)]]
         for game_link in l:
             self.games.append(Stats(game_link))
-        
-
-

@@ -8,14 +8,13 @@ class Game:
     # class variables
     events = {'skott', 'frislag', 'bolltapp', 'närkamp', 'hörna', 'inslag', 'utkast',
      'avslag', 'mål', 'utvisning', 'stop', 'passning', 'friläge', 'straff',
-     'offside', 'rensning', 'timeout', 'boll', 'brytning', 'anfall', 'skottyp'}
-    events_and_their_subevents = {'skott' : {'utanför', 'räddning', 'täckt'}, 
+     'offside', 'rensning', 'timeout', 'boll', 'brytning', 'skottyp', '40'}
+    events_and_their_subevents = {'skott': {'utanför', 'räddning', 'täckt'}, 
                                     'skottyp': {'friställande', 'inlägg', 'utifrån', 'dribbling', 'centralt', 'fast', 'retur'},
                                     'bolltapp': {'tappad', 'passförsök'},
-                                    'passning' : {'straffområde', 'lång', 'långtapp'},
-                                    'mål' : {'straffområde', 'lång', 'fast'},
-                                    'utvisning' : {'5', '10'},
-                                    'anfall': {'direkt', 'kontring', 'långt'} 
+                                    'passning' : {'straffområde', 'lång', 'farlig', 'långtapp'},
+                                    'mål': {'straffområde', 'lång', 'fast'},
+                                    'utvisning': {'5', '10'}
                                     }
     
     zones = {'z' + str(i) for i in range(1, 10)}

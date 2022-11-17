@@ -277,9 +277,9 @@ class PP:
         title = slide.shapes.title
 
         title.text = 'Närkamper \noch deras utfall'
-        left_table = Inches(2)
+        left_table = Inches(0.25)
         top_table = Inches(2.5)
-        width_table = Inches(6)
+        width_table = Inches(5)
         height_table = Inches(4)
         table_frame = slide.shapes.add_table(3,3, left_table, top_table, width_table, height_table)
         table = table_frame.table
@@ -306,6 +306,16 @@ class PP:
             table.cell(j,k).fill.solid()
             table.cell(j,k).fill.fore_color.rgb = faded_color
         self.style_before_and_after_table(table_frame)
+
+        duels_list = [{team: 0 for team in self.stats.teams} for i in range(2)]
+        for team in self.stats.prints['before and after'][self.stats.main_team]:
+            duels_list[0][team] = self.stats.prints['before and after'][self.stats.main_team][team]
+        for team in self.stats.prints['before and after'][self.stats.opposite_team(self.stats.main_team)]:
+            duels_list[1][team] = self.stats.prints['before and after'][self.stats.opposite_team(self.stats.main_team)][team]
+        x_labels = [f"Fördel {constants.nicknames[self.stats.main_team]['full']}", f"Fördel {constants.nicknames[self.stats.opposite_team(self.stats.main_team)]['full']}"]
+        image = self.plot.make_value_vertical_bars(duels_list, title='Närkampers utfall givet lags innehav före', ylabel='Närkamper (antal)', xlabel='Spelförande lag innan närkamp', x_labels = x_labels, other_team_color=gf.rgb255_to_rgb1(constants.colors[self.stats.opposite_team(self.stats.main_team)][1]))
+        slide.shapes.add_picture(image, width_table, top_table, width_table + Inches(0.5))
+
 
     def make_single_image_page(self, image_link: str, title_text: str, from_left = 0, from_top = 0.5, width = 10) -> None:
         '''makes a page with one centered image and a title text'''
@@ -376,6 +386,9 @@ class PP:
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
         self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{constants.nicknames[self.stats.main_team]['full']} vunna närkamper och brytningar per zon")
         self.make_per_time_page()
+
+        fourty_image = self.plot.make_per_minute_bars(self.stats.prints['40'], ylabel='40-spel (antal)', color=PP.image_color_main)
+        self.make_single_image_page(fourty_image, title_text=f"Spridning av {constants.nicknames[self.stats.main_team]['full']} {sum(self.stats.prints['40'])} st 40-spel", from_top=0.3)
 
         self.save_presentation()
 

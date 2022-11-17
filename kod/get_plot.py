@@ -62,6 +62,8 @@ class Plot:
         output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]} all duel locations.png'
         plt.savefig(output_image_link, transparent=self.transparent)
         #plt.show()
+        # done to save memory
+        plt.close(fig)
         return output_image_link
 
     def make_duel_winners_per_locations_image(self, text_type: str) -> str:
@@ -93,6 +95,8 @@ class Plot:
         ax.axis('off')
         output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]} team won duel locations.png'
         plt.savefig(output_image_link, transparent=self.transparent)
+        # done to save memory
+        plt.close(fig)
         return output_image_link
 
 
@@ -101,30 +105,6 @@ class Plot:
         for i in range(steps):
             c = gf.rgb255_to_rgb1(gf.faded_rgb_color(Plot.color_many, 1-i/steps, Plot.color_few))
             ax.add_patch(Rectangle([xy0, xy0 + dxy * i], dxy, dxy, color =c))
-    
-
-    # THIS DOES NOT WORK!
-    def make_horizontal_bar(self, values: dict, title_text: str) -> str:
-        '''makes an image of a horizontal bar with the values (sirius, other)
-            returns the path to the image'''
-        # values 
-        length = 1000
-        height = 250
-        boarder = 5
-        #team1 = values[self.stats.main_team]/sum(values.values()) * length
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-
-        
-        ax.add_patch(Rectangle((3, 35.5), length + boarder * 2, height + boarder * 2, color = RGBColor(0,0,0)))
-        ax.add_patch(Rectangle((3 + boarder, 35.5 + boarder), length, height, color = RGBColor(1,0,0)))
-
-        im = plt.imread(Plot.transparent_bar_image)
-        ax.axis('off')
-        plt.imshow(im, alpha=1.0, zorder=1)
-        plt.show()
-
-        return title_text 
 
 
     def make_time_vertical_bars(self, values: list, title = '', xlabel = '', ylabel = '',
@@ -152,18 +132,37 @@ class Plot:
         ax.legend()
         output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]}{title}.png'
         plt.savefig(output_image_link, transparent=self.transparent)
+        # done to save memory
+        plt.close(fig)
         return output_image_link
 
+    def make_per_minute_bars(self, values: list, title = '', ylabel = '', color = 'k') -> str:
+        '''makes a plot of the action each minute
+            returns a link the the image'''
+        labels = [str(i) if i%3 == 0 else '' for i in range(len(values))]
+        plt.bar(labels, values, color = color)
+        plt.ylabel(ylabel)
+        plt.yticks([i for i in range(max(values) + 1)])
+        #plt.xlabel('matchminut')
+        plt.title(title)
+        output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]}{title}.png'
+        plt.savefig(output_image_link, transparent=self.transparent, dpi=400)
+        # done to save memory
+        plt.close()
+        return output_image_link  
+
     def make_value_vertical_bars(self, values: list, title = '', xlabel = '', ylabel = '',
-     main_team_color = 'k', other_team_color = 'r') -> str:
+     main_team_color = 'k', other_team_color = 'r', x_labels = None) -> str:
         '''makes a value plot with vertical bars, will mostly be used for parts of game stats 
+        if x_labels = None we expect the x-axis to be parts of the game, else specify
             returns link to image'''
         
         main_team_values = [x[self.stats.main_team] for x in values]
         other_team_values = [x[self.stats.opposite_team(self.stats.main_team)] for x in values]
         width = 0.25
         x = np.arange(len(values))
-        x_labels = [f'{i+1}/{len(values)}' for i in range(len(values))]
+        if x_labels == None:
+            x_labels = [f'{i+1}/{len(values)}' for i in range(len(values))]
 
         fig, ax = plt.subplots()
         ax.bar(x - width/2, main_team_values, color = main_team_color, width = width, label=constants.nicknames[self.stats.main_team]['full'])
@@ -180,6 +179,8 @@ class Plot:
         ax.legend()
         output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]}{title}.png'
         plt.savefig(output_image_link, transparent=self.transparent)
+        # done to save memory
+        plt.close(fig)
         return output_image_link
 
 

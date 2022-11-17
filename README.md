@@ -47,6 +47,7 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
 * **frislag** - domaren dömer frislag
 * **hörna** - domaren dömer hörna
 * **straff** - domaren dömer straff
+* **40** - Sirius spelar bollen till Sune Gustafsson i eget straffområde. 
 * **utvisning** - domaren dömer utvisning
   * **5** - fem minuters utvisning
   * **10** - tio minuters utvisning 
@@ -57,13 +58,10 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
   * **straffområde** - "inlägg" från kant in i straffområde
   * **lång** - långboll som går fram
   * **långtapp** - långboll som inte går fram
+  * **farlig** - passningen ställer den anfallande spelaren fri eller relativt fri i farligt läge. 
 * **friläge** - spelare får ett friläge
 * **offside** - spelar i lag åker offside, motstådarna får bollen
 * **rensning** - laget i fråga rensar bort bollen, motståndarna får den utan närkamp
-* **anfall** - anfallstyp. Behövs eventuellt inte
-  * **direkt** - direkt anfall, en spelare kör
-  * **kontring** - samlad kontring, flera spelare
-  * **långt** - långt, strukturerat anfall 
 * **stop** - halvleken slut, programmet avslutas
 * **boll** - laget har bollinnehav
 * **timeout** - lag tar timeout. Kan även användas utan lag för valfritt (längre) matchstopp. 
