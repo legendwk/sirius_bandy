@@ -107,6 +107,29 @@ class Plot:
             ax.add_patch(Rectangle([xy0, xy0 + dxy * i], dxy, dxy, color =c))
 
 
+    def make_team_minute_bars(self, values : dict, title = '', ylabel = '', main_team_color = 'k', other_team_color = 'r', minute_step = 3) -> str:
+        '''makes value bars every minute'''
+        mtv = values[self.stats.main_team]
+        otv = values[self.stats.opposite_team(self.stats.main_team)]
+        x = np.array([i for i in range(len(mtv))])
+        x_labels = [str(i) if i%minute_step == 0 else '' for i in range(len(mtv))]
+        width = 0.25
+        fig, ax = plt.subplots()
+        
+        ax.bar(x - width/2, mtv, width = width, color= main_team_color, label=constants.nicknames[self.stats.main_team]['full'])
+        ax.bar(x + width/2, otv, width = width, color= other_team_color, label=constants.nicknames[self.stats.opposite_team(self.stats.main_team)]['full'])
+        ax.set_xlabel('matchminut')
+        ax.set_ylabel(ylabel)
+        ax.set_title(title)
+        plt.xticks(x, x_labels)
+        ax.legend()
+
+        output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]}{title}.png'
+        plt.savefig(output_image_link, transparent=self.transparent)
+        # done to save memory
+        plt.close(fig)
+        return output_image_link
+
     def make_time_vertical_bars(self, values: list, title = '', xlabel = '', ylabel = '',
     main_team_color = 'k', other_team_color = 'r') -> str:
         '''makes a time plot with vertical bars, will mostly be used for parts of game stats 
@@ -146,7 +169,7 @@ class Plot:
         #plt.xlabel('matchminut')
         plt.title(title)
         output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]}{title}.png'
-        plt.savefig(output_image_link, transparent=self.transparent, dpi=400)
+        plt.savefig(output_image_link, transparent=self.transparent) # , dpi=400)
         # done to save memory
         plt.close()
         return output_image_link  

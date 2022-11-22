@@ -77,6 +77,8 @@ def rgb1_to_rgb255(rgb: tuple) -> tuple:
     '''converts an RGB color from [0, 1] to [0, 255]'''
     return tuple([x * 255 for x in rgb])
 
+
+# maintenance
 def clean_up() -> None:
     '''cleans the autogen image and game report powerpoint folders'''
     os.chdir('powerpointer\matchrapporter')

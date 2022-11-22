@@ -12,28 +12,37 @@ import time
 # vi kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
-# hämta data och gör presentation (avnänds typ live?)
-filename = '20221115 Frillesås BK - IK Sirius halvlek 2'
-os.chdir(r"data\2023\raw")
-teams = {'sirius', 'frillesås'}
+# gör presentationer
+os.chdir(r"data\2023\clean")
 
-os.chdir(r"..\\clean")
-frille1 = Stats('20221115 Frillesås BK - IK Sirius halvlek 1 clean', N=3)
-frille2 = Stats('20221115 Frillesås BK - IK Sirius halvlek 2 clean', N=3)
+vsk1 = Stats('20221119 IK Sirius - Västerås SK halvlek 1 clean')
+vsk20 = Stats('20221119 IK Sirius - Västerås SK halvlek 2 clean')
+vsk25 = Stats('20221119 IK Sirius - Västerås SK halvlek 2.5 clean')
+vsk2 = vsk20 + vsk25
+vsk3 = Stats('20221119 IK Sirius - Västerås SK halvlek 3 clean')
 
-os.chdir(r"..\..\..\powerpointer\matchrapporter") 
-PP(frille1)
-PP(frille2)
+os.chdir(r"..\..\..\powerpointer\matchrapporter")
+
+PP(vsk1)
+PP(vsk2)
+PP(vsk3)
+
+
 '''
-
 # hämta data och gör presentation (avnänds typ live?)
-filename = '20221115 Frillesås BK - IK Sirius halvlek 2'
+filename = '20221119 IK Sirius - Västerås SK halvlek 3'
 os.chdir(r"data\2023\raw")
-teams = {'sirius', 'frillesås'}
+teams = {'sirius', 'vsk'}
 
 g = Game(teams)
 g.collector_raw(filename)
 g.clean_csv(filename)
+os.chdir(r"..\\clean")
+
+
+os.chdir(r"..\..\..\powerpointer\matchrapporter")
+
+
 
 
 

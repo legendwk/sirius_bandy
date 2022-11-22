@@ -14,7 +14,7 @@ class Stats:
     # used for shot origins
     start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'skott', 'hörna', 'straff'}
     # used for zone specific data, coverts zones 180 degrees
-    zone_change = {'z1':'z9', 'z2':'z8', 'z3': 'z7', 'z4':'z4', 'z5':'z5', 'z6':'z6', 'z7':'z3', 'z8':'z2', 'z9':'z1'}
+    zone_change = {'z1':'z9', 'z2':'z8', 'z3': 'z7', 'z4':'z6', 'z5':'z5', 'z6':'z4', 'z7':'z3', 'z8':'z2', 'z9':'z1'}
 
 # constructor
     def __init__(self, filename: str, dummy = False, main_team = 'sirius', N = 3) -> None:
@@ -65,6 +65,7 @@ class Stats:
         obj.prints['duel zones'] = self.add_duel_zones(other)
         obj.prints['per time lists'] = self.add_per_time_lists(other)
         obj.prints['40'] = self.add_40_list(other)
+        obj.prints['sustained attacks'] = self.add_sustained_attacks(other)
 
         return obj
 
@@ -84,6 +85,7 @@ class Stats:
         self.get_duel_zones_dict()
         self.make_per_time_lists()
         self.make_40_list()
+        self.make_sustained_attacks()
 
         # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
@@ -122,17 +124,41 @@ class Stats:
             per_time_dict[event_type] = self.prints['per time lists'][event_type] + other.prints['per time lists'][event_type]
         return per_time_dict
     
-    # TODO: GÖÖÖÖÖÖÖÖÖÖÖÖR, hur kan det vara så svårt??????
-    def sustained_attacks(self, min_attack_length = 45, max_disruption_time = 10) -> dict:
-        """returns a dict of each team's sustained attacks that are longer than min_attack_length s
-            we accept that the opponent gets the ball if it is won back within max_disruption_time s"""
-        attacks = {team : list() for team in self.teams}
-        current_team, start_time = self.possession_list[0]
-        for i in range(len(self.possession_list) - 1):
-            team, time = self.possession_list[i]
-            if team in self.teams:
-                if team != current_team:
-                    pass
+    def add_sustained_attacks(self, other):
+        '''handles the addition of the sustained attacks'''
+        sa_dict = {team: list() for team in self.teams}
+        for team in sa_dict:
+            sa_dict[team] = self.prints['sustained attacks'][team] + other.prints['sustained attacks'][team]
+        return sa_dict
+
+
+    def make_sustained_attacks(self, min_length = 60, disruption_length = 10) -> dict:
+        ''''returns a dict with a list of each game minute, 
+        if a team had ball possession for longer than min_length starting that minute the list index is the possession time, else 0
+        a possession is if a team has the ball, if it loses it wins back possession within disruption_length, and the other team does not get a stoppage in play'''
+        if 'sustained attacks' not in self.prints:
+            sustained_attacks_dict = {team : [0 for i in range(gf.readable_to_sec(self.possession_list[-1][1])//60 + 1)] for team in self.teams}
+            i = 0 
+            while i < len(self.possession_list) - 1:
+                current_team, current_time = self.possession_list[i]
+                attack_time = 0 
+                for j in range(i, len(self.possession_list)):
+                    following_team, following_time  = self.possession_list[j]
+                    # team has the ball
+                    if following_team == current_team:
+                        attack_time += gf.readable_to_sec(self.possession_list[j+1][1])-gf.readable_to_sec(following_time)
+                    # other team has the ball
+                    elif following_team == self.opposite_team(current_team):
+                        # they have the ball long enough or get a break in play
+                        if gf.readable_to_sec(self.possession_list[j+1][1])-gf.readable_to_sec(following_time) > disruption_length or self.possession_list[j+1][0] == None:
+                            break
+                    else:
+                        pass
+                if attack_time >= min_length:
+                    sustained_attacks_dict[current_team][gf.readable_to_sec(current_time)//60] = attack_time
+                i = j
+                self.prints['sustained attacks'] = sustained_attacks_dict
+            return self.prints['sustained attacks']
     
     def make_40_list(self) -> list:
         '''makes the list of 40 situations for main_team''' 
@@ -145,7 +171,7 @@ class Stats:
             self.prints['40'] = fourty_list
         return self.prints['40']
     
-    def add_40_list(self, other):
+    def add_40_list(self, other) -> list:
         '''handels the addition of the 40 lists'''
         return self.prints['40'] + other.prints['40']
 
@@ -155,7 +181,6 @@ class Stats:
         for team in self.prints['sustained attack']:
             d[team] = self.prints['sustained attack'][team] + other.prints['sustained attack'][team] 
         return d
-    
 
     def get_possession_per_time_list(self) -> list:
         '''returns the possession per time list'''
@@ -182,7 +207,7 @@ class Stats:
         
     def get_per_time_list(self, df: pd.core.frame.DataFrame) -> list:
         '''returns a list of the occurrence of the events in the df'''
-        times = [gf.readable_to_sec(df.iloc[-1]['time'])/self.N * i for i in range(self.N+1)]
+        times = [gf.readable_to_sec(self.big_df.iloc[-1]['time'])/self.N * i for i in range(self.N+1)]
         limits = [(times[i], times[i+1]) for i in range(self.N)]
         per_time_list = [{team: 0 for team in self.teams} for n in range(self.N)]
         for index, row in df.iterrows():

@@ -21,10 +21,10 @@ class PP:
     # sirius specific colors
     text_color = RGBColor(0, 0, 0)
 
-    text_color_main = RGBColor(0, 0, 0)
-    text_color_opponent = RGBColor(255, 0, 0)
-    image_color_main =RGBColor(0, 0, 0)
-    image_color_opponent = RGBColor(255, 0, 0)
+    text_color_main = RGBColor(255, 0, 0)
+    text_color_opponent = RGBColor(0, 0, 0)
+    image_color_main = RGBColor(255, 0, 0)
+    image_color_opponent = RGBColor(0, 0, 0)
     background_color = RGBColor(255,255,255)  
     background_image = "..\\..\\bilder\\pptx\\background.png"
 
@@ -293,7 +293,7 @@ class PP:
             table.cell(i+1, i+1).text = f"{self.stats.prints['before and after'][team][team]}"
             table.cell(i+1, i+1).fill.solid()
             # background is team's secondary color with opacity 80 % against a white background
-            table.cell(i+1, i+1).fill.fore_color.rgb = RGBColor(*gf.faded_rgb_color(constants.colors[team][1], 0.8))
+            table.cell(i+1, i+1).fill.fore_color.rgb = PP.background_color#RGBColor(*gf.faded_rgb_color(constants.colors[team][1], 0.8))
             if i == 0:
                 j,k = 1,2
             else:
@@ -304,7 +304,7 @@ class PP:
             faded_color = RGBColor(*gf.faded_rgb_color(blended_color, 0.6))
             table.cell(j,k).text = f"{self.stats.prints['before and after'][team][self.stats.opposite_team(team)]}"
             table.cell(j,k).fill.solid()
-            table.cell(j,k).fill.fore_color.rgb = faded_color
+            table.cell(j,k).fill.fore_color.rgb = PP.background_color # faded_color
         self.style_before_and_after_table(table_frame)
 
         duels_list = [{team: 0 for team in self.stats.teams} for i in range(2)]
@@ -313,7 +313,7 @@ class PP:
         for team in self.stats.prints['before and after'][self.stats.opposite_team(self.stats.main_team)]:
             duels_list[1][team] = self.stats.prints['before and after'][self.stats.opposite_team(self.stats.main_team)][team]
         x_labels = [f"Fördel {constants.nicknames[self.stats.main_team]['full']}", f"Fördel {constants.nicknames[self.stats.opposite_team(self.stats.main_team)]['full']}"]
-        image = self.plot.make_value_vertical_bars(duels_list, title='Närkampers utfall givet lags innehav före', ylabel='Närkamper (antal)', xlabel='Spelförande lag innan närkamp', x_labels = x_labels, other_team_color=gf.rgb255_to_rgb1(constants.colors[self.stats.opposite_team(self.stats.main_team)][1]))
+        image = self.plot.make_value_vertical_bars(duels_list, title='Närkampers utfall givet lags innehav före', ylabel='Närkamper (antal)', xlabel='Spelförande lag innan närkamp', x_labels = x_labels, main_team_color=gf.rgb255_to_rgb1(PP.image_color_main), other_team_color=gf.rgb255_to_rgb1(PP.image_color_opponent)) #other_team_color=gf.rgb255_to_rgb1(constants.colors[self.stats.opposite_team(self.stats.main_team)][1]))
         slide.shapes.add_picture(image, width_table, top_table, width_table + Inches(0.5))
 
 
@@ -328,6 +328,28 @@ class PP:
 
         img = image_link
         slide.shapes.add_picture(img, Inches(from_left), Inches(from_top), Inches(width))
+
+
+    def make_attacks_and_fourty_page(self) -> None:
+        '''makes a page with the 40 and sustained attacks data'''
+        slide_register = self.pres.slide_layouts[5]
+        slide = self.pres.slides.add_slide(slide_register)
+        #self.set_background_image(slide)
+        self.set_background_color(slide)
+        #self.add_logo_images(slide, width = 1.5)
+        title = slide.shapes.title
+
+        title.text = '40-situationer och långa anfall'
+        fourty_image = self.plot.make_per_minute_bars(self.stats.prints['40'], title='40-spel under matchen', ylabel='40-spel (antal)', color=gf.rgb255_to_rgb1(PP.image_color_main))
+        sustained_attacks_image = self.plot.make_team_minute_bars(self.stats.prints['sustained attacks'], main_team_color=gf.rgb255_to_rgb1(PP.image_color_main), other_team_color= gf.rgb255_to_rgb1(PP.image_color_opponent), title= 'Långa anfall', ylabel='sekunder')
+
+        from_left = Inches(0.25)
+        from_top = Inches(2.5)
+        width_image = Inches(5.5)
+        height_image = Inches(4)
+        
+        slide.shapes.add_picture(fourty_image, Inches(0), from_top, width_image)#, height=height_image, width = width_image)
+        slide.shapes.add_picture(sustained_attacks_image, width_image - Inches(0.6), from_top, width_image) #+ from_left * 2)#, height=height_image)
 
     def make_per_time_page(self) -> None:
         '''makes the page with the parts of game stats'''
@@ -387,8 +409,9 @@ class PP:
         self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{constants.nicknames[self.stats.main_team]['full']} vunna närkamper och brytningar per zon")
         self.make_per_time_page()
 
-        fourty_image = self.plot.make_per_minute_bars(self.stats.prints['40'], ylabel='40-spel (antal)', color=PP.image_color_main)
-        self.make_single_image_page(fourty_image, title_text=f"Spridning av {constants.nicknames[self.stats.main_team]['full']} {sum(self.stats.prints['40'])} st 40-spel", from_top=0.3)
+        #fourty_image = self.plot.make_per_minute_bars(self.stats.prints['40'], ylabel='40-spel (antal)', color=PP.image_color_main)
+        #self.make_single_image_page(fourty_image, title_text=f"Spridning av {constants.nicknames[self.stats.main_team]['full']} {sum(self.stats.prints['40'])} st 40-spel", from_top=0.3)
+        self.make_attacks_and_fourty_page()
 
         self.save_presentation()
 

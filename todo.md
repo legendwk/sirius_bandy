@@ -20,10 +20,9 @@
     * lång
     * straffområde
   * 40 för sirius
-    * antal
-    * tidsaxel
-      * försök koppla det till anfall
-      * 
+    * försök koppla det till anfall
+    * hur många gånger det leder till skott eller mål
+    * 
 
 ## Events
 * drag
@@ -34,7 +33,3 @@
 * 
 
 ## David
-* när matchen är avgjord blir statistiken väldigt speciell? 
-  * hur ska vi förhålla oss till det? 
-  * vad gör vi med regninga utematcher?
-* 
