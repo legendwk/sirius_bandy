@@ -72,10 +72,11 @@ class PP:
     
     def get_team_text_color(self, team: str) -> RGBColor:
         '''returns the team color'''
-        if team == self.stats.main_team:
-            return PP.text_color_main
-        else:
-            return PP.text_color_opponent
+        return PP.text_color_main if team == self.stats.main_team else PP.text_color_opponent
+      #  if team == self.stats.main_team:
+       #     return PP.text_color_main
+        #else:
+         #   return PP.text_color_opponent
 
     def add_logo_images(self, slide, from_left = 0.7, from_top = 0.4, width = 2) -> None:
         '''adds the logos of the teams to the slide
@@ -126,6 +127,10 @@ class PP:
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()
             res.text = f"Skott på mål: \n\t{self.stats.prints['shots on goal'][team]}"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            res.text = f"Hörnor: \n\t{self.stats.prints['corners'][team]}"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()
@@ -414,6 +419,10 @@ class PP:
         self.make_attacks_and_fourty_page()
 
         self.save_presentation()
+
+    def make_season_report(self) -> None:
+        '''calls the methods needed to make a season report presentation'''
+        
 
     def save_presentation(self) -> None:
         '''saves the presentation'''

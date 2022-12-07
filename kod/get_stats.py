@@ -12,7 +12,7 @@ class Stats:
     possession_lost = {'bolltapp', 'rensning', 'offside'}
     await_next = {'timeout', 'mål', 'stop', 'utvisning', 'hörna', 'straff'}#, 'skottyp'}
     # used for shot origins
-    start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'skott', 'hörna', 'straff'}
+    start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'skott', 'hörna', 'straff', 'boll'} # varför hade jag inte boll?
     # used for zone specific data, coverts zones 180 degrees
     zone_change = {'z1':'z9', 'z2':'z8', 'z3': 'z7', 'z4':'z6', 'z5':'z5', 'z6':'z4', 'z7':'z3', 'z8':'z2', 'z9':'z1'}
 
@@ -66,6 +66,7 @@ class Stats:
         obj.prints['per time lists'] = self.add_per_time_lists(other)
         obj.prints['40'] = self.add_40_list(other)
         obj.prints['sustained attacks'] = self.add_sustained_attacks(other)
+        obj.prints['corners'] = self.add_corners(other)
 
         return obj
 
@@ -86,6 +87,7 @@ class Stats:
         self.make_per_time_lists()
         self.make_40_list()
         self.make_sustained_attacks()
+        self.get_corners_dict()
 
         # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
@@ -323,7 +325,7 @@ class Stats:
         return self.prints['lost balls']
 
     def get_scrimmages_dict(self) -> dict:
-        '''returns a dictionary of the scrimmages
+        '''returns a dictionary of the scrimmages (närkamper)
             if need be it fills self.prints'''
         if 'scrimmages' not in self.prints:
             scrimmages_df = self.get_scrimmages_df()
@@ -332,6 +334,17 @@ class Stats:
                 scrimmages_dict[team] = len(scrimmages_df.loc[scrimmages_df['team'] == team].index)
             self.prints['scrimmages'] = scrimmages_dict
         return self.prints['scrimmages']
+
+    def get_corners_dict(self) -> dict: 
+        '''returns a dictionary of the corners
+            if need be it fills self.prints'''
+        if 'corners' not in self.prints:
+            corners_df = self.get_corners_df()
+            corners_dict = {team: 0 for team in self.teams}
+            for team in corners_dict:
+                corners_dict[team] = len(corners_df.loc[corners_df['team'] == team].index)
+            self.prints['corners'] = corners_dict
+        return self.prints['corners']
     
     def get_sog_dict(self) -> dict:
         '''returns a dictionary of the shots on goal
@@ -369,7 +382,7 @@ class Stats:
         return return_dict
     
     def add_scrimmages(self, other) -> dict:
-        '''returns the scrimmages of the added objects
+        '''returns the scrimmages (närkamper) of the added objects
             expects type to already have been checked'''
         return_dict = dict()
         for team in self.prints['scrimmages']:
@@ -382,7 +395,15 @@ class Stats:
         return_dict = dict()
         for team in self.prints['shots on goal']:
             return_dict[team] = self.prints['shots on goal'][team] + other.prints['shots on goal'][team]
-        return return_dict    
+        return return_dict 
+
+    def add_corners(self, other) -> dict:
+        '''returns the corners for the added objects
+            expects type to already have been checked'''   
+        return_dict = dict()
+        for team in self.prints['corners']:
+            return_dict[team] = self.prints['corners'][team] + other.prints['corners'][team]
+        return return_dict 
 
     def get_possession_dict(self) -> dict:
         '''returns a dictionary of the possession
@@ -607,8 +628,16 @@ class Stats:
         return self.df_dict['lost balls'] 
 
     def get_scrimmages_df(self) -> pd.core.frame.DataFrame:
-        '''returns a df with only the the scrimmages
+        '''returns a df with only the the scrimmages (närkamper)
             populates the df_dict if not already done'''
         if 'scrimmages' not in self.df_dict:
             self.df_dict['scrimmages'] = self.big_df.loc[self.big_df['event'] == 'närkamp']
         return self.df_dict['scrimmages'] 
+
+
+    def get_corners_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the the corners
+            populates the df_dict if not already done'''
+        if 'corners' not in self.df_dict:
+            self.df_dict['corners'] = self.big_df.loc[self.big_df['event'] == 'hörna']
+        return self.df_dict['corners'] 

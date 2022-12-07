@@ -4,17 +4,14 @@
   * De borde ligga i typ ett dict eller något
   * Snygga till med add-metoder för dem
 
+## Säsongsrapport
+* Skott och försök
+* Närkamper
+* Antal 40
+* Antal långa anfall? 
+
+
 ## Presentation
-* kolla på den här tidslinjegrejen SÄKERT BRA!
-  * inte för mycket information i varje 
-  * vem har mest boll per minut?
-* långa anfall?
-  * anfallet är en viss tid? 
-  * var har vi varit? 
-  * har vi gjort farliga grejer?
-  * anfallens längd över halvleken
-    * varje bollinnehav och hur långa de varit
-    * målen också 
 * några countstats:
   * passning: 
     * lång

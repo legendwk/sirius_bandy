@@ -12,35 +12,42 @@ import time
 # vi kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
-# gör presentationer
-os.chdir(r"data\2023\clean")
-
-vsk1 = Stats('20221119 IK Sirius - Västerås SK halvlek 1 clean')
-vsk20 = Stats('20221119 IK Sirius - Västerås SK halvlek 2 clean')
-vsk25 = Stats('20221119 IK Sirius - Västerås SK halvlek 2.5 clean')
-vsk2 = vsk20 + vsk25
-vsk3 = Stats('20221119 IK Sirius - Västerås SK halvlek 3 clean')
-
-os.chdir(r"..\..\..\powerpointer\matchrapporter")
-
-PP(vsk1)
-PP(vsk2)
-PP(vsk3)
-
-
-'''
 # hämta data och gör presentation (avnänds typ live?)
-filename = '20221119 IK Sirius - Västerås SK halvlek 3'
+filename = '20221202 IK Sirius - Sandvikens AIK halvlek 2'
 os.chdir(r"data\2023\raw")
-teams = {'sirius', 'vsk'}
+teams = {'sirius', 'saik'}
 
 g = Game(teams)
 g.collector_raw(filename)
 g.clean_csv(filename)
+
+
+# skapa statsobjekt
 os.chdir(r"..\\clean")
+saik = Stats(filename + ' clean')
+
+
+# gör presentation
+os.chdir(r"..\..\..\powerpointer\matchrapporter")
+PP(saik)
+
+
+'''
+
 
 
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
+
+
+vsk1 = Stats('20221119 IK Sirius - Västerås SK halvlek 1 clean')
+for grabb in vsk1.prints:
+    print(f'{grabb}: {vsk1.prints[grabb]}')
+
+
+cs = CompileStats('data\\compile\\45 min')
+for grabb in cs.all_stats:
+    print(grabb)
+    print(cs.all_stats[grabb])
 
 
 
