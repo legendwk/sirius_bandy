@@ -204,10 +204,3 @@ class Game:
                 return zone
         return self.ask_for_zone(split_set)
 
-
-if __name__ == "__main__":
-
-    '''
-    TODO:
-
-    '''
