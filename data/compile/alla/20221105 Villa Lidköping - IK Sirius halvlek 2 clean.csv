@@ -124,7 +124,7 @@ time,team,event,subevent,zone
 0:30:30,sirius,frislag,0,z1
 0:31:05,villa,närkamp,0,z2
 0:31:14,villa,passning,straffområde,z2
-0:31:20,villa,mål,straffområde,z2
+0:31:20,villa,mål,spelmål,z2
 0:31:26,villa,skottyp,inlägg,z2
 0:31:45,sirius,avslag,0,z5
 0:32:09,sirius,bolltapp,passförsök,z9

@@ -89,7 +89,7 @@ time,team,event,subevent,zone
 0:17:32,edsbyn,inslag,0,z3
 0:17:42,edsbyn,passning,lång,z2
 0:18:03,edsbyn,passning,straffområde,z2
-0:18:08,edsbyn,mål,straffområde,z2
+0:18:08,edsbyn,mål,spelmål,z2
 0:18:12,edsbyn,skottyp,inlägg,z2
 0:18:38,sirius,avslag,0,0
 0:18:54,edsbyn,utkast,0,0
@@ -154,7 +154,7 @@ time,team,event,subevent,zone
 0:27:17,edsbyn,skottyp,utifrån,z8
 0:27:22,edsbyn,skott,räddning,z8
 0:27:27,edsbyn,skottyp,utifrån,z8
-0:27:32,edsbyn,mål,straffområde,z8
+0:27:32,edsbyn,mål,spelmål,z8
 0:27:37,edsbyn,skottyp,retur,z8
 0:27:41,sirius,avslag,0,0
 0:27:51,sirius,närkamp,0,z7

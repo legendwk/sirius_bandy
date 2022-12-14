@@ -2,6 +2,7 @@ import pandas as pd
 from get_data import Game
 import general_functions as gf
 from bisect import bisect_left
+import numpy as np 
 
 
 class Stats:
@@ -12,7 +13,7 @@ class Stats:
     possession_lost = {'bolltapp', 'rensning', 'offside'}
     await_next = {'timeout', 'mål', 'stop', 'utvisning', 'hörna', 'straff'}#, 'skottyp'}
     # used for shot origins
-    start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'skott', 'hörna', 'straff', 'boll'} # varför hade jag inte boll?
+    start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'skott', 'hörna', 'straff', 'boll'} # varför hade jag inte boll? för att den kommer med för ofta????
     # used for zone specific data, coverts zones 180 degrees
     zone_change = {'z1':'z9', 'z2':'z8', 'z3': 'z7', 'z4':'z6', 'z5':'z5', 'z6':'z4', 'z7':'z3', 'z8':'z2', 'z9':'z1'}
 
@@ -244,24 +245,22 @@ class Stats:
         return return_dict
 
     def get_score_dict(self) -> dict:
-        '''returns a dictionary of the score
+        '''returns a dictionary of the score types, get raw score by sum(d[team].values())
             if need be it fills self.prints'''
         if 'score' not in self.prints:
             score_df = self.get_score_df()
-            score_dict = {team: 0 for team in self.teams}
-            for team in score_dict:
-                score_dict[team] = len(score_df.loc[score_df['team'] == team].index)
+            subevents = score_df["subevent"].unique()
+            score_dict = {team: {subevent: 0 for subevent in subevents} for team in self.teams}
+            for index, row in score_df.iterrows():
+                score_dict[row['team']][row['subevent']] += 1
             self.prints['score'] = score_dict
         return self.prints['score']
 
     def add_score(self, other) -> dict:
         '''returns the score of the added objects
             expects type to already have been checked'''
-        return_dict = dict()
-        for team in self.prints['score']:
-            return_dict[team] = self.prints['score'][team] + other.prints['score'][team]
-        return return_dict
-
+        return gf.combine_dictionaries(self.prints['score'], other.prints['score'])
+        
     def get_before_and_after_dict(self) -> dict:
         '''returns a dictionary of the before and after possession from each duel
             if not already done, it'll fill self.prints'''

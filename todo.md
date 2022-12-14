@@ -1,4 +1,10 @@
 # TODO
+
+## Allmänt: 
+* hörnor:
+  * vänster och höger
+
+
 ## Stats
 * Listor
   * De borde ligga i typ ett dict eller något
@@ -26,7 +32,7 @@
 * spel på tre
 
 ## Allmänt 
-* jobba vidare med compile_stats.py
+* statistik analys
 * 
 
 ## David

@@ -9,7 +9,7 @@ time,team,event,subevent,zone
 0:02:17,sirius,utkast,0,z8
 0:02:38,sirius,bolltapp,passförsök,z7
 0:03:01,villa,passning,straffområde,z8
-0:03:10,villa,mål,straffområde,z8
+0:03:10,villa,mål,spelmål,z8
 0:03:17,villa,skottyp,inlägg,z8
 0:03:27,sirius,avslag,0,z8
 0:03:58,sirius,närkamp,0,z8
@@ -57,7 +57,7 @@ time,team,event,subevent,zone
 0:14:17,sirius,inslag,0,z3
 0:14:39,sirius,bolltapp,passförsök,z2
 0:14:41,villa,utkast,0,z1
-0:15:56,villa,mål,straffområde,z8
+0:15:56,villa,mål,spelmål,z8
 0:16:03,villa,skottyp,dribbling,z8
 0:16:24,sirius,avslag,0,z5
 0:16:35,villa,närkamp,0,z8
@@ -69,7 +69,7 @@ time,team,event,subevent,zone
 0:18:05,villa,hörna,0,z7
 0:18:38,villa,skott,räddning,z8
 0:18:47,villa,boll,0,z4
-0:19:13,villa,mål,straffområde,z8
+0:19:13,villa,mål,spelmål,z8
 0:19:38,villa,skottyp,centralt,z8
 0:19:47,sirius,avslag,0,z5
 0:19:59,villa,närkamp,0,z6
@@ -86,7 +86,7 @@ time,team,event,subevent,zone
 0:23:07,villa,hörna,0,z9
 0:23:15,villa,skott,täckt,z8
 0:23:56,villa,hörna,0,z1
-0:24:19,villa,mål,fast,z8
+0:24:19,villa,mål,hörnmål,z8
 0:24:41,sirius,avslag,0,z8
 0:24:53,sirius,frislag,0,z1
 0:25:24,sirius,bolltapp,passförsök,z6

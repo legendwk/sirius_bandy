@@ -119,7 +119,7 @@ time,team,event,subevent,zone
 0:22:24,edsbyn,passning,straffområde,z8
 0:22:28,edsbyn,boll,0,0
 0:22:42,edsbyn,passning,straffområde,z8
-0:22:48,edsbyn,mål,straffområde,z8
+0:22:48,edsbyn,mål,spelmål,z8
 0:22:53,edsbyn,skottyp,inlägg,z8
 0:23:20,sirius,timeout,0,0
 0:24:40,sirius,avslag,0,z5
@@ -129,7 +129,7 @@ time,team,event,subevent,zone
 0:25:11,edsbyn,hörna,0,z7
 0:25:25,edsbyn,skott,täckt,z8
 0:25:34,edsbyn,skottyp,fast,z8
-0:25:40,edsbyn,mål,straffområde,z8
+0:25:40,edsbyn,mål,hörnmål,z8
 0:25:44,edsbyn,skottyp,retur,z8
 0:25:57,sirius,avslag,0,z5
 0:26:12,sirius,passning,lång,z2
@@ -154,7 +154,7 @@ time,team,event,subevent,zone
 0:30:27,sirius,boll,0,z3
 0:30:32,edsbyn,närkamp,0,z6
 0:30:38,sirius,närkamp,0,z6
-0:30:49,sirius,mål,lång,z2
+0:30:49,sirius,mål,spelmål,z2
 0:30:58,sirius,skottyp,utifrån,z2
 0:31:07,edsbyn,avslag,0,z5
 0:31:22,sirius,närkamp,0,z9
@@ -173,7 +173,7 @@ time,team,event,subevent,zone
 0:34:22,edsbyn,frislag,0,z6
 0:34:35,sirius,brytning,0,z8
 0:34:42,sirius,närkamp,0,z5
-0:34:52,sirius,mål,lång,z2
+0:34:52,sirius,mål,spelmål,z2
 0:34:56,sirius,skottyp,utifrån,z2
 0:35:09,edsbyn,avslag,0,z5
 0:35:37,sirius,brytning,0,z5

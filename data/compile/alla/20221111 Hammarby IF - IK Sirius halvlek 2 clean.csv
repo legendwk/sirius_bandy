@@ -157,7 +157,7 @@ time,team,event,subevent,zone
 0:34:10,hammarby,närkamp,0,z5
 0:34:17,sirius,närkamp,0,z8
 0:34:31,sirius,passning,straffområde,z2
-0:34:40,sirius,mål,straffområde,z2
+0:34:40,sirius,mål,spelmål,z2
 0:34:44,sirius,skottyp,inlägg,z2
 0:34:51,hammarby,avslag,0,0
 0:35:14,hammarby,skott,utanför,z7
@@ -229,7 +229,7 @@ time,team,event,subevent,zone
 0:45:42,hammarby,utkast,0,0
 0:45:46,sirius,utkast,0,z7
 0:45:58,hammarby,närkamp,0,z6
-0:46:14,hammarby,mål,lång,z8
+0:46:14,hammarby,mål,spelmål,z8
 0:46:21,hammarby,skottyp,utifrån,z8
 0:46:35,sirius,avslag,0,0
 0:46:52,hammarby,närkamp,0,z5

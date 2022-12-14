@@ -4,41 +4,64 @@ import string
 import matplotlib.pyplot as plt
 import general_functions as gf
 import numpy as np
-
-
-values = {'sirius':[122, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 73, 0, 0, 86, 0, 0, 0, 0, 69, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 0, 165, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-'frillesås':[0, 0, 0, 0, 0, 148, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 65, 0, 0, 0]}
-
-mtv = values['sirius']
-otv = values['frillesås']
-x = np.array([i for i in range(len(mtv))])
-#x = [i for i in]
-xlables = [str(i) if i%3 == 0 else '' for i in range(len(mtv))]
-
-width = 0.25
-print(f'{len(mtv)}, {len(x)}')
-print(f'{len(otv)}, {len(x)}')
-
-fig, ax = plt.subplots()
-ax.bar(x - width/2, mtv, width = width, label='sirius')
-ax.bar(x + width/2, otv, width = width, label='frillesås')
-ax.set_xlabel('matchminut')
-ax.set_ylabel('sekunder')
-ax.legend()
-plt.show()
-
-
-
+import pandas as pd
+import os
 
 
 
 if __name__ == '__main__':
 
 
-
-
-
     '''
+    teams = {'a','b'}
+    strings = 'zxc'
+    d = {team: dict() for team in teams}
+    li = [(r.choice(list(teams)), r.choice(strings), r.randint(1,10)) for i in range(10)]
+
+    for grabb in li:
+        if grabb[1] in d[grabb[0]]:
+            d[grabb[0]][grabb[1]] += grabb[2]
+        else:
+            d[grabb[0]][grabb[1]] = grabb[2]
+    print(li)
+    print(d)
+
+
+
+    os.chdir(r'data\2023\clean')
+    df = pd.read_csv('20221209 IK Sirius - Bollnäs GIF halvlek 2 clean.csv')
+    goals_df = df.loc[df['event'] == 'mål']
+
+    subevents = goals_df["subevent"].unique()
+    teams = {'a','b'}
+    d = {team: {subevent: 0 for subevent in subevents} for team in teams}
+    print(d)        
+
+
+
+    values = {'sirius':[122, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 73, 0, 0, 86, 0, 0, 0, 0, 69, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 0, 165, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    'frillesås':[0, 0, 0, 0, 0, 148, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 65, 0, 0, 0]}
+
+    mtv = values['sirius']
+    otv = values['frillesås']
+    x = np.array([i for i in range(len(mtv))])
+    #x = [i for i in]
+    xlables = [str(i) if i%3 == 0 else '' for i in range(len(mtv))]
+
+    width = 0.25
+    print(f'{len(mtv)}, {len(x)}')
+    print(f'{len(otv)}, {len(x)}')
+
+    fig, ax = plt.subplots()
+    ax.bar(x - width/2, mtv, width = width, label='sirius')
+    ax.bar(x + width/2, otv, width = width, label='frillesås')
+    ax.set_xlabel('matchminut')
+    ax.set_ylabel('sekunder')
+    ax.legend()
+    plt.show()
+
+
+
     # string matching
     alpha = string.ascii_lowercase
 

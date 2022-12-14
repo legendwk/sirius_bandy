@@ -105,7 +105,7 @@ time,team,event,subevent,zone
 0:24:49,edsbyn,närkamp,0,z1
 0:24:53,edsbyn,frislag,0,z1
 0:25:14,edsbyn,passning,straffområde,z8
-0:25:21,edsbyn,mål,straffområde,z8
+0:25:21,edsbyn,mål,spelmål,z8
 0:25:28,edsbyn,skottyp,inlägg,z8
 0:25:44,sirius,avslag,0,z5
 0:26:13,sirius,passning,lång,z2
@@ -146,7 +146,7 @@ time,team,event,subevent,zone
 0:35:29,sirius,närkamp,0,0
 0:35:44,edsbyn,frislag,0,z4
 0:36:01,edsbyn,passning,straffområde,z8
-0:36:07,edsbyn,mål,straffområde,z8
+0:36:07,edsbyn,mål,spelmål,z8
 0:36:11,edsbyn,skottyp,inlägg,z8
 0:36:26,sirius,avslag,0,z5
 0:36:45,sirius,frislag,0,z5
@@ -177,7 +177,7 @@ time,team,event,subevent,zone
 0:42:39,edsbyn,närkamp,0,z4
 0:42:53,edsbyn,passning,straffområde,z8
 0:42:58,edsbyn,hörna,0,z9
-0:43:42,edsbyn,mål,fast,z8
+0:43:42,edsbyn,mål,hörnmål,z8
 0:43:47,edsbyn,skottyp,fast,z8
 0:43:56,sirius,avslag,0,z8
 0:44:22,sirius,närkamp,0,z1

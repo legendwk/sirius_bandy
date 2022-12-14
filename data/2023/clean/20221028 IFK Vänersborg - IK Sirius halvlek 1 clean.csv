@@ -10,7 +10,7 @@ time,team,event,subevent,zone
 0:03:17,sirius,närkamp,0,z4
 0:03:25,sirius,frislag,0,z4
 0:03:41,vänersborg,närkamp,0,z5
-0:03:52,vänersborg,mål,lång,z8
+0:03:52,vänersborg,mål,spelmål,z8
 0:04:00,vänersborg,skottyp,utifrån,z8
 0:04:16,sirius,avslag,0,z5
 0:04:35,sirius,frislag,0,z4
@@ -80,7 +80,7 @@ time,team,event,subevent,zone
 0:22:55,vänersborg,frislag,0,z8
 0:23:25,sirius,boll,0,z8
 0:23:36,vänersborg,närkamp,0,z2
-0:23:54,vänersborg,mål,lång,z8
+0:23:54,vänersborg,mål,spelmål,z8
 0:24:00,vänersborg,skottyp,utifrån,z8
 0:24:11,sirius,avslag,0,z5
 0:24:33,vänersborg,brytning,0,z5
@@ -95,7 +95,7 @@ time,team,event,subevent,zone
 0:26:19,sirius,närkamp,0,z5
 0:26:40,sirius,passning,straffområde,z2
 0:26:43,sirius,hörna,0,z1
-0:27:17,sirius,mål,fast,z8
+0:27:17,sirius,mål,hörnmål,z8
 0:27:20,sirius,skottyp,fast,z2
 0:27:46,vänersborg,avslag,0,0
 0:28:10,sirius,närkamp,0,z5
@@ -155,6 +155,6 @@ time,team,event,subevent,zone
 0:43:54,vänersborg,närkamp,0,z5
 0:44:34,vänersborg,passning,lång,z8
 0:44:50,vänersborg,friläge,0,z8
-0:45:02,vänersborg,mål,straffområde,z8
+0:45:02,vänersborg,mål,spelmål,z8
 0:45:08,vänersborg,skottyp,friställande,z8
 0:45:16,0,stop,0,0

@@ -46,7 +46,7 @@ time,team,event,subevent,zone
 0:11:24,vsk,utkast,0,0
 0:12:09,sirius,närkamp,0,z8
 0:12:16,sirius,bolltapp,tappad,z4
-0:12:32,vsk,mål,straffområde,z8
+0:12:32,vsk,mål,spelmål,z8
 0:12:39,vsk,skottyp,centralt,z8
 0:13:20,sirius,avslag,0,0
 0:13:26,vsk,närkamp,0,z2
@@ -110,7 +110,7 @@ time,team,event,subevent,zone
 0:28:14,sirius,passning,straffområde,z2
 0:28:21,vsk,boll,0,0
 0:28:35,vsk,passning,straffområde,z8
-0:28:41,vsk,mål,straffområde,z8
+0:28:41,vsk,mål,spelmål,z8
 0:28:46,vsk,skottyp,inlägg,z8
 0:29:13,sirius,avslag,0,z5
 0:29:24,vsk,utvisning,10,0

@@ -98,7 +98,7 @@ class PP:
         title.text_frame.paragraphs[0].font.color.rgb = PP.text_color
 
         subtitle = slide.placeholders[1]
-        subtitle.text = ' - '.join(str(self.stats.prints['score'][team]) for team in self.stats.prints['score']) 
+        subtitle.text = ' - '.join(str(sum(self.stats.prints['score'][team].values())) for team in self.stats.prints['score']) 
         subtitle.text_frame.paragraphs[0].font.color.rgb = PP.text_color
         self.add_logo_images(slide, width = 2)
         #self.set_background_color(slide)
@@ -122,7 +122,7 @@ class PP:
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
-            res.text = f"Resultat: \n\t{self.stats.prints['score'][team]}"
+            res.text = f"Resultat: \n\t{sum(self.stats.prints['score'][team].values())}"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()
@@ -130,7 +130,8 @@ class PP:
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()
-            res.text = f"Hörnor: \n\t{self.stats.prints['corners'][team]}"
+            corner_goals = self.stats.prints['score'][team]['hörna'] if 'hörna' in self.stats.prints['score'][team] else 0
+            res.text = f"Hörnor (mål): \n\t{self.stats.prints['corners'][team]} ({corner_goals})"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()

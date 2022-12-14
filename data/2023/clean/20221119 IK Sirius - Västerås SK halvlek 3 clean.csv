@@ -11,7 +11,7 @@ time,team,event,subevent,zone
 0:01:48,sirius,utkast,0,z7
 0:02:06,vsk,närkamp,0,z2
 0:02:15,vsk,närkamp,0,z5
-0:02:25,vsk,mål,straffområde,z8
+0:02:25,vsk,mål,spelmål,z8
 0:02:45,vsk,skottyp,centralt,z8
 0:02:52,sirius,avslag,0,0
 0:03:24,sirius,skott,utanför,z2
@@ -75,7 +75,7 @@ time,team,event,subevent,zone
 0:16:48,vsk,passning,straffområde,z8
 0:16:58,vsk,närkamp,0,z8
 0:17:42,vsk,hörna,0,z7
-0:18:10,vsk,mål,straffområde,z8
+0:18:10,vsk,mål,hörnmål,z8
 0:18:18,vsk,skottyp,fast,z8
 0:18:44,sirius,timeout,0,0
 0:20:01,sirius,avslag,0,0
@@ -110,7 +110,7 @@ time,team,event,subevent,zone
 0:26:12,sirius,skott,täckt,z2
 0:26:17,sirius,skottyp,fast,z2
 0:26:21,sirius,närkamp,0,z2
-0:26:32,vsk,mål,straffområde,z8
+0:26:32,vsk,mål,spelmål,z8
 0:26:39,vsk,skottyp,centralt,z8
 0:27:02,sirius,avslag,0,0
 0:27:08,sirius,40,0,0
@@ -129,7 +129,7 @@ time,team,event,subevent,zone
 0:28:43,vsk,utkast,0,0
 0:28:48,sirius,närkamp,0,z7
 0:28:54,vsk,närkamp,0,z5
-0:29:11,vsk,mål,straffområde,z8
+0:29:11,vsk,mål,spelmål,z8
 0:29:16,vsk,skottyp,centralt,z8
 0:29:44,sirius,avslag,0,0
 0:30:14,sirius,hörna,0,z3

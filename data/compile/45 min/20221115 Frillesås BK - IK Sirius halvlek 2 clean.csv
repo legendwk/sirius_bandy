@@ -80,7 +80,7 @@ time,team,event,subevent,zone
 0:16:22,sirius,offside,0,z2
 0:16:26,frillesås,boll,0,0
 0:16:29,sirius,närkamp,0,z1
-0:16:49,sirius,mål,lång,z2
+0:16:49,sirius,mål,spelmål,z2
 0:16:56,sirius,skottyp,utifrån,z2
 0:17:33,frillesås,avslag,0,0
 0:17:41,sirius,närkamp,0,z3
@@ -108,7 +108,7 @@ time,team,event,subevent,zone
 0:21:31,sirius,hörna,0,z1
 0:22:02,sirius,skott,täckt,z2
 0:22:07,sirius,skottyp,fast,z2
-0:22:10,sirius,mål,retur,z2
+0:22:10,sirius,mål,hörnmål,z2
 0:22:19,sirius,skottyp,utifrån,z2
 0:22:38,frillesås,avslag,0,0
 0:23:06,frillesås,skott,räddning,z8
@@ -172,7 +172,7 @@ time,team,event,subevent,zone
 0:37:00,sirius,40,0,0
 0:37:12,sirius,skott,räddning,z2
 0:37:15,sirius,skottyp,utifrån,z2
-0:37:20,sirius,mål,straffområde,z2
+0:37:20,sirius,mål,spelmål,z2
 0:37:24,sirius,skottyp,retur,z2
 0:37:44,frillesås,timeout,0,0
 0:38:59,frillesås,boll,0,0
@@ -191,7 +191,7 @@ time,team,event,subevent,zone
 0:41:55,frillesås,skott,täckt,z8
 0:42:02,frillesås,skottyp,inlägg,z8
 0:42:05,frillesås,hörna,0,z9
-0:42:15,frillesås,mål,fast,z8
+0:42:15,frillesås,mål,hörnmål,z8
 0:42:19,frillesås,skottyp,fast,z8
 0:42:38,sirius,avslag,0,0
 0:42:53,frillesås,närkamp,0,z3

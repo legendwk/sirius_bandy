@@ -6,13 +6,15 @@ from get_data import Game
 
 class CompileStats:
     # constructor seems to take ~5 seconds with N = 20
-    def __init__(self, path_to_games: str, main_team = 'sirius', N = 20) -> None:
+    def __init__(self, path_to_games: str, main_team = 'sirius', N = 1000) -> None:
         self.path = path_to_games
         self.main_team = main_team
         self.teams = {self.main_team, 'opponent'}
         self.fill_games(N)
         self.all_stats = dict()
+        self.stats_summary = dict()
         self.compile_all_stats()
+        self.summarize_stats()
 
     def compile_all_stats(self) -> None:
         '''fills self.all_stats'''
@@ -26,7 +28,26 @@ class CompileStats:
         self.all_stats['shot attempts'] = self.get_shot_attempts()
         self.all_stats['40'] = self.get_40_list()
         self.all_stats['shot types'] = self.get_shot_types()
+        self.all_stats['goal types'] = self.get_goal_types()
+        self.all_stats['goal state of play'] = self.get_state_of_goal()
         return
+    
+    def summarize_stats(self) -> None:
+        '''returns a dict of the summarized stats of the object'''
+        self.stats_summary['score'] = self.summarize_score() # todo!!!
+        self.stats_summary['possession'] = self.summarize_possession()
+        self.stats_summary['scrimmages'] = self.summarize_scrimmages()
+        self.stats_summary['lost balls'] = self.summarize_lost_balls()
+        self.stats_summary['shots on goal'] = self.summarize_shots_on_goal()
+        self.stats_summary['duel zones'] = self.summarize_duel_zones()
+        self.stats_summary['corners'] = self.summarize_corners()
+        self.stats_summary['shot attempts'] = self.summarize_shot_attempts()
+        self.stats_summary['40'] = self.summarize_40()
+        self.stats_summary['shot types'] = self.summarize_shot_types()
+        self.stats_summary['goal types'] = self.summarize_goal_types()
+        self.stats_summary['goal state of play'] = self.summarize_state_of_goal()
+
+        return 
 
     def return_team(self, team: str) -> str:
         '''returns main_team if team == main team, else opponent'''
@@ -130,5 +151,114 @@ class CompileStats:
                     else:
                         shot_types_dict[st][self.return_team(team)].append(0)
         return shot_types_dict
-                
+
+    def get_goal_types(self) -> dict:
+        '''returns the goal types dict of the games in self.games'''
+        gt_dict = {st: {t: [0]*len(self.games) for t in self.teams} for st in Game.events_and_their_subevents['skottyp']}
+        for i, game in enumerate(self.games):
+            for goal in game.goals_info_list:
+                gt_dict[goal['shot type']][self.return_team(goal['team'])][i] += 1
+        return gt_dict
+
+    def get_state_of_goal(self) -> dict:
+        '''returns the state of play for each goal of the games in self.games'''
+        state_dict = {st: {t: [0]*len(self.games) for t in self.teams} for st in Game.events_and_their_subevents['mål']}
+        print(state_dict)
+        for i, game in enumerate(self.games):
+            for goal in game.goals_info_list:
+                state_dict[goal['subevent']][self.return_team(goal['team'])][i] += 1
+        print(state_dict)
+        return state_dict
+    
+    def summarize_possession(self) -> dict:
+        '''returns a dict of the combined possession of the object'''
+        score_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['possession']:
+            score_dict[team] = sum(gf.readable_to_sec(x) for x in self.all_stats['possession'][team]) 
+            score_dict[team] = gf.sec_to_readable(score_dict[team])
+        return score_dict
+    
+    def summarize_scrimmages(self) -> dict:
+        '''returns a dict of the combined scrimmages (närkamper) of the object'''
+        s_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['scrimmages']:
+            s_dict[team] = sum(self.all_stats['scrimmages'][team]) 
+        return s_dict
+
+    def summarize_lost_balls(self) -> dict:
+        '''returns a dict of the combined lost balls of the object'''
+        lb_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['lost balls']:
+            lb_dict[team] = sum(self.all_stats['lost balls'][team]) 
+        return lb_dict
+    
+    def summarize_shots_on_goal(self) -> dict:
+        '''returns a dict of the combined shots on goal of the object'''
+        sog_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['shots on goal']:
+            sog_dict[team] = sum(self.all_stats['shots on goal'][team]) 
+        return sog_dict
+    
+    def summarize_corners(self) -> dict:
+        '''returns a dict of the combined corners of the object'''
+        c_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['corners']:
+            c_dict[team] = sum(self.all_stats['corners'][team]) 
+        return c_dict
+    
+    def summarize_40(self) -> dict:
+        '''returns the number of 40s of the object'''
+        return sum(self.all_stats['40'])
         
+    def summarize_shot_attempts(self) -> dict:
+        '''returns a dict of the combined shot attempts of the object'''
+        sa_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['shot attempts']:
+            sa_dict[team] = sum(self.all_stats['shot attempts'][team]) 
+        return sa_dict
+    
+    def summarize_score(self) -> dict:
+        '''returns a dict of the combined score of the object'''
+        score_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['score']:
+            score_dict[team] = sum([sum(g.values()) for g in self.all_stats['score'][team]])  
+        return score_dict
+
+    def summarize_state_of_goal(self) -> dict:
+        '''returns a dict of the combined states of play for the goals of the object'''
+        state_dict = {st: {t: 0 for t in self.teams} for st in Game.events_and_their_subevents['mål']} 
+        for state in self.all_stats['goal state of play']:
+            for team in self.all_stats['goal state of play'][state]:
+                state_dict[state][team] = sum(self.all_stats['goal state of play'][state][team])
+        return state_dict
+
+    def summarize_shot_attempts(self) -> dict:
+        '''returns a dict of the combined shot attempts of the object'''
+        sa_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['shot attempts']:
+            sa_dict[team] = sum(self.all_stats['shot attempts'][team]) 
+        return sa_dict
+    
+    def summarize_duel_zones(self) -> dict:
+        '''returns a dict of the combined duel zones of the object'''
+        dz_dict = {z: {t : 0 for t in self.teams} for z in Game.zones} 
+        for zone in self.all_stats['duel zones']:
+            for team in self.all_stats['duel zones'][zone]:
+                dz_dict[zone][team] = sum(self.all_stats['duel zones'][zone][team])
+        return dz_dict
+
+    def summarize_shot_types(self) -> dict:
+        '''returns a dict of the combined shot types of the object'''
+        st_dict = {st: {t: 0 for t in self.teams} for st in Game.events_and_their_subevents['skottyp']} 
+        for st in self.all_stats['shot types']:
+            for team in self.all_stats['shot types'][st]:
+                st_dict[st][team] = sum(self.all_stats['shot types'][st][team])
+        return st_dict
+        
+    def summarize_goal_types(self) -> dict:
+        '''returns a dict of the combined goal types of the object'''
+        gt_dict = {gt: {t: 0 for t in self.teams} for gt in Game.events_and_their_subevents['skottyp']}
+        for gt in self.all_stats['goal types']:
+            for team in self.all_stats['goal types'][gt]:
+                gt_dict[gt][team] = sum(self.all_stats['goal types'][gt][team])
+        return gt_dict

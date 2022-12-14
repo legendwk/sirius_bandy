@@ -12,27 +12,22 @@ import time
 # vi kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
-# hämta data och gör presentation (avnänds typ live?)
-filename = '20221202 IK Sirius - Sandvikens AIK halvlek 2'
-os.chdir(r"data\2023\raw")
-teams = {'sirius', 'saik'}
 
-g = Game(teams)
-g.collector_raw(filename)
-g.clean_csv(filename)
+cs = CompileStats('data\\compile\\45 min')
 
-
-# skapa statsobjekt
-os.chdir(r"..\\clean")
-saik = Stats(filename + ' clean')
-
-
-# gör presentation
-os.chdir(r"..\..\..\powerpointer\matchrapporter")
-PP(saik)
-
+print('stats summary')
+for grabb in cs.stats_summary:
+    print(grabb)
+    print(cs.stats_summary[grabb])
 
 '''
+print('all stats')
+for grabb in cs.all_stats:
+    print(grabb)
+    print(cs.all_stats[grabb])
+
+
+
 
 
 
@@ -51,6 +46,29 @@ for grabb in cs.all_stats:
 
 
 
+
+
+# hämta data och gör presentation (avnänds typ live?)
+filename = '20221213 Vetlanda BK - IK Sirius halvlek 2'
+os.chdir(r"data\2023\raw")
+teams = {'iks', 'vtl'}
+
+#g = Game(teams)
+#g.collector_raw(filename)
+#g.clean_csv(filename)
+
+
+
+# skapa statsobjekt
+os.chdir(r"..\\clean")
+vtl1 = Stats(filename + ' clean')
+#bollnas2 = Stats('20221209 IK Sirius - Bollnäs GIF halvlek 2 clean')
+
+
+# gör presentation
+os.chdir(r"..\..\..\powerpointer\matchrapporter")
+PP(vtl1)
+#PP(bollnas2)
 
 
 

@@ -6,7 +6,7 @@ time,team,event,subevent,zone
 0:01:54,sirius,närkamp,0,z1
 0:01:59,hammarby,närkamp,0,z4
 0:02:36,hammarby,passning,straffområde,0
-0:02:45,hammarby,mål,straffområde,z2
+0:02:45,hammarby,mål,spelmål,z2
 0:02:57,hammarby,skottyp,friställande,z2
 0:03:15,sirius,avslag,0,0
 0:03:52,hammarby,närkamp,0,z5
@@ -78,7 +78,7 @@ time,team,event,subevent,zone
 0:17:36,sirius,utkast,0,z1
 0:18:39,hammarby,närkamp,0,z6
 0:18:55,hammarby,passning,straffområde,z2
-0:19:01,hammarby,mål,straffområde,z2
+0:19:01,hammarby,mål,spelmål,z2
 0:19:07,hammarby,skottyp,inlägg,z2
 0:19:26,sirius,avslag,0,z2
 0:19:50,sirius,frislag,0,z9
@@ -133,7 +133,7 @@ time,team,event,subevent,zone
 0:33:12,hammarby,brytning,0,z8
 0:33:25,hammarby,rensning,0,0
 0:33:40,hammarby,brytning,0,z6
-0:33:55,hammarby,mål,lång,z2
+0:33:55,hammarby,mål,spelmål,z2
 0:34:05,hammarby,skottyp,utifrån,z2
 0:34:35,sirius,avslag,0,z2
 0:35:11,sirius,närkamp,0,z4

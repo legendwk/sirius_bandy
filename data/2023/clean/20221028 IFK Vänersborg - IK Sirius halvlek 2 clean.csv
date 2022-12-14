@@ -1,7 +1,7 @@
 time,team,event,subevent,zone
 0:00:00,sirius,avslag,0,z5
 0:00:18,vänersborg,närkamp,0,z6
-0:00:32,vänersborg,mål,lång,z2
+0:00:32,vänersborg,mål,spelmål,z2
 0:00:41,vänersborg,skottyp,utifrån,z2
 0:00:56,sirius,avslag,0,z5
 0:01:15,sirius,frislag,0,z5
@@ -51,7 +51,7 @@ time,team,event,subevent,zone
 0:13:42,sirius,närkamp,0,z5
 0:13:55,sirius,offside,0,z8
 0:14:02,vänersborg,boll,0,z8
-0:14:51,vänersborg,mål,straffområde,z2
+0:14:51,vänersborg,mål,spelmål,z2
 0:15:02,vänersborg,skottyp,friställande,z2
 0:15:14,sirius,timeout,0,0
 0:16:49,sirius,avslag,0,z5
@@ -66,7 +66,7 @@ time,team,event,subevent,zone
 0:19:48,sirius,närkamp,0,z7
 0:20:09,vänersborg,närkamp,0,z8
 0:20:29,vänersborg,närkamp,0,z5
-0:20:37,vänersborg,mål,0,z2
+0:20:37,vänersborg,mål,spelmål,z2
 0:21:05,vänersborg,skottyp,centralt,z2
 0:21:08,sirius,avslag,0,z5
 0:21:40,vänersborg,brytning,0,z8
@@ -104,7 +104,7 @@ time,team,event,subevent,zone
 0:29:34,sirius,skottyp,utifrån,z8
 0:29:40,vänersborg,utkast,0,0
 0:29:55,sirius,närkamp,0,z5
-0:30:12,sirius,mål,straffområde,z8
+0:30:12,sirius,mål,spelmål,z8
 0:30:17,sirius,skottyp,centralt,z8
 0:30:24,vänersborg,avslag,0,z5
 0:31:06,sirius,boll,0,z3
@@ -116,7 +116,7 @@ time,team,event,subevent,zone
 0:32:44,vänersborg,bolltapp,passförsök,z5
 0:32:50,vänersborg,utvisning,10,0
 0:33:09,sirius,frislag,0,z4
-0:33:41,sirius,mål,straffområde,z8
+0:33:41,sirius,mål,spelmål,z8
 0:33:58,sirius,skottyp,utifrån,z8
 0:34:08,vänersborg,timeout,0,0
 0:35:58,vänersborg,avslag,0,z5
@@ -141,14 +141,14 @@ time,team,event,subevent,zone
 0:40:55,vänersborg,skott,räddning,z2
 0:41:04,vänersborg,skottyp,utifrån,z2
 0:41:08,vänersborg,hörna,0,0
-0:41:22,vänersborg,mål,fast,z2
+0:41:22,vänersborg,mål,hörnmål,z2
 0:41:28,vänersborg,skottyp,fast,z2
 0:41:42,sirius,avslag,0,z5
 0:41:58,sirius,närkamp,0,z5
 0:42:20,vänersborg,närkamp,0,z5
 0:42:27,sirius,närkamp,0,z2
 0:42:43,vänersborg,närkamp,0,z5
-0:43:16,vänersborg,mål,straffområde,0
+0:43:16,vänersborg,mål,spelmål,0
 0:43:23,vänersborg,skottyp,centralt,z2
 0:43:37,sirius,avslag,0,z5
 0:44:13,vänersborg,närkamp,0,z6

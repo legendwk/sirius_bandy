@@ -6,12 +6,16 @@ import os
 
 # other 
 def combine_dictionaries(dict_1: dict, dict_2: dict) -> dict:
-    '''combines the content of the two dictionaries into a new one'''
-    dict_3 = {**dict_1, **dict_2}
-    for key, value in dict_3.items():
-        if key in dict_1 and key in dict_2:
-                dict_3[key] = [value , dict_1[key]]
-    return dict_3
+    '''combines the content of the two dictionaries into a new one
+        expects dicts to be of format {team0: {key0: val0, key1: val1, ...}, ...}'''
+    d = dict_1.copy()
+    for key in dict_2:
+        for subkey in dict_2[key]:
+            if subkey in d[key]:
+                d[key][subkey] += dict_2[key][subkey]
+            else:
+                d[key][subkey] = dict_2[key][subkey]
+    return d
 
 # open csv
 def append_clean(filename: str, change_dirr = True) -> str:

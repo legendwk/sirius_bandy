@@ -8,7 +8,7 @@ time,team,event,subevent,zone
 0:01:52,sirius,frislag,0,z8
 0:02:06,sirius,passning,straffområde,z8
 0:02:15,sirius,närkamp,0,z8
-0:02:21,sirius,mål,straffområde,z8
+0:02:21,sirius,mål,spelmål,z8
 0:02:38,sirius,skottyp,utifrån,z8
 0:02:51,gripen,avslag,0,z8
 0:03:04,gripen,passning,lång,z5
@@ -18,7 +18,7 @@ time,team,event,subevent,zone
 0:03:58,gripen,skott,täckt,z2
 0:04:02,gripen,skottyp,fast,z2
 0:04:04,gripen,hörna,0,z3
-0:04:34,gripen,mål,fast,z2
+0:04:34,gripen,mål,hörnmål,z2
 0:04:40,gripen,skottyp,fast,z2
 0:05:00,sirius,avslag,0,0
 0:05:24,sirius,40,0,0
@@ -32,7 +32,7 @@ time,team,event,subevent,zone
 0:07:26,gripen,frislag,0,z4
 0:07:59,sirius,närkamp,0,z6
 0:08:08,gripen,brytning,0,z5
-0:08:19,gripen,mål,straffområde,z2
+0:08:19,gripen,mål,spelmål,z2
 0:08:26,gripen,skottyp,centralt,z2
 0:08:46,sirius,avslag,0,z2
 0:08:57,sirius,40,0,z2
@@ -53,7 +53,7 @@ time,team,event,subevent,zone
 0:13:06,gripen,utvisning,10,0
 0:13:30,sirius,frislag,0,z6
 0:14:01,sirius,hörna,0,z9
-0:14:26,sirius,mål,fast,z8
+0:14:26,sirius,mål,hörnmål,z8
 0:14:35,sirius,skottyp,fast,z8
 0:14:59,gripen,avslag,0,0
 0:15:32,gripen,bolltapp,passförsök,0
@@ -83,7 +83,7 @@ time,team,event,subevent,zone
 0:19:20,sirius,bolltapp,passförsök,z7
 0:19:22,gripen,utkast,0,0
 0:19:29,sirius,brytning,0,z8
-0:19:36,sirius,mål,straffområde,z8
+0:19:36,sirius,mål,spelmål,z8
 0:19:50,sirius,skottyp,centralt,z8
 0:20:00,gripen,avslag,0,0
 0:20:44,sirius,närkamp,0,z9

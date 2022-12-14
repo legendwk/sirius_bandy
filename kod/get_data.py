@@ -13,7 +13,7 @@ class Game:
                                     'skottyp': {'friställande', 'inlägg', 'utifrån', 'dribbling', 'centralt', 'fast', 'retur'},
                                     'bolltapp': {'tappad', 'passförsök'},
                                     'passning' : {'straffområde', 'lång', 'farlig', 'långtapp'},
-                                    'mål': {'straffområde', 'lång', 'fast'},
+                                    'mål': {'spelmål', 'hörnmål', 'straffmål', 'frislagsmål'},
                                     'utvisning': {'5', '10'}
                                     }
     

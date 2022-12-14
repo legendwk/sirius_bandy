@@ -24,7 +24,7 @@ time,team,event,subevent,zone
 0:06:05,vetlanda,passning,lång,z6
 0:06:09,sirius,brytning,0,z6
 0:06:12,vetlanda,inslag,0,z6
-0:06:52,vetlanda,mål,lång,z3
+0:06:52,vetlanda,mål,spelmål,z3
 0:06:58,vetlanda,skottyp,utifrån,z3
 0:07:15,sirius,avslag,0,0
 0:08:02,vetlanda,närkamp,0,z9
@@ -43,7 +43,7 @@ time,team,event,subevent,zone
 0:12:39,vetlanda,utkast,0,0
 0:13:02,vetlanda,bolltapp,passförsök,z2
 0:13:16,sirius,närkamp,0,z8
-0:13:21,sirius,mål,straffområde,z8
+0:13:21,sirius,mål,spelmål,z8
 0:13:35,sirius,skottyp,centralt,z8
 0:13:47,vetlanda,avslag,0,z8
 0:14:10,vetlanda,passning,lång,z2
@@ -51,7 +51,7 @@ time,team,event,subevent,zone
 0:14:29,sirius,skott,räddning,z8
 0:14:33,sirius,skottyp,dribbling,z8
 0:14:37,sirius,hörna,0,z7
-0:15:05,sirius,mål,fast,z8
+0:15:05,sirius,mål,hörnmål,z8
 0:15:08,sirius,skottyp,fast,z8
 0:15:34,vetlanda,avslag,0,0
 0:15:52,vetlanda,hörna,0,z3
@@ -75,13 +75,13 @@ time,team,event,subevent,zone
 0:20:48,sirius,utkast,0,z1
 0:21:14,sirius,passning,straffområde,z8
 0:21:21,vetlanda,brytning,0,z8
-0:21:33,vetlanda,mål,straffområde,z2
+0:21:33,vetlanda,mål,spelmål,z2
 0:21:55,vetlanda,skottyp,utifrån,z2
 0:22:00,sirius,avslag,0,z2
 0:23:17,sirius,skott,räddning,z8
 0:23:21,sirius,skottyp,utifrån,z8
 0:23:24,sirius,hörna,0,z9
-0:23:50,sirius,mål,fast,z8
+0:23:50,sirius,mål,hörnmål,z8
 0:23:54,sirius,skottyp,fast,z8
 0:24:17,vetlanda,avslag,0,0
 0:24:40,vetlanda,närkamp,0,z8
@@ -117,7 +117,7 @@ time,team,event,subevent,zone
 0:33:14,vetlanda,utkast,0,0
 0:33:54,vetlanda,passning,lång,z2
 0:33:58,vetlanda,passning,straffområde,z2
-0:34:04,vetlanda,mål,straffområde,z2
+0:34:04,vetlanda,mål,spelmål,z2
 0:34:10,vetlanda,skottyp,centralt,z2
 0:34:19,sirius,avslag,0,0
 0:34:40,vetlanda,närkamp,0,z7
@@ -154,7 +154,7 @@ time,team,event,subevent,zone
 0:41:11,vetlanda,passning,straffområde,z2
 0:41:13,sirius,utkast,0,z1
 0:41:44,sirius,passning,straffområde,z8
-0:41:51,sirius,mål,straffområde,z8
+0:41:51,sirius,mål,spelmål,z8
 0:41:57,sirius,skottyp,inlägg,z8
 0:42:07,vetlanda,avslag,0,0
 0:42:26,vetlanda,skott,räddning,z3
@@ -170,7 +170,7 @@ time,team,event,subevent,zone
 0:43:47,sirius,skottyp,retur,z8
 0:43:52,vetlanda,utkast,0,0
 0:44:06,sirius,brytning,0,z5
-0:44:19,sirius,mål,straffområde,z8
+0:44:19,sirius,mål,spelmål,z8
 0:44:29,sirius,skottyp,centralt,z8
 0:44:39,vetlanda,avslag,0,0
 0:44:53,sirius,brytning,0,z4
