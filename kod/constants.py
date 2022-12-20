@@ -16,7 +16,9 @@ colors = {
 'saik': [RGBColor(255, 255, 255), RGBColor(0, 0, 0), RGBColor(255, 255, 255)],
 'vänersborg': [RGBColor(255, 255, 255), RGBColor(0, 90, 155), RGBColor(255, 255, 255)],
 'vetlanda': [RGBColor(0, 0, 0), RGBColor(255, 243, 0), RGBColor(0, 0, 0)],
-'vsk': [RGBColor(255, 255, 255), RGBColor(1, 130, 72), RGBColor(255, 255, 255)]
+'vsk': [RGBColor(255, 255, 255), RGBColor(1, 130, 72), RGBColor(255, 255, 255)],
+'opponent': [RGBColor(255, 255, 255), RGBColor(255, 255, 255), RGBColor(255, 255, 255)]
+
 }
 
 # logo images wihout relative link 
@@ -25,7 +27,7 @@ logos = {
     'edsbyn': 'edsbyn logo.png', 'frillesås': 'frillesas logo.png', 'gripen': 'gripen logo.png',
     'hammarby': 'hammarby logo.png', 'motala': 'motala logo.png', 'saik': 'saik logo.png', 
     'sirius': 'sirius logo.png', 'vänersborg': 'vanersborg logo.png', 'vetlanda': 'vetlanda logo.png',
-    'villa': 'villa logo.png', 'vsk': 'vsk logo.png'
+    'villa': 'villa logo.png', 'vsk': 'vsk logo.png', 'opponent': 'bandyförbundet logo.png' 
 }
 
 nicknames = {
@@ -42,7 +44,8 @@ nicknames = {
     'saik' : {'full': 'Sandvikens AIK Bandy', 'short': 'Sandviken', 'abbreviation': 'SAIK'},
     'vetlanda' : {'full': 'Vetlanda BK', 'short': 'Vetlanda',  'abbreviation': 'VBK'},
     'villa': {'full': 'Villa Lidköping BK', 'short': 'Villa Lidköping', 'abbreviation': 'VLBK'},
-    'vsk': {'full' : 'Västerås SK Bandy', 'short': 'Västerås', 'abbreviation': 'VSK'}
+    'vsk': {'full' : 'Västerås SK Bandy', 'short': 'Västerås', 'abbreviation': 'VSK'},
+    'opponent' : {'full' : 'Motståndare', 'short': 'Mostståndare', 'abbreviation': 'ANNAN'}
 }
 
 # five colors from dark to light in Sirius blue 

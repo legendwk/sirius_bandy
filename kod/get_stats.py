@@ -16,31 +16,40 @@ class Stats:
     start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'skott', 'hörna', 'straff', 'boll'} # varför hade jag inte boll? för att den kommer med för ofta????
     # used for zone specific data, coverts zones 180 degrees
     zone_change = {'z1':'z9', 'z2':'z8', 'z3': 'z7', 'z4':'z6', 'z5':'z5', 'z6':'z4', 'z7':'z3', 'z8':'z2', 'z9':'z1'}
+    # used for coroners
+    corner_sides = {'right': ['z1', 'z9'], 'left': ['z3', 'z7']}
+    corner_zone_to_name = {'z1': 'right', 'z9': 'right', 'z3': 'left', 'z7': 'left'}
 
 # constructor
     def __init__(self, filename: str, dummy = False, main_team = 'sirius', N = 3) -> None:
         '''makes and calculates the Stats object. 
         main_team is which team we highlight. N is how many parts the half is divided into for the per-part stats.
-        Dummy is only used by dunder add'''
-        # this is where we put everything we're printing
+        Dummy is only used when we are creating a custom object for example by dunder add'''
         self.prints = dict()
         self.possession_list = list()
         self.goal_origins_list = list()
         self.main_team = main_team
+        self.out = filename
+        # number of parts the game will be split into
         self.N = N
-        # dummy is only used if we are adding two ojects
+        # dummy is only used when creating a custom object such as when adding two ojects  
         if not dummy: 
             self.big_df = gf.read_csv_as_df(filename)
             self.teams = {team for team in self.big_df['team'].tolist() if team != '0'}
             self.df_dict = dict()
-            self.out = filename + '.txt'
             self.compile_stats()
         return
 
+# static methods
     def other_direction(zone: str) -> str:
         '''returns the zone in the other direction
             does not accept non-zone entry'''
         return Stats.zone_change[zone]
+    
+    def corner_names(zone: str) -> str:
+        '''returns the corner side from zone name
+            does not accept non-zone entry'''
+        return Stats.corner_zone_to_name[zone]
 
 # dunder add, for Stats() + Stats()
     def __add__(self, other) -> None:
@@ -51,7 +60,7 @@ class Stats:
         obj.possession_list = self.possession_list + other.possession_list
         obj.goal_origins_list = self.goal_origins_list + other.goal_origins_list
         obj.goals_info_list = self.goals_info_list + other.goals_info_list
-        obj.out = f'{self.out[:-4]} och {other.out}'
+        obj.out = f'{self.out} och {other.out}'
         obj.teams = self.teams
         obj.prints['score'] = self.add_score(other)
         obj.prints['possession'] = self.add_possession(other)
@@ -68,6 +77,9 @@ class Stats:
         obj.prints['40'] = self.add_40_list(other)
         obj.prints['sustained attacks'] = self.add_sustained_attacks(other)
         obj.prints['corners'] = self.add_corners(other)
+        obj.prints['corner goal sides'] = self.add_corner_goal_sides(other)
+        obj.prints['slot passes'] = self.add_slot_passes(other)
+        obj.prints['long passes'] = self.add_long_passes(other)
 
         return obj
 
@@ -89,6 +101,10 @@ class Stats:
         self.make_40_list()
         self.make_sustained_attacks()
         self.get_corners_dict()
+        self.get_corner_goal_sides()
+        self.get_slot_passes_dict()
+        self.get_long_passes_dict()
+
 
         # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
@@ -133,7 +149,6 @@ class Stats:
         for team in sa_dict:
             sa_dict[team] = self.prints['sustained attacks'][team] + other.prints['sustained attacks'][team]
         return sa_dict
-
 
     def make_sustained_attacks(self, min_length = 60, disruption_length = 10) -> dict:
         ''''returns a dict with a list of each game minute, 
@@ -229,7 +244,7 @@ class Stats:
             for index, row in duels_df.iterrows():
                 if row['zone'] != '0':
                     if change_dir:
-                        z = Stats.zone_change[row['zone']]
+                        z = Stats.other_direction(row['zone'])
                     else:
                         z = row['zone']
                     duel_zones[z][row['team']] += 1
@@ -301,6 +316,29 @@ class Stats:
             self.prints['duels'] = duels_dict
         return self.prints['duels']
 
+    def get_slot_passes_dict(self) -> dict:
+        '''returns a dictionary of the slot passes
+            if need be it fills self.prints'''
+        if 'slot passes' not in self.prints:
+            sp_df = self.get_slot_passes_df()
+            sp_dict = {team: 0 for team in self.teams}
+            for team in sp_dict:
+                sp_dict[team] = len(sp_df.loc[sp_df['team'] == team].index)
+            self.prints['slot passes'] = sp_dict
+        return self.prints['slot passes']
+    
+    def get_long_passes_dict(self) -> dict:
+        '''returns a dictionary of the long passes (passning - lång, farlig)
+            if need be it fills self.prints'''
+        if 'long passes' not in self.prints:
+            lp_df = self.get_long_passes_df()
+            lp_dict = {team: 0 for team in self.teams}
+            for team in lp_dict:
+                lp_dict[team] = len(lp_df.loc[lp_df['team'] == team].index)
+            self.prints['long passes'] = lp_dict
+        return self.prints['long passes']
+
+
     def get_interceptions_dict(self) -> dict:
         '''returns a dictionary of the interceptions
             if need be it fills self.prints'''
@@ -335,16 +373,31 @@ class Stats:
         return self.prints['scrimmages']
 
     def get_corners_dict(self) -> dict: 
-        '''returns a dictionary of the corners
+        '''returns a dictionary of the corners and based on left right then team
             if need be it fills self.prints'''
         if 'corners' not in self.prints:
             corners_df = self.get_corners_df()
-            corners_dict = {team: 0 for team in self.teams}
+            corners_dict = {team: {side: 0 for side in Stats.corner_sides} for team in self.teams}
             for team in corners_dict:
-                corners_dict[team] = len(corners_df.loc[corners_df['team'] == team].index)
+                for side in corners_dict[team]: # self.big_df['event'].isin(['skott', 'mål'])
+                    corners_dict[team][side] = len(corners_df.loc[(corners_df['team'] == team) & (corners_df['zone'].isin(Stats.corner_sides[side]))].index)
             self.prints['corners'] = corners_dict
         return self.prints['corners']
     
+    def get_corner_goal_sides(self) -> dict:
+        '''returns a dictionary of what side the corner goals are scored from'''
+        if 'corner goal sides' not in self.prints:
+            corners_dict = {team: {side: 0 for side in Stats.corner_sides} for team in self.teams}
+            for goal in self.get_goals_info_list():
+                if goal['subevent'] == 'hörnmål' and goal['origin zone'] != '0': # 'origin zone'
+                    corners_dict[goal['team']][Stats.corner_names(goal['origin zone'])] += 1
+            self.prints['corner goal sides'] = corners_dict
+        return self.prints['corner goal sides']
+
+    def add_corner_goal_sides(self, other):
+        '''handles the addition of the corner goal sides'''
+        return gf.combine_dictionaries(self.get_corner_goal_sides, other.get_corner_goal_sides())
+
     def get_sog_dict(self) -> dict:
         '''returns a dictionary of the shots on goal
             if need be it fills self.prints'''
@@ -395,14 +448,27 @@ class Stats:
         for team in self.prints['shots on goal']:
             return_dict[team] = self.prints['shots on goal'][team] + other.prints['shots on goal'][team]
         return return_dict 
+    
+    def add_slot_passes(self, other) -> dict:
+        '''returns the slot passes (passning - straffområde) of the added objects
+            expects type to already have been checked'''
+        return_dict = dict()
+        for team in self.prints['slot passes']:
+            return_dict[team] = self.prints['slot passes'][team] + other.prints['slot passes'][team]
+        return return_dict 
+    
+    def add_long_passes(self, other) -> dict:
+        '''returns the long passes (passning - lång, farlig) of the added objects
+            expects type to already have been checked'''
+        return_dict = dict()
+        for team in self.prints['long passes']:
+            return_dict[team] = self.prints['long passes'][team] + other.prints['long passes'][team]
+        return return_dict 
 
     def add_corners(self, other) -> dict:
         '''returns the corners for the added objects
             expects type to already have been checked'''   
-        return_dict = dict()
-        for team in self.prints['corners']:
-            return_dict[team] = self.prints['corners'][team] + other.prints['corners'][team]
-        return return_dict 
+        return gf.combine_dictionaries(self.prints['corners'], other.prints['corners']) 
 
     def get_possession_dict(self) -> dict:
         '''returns a dictionary of the possession
@@ -478,6 +544,7 @@ class Stats:
         for i, d in enumerate(goals_list):
             d['origin'] = self.get_goal_origins_list()[i][1]
             d['attack time'] = self.get_goal_origins_list()[i][2]
+            d['origin zone'] = self.get_goal_origins_list()[i][4]
         return goals_list        
 
     def get_goal_origins_list(self) -> list:
@@ -488,11 +555,12 @@ class Stats:
         '''returns a df object of shot origins
             fills the df_dict if need be'''
         if 'shot origins' not in self.df_dict:
-            keys = ['team', 'shot origin', 'attack time',  'shot time', 'goal']
+            keys = ['team', 'shot origin', 'attack time',  'shot time', 'goal', 'origin zone']
             values = [[] for i in range(len(keys))]
             possession_team = None
             possession_gained = None
             time_gained = 0 
+            origin_zone = None
 
             for index, row in self.big_df.iterrows():
                 # a shot is made; save shot origin info
@@ -502,16 +570,19 @@ class Stats:
                     values[2].append(gf.readable_to_sec(row['time']) - time_gained)
                     values[3].append(row['time'])
                     values[4].append(row['event'] == 'mål')
+                    values[5].append(origin_zone)
                 # new team gains possession OR new start of play
                 elif (row['event'] in Stats.possession_gained and row['team'] != possession_team) or row['event'] in Stats.start_of_play:
                     possession_team = row['team']
                     possession_gained = row['event']
                     time_gained = gf.readable_to_sec(row['time'])
+                    origin_zone = row['zone']
                 # old team loses possession
                 elif row['event'] in Stats.possession_lost and row['team'] == possession_team:
                     possession_team = self.opposite_team(row['team'])
                     possession_gained = row['event']
                     time_gained = gf.readable_to_sec(row['time'])
+                    origin_zone = row['zone']
             self.df_dict['shot origins'] = gf.make_df(keys, values)
         return self.df_dict['shot origins']
 
@@ -633,10 +704,23 @@ class Stats:
             self.df_dict['scrimmages'] = self.big_df.loc[self.big_df['event'] == 'närkamp']
         return self.df_dict['scrimmages'] 
 
-
     def get_corners_df(self) -> pd.core.frame.DataFrame:
         '''returns a df with only the the corners
             populates the df_dict if not already done'''
         if 'corners' not in self.df_dict:
             self.df_dict['corners'] = self.big_df.loc[self.big_df['event'] == 'hörna']
         return self.df_dict['corners'] 
+
+    def get_slot_passes_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the the slot passes (passning - straffområde)
+            populates the df_dict if not already done'''
+        if 'slot passes' not in self.df_dict:
+            self.df_dict['slot passes'] = self.big_df.loc[self.big_df['subevent'] == 'straffområde']
+        return self.df_dict['slot passes'] 
+
+    def get_long_passes_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the the long passes (passning - lång, farlig)
+            populates the df_dict if not already done'''
+        if 'long passes' not in self.df_dict:
+            self.df_dict['long passes'] = self.big_df.loc[self.big_df['subevent'].isin(['lång', 'farlig'])]
+        return self.df_dict['long passes'] 

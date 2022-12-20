@@ -88,6 +88,9 @@ def clean_up() -> None:
     os.chdir('powerpointer\matchrapporter')
     for f in os.listdir(os.getcwd()):
         os.remove(f)
+    os.chdir('..\\säsongsrapporter')
+    for f in os.listdir(os.getcwd()):
+        os.remove(f)
     os.chdir('..\\..\\bilder\\autogen')
     for f in os.listdir(os.getcwd()):
         os.remove(f)

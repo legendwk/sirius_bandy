@@ -12,7 +12,7 @@ class Game:
     events_and_their_subevents = {'skott': {'utanför', 'räddning', 'täckt'}, 
                                     'skottyp': {'friställande', 'inlägg', 'utifrån', 'dribbling', 'centralt', 'fast', 'retur'},
                                     'bolltapp': {'tappad', 'passförsök'},
-                                    'passning' : {'straffområde', 'lång', 'farlig', 'långtapp'},
+                                    'passning' : {'straffområde', 'lång', 'farlig'},
                                     'mål': {'spelmål', 'hörnmål', 'straffmål', 'frislagsmål'},
                                     'utvisning': {'5', '10'}
                                     }

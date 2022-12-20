@@ -12,19 +12,46 @@ import time
 # vi kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
+season2223 = 'data\\compile\\säsong 2223'
+regular_season2223 = 'data\\compile\\grundserie 2223'
+all_games = 'data\\compile\\alla'
+cup2223 = 'data\\compile\\cupen 2223'
+all_45_min = 'data\\compile\\45 min'
+outdoors = 'data\\compile\\utomhus'
+indoors = 'data\\compile\\inomhus'
+bad_ice = 'data\\compile\\dålig is'
+playoff2122 = 'data\\compile\\slutspel 2122'
+playoff2223 = 'data\\compile\\slutspel 2223'
 
-cs = CompileStats('data\\compile\\45 min')
 
-print('stats summary')
+cs = CompileStats(regular_season2223)
+s = cs.returns_stats_obj()
+
+
+os.chdir('powerpointer\\säsongsrapporter')
+pp = PP(s)
+pp.make_season_report()
+
+
+'''
+
+
+print('compile stats: stats summary')
 for grabb in cs.stats_summary:
     print(grabb)
     print(cs.stats_summary[grabb])
 
-'''
-print('all stats')
+print('\n\n\ncompile stats: all_stats')
 for grabb in cs.all_stats:
     print(grabb)
     print(cs.all_stats[grabb])
+
+
+
+print('\n\n\nstats: prints')
+for grabb in stats.prints:
+    print(grabb)
+    print(stats.prints[grabb])
 
 
 
@@ -53,9 +80,9 @@ filename = '20221213 Vetlanda BK - IK Sirius halvlek 2'
 os.chdir(r"data\2023\raw")
 teams = {'iks', 'vtl'}
 
-#g = Game(teams)
-#g.collector_raw(filename)
-#g.clean_csv(filename)
+g = Game(teams)
+g.collector_raw(filename)
+g.clean_csv(filename)
 
 
 

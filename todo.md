@@ -1,38 +1,31 @@
 # TODO
 
 ## Allmänt: 
-* hörnor:
-  * vänster och höger
 
+## Statistik analys
+### Vinna matcher/göra mål
+* hypoteser:
+  * närkamper bra för att vinna matcher?
+    * var de är?
+      * i motståndarnas zoner?
+    * vem som har bollen inför 
+  * bra med skott
+    * skottförsök?
+  * bra med innehav?
+### Ute vs inne
+* antal närkamper
+  * hur de placeras?
+    * som ett kors
+* skottyper
+* långbollar
 
-## Stats
-* Listor
-  * De borde ligga i typ ett dict eller något
-  * Snygga till med add-metoder för dem
-
-## Säsongsrapport
-* Skott och försök
-* Närkamper
-* Antal 40
-* Antal långa anfall? 
-
-
-## Presentation
-* några countstats:
-  * passning: 
-    * lång
-    * straffområde
-  * 40 för sirius
-    * försök koppla det till anfall
-    * hur många gånger det leder till skott eller mål
-    * 
-
+### Läsa på:
+* https://soccermatics.readthedocs.io/en/latest/gallery/lesson2/plot_PassCompare.html
+* https://en.wikipedia.org/wiki/Binomial_test
+* är vi dåliga på att skapa chanser eller minimera motståndarnas? 
+  * ingen kan veta
+  * 
 ## Events
 * drag
 * spel på tre
 
-## Allmänt 
-* statistik analys
-* 
-
-## David

@@ -179,7 +179,6 @@ class Plot:
         '''makes a value plot with vertical bars, will mostly be used for parts of game stats 
         if x_labels = None we expect the x-axis to be parts of the game, else specify
             returns link to image'''
-        
         main_team_values = [x[self.stats.main_team] for x in values]
         other_team_values = [x[self.stats.opposite_team(self.stats.main_team)] for x in values]
         width = 0.25
@@ -190,8 +189,12 @@ class Plot:
         fig, ax = plt.subplots()
         ax.bar(x - width/2, main_team_values, color = main_team_color, width = width, label=constants.nicknames[self.stats.main_team]['full'])
         ax.bar(x + width/2, other_team_values, color = other_team_color, width = width, label=constants.nicknames[self.stats.opposite_team(self.stats.main_team)]['full'])
-        y = [0, max(main_team_values + other_team_values) + 60]
-        y = [i for i in range(max(main_team_values + other_team_values) + 3)]
+        #y = [0, max(main_team_values + other_team_values) + 60]
+        m = max(main_team_values + other_team_values)
+        if m < 50: # this is probably a game report
+            y = [i for i in range(m + 3)]
+        else: # this is a season report most likely 
+            y = [i for i in range(0, m + m//10 , m//10)]  
         #y_labels = [gf.sec_to_readable(s) for s in y]
         plt.yticks(y)
         plt.xticks(x, x_labels)
