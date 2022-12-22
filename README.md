@@ -1,51 +1,70 @@
 # Sirius Bandy
 ## Generellt
-Instruktioner kring hur man hanterar all kod. 
+Kort instruktion för hur koden bör användas.  
 
 Koden är skriven i Python 3.9.5
 
-Generellt antar vi att mapp-arkitekturen ser ut som den gör på Github. Flera metoder är specialanpassade för att placera olika filer i rätt mapp, men det fungerar bara ifall upplägget ser likadant ut på allas datorer. 
-
-### Använda paket
+### Använda biliotek
 ```
 pandas
+numpy
+matplotlib
 pptx
 ```
+### Import av egna filer 
+```
+from get_data import Game
+from get_stats import Stats
+from get_pp import PP
+import general_functions as gf
+```
+
+### Filsökväg
+Generellt antar vi att mapp-arkitekturen ser ut som den gör på Github. Flera metoder är specialanpassade för att placera olika filer i rätt mapp, men det fungerar bara ifall upplägget ser likadant ut på allas datorer. 
+
+Jag har använt filen ```runme.py``` för att anropa metoder och funktioner.
+
+Vi utgår från att filsökvägen till en början är ```sirius_bandy ```-foldern. Jag avänder **Visual Studio Code** och då fungerar alla imports.
 
 ## Datainsamling
 Datainsamlingen kan startas genom:
 ```
-from get_data import Game
-g = Game({'sirius', 'edsbyn'})
-g.collector_raw('20221121 sirius edsbyn halvlek 1')
+teams = {'sirius', 'edsbyn'}
+filename = '20221121 sirius edsbyn halvlek 1'
+os.chdir('data\\2023\\raw')
+
+g = Game(teams)
+g.collector_raw(filename)
+g.clean_csv(filename)
 ```
 Jätteviktigt är att man inte kan ha snedstreck eller andra "konstiga" skiljetecken i filnamnet! Undvik helst alla skiljtetecken.
 
-
-### Händelser
-Följande händelser och eventuella underhändelser är vi intresserade av:
+### Händelser i Game.collector_raw
+Följande händelser och eventuella underhändelser är vi intresserade av. Varje händelse utom **stop** ska vara kopplat till ett lag. I vissa fall kan man vilja kringgå det, exempelvis när det blir ett längre avbrott bör **timeout** användas, då kan lag **0** anges. Helst bör zon (**z1**-**z9** även anges). 
 * **skott** - bollen skjuts mot mål
   * **utanför** - skottet missar mål och går till utkast
   * **räddning** - målvakten räddar
   * **täckt** - skottet når inte mål då det täcks undan av spelare
-* **skottyp** - notera efter skott för varje avslut
-  * **friställande** - friställande passning
-  * **inlägg** - inläggspassning
-  * **utifrån** - skott utifrån
-  * **dribbling** - individuell dribbling in i straffområdet
-  * **centralt** - centralt anfall med flera spelare
-  * **fast** - skott på fast situation
+* **skottyp** - notera efter skott/mål för varje avslut
+  * * **friställande** - en längre passning når fram till en anfallspelare i ett läge där denna antingen är fri, eller i ett sådant läge att den snabbt kan ta sig fram till ett ohotat skottläge i straffområdet.
+  * **inlägg** - bollen passas in i straffområdet från endera kant. 
+  * **utifrån** - skott från håll. 
+  * **dribbling** - enskild spelare för bollen in i straffområdet och skapar skottläge. Tydligt stark individuell prestation. 
+  * **centralt** - ett anfall där flera spelare driver in bollen centralt i straffområde, ofta genom passningsspel såväl i som utanför straffområdet.
+  * **fast** - fast situation. Exempelvis straff, hörna eller frislag. 
+  * **retur** - skott efter retur. 
 * **mål** - det blir mål
-  * **straffområde** - bollen skjuts inifrån straffområdet 
-  * **lång** - bollen skjuts utanför straffområdet
-  * **fast** - det blir mål på en fast situation (hörna, straff, frislag)
+  * **spelmål** - målet tillkom i spel 
+  * **hörnmål** - målet tillkom på hörna, inklusive hörnretur
+  * **straffmål** - målet tillkom på straff, inklusive straffretur
+  * **frislagsmål** - målet tillkom på frislag, inklusive frislagsretur
 * **bolltapp** - en spelare förlorar bollen "av egen maskin"
-  * **tappad** - spelaren tappar bara kontrollen (dålig dribbling)
+  * **tappad** - spelaren tappar bara kontrollen (ex dålig dribbling)
   * **passförsök** - spelaren försöker sig på en passning och tappar bollen (dålig passning)
 * **närkamp** - det uppstår en närkampssituation som vinns av spelare i laget som anges. 
 * **brytning** - spelare i laget som anges bryter boll påväg till motståndare.
 * **frislag** - domaren dömer frislag
-* **hörna** - domaren dömer hörna
+* **hörna** - domaren dömer hörna, zonen anger vilken sida hörnan slås från. 
 * **straff** - domaren dömer straff
 * **40** - Sirius spelar bollen till Sune Gustafsson i eget straffområde. 
 * **utvisning** - domaren dömer utvisning
@@ -54,10 +73,9 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
 * **inslag** - bollen går ut och det blir inslag
 * **utkast** - bollen hamnar hos målvakten
 * **avslag** - det blir avslag
-* **passning** - ett lag lägger en farlig passning 
-  * **straffområde** - "inlägg" från kant in i straffområde
-  * **lång** - långboll som går fram
-  * **långtapp** - långboll som inte går fram
+* **passning** - ett lag lägger en intressant passning 
+  * **straffområde** - inlägg/inspel från kant in i straffområde
+  * **lång** - långboll 
   * **farlig** - passningen ställer den anfallande spelaren fri eller relativt fri i farligt läge. 
 * **friläge** - spelare får ett friläge
 * **offside** - spelar i lag åker offside, motstådarna får bollen
@@ -67,68 +85,76 @@ Följande händelser och eventuella underhändelser är vi intresserade av:
 * **timeout** - lag tar timeout. Kan även användas utan lag för valfritt (längre) matchstopp. 
 
 ### Synca klockan i collector_raw:
-För att ändra tiden i realtid vid datainsamling i ```collector_raw``` (t.ex. om videon pausats).
+För att ändra tiden vid datainsamling i ```collector_raw``` (t.ex. om videon pausats) gör följande: 
 ```
 clock MM:SS
 ```
-kommer ändra tiden att matcha input. Notera att vi oftast kommer skapa en fil för varje halvlek så det kan bli konstigt att gå efter matchuret. 
+ klockslag över 45 minuter (```MM:SS```) kommer antas vara felinmatade tider från andra halvlek och ändra till ```MM:SS-45:00```). Vill man mot förmodan ändra klockan under tilläggstid får detta göras i CSV-filen i efterhand. 
 
-### Clean CSV
-Kommer bara fungera ifall Raw CSV slutar med "tid, stop".
-
-För att starta krävs
-```
-from get_data import Game
-g = Game({'sirius', 'edsbyn'})
-g.clean_csv('20221121 sirius edsbyn halvlek 1')
-```
-
-### Ask for-metoderna
-* Man ska alltid kunna kringgå frågorna genom att ange 0
-
-### Anfallstyper
-* **Direkt** -  vi kommer över bollen i ett läge där det finns en rak väg till mål, ofta kan en enskild spelare driva bollen hela vägen från att ha vunnit den till avslut.
-* **Samlat** - vi skapar en konting med fler än en spelare. Det är inte en helt rak väg till mål, men anfallet går snabbt och vi vänder aldrig hem.
-* **Långt** - anfallet är helt strukturerat, ofta börjar vi på egen planhalva och har tid att vända tillbaka ifall första eller andra läget inte är bra nog.
-
-### Skottyper
-* **Friställande** - en längre passning når fram till en anfallspelare i ett läge där denna antingen är fri, eller i ett sådant läge att den snabbt kan ta sig fram till ett skottläge i straffområdet.
-* **Inlägg** - bollen passas in i straffområdet från endera kant. 
-* **Utifrån** - skott från håll. 
-* **Dribbling** - enskild spelare för bollen in i straffområdet och skapar skottläge. Ofta tydligt stark individuell prestation. 
-* **Centralt** - ett anfall där flera spelare (ofta två eller tre) driver in bollen centralt i straffområde, ofta genom passningsspel såväl i som utanför straffområdet.
-* **Fast** - fast situation. Exempelvis straff, hörna eller frislag. 
-* **Retur** - skott efter retur. 
-
-### Utfall
-* **Mål** - det blir mål.
-* **Hörna** - det blir hörna.
-* **Annat** - målvaktens boll, bollen lös etc.
+### Game.clean_csv
+Kommer bara fungera ifall raw_csv:s sista rad är "stop, MM:SS".
+#### Ask for-metoderna
+* Man ska alltid kunna kringgå frågorna genom att ange 0. Jag har inaktiverat ```ask_for_zone```-metoden då man ofta inte anger det, och väldigt sällan skriver fel. 
 
 
-## Stats
-Filen ```get_stats.py``` har klassen ```Stats```. Det är här vi sammanställer datan från ```get_data.py```:s ```Game```. 
-
-För att skapa en läsbar (men relativt ful) .txt-fil kan nedstående kod användas. Notera att vi antar att mapp-arkitekturen är som i Github. Har man en annan mapparkitetktur kan man ta bort alla ```os```-anrop, då kommer alla filer hamna i samma mapp.
+## Sammanställning av statistik 
+Filen ```get_stats.py``` används för att skapa ett statistikojekt från en csv-fil enligt oavstående (notera att vi antas stå i mappen ```data\\2023\\raw```):
 
 ```
-from get_stats import Stats
-import os
 filename = '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv'
+os.chdir('..\\clean')
 s = Stats(filename)
-os.chdir(r"..\..\..\txt") 
-s.write_stats()
 ```
 
-För att kringgå det fakturm att vi sparar data halvleksvis har jag implementerat en ```__add__```-metod i ```Stats```-objektet. Detta medför att vi kan "plussa" två Stats-objekt:
- ```
- f1 = '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv'
- f2 = '20220930 IK Sirius - Villa Lidköping halvlek 2 clean.csv'
+### Statistik från en hel match
+För att kringgå det fakturm att vi sparar data halvleksvis har jag implementerat en ```__add__```-metod i ```Stats```-objektet. Detta medför att vi få datan från en hel match genom att addera två objekt:
+```
+f1 = '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv'
+f2 = '20220930 IK Sirius - Villa Lidköping halvlek 2 clean.csv'
 
- s1 = Stats(f1) 
- s2 =  Stats(f2)
- s = s1 + s2
- os.chdir(r"..\..\..\txt") 
- s.write_stats()
- ``` 
- Objektet ska ha en fullständig ```Stats.prints```-dictionary, vilket medför att dess ```write_stats```-metod fungerar. Däremot finns det inga Dataframe-objekt i det nya objektet, så mer ingående statistik kan inte göras (om inte ```__add__```) uppdateras. Vi antar även att additionen bara görs för objekt skapade på samma match; ser de olika addend-objektens ```self.teams```-set olika ut kommer det bli problem. 
+s1 = Stats(f1) 
+s2 =  Stats(f2)
+s_added = s1 + s2
+``` 
+Objektet har en fullständig ```Stats.prints```-dictionary. Däremot finns det inga Dataframe-objekt i det nya objektet, så mer ingående statistik kan inte göras (om inte ```__add__```) uppdateras. Vi antar även att additionen bara görs för objekt skapade på samma match; ser de olika objektens ```self.teams``` olika ut kommer det bli problem. 
+
+### Statistik från flera matcher
+Filen ```compile_stats.py``` sammanställer data från flera matcher i ett ```CompileStats```-objekt. Den tar som input filsökväg till en mapp endast fylld med csv-filer, och hur många av dessa som ska sammanställas (räknat i bokstavsordning). Jag har fyllt ```data\\compile``` med mappar innehållande olika sorters match-csv-filer.
+
+För att sammanställa statistiken från de tio senaste matcherna sedan returnera den i ett ```Stats```-objekt används:
+
+```
+os.chdir('..\\..\\..')
+all_games = 'data\\compile\allla'
+cs = CompileStas(all_games, N = 10)
+s_last_ten = cs.return_stats_obj()
+```
+
+```Stats```-objektet har nu ett fullt ```Stats.prints```-dictionary och bär instansvariablen ```Stats.number_of_games``` som är antalet csv-filer som sammanställts. 
+
+Om inget annat anges kommer alla filer i mappen (såvida det inte finns flera än 1000 stycken) sammanställas. 
+
+
+## Presentation 
+Filen ```get_pp.py``` används för att skapa PowerPoint-presentationer med statsitik från ```Stats```-objekt, den använder sig av ```get_plot.py``` för att skapa diagram. Klassen ```PP``` har två huvudmetoder: ```PP.get_game_report``` och ```PP.get_season_report```. Matchrapporten antas få ett ```Stats```-objekt med data från en halvlek eller match, medan säsongsrapporten från en längre period. 
+
+Dessa rapporter skapas på följande vis:
+
+```
+os.chdir('powerpointer\\matchrapporter')
+pp = PP(s_added)
+pp.make_game_report()
+
+os.chdir('..\\säsongsrapporter')
+pp = PP(s_last_ten)
+pp.make_season_report()
+```
+
+## Övriga filer
+### general_functions
+I filen ```general_functions.py``` finns en rad funktioner som används av de olika klasserna, men som inte passar att ha som metod i någon av dem. 
+
+En av dem som kan anropas med jämna mellanrum är ```clean_up```. Den raderar alla plot-bilder och PowerPoint-filer som autogenereras av de olika ```PP```-metoderna, förutsatt att rapporttyperna ligger i sina respektive mappar. 
+### constants
+Filen ```constants.py``` innehåller en rad konstanter som används i de olika filerna. Bland annat alla Elitserieklubbars färger, fullständiga klubbnamn och relativ sökväg till en mapp med deras loggor. 
+
