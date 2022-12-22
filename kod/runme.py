@@ -32,8 +32,8 @@ os.chdir('powerpointer\\säsongsrapporter')
 pp = PP(s)
 pp.make_season_report()
 
-
 '''
+
 
 
 print('compile stats: stats summary')
