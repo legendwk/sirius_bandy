@@ -12,6 +12,8 @@ import time
 # vi kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
+
+# mapparna
 season2223 = 'data\\compile\\säsong 2223'
 regular_season2223 = 'data\\compile\\grundserie 2223'
 all_games = 'data\\compile\\alla'
@@ -23,16 +25,37 @@ bad_ice = 'data\\compile\\dålig is'
 playoff2122 = 'data\\compile\\slutspel 2122'
 playoff2223 = 'data\\compile\\slutspel 2223'
 
-
-cs = CompileStats(regular_season2223)
+# skapa objekt
+cs = CompileStats(season2223)
 s = cs.returns_stats_obj()
 
-
+# säsongsrapport
 os.chdir('powerpointer\\säsongsrapporter')
 pp = PP(s)
 pp.make_season_report()
 
 '''
+# hämta data och gör presentation (avnänds typ live?)
+filename = '20221230 IK Sirius - IFK Motala halvlek 2'
+os.chdir(r"data\2023\raw")
+teams = {'iks', 'mot'}
+
+# samla data
+g = Game(teams)
+g.collector_raw(filename)
+g.clean_csv(filename)
+
+# skapa statsobjekt
+os.chdir(r"..\\clean")
+gripen1 = Stats(filename + ' clean')
+
+# gör presentation
+os.chdir(r"..\..\..\powerpointer\matchrapporter")
+pp = PP(gripen1)
+pp.make_game_report()
+
+
+
 
 
 

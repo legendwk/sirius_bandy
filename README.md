@@ -29,8 +29,8 @@ Vi utgår från att filsökvägen till en början är ```sirius_bandy ```-folder
 ## Datainsamling
 Datainsamlingen kan startas genom:
 ```
-teams = {'sirius', 'edsbyn'}
-filename = '20221121 sirius edsbyn halvlek 1'
+teams = {'sirius', 'vetlanda'}
+filename = '20221213 Vetlanda BK - IK Sirius halvlek 1'
 os.chdir('data\\2023\\raw')
 
 g = Game(teams)
@@ -46,7 +46,7 @@ Följande händelser och eventuella underhändelser är vi intresserade av. Varj
   * **räddning** - målvakten räddar
   * **täckt** - skottet når inte mål då det täcks undan av spelare
 * **skottyp** - notera efter skott/mål för varje avslut
-  * * **friställande** - en längre passning når fram till en anfallspelare i ett läge där denna antingen är fri, eller i ett sådant läge att den snabbt kan ta sig fram till ett ohotat skottläge i straffområdet.
+  * **friställande** - en längre passning når fram till en anfallspelare i ett läge där denna antingen är fri, eller i ett sådant läge att den snabbt kan ta sig fram till ett ohotat skottläge i straffområdet.
   * **inlägg** - bollen passas in i straffområdet från endera kant. 
   * **utifrån** - skott från håll. 
   * **dribbling** - enskild spelare för bollen in i straffområdet och skapar skottläge. Tydligt stark individuell prestation. 
@@ -73,10 +73,11 @@ Följande händelser och eventuella underhändelser är vi intresserade av. Varj
 * **inslag** - bollen går ut och det blir inslag
 * **utkast** - bollen hamnar hos målvakten
 * **avslag** - det blir avslag
-* **passning** - ett lag lägger en intressant passning 
+* **passning** - ett lag spelar en intressant passning 
   * **straffområde** - inlägg/inspel från kant in i straffområde
   * **lång** - långboll 
   * **farlig** - passningen ställer den anfallande spelaren fri eller relativt fri i farligt läge. 
+* **anfall** - ett lag har påbörjar ett anfall. 
 * **friläge** - spelare får ett friläge
 * **offside** - spelar i lag åker offside, motstådarna får bollen
 * **rensning** - laget i fråga rensar bort bollen, motståndarna får den utan närkamp
@@ -103,7 +104,7 @@ Filen ```get_stats.py``` används för att skapa ett statistikojekt från en csv
 ```
 filename = '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv'
 os.chdir('..\\clean')
-s = Stats(filename)
+s_villa1 = Stats(filename)
 ```
 
 ### Statistik från en hel match
@@ -112,9 +113,9 @@ För att kringgå det fakturm att vi sparar data halvleksvis har jag implementer
 f1 = '20220930 IK Sirius - Villa Lidköping halvlek 1 clean.csv'
 f2 = '20220930 IK Sirius - Villa Lidköping halvlek 2 clean.csv'
 
-s1 = Stats(f1) 
-s2 =  Stats(f2)
-s_added = s1 + s2
+s_villa1 = Stats(f1) 
+s_villa2 =  Stats(f2)
+s_villa_hel = s_villa1 + s_villa2
 ``` 
 Objektet har en fullständig ```Stats.prints```-dictionary. Däremot finns det inga Dataframe-objekt i det nya objektet, så mer ingående statistik kan inte göras (om inte ```__add__```) uppdateras. Vi antar även att additionen bara görs för objekt skapade på samma match; ser de olika objektens ```self.teams``` olika ut kommer det bli problem. 
 
@@ -142,7 +143,7 @@ Dessa rapporter skapas på följande vis:
 
 ```
 os.chdir('powerpointer\\matchrapporter')
-pp = PP(s_added)
+pp = PP(s_villa_hel)
 pp.make_game_report()
 
 os.chdir('..\\säsongsrapporter')

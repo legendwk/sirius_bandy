@@ -1,6 +1,8 @@
 # TODO
 
 ## Allmänt: 
+Generera en säsongs- och matchrapport och lägg i huvudmappen
+
 
 ## Statistik analys
 ### Vinna matcher/göra mål

@@ -1,0 +1,240 @@
+event,time
+avslag hif z2,0:00:00
+anfall hif,0:00:14
+passning lång hif z8,0:00:26
+skott räddning hif z8,0:00:31
+skottyp utifrån hif,0:00:34
+boll iks,0:00:37
+passning straffområde iks z2,0:00:43
+mål iks spelmål z2,0:00:48
+skottyp inlägg iks z2,0:00:53
+avslag hif,0:01:13
+utkast iks ,0:01:25
+passning lång iks z2,0:01:35
+utkast hif z1,0:01:45
+skott täckt hif z9,0:02:19
+skottyp utifrån hif ,0:02:26
+boll iks ,0:02:29
+närkamp hif z6,0:02:32
+timeout,0:02:48
+frislag hif z6,0:03:07
+anfall hif,0:03:35
+närkamp iks z1,0:03:55
+passning straffområde iks z2,0:04:00
+närkamp hig z2,0:04:03
+närkamp iks z1,0:04:05
+närkamp iks z4,0:04:12
+inslag iks z4,0:04:15
+40 iks,0:04:43
+bolltapp iks passförösk z5,0:04:56
+hörna hif z9,0:05:01
+z8 hif skott utanför,0:05:22
+skottyp fast hif z8,0:05:28
+uktast iks z9,0:05:32
+passning lång iks z5,0:05:56
+boll hif,0:06:00
+hörna hif z7,0:06:10
+hif z8 skott utanför ,0:06:44
+skottyp fast hif z8,0:06:47
+uktast iks z9,0:06:49
+40 iks,0:07:10
+bolltapp iks z9,0:07:17
+frislag hif z9,0:07:22
+n,0:07:29
+rkamp iks z6,0:07:31
+passning farlig iks z2,0:07:42
+mål iks spelmål z2,0:07:46
+skottyp friställande iks z2,0:08:00
+avslag hif,0:08:13
+närkamp iks z5,0:08:21
+närkamp hif z5,0:08:24
+passning lång hig z8,0:09:09
+närkamp iks z8,0:09:13
+utkast iks z8,0:09:18
+skott täckt iks z2,0:09:35
+skottyp utifrån iks z2,0:09:40
+boll hif,0:09:44
+närkamp iks z6,0:09:46
+skott utanför iks z2,0:09:51
+skottyp utifrån iks z2,0:09:54
+utkast hif,0:09:56
+skott räddning hif z5,0:10:23
+skottyp utifrån hif z5,0:10:31
+utkast iks ,0:10:35
+hörna iks z1,0:10:40
+iks z2 mål hörnmål ,0:11:18
+iks skottyp fast z2,0:11:24
+timeout hif,0:11:49
+avslag hif,0:13:17
+närkamp hif z6,0:13:24
+närkamp iks z9,0:13:29
+utkast iks z9,0:13:34
+passning lång iks ,0:14:09
+boll hif ,0:14:13
+närkamp iks z5,0:15:48
+offside iks z2,0:15:59
+passning lång hif,0:16:11
+boll iks z7,0:16:13
+skott täckt iks z2,0:16:28
+skottyp utifrån iks z2,0:16:31
+frislag hif z1,0:16:37
+skott räddning hif z8,0:17:29
+skottyp utifrån hif z8,0:17:34
+uktast iks z7,0:17:36
+passning farlig iks z2,0:17:45
+friläge iks z2,0:17:47
+mål iks spelmål z2,0:17:54
+skottyp friställande iks z2,0:18:00
+avslag hif ,0:18:18
+närkamp hif z5,0:18:35
+närkamp iks z7,0:18:51
+passning straffområde iks z2,0:19:28
+brytning hif z2,0:19:32
+passnign farlig hif z8,0:21:02
+skott utfanför hif z8,0:21:08
+skottyp centralt hif z2,0:21:20
+utkast iks ,0:21:23
+passning straffområde iks z2,0:21:37
+hörna iks z1,0:21:41
+iks z2 mål hörnmål,0:22:10
+skottyp fast iks z2,0:22:14
+avslag hif,0:22:39
+passning lång hig ,0:22:47
+boll iks,0:22:49
+utvisning hif 10,0:22:58
+utvisning hif 10,0:24:19
+frislag iks z1,0:25:02
+passnign straffinråde iks z2,0:26:01
+närkamp hif z2,0:26:03
+närkamp iks z4,0:26:07
+skott utanför iks z2,0:26:15
+skottyp utifrån iks z2,0:26:18
+utkast hif,0:26:20
+närkamp hif z1,0:26:48
+närkamp iks z5,0:27:00
+passning straffområde iks z2,0:27:13
+närkamp hif z2,0:27:17
+frislag hif z9,0:27:31
+brytning iks z7,0:27:55
+skott utanför iks z2,0:28:07
+skottyp utifrån iks z2,0:28:11
+utkast hif ,0:28:16
+närkamp iks z5,0:28:47
+hörna iks z1,0:29:03
+iks z2 mål hörnmål,0:29:34
+skottyp fast iks z2,0:29:40
+avslag hif,0:30:00
+brytning iks z5,0:30:24
+närkamp iks z6,0:30:35
+närkampo hif z3,0:30:39
+närkamp iks z6,0:30:45
+skott täckt iks z2,0:31:01
+skottyp utifrån iks z2,0:31:04
+boll hif,0:31:06
+närkamp iks z8,0:31:13
+skott utanför iks z2,0:31:25
+skottyp utifrån iks z2,0:31:29
+utkast hif,0:31:31
+passning straffområde hif z8,0:31:56
+närkamp iks z8,0:31:58
+passning lång iks z2,0:32:04
+utkast hif,0:32:14
+närkamp hif z4,0:32:32
+passning lång hif z8,0:32:54
+utkast iks ,0:32:58
+40 iks,0:33:11
+40 iks,0:33:16
+passning ång iks z2,0:33:24
+utkast hif,0:33:38
+närkamp hif z9,0:33:59
+passning lång hif ,0:34:26
+brytning iks z6,0:34:29
+närkamp hif z6,0:34:35
+passning lång hif ,0:35:13
+utkast iks z7,0:35:20
+40 iks,0:36:02
+passning lång iks z3,0:36:08
+nrkamp iks z3,0:36:12
+40 iks,0:36:18
+passning straffområde iks z2,0:36:35
+skott täckt iks z2,0:36:42
+skottyp inlägg iks z2,0:36:45
+närkamp hif z2,0:36:48
+timeout,0:36:53
+boll iks,0:37:56
+utkast iks z9,0:38:00
+skott utanför iks z2,0:38:34
+skottyp utifrån iks z2,0:38:39
+utkast hif,0:38:41
+närkamp iks z7,0:38:49
+passning lång iks z2,0:39:01
+utkast hif,0:39:11
+passning lån gif,0:39:19
+närkamp iks z8,0:39:22
+närkamp hif z2,0:39:29
+brytning iks z5,0:39:36
+40 iks,0:39:40
+närkamp hif z2,0:40:13
+frislag hif z1,0:40:24
+närkamp iks z7,0:40:34
+närkamp hif z5,0:40:45
+närkamp iks z9,0:40:52
+utvisning 10 hif,0:41:02
+frislag iks z7,0:41:37
+passning staffområde iks z2,0:41:49
+närkamp iks z5,0:42:15
+oassning straffområde iks z2,0:42:21
+skott rädding iks z2,0:42:26
+skottyp inkägg iks z2,0:42:29
+skott iks z2,0:42:33
+del,0:42:36
+skott täckt iks z2,0:42:39
+skottyp utifrån iks z2,0:42:44
+närkamp hif z2,0:42:46
+åassning lång hif ,0:42:52
+boll iks,0:42:54
+skott täckt iks z2,0:43:07
+skottyåp utifr¨n iks z2,0:43:12
+skott täckt iks z2,0:43:17
+skottyp retur iks z2,0:43:19
+skott täckt iks z2,0:43:24
+skottyp retur iks z2,0:43:27
+boll hif,0:43:38
+hörna hif z7,0:44:01
+hif z8 skott täckt,0:44:33
+skottyp fast hif z2,0:44:36
+del,0:44:39
+skottyp täckt hif z8,0:44:43
+resning iks ,0:44:47
+åassning lång hif z8,0:44:57
+uktast iks z7,0:45:01
+passning lång iks ,0:45:08
+offside iks ,0:45:11
+utkast hif ,0:45:17
+passning lång gif ,0:45:35
+närkamp iks z8,0:45:40
+utkast iks z7,0:45:46
+närkamp hif z2,0:45:55
+frislag hif z1,0:46:03
+passning lång hif,0:46:13
+utkast iks z4,0:46:23
+passning straffområde iks z2,0:46:39
+mål iks spelmål z2,0:46:44
+skottyp inlägg iks z2,0:46:48
+avslag hif,0:47:09
+passning lång hif,0:47:20
+närkamp hif z8,0:47:24
+närkamp iks z7,0:47:29
+närkamp hif z5,0:47:39
+närkamp iks z8,0:47:47
+närkamp iks z4,0:47:54
+skott täckt iks z2,0:48:01
+skottyp utifrån iks z2,0:48:06
+hörna iks z1,0:48:07
+iks z2 skott utanför ,0:48:31
+skottyp fast iks z2,0:48:34
+utkast hif,0:48:37
+närkamp hif z6,0:48:48
+närkamp iks z9,0:48:54
+rensning iks ,0:48:59
+stop,0:49:04

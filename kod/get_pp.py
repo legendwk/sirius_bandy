@@ -57,6 +57,7 @@ class PP:
         #self.make_game_report_scimmages_page()
         self.make_game_report_before_and_after_table_page()
         self.make_game_report_shot_types_page()
+        self.make_game_report_slot_page()
         #self.make_game_report_shot_origins_page()
         self.make_game_report_goals_stats_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
@@ -239,8 +240,7 @@ class PP:
             table.cell(8, 1).text = f"{sum(self.stats.prints['goal types'][team].values())}"
             table.cell(8, 2).text = f"{sum(self.stats.prints['shot types'][team].values())}"
             table.cell(8, 3).text = f"{round(sum(self.stats.prints['goal types'][team].values())/sum(self.stats.prints['shot types'][team].values()) * 100, 1)} %"
-
-            
+        
            # for cell in PP.iter_cells(table):
            #     cell.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
             #    cell.fill.solid()
@@ -281,6 +281,38 @@ class PP:
             res.text = f"Bolltapp: \n\t{self.stats.prints['lost balls'][team]} ({round(self.stats.prints['lost balls'][team] / (self.stats.prints['lost balls'][team] + self.stats.prints['lost balls'][self.stats.opposite_team(team)]) * 100)} %)"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
+    def make_game_report_slot_page(self) -> None:
+        '''makes the slot passes stats page'''
+        slide_register = self.pres.slide_layouts[4]
+        slide = self.pres.slides.add_slide(slide_register)
+        #self.set_background_image(slide)
+        self.set_background_color(slide)
+        self.add_logo_images(slide, width = 1.5)
+        title = slide.shapes.title
+        title.text = 'Inspel'
+        slot_goals = {t: len([x for x in self.stats.goals_info_list if x['team'] == t and x['shot type'] == 'inlägg']) for t in self.ordered_teams}
+
+        for i, team in enumerate(self.ordered_teams):
+            bpb = slide.shapes
+            bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
+            bp1.text = constants.nicknames[team]['short']
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
+            bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
+            res = bp2.text_frame.add_paragraph()
+            res.text = f"Inspelsmål/inspelsskott: \n\t{slot_goals[team]}/{0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg']} = {round(0 if 'inlägg' not in self.stats.prints['shot types'][team] else slot_goals[team] / self.stats.prints['shot types'][team]['inlägg'] * 100)} %"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            res.text = f"Inspelsskott/inspel: \n\t{0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg']}/{self.stats.prints['slot passes'][team]} = {round(0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg'] / self.stats.prints['slot passes'][team] * 100)} %"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res = bp2.text_frame.add_paragraph()
+            #res.text = f"Totala % mål, skott, inspel: \n\t{round(self.stats.prints['goal types'][team]['inlägg']/(self.stats.prints['goal types'][team]['inlägg'] + self.stats.prints['goal types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)} %,  {round(self.stats.prints['shot types'][team]['inlägg']/(self.stats.prints['shot types'][team]['inlägg'] + self.stats.prints['shot types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)} %, {round(self.stats.prints['slot passes'][team]/(self.stats.prints['slot passes'][team] + self.stats.prints['slot passes'][self.stats.opposite_team(team)]) * 100, 1)} %"
+            #res.level = 0
+            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
 
     def make_season_report_slot_page(self) -> None:
         '''makes the slot passes stats page'''

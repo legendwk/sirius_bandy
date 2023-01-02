@@ -5,7 +5,6 @@ import numpy as np
 from get_data import Game
 
 class CompileStats:
-    # constructor seems to take ~5 seconds with N = 20
     def __init__(self, path_to_games: str, main_team = 'sirius', N = 1000) -> None:
         self.path = path_to_games
         self.main_team = main_team
@@ -68,6 +67,7 @@ class CompileStats:
         stats = Stats(filename= f'summary of {len(self.games)} files', dummy= True, main_team= self.main_team)
         stats.teams = self.teams
         stats.prints = self.stats_summary
+        stats.number_of_games = len(self.games)
         return stats
 
     def return_team(self, team: str) -> str:
