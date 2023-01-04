@@ -24,9 +24,10 @@ indoors = 'data\\compile\\inomhus'
 bad_ice = 'data\\compile\\dålig is'
 playoff2122 = 'data\\compile\\slutspel 2122'
 playoff2223 = 'data\\compile\\slutspel 2223'
+custom = 'data\\compile\\custom'
 
 # skapa objekt
-cs = CompileStats(season2223)
+cs = CompileStats(custom)
 s = cs.returns_stats_obj()
 
 # säsongsrapport

@@ -70,8 +70,10 @@ class PP:
 
         self.save_presentation()
 
-    def make_season_report(self) -> None:
+    def make_season_report(self, title: str = None) -> None:
         '''calls the methods needed to make a season report presentation'''
+        if title != None:
+            self.stats.out = title
         self.make_season_report_front_page()
         self.make_season_report_overview_stats_page()
         self.make_season_report_shots_page()
@@ -197,13 +199,17 @@ class PP:
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph() 
-            res.text = f"Hörnornmål (hörnor): \n\t{self.stats.prints['score'][team]['hörnmål']} ({sum(self.stats.prints['corners'][team].values())}) - {round(sum(self.stats.prints['corners'][team].values()) / (sum(self.stats.prints['corners'][team].values()) + sum(self.stats.prints['corners'][self.stats.opposite_team(team)].values()) )*100)} % ({round(self.stats.prints['score'][team]['hörnmål'] / (self.stats.prints['score'][team]['hörnmål'] + self.stats.prints['score'][self.stats.opposite_team(team)]['hörnmål'] )*100)} %)"
+            res.text = f"Hörnornmål (hörnor): \n\t{self.stats.prints['score'][team]['hörnmål']} ({sum(self.stats.prints['corners'][team].values())}) - {round(self.stats.prints['score'][team]['hörnmål'] / (self.stats.prints['score'][team]['hörnmål'] + self.stats.prints['score'][self.stats.opposite_team(team)]['hörnmål'] )*100)} % ({round(sum(self.stats.prints['corners'][team].values()) / (sum(self.stats.prints['corners'][team].values()) + sum(self.stats.prints['corners'][self.stats.opposite_team(team)].values()) )*100)} %) "
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()
             res.text = f"Bollinnehav: \n\t{self.stats.prints['possession'][team]} - {round(gf.readable_to_sec(self.stats.prints['possession'][team])/(gf.readable_to_sec(self.stats.prints['possession'][team]) + gf.readable_to_sec(self.stats.prints['possession'][self.stats.opposite_team(team)]))* 100)} %"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res = bp2.text_frame.add_paragraph() # orkar inte göra turnary för noll
+            #res.text = f"Utvisningar: \n\t{self.stats.prints['penalties'][team]}" # - {round(gf.readable_to_sec(self.stats.prints['possession'][team])/(gf.readable_to_sec(self.stats.prints['possession'][team]) + gf.readable_to_sec(self.stats.prints['possession'][self.stats.opposite_team(team)]))* 100)} %"
+            #res.level = 0
+            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
   
     def make_season_report_shots_page(self) -> None:
         '''makes the shot stats page layout'''
@@ -370,7 +376,7 @@ class PP:
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()
-            res.text = f"Totalt/mål: \n\t{self.stats.prints['corner goal sides'][team]['left'] + self.stats.prints['corner goal sides'][team]['right']}/{self.stats.prints['corners'][team]['left'] + self.stats.prints['corners'][team]['left']} = {round(0 if (self.stats.prints['corners'][team]['left'] + self.stats.prints['corners'][team]['right']) == 0 else (self.stats.prints['corner goal sides'][team]['left'] + self.stats.prints['corner goal sides'][team]['right'])/ (self.stats.prints['corners'][team]['left'] + self.stats.prints['corners'][team]['right']) * 100)} %"
+            res.text = f"Mål/totala hörnor: \n\t{self.stats.prints['corner goal sides'][team]['left'] + self.stats.prints['corner goal sides'][team]['right']}/{self.stats.prints['corners'][team]['right'] + self.stats.prints['corners'][team]['left']} = {round(0 if (self.stats.prints['corners'][team]['left'] + self.stats.prints['corners'][team]['right']) == 0 else (self.stats.prints['corner goal sides'][team]['left'] + self.stats.prints['corner goal sides'][team]['right'])/ (self.stats.prints['corners'][team]['left'] + self.stats.prints['corners'][team]['right']) * 100)} %"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
 

@@ -80,6 +80,8 @@ class Stats:
         obj.prints['corner goal sides'] = self.add_corner_goal_sides(other)
         obj.prints['slot passes'] = self.add_slot_passes(other)
         obj.prints['long passes'] = self.add_long_passes(other)
+        obj.prints['penalties'] = self.add_penalties(other)
+        
 
         return obj
 
@@ -104,6 +106,7 @@ class Stats:
         self.get_corner_goal_sides()
         self.get_slot_passes_dict()
         self.get_long_passes_dict()
+        self.get_penalties_dict()
 
 
         # gör något åt detta, det ser förjävligt ut 
@@ -360,6 +363,17 @@ class Stats:
                 lost_balls_dict[team] = len(lost_balls_df.loc[lost_balls_df['team'] == team].index)
             self.prints['lost balls'] = lost_balls_dict
         return self.prints['lost balls']
+    
+    def get_penalties_dict(self) -> dict:
+        '''returns a dictionary of the penalties
+            if need be it fills self.prints'''
+        if 'penalties' not in self.prints:
+            penalties_df = self.get_penalties_df()
+            penalties_dict = {team: 0 for team in self.teams}
+            for team in penalties_dict:
+                penalties_dict[team] = len(penalties_df.loc[penalties_df['team'] == team].index)
+            self.prints['penalties'] = penalties_dict
+        return self.prints['penalties']
 
     def get_scrimmages_dict(self) -> dict:
         '''returns a dictionary of the scrimmages (närkamper)
@@ -431,6 +445,14 @@ class Stats:
         return_dict = dict()
         for team in self.prints['lost balls']:
             return_dict[team] = self.prints['lost balls'][team] + other.prints['lost balls'][team]
+        return return_dict
+    
+    def add_penalties(self, other) -> dict:
+        '''returns the penalties of the added objects
+            expects type to already have been checked'''
+        return_dict = dict()
+        for team in self.prints['penalties']:
+            return_dict[team] = self.prints['penalties'][team] + other.prints['penalties'][team]
         return return_dict
     
     def add_scrimmages(self, other) -> dict:
@@ -724,3 +746,10 @@ class Stats:
         if 'long passes' not in self.df_dict:
             self.df_dict['long passes'] = self.big_df.loc[self.big_df['subevent'].isin(['lång', 'farlig'])]
         return self.df_dict['long passes'] 
+
+    def get_penalties_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the the penaties
+            populates the df_dict if not already done'''
+        if 'penalties' not in self.df_dict:
+            self.df_dict['penalties'] = self.big_df.loc[self.big_df['event'] == 'utvisning']
+        return self.df_dict['penalties'] 

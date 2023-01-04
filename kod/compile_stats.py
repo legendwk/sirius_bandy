@@ -36,7 +36,7 @@ class CompileStats:
         self.all_stats['long passes'] = self.get_long_passes()
         self.all_stats['before and after'] = self.get_before_and_after()
         self.all_stats['shot origins'] = self.get_shot_origins()
-        
+        self.all_stats['penalties'] = self.get_penalties()
         return
     
     def summarize_stats(self) -> None:
@@ -60,6 +60,7 @@ class CompileStats:
         self.stats_summary['long passes'] = self.summarize_long_passes()
         self.stats_summary['before and after'] = self.summarize_before_and_after()
         self.stats_summary['shot origins'] = self.summarize_shot_origins()
+        self.stats_summary['penalties'] = self.summarize_penalties()
         return 
 
     def returns_stats_obj(self) -> Stats:
@@ -88,6 +89,14 @@ class CompileStats:
             for team in game.prints['score']:
                 score_dict[self.return_team(team)].append(game.prints['score'][team])
         return score_dict
+    
+    def get_penalties(self) -> dict:
+        '''returns the penalties dict of the games in self.games'''
+        penalties_dict = {team: list() for team in self.teams}
+        for game in self.games:
+            for team in game.prints['penalties']:
+                penalties_dict[self.return_team(team)].append(game.prints['penalties'][team])
+        return penalties_dict
 
     def get_shot_attempts(self) -> dict:
         '''returns the shot attempts dict of the games in self.games'''
@@ -274,6 +283,13 @@ class CompileStats:
         for team in self.all_stats['duels']:
             d_dict[team] = sum(self.all_stats['duels'][team]) 
         return d_dict
+    
+    def summarize_penalties(self) -> dict:
+        '''returns a dict of the combined penalties of the object'''
+        p_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['penalties']:
+            p_dict[team] = sum(self.all_stats['penalties'][team]) 
+        return p_dict
 
     def summarize_interceptions(self) -> dict:
         '''returns a dict of the combined interceptions of the object'''
