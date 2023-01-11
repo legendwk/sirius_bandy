@@ -1,0 +1,190 @@
+event,time
+avslag ,0:00:00
+boll iks,0:00:02
+utkast saik ,0:00:27
+utkast iks ,0:00:54
+inslag saik z7,0:01:30
+närkamp iks z1,0:01:34
+frislag iks z1,0:01:40
+bolltapp passförösk iks z7,0:02:05
+utkast saik z8,0:02:11
+närkamp iks z6,0:02:29
+utvisning 10 iks ,0:02:59
+frislag saik z5,0:03:25
+närkamp iks z3,0:03:39
+boll saik ,0:03:46
+passning straffområde saik z2,0:04:02
+boll saik ,0:04:16
+mål spelmål saik z2,0:04:23
+skottyp saik z2 centralt ,0:04:48
+avslag iks ,0:04:54
+närkamp saik z7,0:05:21
+mål saik z2 spelmål,0:05:42
+skottyp saik utifrån z2,0:05:50
+timeout iks,0:05:56
+avslag iks z2,0:07:25
+utvisning iks 10,0:07:46
+frislag saik z4,0:08:08
+passning staffområde saik z2,0:08:40
+närkamp iks z2,0:08:42
+frislag iks z6,0:08:47
+straff iks z8,0:09:44
+skott utanför iks z8,0:10:41
+skottyp fast iks z8,0:10:45
+utkast saik ,0:10:47
+närkamp saik z1,0:10:55
+nrkamp iks z1,0:11:00
+skott räddning iks z8,0:11:27
+skottyp utifrån iks z8,0:11:32
+hörna iks z7,0:11:34
+iks z8 mål hörnmål,0:12:01
+iks skottyp fast z8,0:12:08
+avslag saik ,0:12:28
+inslag saik z4,0:12:52
+brynting iks z1,0:13:19
+passing lång iks z8,0:13:27
+utkast saik ,0:13:34
+närkamp iks z2,0:13:45
+40 iks,0:14:19
+passnign lång iks z7,0:14:38
+offside iks ,0:14:40
+boll saik ,0:14:42
+närkamp iks z2,0:14:45
+bolltapp passförösk iks z4,0:14:56
+närkamp iks z2,0:15:07
+frislag iks z9,0:15:31
+40 iks,0:15:34
+boll saik z8,0:15:58
+passning lång saik z1,0:16:06
+boll iks ,0:16:09
+skott räddning iks z8,0:16:40
+skottyp utifrån iks z8,0:16:43
+utkast saik ,0:16:45
+hörna saik z1,0:17:10
+saik z2 mål hörnmål,0:17:38
+saik z2 skottyp fast ,0:17:43
+avdlag iks,0:18:11
+40 iks,0:18:16
+skott räddning iks z8,0:18:38
+skottyp utifrån iks z8,0:18:41
+utkast saik z8,0:18:46
+passning lång saik z2,0:19:15
+närkamp saik z2,0:19:17
+del,0:19:23
+närkamp iks z2,0:19:28
+närkamp saik z8,0:19:40
+närkamp iks z5,0:20:35
+passning straffområde iks z8,0:20:53
+skott räddnign iks z8,0:20:57
+skottyp inlägg iks z8,0:21:01
+mål spelmål iks z8,0:21:07
+skottyp retur iks z8,0:21:12
+avslag saik ,0:21:21
+hörna saik z1,0:22:25
+saik z2 skott utanför,0:22:50
+skottyp fast saik z2,0:22:53
+utkast iks z3,0:22:55
+utkast saik ,0:23:13
+närkamp iks z3,0:23:25
+bolltapp passförsök iks z9,0:23:37
+utkast saik ,0:23:39
+inslag saik z4,0:24:21
+närkamp iks z4,0:24:59
+hörna iks z9,0:25:08
+iks z8 skott täckt,0:25:38
+skottyp iks z8 fast,0:25:42
+utkast saik ,0:25:44
+bolltapp passförösk saik z3,0:26:08
+brytning saik z4,0:26:15
+inslag saik z4,0:26:19
+passning straffområde saik z2,0:26:34
+skott räddning saik z2,0:26:36
+skottyp inlägg saik z2,0:26:40
+rensing iks ,0:26:44
+mål spelmål saik z2,0:27:37
+skottyp saik z2 dribbling,0:27:44
+avslag iks ,0:28:19
+närkamp saik z9,0:28:26
+del,0:28:29
+frislag iks z9,0:28:31
+40 iks,0:28:55
+40 iks,0:28:57
+passning straffområde iks z8,0:29:13
+närkamp iks z8,0:29:16
+oassnign straffområde iks z8,0:29:24
+närkamp saik z8,0:29:28
+närkamp iks z9,0:29:32
+40 iks,0:30:19
+närkamp saik z5,0:30:29
+närkamp saik z2,0:30:42
+skott räddning saik z2,0:31:02
+skottyp utifrån saik z2,0:31:05
+utkast iks ,0:31:09
+närkamp saik z6,0:31:40
+närkamp iks z6,0:32:25
+skott räddning iks z8,0:32:37
+skottyp centralt iks z8,0:32:41
+utkast saik ,0:32:42
+passning straffområde saik z2,0:33:00
+skott utanför saik z2,0:33:14
+skottyp inlägg saik z2,0:33:19
+utkast iks ,0:33:21
+40 iks,0:33:47
+utkast saik ,0:34:06
+närkamp iks z5,0:34:38
+närkamp saik z8,0:34:58
+utkast saik ,0:35:00
+passning farlig saik z2,0:35:16
+skott räddning saik z2,0:35:19
+skottyp friställande saik z2,0:35:23
+utkast iks ,0:35:25
+närkamp saik z4,0:35:34
+frislag saik z2,0:35:47
+skott utanför saik z2,0:36:04
+skottyp centralt saik z2,0:36:10
+utkast iks ,0:36:11
+närkamp saik z9,0:36:22
+nöärkamp iks z6,0:36:24
+passnign straffområde iks z8,0:36:32
+närkamp saik z8,0:36:34
+närkamp iks z9,0:36:45
+frislag saik z9,0:36:51
+närkamp saik z5,0:37:19
+del,0:37:21
+frislag saik z5,0:37:23
+utkast iks ,0:37:32
+närkamp saik z8,0:38:31
+närkamp iks z6,0:38:37
+utkast saik ,0:38:41
+hörna saik z1,0:38:55
+saik z2 skott utanför,0:39:24
+skottyp fast saik z2,0:39:33
+mål spelmål saik z2,0:39:42
+skottyp utifrån saik z2,0:39:55
+avslag iks,0:40:01
+passning staffomrpde iks z8,0:40:21
+utkast saik ,0:40:24
+närkamp iks z3,0:40:55
+bolltapp passförsök iks z5,0:41:01
+skott räddning saik z2,0:41:16
+skottyp centralt saik z2,0:41:20
+närkamp iks z2,0:41:26
+närkamp saik z4,0:41:36
+frislag saik z1,0:41:49
+frislag saik z1,0:42:31
+skott räddning saik z2,0:43:03
+skottyp centralt sauk z2,0:43:09
+skott räddning saik z2,0:43:12
+skottyp retur saik z2,0:43:17
+frislag saik z2,0:43:20
+utvising 10 iks ,0:43:51
+boll saik,0:43:53
+passning straffområde saik z2,0:44:05
+boll saik ,0:44:07
+brytning iks z4,0:44:24
+närkamp saik z9,0:45:29
+omsöag saol z3,0:46:02
+del,0:46:05
+inslag saik z3,0:46:08
+närkamp iks z2,0:46:30
+stop,0:46:34

@@ -81,6 +81,7 @@ class Stats:
         obj.prints['slot passes'] = self.add_slot_passes(other)
         obj.prints['long passes'] = self.add_long_passes(other)
         obj.prints['penalties'] = self.add_penalties(other)
+        obj.prints['goal types'] = self.add_goal_types(other)
         
 
         return obj
@@ -107,6 +108,7 @@ class Stats:
         self.get_slot_passes_dict()
         self.get_long_passes_dict()
         self.get_penalties_dict()
+        self.get_goal_types()
 
 
         # gör något åt detta, det ser förjävligt ut 
@@ -253,6 +255,19 @@ class Stats:
                     duel_zones[z][row['team']] += 1
             self.prints['duel zones'] = duel_zones
         return self.prints['duel zones']
+
+    def get_goal_types(self) -> dict:
+        '''returns the goal types dict of the object and populates prints'''
+        if 'goal types' not in self.prints:
+            gt_dict = {t: {st: 0 for st in Game.events_and_their_subevents['skottyp']} for t in self.teams}
+            for goal in self.get_goals_info_list():
+                gt_dict[goal['team']][goal['shot type']] += 1
+        self.prints['goal types'] = gt_dict
+        return self.prints['goal types']
+
+    def add_goal_types(self, other) -> dict:
+        '''returns the goal types for the added objects'''
+        return gf.combine_dictionaries(self.prints['goal types'], other.prints['goal types'])
 
     def add_duel_zones(self, other) -> dict:
         '''returns the duel zones of the added objects'''
@@ -410,7 +425,7 @@ class Stats:
 
     def add_corner_goal_sides(self, other):
         '''handles the addition of the corner goal sides'''
-        return gf.combine_dictionaries(self.get_corner_goal_sides, other.get_corner_goal_sides())
+        return gf.combine_dictionaries(self.get_corner_goal_sides(), other.get_corner_goal_sides())
 
     def get_sog_dict(self) -> dict:
         '''returns a dictionary of the shots on goal

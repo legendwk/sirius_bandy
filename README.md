@@ -17,6 +17,7 @@ from get_data import Game
 from get_stats import Stats
 from get_pp import PP
 import general_functions as gf
+from compile_stats import CompileStats
 ```
 
 ### Filsökväg
@@ -90,7 +91,7 @@ För att ändra tiden vid datainsamling i ```collector_raw``` (t.ex. om videon p
 ```
 clock MM:SS
 ```
- klockslag över 45 minuter (```MM:SS```) kommer antas vara felinmatade tider från andra halvlek och ändra till ```MM:SS-45:00```). Vill man mot förmodan ändra klockan under tilläggstid får detta göras i CSV-filen i efterhand. 
+ klockslag över 45 minuter (```MM:SS```) kommer antas vara felinmatade tider från andra halvlek och ändras till ```MM:SS-45:00```). Vill man mot förmodan ändra klockan under tilläggstid får detta göras i CSV-filen i efterhand. 
 
 ### Game.clean_csv
 Kommer bara fungera ifall raw_csv:s sista rad är "stop, MM:SS".
@@ -140,7 +141,6 @@ Om inget annat anges kommer alla filer i mappen (såvida det inte finns flera ä
 Filen ```get_pp.py``` används för att skapa PowerPoint-presentationer med statsitik från ```Stats```-objekt, den använder sig av ```get_plot.py``` för att skapa diagram. Klassen ```PP``` har två huvudmetoder: ```PP.get_game_report``` och ```PP.get_season_report```. Matchrapporten antas få ett ```Stats```-objekt med data från en halvlek eller match, medan säsongsrapporten från en längre period. 
 
 Dessa rapporter skapas på följande vis:
-
 ```
 os.chdir('powerpointer\\matchrapporter')
 pp = PP(s_villa_hel)
@@ -150,12 +150,14 @@ os.chdir('..\\säsongsrapporter')
 pp = PP(s_last_ten)
 pp.make_season_report()
 ```
+Notera att rapportskaparmetoderna utgår från att vi står i mapp ```powerpointer//vår mapp``` för att hitta bilder. Ställ alltid directory i ```powerpointer\\matchrapporter``` för matchrapporter och ```powerpointer\\säsongsrapporter``` för säsongsrapporter.
+
 
 ## Övriga filer
 ### general_functions
 I filen ```general_functions.py``` finns en rad funktioner som används av de olika klasserna, men som inte passar att ha som metod i någon av dem. 
 
-En av dem som kan anropas med jämna mellanrum är ```clean_up```. Den raderar alla plot-bilder och PowerPoint-filer som autogenereras av de olika ```PP```-metoderna, förutsatt att rapporttyperna ligger i sina respektive mappar. 
+En av dem som kan anropas med jämna mellanrum är ```clean_up()```. Den raderar alla plot-bilder och PowerPoint-filer som autogenereras av de olika ```PP```-metoderna, förutsatt att rapporttyperna ligger i sina respektive mappar. 
 ### constants
 Filen ```constants.py``` innehåller en rad konstanter som används i de olika filerna. Bland annat alla Elitserieklubbars färger, fullständiga klubbnamn och relativ sökväg till en mapp med deras loggor. 
 

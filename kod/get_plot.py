@@ -31,9 +31,11 @@ class Plot:
     'z7': (xy_zone1[0] + 0 * dx, xy_zone1[1] - 3 * dy), 'z8': (xy_zone1[0] + 1 * dx, xy_zone1[1] - 3 * dy), 'z9': (xy_zone1[0] + 2 * dx, xy_zone1[1] - 3 * dy)}
 
 # constructor 
-    def __init__(self, stats: Stats, transparent = True) -> None:
+    def __init__(self, stats: Stats, transparent = True, N: int = 1) -> None:
         self.stats = stats
         self.transparent = transparent
+        # if we want plots (only implemented on duel locations yeu) on per-game basis
+        self.N = N
 
 # static methods
     # doooooon't know if we'll have any!
@@ -51,7 +53,7 @@ class Plot:
             c = gf.rgb255_to_rgb1(gf.faded_rgb_color(Plot.color_many, frac, Plot.color_few))
             ax.add_patch(Rectangle(Plot.xy_starting_zones[zone], Plot.dx, Plot.dy, color = c))
             if number_text:
-                text = str(sum(d[zone].values()))
+                text = str(round(sum(d[zone].values())/self.N))
                 plt.text(Plot.xy_starting_zones[zone][0] + Plot.dx/3, Plot.xy_starting_zones[zone][1] + Plot.dy/2, text, fontsize=20)
         self.make_color_palette(ax)
         #plt.title('Närkamper och brytningar per zon')

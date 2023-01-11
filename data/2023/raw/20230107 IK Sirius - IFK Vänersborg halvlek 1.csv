@@ -1,0 +1,346 @@
+event,time
+avslag iks z2,0:00:00
+utkast iks z1,0:00:09
+frislag iks z2,0:00:20
+passning lång iks z8,0:00:32
+utkast vän ,0:00:39
+frislag vän z4,0:00:54
+brytning iks z2,0:01:10
+frislag iks z1,0:01:20
+passning lång iks z5,0:01:28
+brytning v,0:01:30
+del,0:01:32
+brytning bän z5,0:01:36
+utkast iksz6,0:01:57
+passning lång iks z5,0:02:07
+boll vän z8,0:02:12
+passning straffområde v,0:02:25
+n z2,0:02:26
+brytning iks z2,0:02:28
+närkamp v,0:02:35
+del,0:02:37
+närkamp vän z8,0:02:45
+närkamp iks z6,0:03:00
+frislag iks z6,0:03:08
+passning farlig iks z8,0:03:15
+utkast vän z7,0:03:19
+närkamp iks z5,0:03:35
+n,0:03:36
+närkamp vän z4,0:03:47
+närkamp vän z4,0:03:51
+brytning iks z5,0:03:55
+frislag iks z9,0:04:09
+utvisning v,0:04:13
+del,0:04:14
+utvisning vän 10,0:04:18
+boll iks,0:04:35
+passning straffområde iks z8,0:04:42
+närkamp iks z8,0:04:45
+40 iks,0:04:49
+40 iks,0:04:54
+närkamp iks z9,0:05:18
+skott räddning iks z9,0:05:22
+skottyp utifrån iks z9,0:05:26
+utkast vän z5,0:05:32
+boll iks,0:05:34
+bolltapp passfrösök iks z5,0:05:40
+skott räddnign vän z3,0:05:49
+skottyp utifrån vän z3,0:05:53
+utkast iks ,0:05:55
+passnign lång iks z8,0:06:02
+boll iks ,0:06:04
+brytning vän z8,0:06:08
+närkamp iks z2,0:06:13
+brynign vän z4,0:06:20
+skott utanför vän z3,0:06:45
+skottyp utifrån vän z3,0:06:55
+utkast iks ,0:06:56
+n,0:07:01
+del,0:07:03
+b,0:07:04
+del,0:07:05
+närkamp vän z5,0:07:08
+frislag vän z5,0:07:12
+skott utanför vän z2,0:07:27
+skottyp utifrån vän z2,0:07:30
+utkast iks ,0:07:32
+inslag iks z6,0:07:45
+passning öng iks z8,0:07:57
+närkamp iks z8,0:08:04
+hörna iks z9,0:08:16
+iks z8 skott täckt,0:08:38
+skottyp fast iks z8,0:08:42
+inslag iks z7,0:08:45
+inslag v,0:09:05
+del,0:09:07
+inslag vän z9,0:09:11
+passning lång vän z5,0:09:18
+utkast iks z3,0:09:27
+passning iks z8,0:09:41
+närkamp vän z8,0:09:46
+skott utanför vän z5,0:09:55
+skottyp utifrån vän z5,0:09:58
+utkast iks z6,0:10:02
+passning lång iks z8,0:10:13
+bolltapp vän z8,0:10:23
+skott utanför iks z8,0:10:27
+skottyp centralt iks z8,0:10:32
+boll iks ,0:10:35
+inslag iks z7,0:10:47
+boll vän,0:11:00
+närkamp iks z6,0:11:09
+inslag vän z6,0:11:11
+passning lång vän z2,0:11:15
+utkast iks z1,0:11:18
+passning lång iks z8,0:11:25
+närkamp iks z8,0:11:31
+hörna iks z7,0:11:35
+iks skott z8 utanför,0:12:00
+skottyp fast iks z8,0:12:02
+utkast vän z7,0:12:07
+närkamp iks z3,0:12:26
+inslag iks z3,0:12:30
+passning lång iks z5,0:12:44
+närkamp iks z5,0:12:48
+nrkamp vän z6,0:12:55
+frislag vän z8,0:13:06
+bryningi iks z2,0:13:27
+närkamp vän z9,0:13:43
+frislag vän z9,0:13:49
+brynting iks z6,0:13:59
+närkamp vän z9,0:14:04
+utkast iks z3,0:14:20
+brynting v,0:14:29
+del,0:14:32
+brytning vän z6,0:14:34
+skott räddning vän z2,0:14:42
+skottyp utifrån vän z2,0:14:45
+utkast iks z8,0:14:49
+boll vän z8,0:14:54
+hörna vän z3,0:15:06
+skott vän z2 utanför ,0:15:44
+skottyp fast vän z2,0:15:47
+utkast iks z,0:16:02
+frislag iks z8,0:16:11
+skott täckt iks z8,0:16:28
+skottyp utifrån iks z8,0:16:33
+rensning vän ,0:16:35
+utkast iks z8,0:16:45
+närkamp iks z5,0:16:53
+närkamp vän z5,0:16:57
+passning straffområde vän z2,0:17:08
+utkast iks z3,0:17:10
+del,0:17:12
+utkast iks z1,0:17:14
+brytning vän z5,0:17:22
+närkamp vän z1,0:17:42
+inslag vän z1,0:17:48
+oassing straffområde vän z2,0:17:55
+boll vän z6,0:17:59
+passning lång vän z2,0:18:05
+utkast iks z4,0:18:18
+närkamp iks z4,0:18:23
+närkamp iks z7,0:18:29
+passnign strafforåde iks z8,0:18:34
+närkamp vän z8,0:18:40
+rensnig vän ,0:18:42
+passning lång iks z8,0:18:47
+offside iks z8,0:18:53
+boll vän,0:19:01
+brynting iks z2,0:19:04
+näramp vän z6,0:19:10
+närkamp iks z5,0:19:18
+passning straffområde iks z8,0:19:25
+närkamp vän z8,0:19:30
+frislag vän z3,0:19:47
+passning lång vän z2,0:20:07
+utkast iks z6,0:20:13
+passning lång iks z5,0:20:19
+ärkamp vän z5,0:20:25
+passning straffområde vän z2,0:20:39
+utkast iks z6,0:20:43
+passning lång iks z8,0:20:50
+närkamp iks ,0:21:00
+del,0:21:02
+rensning vän z8,0:21:04
+närkamp vän z7,0:21:15
+utkast vän,0:21:18
+frislag vän z5,0:21:25
+passnign straffområde vän z2,0:21:45
+skott utanför vän z2,0:21:47
+skottyp vän inlägg z2,0:21:53
+utkast iks ,0:21:54
+åassnoing lång iks ,0:22:02
+boll vän,0:22:07
+mål spelmål vän z2,0:22:20
+skottyp centralt vän z2,0:22:29
+avslag iks ,0:22:43
+passnign lång iks z8,0:22:56
+utkast vänz9,0:23:02
+del,0:23:04
+utkast vän z9,0:23:07
+passning straffområde vän z2,0:23:15
+närkamp vän z2,0:23:21
+skott räddning vän z2,0:23:24
+skottyp centralt vän z2,0:23:29
+hörna vän z3,0:23:31
+skott vän z2 täckt,0:23:46
+skottyp fast vän z2,0:23:50
+närkamp iks z6,0:23:59
+rensnig iks ,0:24:01
+närkamp vän z4,0:24:07
+utkast iks z6,0:24:30
+brytning vän z6,0:24:35
+skott räddning vän z2,0:24:41
+skottyp utifrån vän z2,0:24:47
+hörna vän z1,0:24:50
+vän z2 skott täckt,0:25:08
+skottyp fast vän z2,0:25:11
+skott täckt vän z2,0:25:16
+skottyp utifrån vän z2,0:25:19
+rensning iks ,0:25:23
+passnign lång vän z5,0:25:28
+brynting iks z2,0:25:36
+rensning iks ,0:25:38
+brynting iks z4,0:25:46
+passnign lång vän ,0:25:54
+utkast iks z5,0:25:59
+rensning vän ,0:26:09
+brytnign vän z5,0:26:13
+närkamp iks z2,0:26:16
+oassning sstraffområde iks z8,0:26:38
+skott täckt iks z8,0:26:41
+skottyp inlägg iks z8,0:26:44
+närkamp vän z8,0:26:56
+frislag vän z8,0:26:59
+frislag vän z6,0:27:06
+passnign lång z2 vän ,0:27:11
+hörna vän z3,0:27:15
+vän skott z2 täckt,0:27:43
+skottyp fast vän z2,0:27:46
+boll iks ,0:27:57
+passning öång iks z8,0:28:07
+boll vän z8,0:28:12
+inslag vän z6,0:28:30
+passning lång vän z2,0:28:56
+skott räddning vän z2,0:29:00
+skottyp centrlat vän z2,0:29:03
+utkast iks ,0:29:05
+närkamp iks z7,0:29:13
+del,0:29:17
+närkamp iks z9,0:29:19
+frislag iks z9,0:29:22
+passning straffområde iks z8,0:29:30
+resning vän z8,0:29:33
+brytning vän z8,0:29:37
+utvinsing 10 iks,0:29:42
+frislag vän z5,0:30:31
+närkamp iks z3,0:30:37
+bolltapp passförösk iks z6,0:30:51
+brynting iks z2,0:30:55
+passning lång iiks ,0:31:00
+passning lång iks z2,0:31:06
+utkast vän z7,0:31:11
+passning lång vän z3,0:31:21
+inslag iks z3,0:31:32
+passning lång iks z5,0:31:46
+40 iks ,0:31:52
+passning lång iks z8,0:31:58
+frislag vän z8,0:32:15
+boll iks,0:32:20
+skott utanför iks z8,0:32:30
+skottyp utifrån iks z8,0:32:35
+utkast vän ,0:32:42
+offside vän ,0:32:44
+boll iks ,0:32:50
+bolltapp tappad iks z6,0:33:02
+brynting iks z6,0:33:05
+passning lång iks ,0:33:14
+boll vän ,0:33:17
+inslag vän z3,0:33:26
+passning straffomrdåe vän z2,0:33:39
+utkast iks z3,0:33:41
+passning lång iks z8u,0:33:54
+rensning vän ,0:34:00
+40 iks,0:34:05
+passning lång iks z8,0:34:14
+resnsning vän ,0:34:19
+passning lång iks z8,0:34:30
+närkamp iks z8,0:34:33
+skott täckt iks z8,0:34:36
+skottyp centralt iks z8,0:34:43
+närkamp vän z8,0:34:46
+närkamp iks z5,0:34:50
+nn,0:35:00
+del,0:35:03
+frislag iks z7,0:35:07
+passning lång iks z8,0:35:21
+utkast vän z5,0:35:33
+utkast iks z5,0:35:43
+boll vän z5,0:35:48
+brytning iks z4,0:35:55
+frislag iks z4,0:36:06
+passning lång iks z8,0:36:24
+rensning ,0:36:28
+del,0:36:32
+rensning vän z8,0:36:39
+inslag iks z7,0:36:44
+passning straffområde iks z8,0:37:06
+utkast vän ,0:37:07
+nrkamp iks z8,0:37:20
+del,0:37:26
+närkamp iks z2,0:37:35
+närkamp vän z2,0:37:39
+skott räddnign vän z2,0:37:43
+skottyp centrlat vän z2,0:37:48
+skott räddning v,0:37:51
+del,0:37:53
+skott räddning vän z2,0:37:56
+skottyp retur vän z2,0:37:58
+hörna vän z1,0:37:34
+skott vän z2 utanför,0:37:59
+utkast iks z8,0:38:12
+närkamp iks z7,0:38:18
+frislag vän z8,0:38:29
+passning lång vän z2,0:38:40
+nrkamp iks z2,0:38:46
+inslag vän z1,0:38:52
+passning sttraffpmoråde vän z2,0:39:01
+skott utanför vän z2,0:39:09
+skottyp inlägg z2 vän ,0:39:13
+utkast iks ,0:39:15
+frislag iks z5,0:39:19
+utvisning 10 vän ,0:39:28
+frislag iks z7,0:39:59
+hörna iks z7,0:40:06
+iks skott z8 utanför,0:40:35
+skottyp fast iks z8,0:40:40
+utkast vän z9,0:40:45
+passning lång vän z5,0:40:55
+utkast iks z3,0:40:59
+närkamp iks z5,0:41:10
+närkamp vän z5,0:41:15
+närkamp iks z1,0:41:23
+frislag vän z1,0:41:26
+skott täckt vän z1,0:41:47
+skottyp fast vän z1,0:41:50
+hörna vän z1,0:41:55
+skott vän z2 utanför,0:42:24
+skottyp vän z2 fast,0:42:29
+utkast iks z5,0:42:40
+n,0:42:49
+del,0:42:51
+närkamp iks z5,0:42:53
+utkast v,0:42:55
+närkamp vän z2,0:43:06
+skott utanför vän z2,0:43:17
+skottyp utifrån vän z2,0:43:21
+utkast iks,0:43:26
+närkamp vän z8,0:43:35
+bärkamp iks z3,0:43:52
+hörna iks z7,0:44:05
+iks z8 skott utanför ,0:44:34
+skottyp fast iks z8,0:44:38
+utkast vän z2,0:44:49
+utkast iks ,0:44:54
+stop,0:44:55

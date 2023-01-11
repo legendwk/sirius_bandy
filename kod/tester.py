@@ -6,13 +6,103 @@ import general_functions as gf
 import numpy as np
 import pandas as pd
 import os
+from compile_stats import CompileStats
+
+
 
 
 
 if __name__ == '__main__':
 
+    # mapparna
+    season2223 = 'data\\compile\\säsong 2223'
+    regular_season2223 = 'data\\compile\\grundserie 2223'
+    all_games = 'data\\compile\\alla'
+    cup2223 = 'data\\compile\\cupen 2223'
+    all_45_min = 'data\\compile\\45 min'
+    outdoors = 'data\\compile\\utomhus'
+    indoors = 'data\\compile\\inomhus'
+    bad_ice = 'data\\compile\\dålig is'
+    playoff2122 = 'data\\compile\\slutspel 2122'
+    playoff2223 = 'data\\compile\\slutspel 2223'
+    custom = 'data\\compile\\custom'
+    inne2223 = 'data\\compile\\inne 2223'
+    ute2223 = 'data\\compile\\ute 2223'
 
+    # dataobjekt
+    cs = CompileStats(custom)
+
+    # mål
+    goals_sir = np.array(cs.all_stats['goals']['sirius'])
+    goals_opp = np.array(cs.all_stats['goals']['opponent'])
+    goals_diff = goals_sir - goals_opp
+
+
+    # dueller och närkamper
+    duels_sir = np.array(cs.all_stats['duels']['sirius'])
+    duels_opp = np.array(cs.all_stats['duels']['opponent'])
+    duels_diff = duels_sir - duels_opp
+
+
+    print(np.corrcoef(goals_diff, duels_diff))
+
+    scrimmages_sir = np.array(cs.all_stats['scrimmages']['sirius'])
+    scrimmages_opp = np.array(cs.all_stats['scrimmages']['opponent'])
+
+    interceptions_sir = np.array(cs.all_stats['interceptions']['sirius'])
+    interceptions_opp = np.array(cs.all_stats['interceptions']['opponent'])
+
+    sog_sir = np.array(cs.all_stats['shots on goal']['sirius'])
+    sog_opp = np.array(cs.all_stats['shots on goal']['opponent'])
+
+    shots_sir = np.array(cs.all_stats['shot attempts']['sirius'])
+    shots_opp = np.array(cs.all_stats['shot attempts']['opponent'])
+
+
+    
     '''
+    for grabb in cs.all_stats:
+        print(grabb)
+        print(cs.all_stats[grabb])
+
+
+
+    cs_bad_ice = CompileStats(bad_ice)
+    cs_custom = CompileStats(custom)
+    print(f"dålig is = {cs_bad_ice.stats_summary['long passes']}")
+    print(f"utomhus = {cs_custom.stats_summary['long passes']}")
+
+
+    # dueller
+    cs = CompileStats(season2223)
+    sir_g, opp_g = cs.all_stats['goals']['sirius'], cs.all_stats['goals']['opponent']
+    sir_d, opp_d = cs.all_stats['duels']['sirius'], cs.all_stats['duels']['opponent']
+
+    goal_diff = [sir_g[i] - opp_g[i] for i in range(len(sir_g))]
+    duel_diff = [sir_d[i] - opp_d[i] for i in range(len(sir_d))]
+
+    sir_res, op_res = [0,0,0], [0,0,0] # V,O,F
+    for i, duels in enumerate(duel_diff):
+        if duels > 0:
+            if goal_diff[i] > 0:
+                sir_res[0] += 1
+            if goal_diff == 0:
+                sir_res[1] += 1
+            else:
+                sir_res[2] += 1
+        elif duels < 0:
+            if goal_diff[i] < 0:
+                op_res[0] += 1
+            if goal_diff == 0:
+                op_res[1] += 1
+            else:
+                op_res[2] += 1
+    
+    print(sir_res)
+    print(op_res)
+
+
+    
     teams = {'a','b'}
     strings = 'zxc'
     d = {team: dict() for team in teams}
@@ -160,5 +250,34 @@ if __name__ == '__main__':
     for t in tl:
         print(f'{t}:{tl[t]}')
         
+
+
     
+    header = ['halvlek', 'mål iks', 'mål motståndare', 'närkamper iks', 'närkamper motståndare', 'närkampsprocent iks', 'bolltapp iks', 'bolltapp motståndare', 'skillnad bolltapp']
+    values = [list() for i in range(len(header))]
+
+    cs = CompileStats(regular_season2223)
+    for game in cs.games:
+        half_list = game.out.split('\\')
+        half = ' '.join(half_list[2:].pop().split()[1:-1])
+        values[0].append(half)
+        goals_iks = sum(game.prints['score']['sirius'].values())
+        values[1].append(goals_iks)
+        goals_opp = sum(game.prints['score'][game.opposite_team('sirius')].values())
+        values[2].append(goals_opp)
+        duels_iks = game.prints['duels']['sirius']
+        values[3].append(duels_iks)
+        duels_opp = game.prints['duels'][game.opposite_team('sirius')]
+        values[4].append(duels_opp)
+        duels_per = round(duels_iks/(duels_iks + duels_opp) * 100, 1)
+        values[5].append(duels_per)
+        lostballs_iks = game.prints['lost balls']['sirius']
+        values[6].append(lostballs_iks)
+        lostballs_opp = game.prints['lost balls'][game.opposite_team('sirius')]
+        values[7].append(lostballs_opp)
+        lostballs_diff = lostballs_opp-lostballs_iks
+        values[8].append(lostballs_diff)
+
+
+    gf.save_data_to_csv('alla matcher', header, values)
     '''

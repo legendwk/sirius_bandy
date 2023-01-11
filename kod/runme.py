@@ -7,13 +7,11 @@ import general_functions as gf
 import pandas as pd
 from compile_stats import CompileStats
 import time
-# 37 matcher under 21/22 
 
-# vi kör den här typ hela tiden så slipper vi bråk 
+# kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
-
-# mapparna
+# mappar med csvfiler
 season2223 = 'data\\compile\\säsong 2223'
 regular_season2223 = 'data\\compile\\grundserie 2223'
 all_games = 'data\\compile\\alla'
@@ -25,102 +23,51 @@ bad_ice = 'data\\compile\\dålig is'
 playoff2122 = 'data\\compile\\slutspel 2122'
 playoff2223 = 'data\\compile\\slutspel 2223'
 custom = 'data\\compile\\custom'
+rapport_inne = 'data\\compile\\rapport inomhus'
+rapport_ute = 'data\\compile\\rapport utomhus'
+rapport_bad_ice = 'data\\compile\\rapport dålig is'
+rapport_good_ice = 'data\\compile\\rapport bra is'
+rapport_all = 'data\\compile\\rapport all'
+broberg = 'data\\compile\\broberg'
 
-# skapa objekt
-cs = CompileStats(custom)
-s = cs.returns_stats_obj()
 
-# säsongsrapport
+os.chdir('data\\2023\\clean')
+filename = '20230107 IK Sirius - IFK Vänersborg halvlek 2 clean'
+van2 = Stats(filename)
+
+os.chdir('..\\..\\..')
+
+cs_rapport = CompileStats(rapport_all)
+
 os.chdir('powerpointer\\säsongsrapporter')
-pp = PP(s)
-pp.make_season_report()
+pp_broberg = PP(cs_rapport.returns_stats_obj())
+pp_broberg.make_season_report('säsongsrapport höst 2022')
+
+os.chdir('..\\matchrapporter')
+pp_van2 = PP(van2)
+pp_van2.make_game_report()
+
 
 '''
 # hämta data och gör presentation (avnänds typ live?)
-filename = '20221230 IK Sirius - IFK Motala halvlek 2'
+filename = '20230110 Edsbyns IF - IK Sirius halvlek 2'
 os.chdir(r"data\2023\raw")
-teams = {'iks', 'mot'}
+teams = {'iks', 'ed'}
+
 
 # samla data
-g = Game(teams)
-g.collector_raw(filename)
-g.clean_csv(filename)
+#g = Game(teams)
+#g.collector_raw(filename)
+#g.clean_csv(filename)
 
 # skapa statsobjekt
 os.chdir(r"..\\clean")
-gripen1 = Stats(filename + ' clean')
+eds = Stats('20230110 Edsbyns IF - IK Sirius halvlek 2 clean')
 
 # gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
-pp = PP(gripen1)
+pp = PP(eds)
 pp.make_game_report()
-
-
-
-
-
-
-print('compile stats: stats summary')
-for grabb in cs.stats_summary:
-    print(grabb)
-    print(cs.stats_summary[grabb])
-
-print('\n\n\ncompile stats: all_stats')
-for grabb in cs.all_stats:
-    print(grabb)
-    print(cs.all_stats[grabb])
-
-
-
-print('\n\n\nstats: prints')
-for grabb in stats.prints:
-    print(grabb)
-    print(stats.prints[grabb])
-
-
-
-
-
-
-os.chdir(r"..\..\..\powerpointer\matchrapporter")
-
-
-vsk1 = Stats('20221119 IK Sirius - Västerås SK halvlek 1 clean')
-for grabb in vsk1.prints:
-    print(f'{grabb}: {vsk1.prints[grabb]}')
-
-
-cs = CompileStats('data\\compile\\45 min')
-for grabb in cs.all_stats:
-    print(grabb)
-    print(cs.all_stats[grabb])
-
-
-
-
-
-# hämta data och gör presentation (avnänds typ live?)
-filename = '20221213 Vetlanda BK - IK Sirius halvlek 2'
-os.chdir(r"data\2023\raw")
-teams = {'iks', 'vtl'}
-
-g = Game(teams)
-g.collector_raw(filename)
-g.clean_csv(filename)
-
-
-
-# skapa statsobjekt
-os.chdir(r"..\\clean")
-vtl1 = Stats(filename + ' clean')
-#bollnas2 = Stats('20221209 IK Sirius - Bollnäs GIF halvlek 2 clean')
-
-
-# gör presentation
-os.chdir(r"..\..\..\powerpointer\matchrapporter")
-PP(vtl1)
-#PP(bollnas2)
-
 
 
 '''

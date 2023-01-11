@@ -17,7 +17,7 @@ class CompileStats:
 
     def compile_all_stats(self) -> None:
         '''fills self.all_stats'''
-        #self.all_stats['score'] = self.get_score()
+        self.all_stats['goals'] = self.get_goals()
         self.all_stats['possession'] = self.get_possession()
         self.all_stats['scrimmages'] = self.get_scrimmages()
         self.all_stats['duels'] = self.get_duels()
@@ -82,12 +82,12 @@ class CompileStats:
         for game_link in l:
             self.games.append(Stats(game_link))
     
-    def get_score(self) -> dict:
-        '''returns the score dict of the games in self.games'''
+    def get_goals(self) -> dict:
+        '''returns the goals dict of the games in self.games'''
         score_dict = {team: list() for team in self.teams}
         for game in self.games:
             for team in game.prints['score']:
-                score_dict[self.return_team(team)].append(game.prints['score'][team])
+                score_dict[self.return_team(team)].append(sum(game.prints['score'][team].values()))
         return score_dict
     
     def get_penalties(self) -> dict:
@@ -154,7 +154,6 @@ class CompileStats:
             for team in game.prints['long passes']:
                 lp_dict[self.return_team(team)].append(game.prints['long passes'][team])
         return lp_dict
-
 
     def get_before_and_after(self) -> dict:
         '''returns the before and after dict of the games in self.games'''
@@ -300,11 +299,11 @@ class CompileStats:
 
     def summarize_possession(self) -> dict:
         '''returns a dict of the combined possession of the object'''
-        score_dict = {team : 0 for team in self.teams}
+        poss_dict = {team : 0 for team in self.teams}
         for team in self.all_stats['possession']:
-            score_dict[team] = sum(gf.readable_to_sec(x) for x in self.all_stats['possession'][team]) 
-            score_dict[team] = gf.sec_to_readable(score_dict[team])
-        return score_dict
+            poss_dict[team] = sum(gf.readable_to_sec(x) for x in self.all_stats['possession'][team]) 
+            poss_dict[team] = gf.sec_to_readable(poss_dict[team])
+        return poss_dict
     
     def summarize_scrimmages(self) -> dict:
         '''returns a dict of the combined scrimmages (närkamper) of the object'''
