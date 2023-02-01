@@ -56,7 +56,7 @@ class PP:
         self.make_game_report_duels_page()
         #self.make_game_report_scimmages_page()
         self.make_game_report_before_and_after_table_page()
-        self.make_game_report_shot_types_page()
+        self.make_game_report_shot_types_page(show_xg = True)
         self.make_game_report_slot_page()
         #self.make_game_report_shot_origins_page()
         self.make_game_report_goals_stats_page()
@@ -76,14 +76,17 @@ class PP:
             self.stats.out = filename
         self.make_season_report_front_page()
         self.make_season_report_overview_stats_page()
-        self.make_season_report_shots_page()
+        self.make_season_report_shots_page(show_xg=True)
         self.make_season_report_slot_page()
         self.make_season_report_duels_page()
         self.make_game_report_before_and_after_table_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
         self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{constants.nicknames[self.stats.main_team]['full']} vunna närkamper och brytningar per zon")
         self.make_season_report_corners_page()
-
+        self.make_season_report_long_shot_targets_page()
+        self.make_season_report_possession_after_long_shots_page()
+        self.make_season_report_after_long_shots_attacking_team_page()
+        self.make_season_report_after_long_shots_defending_team_page()
 
         self.save_presentation()
     
@@ -437,7 +440,7 @@ class PP:
             #res.level = 0
             #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
   
-    def make_season_report_shots_page(self) -> None:
+    def make_season_report_shots_page(self, show_xg: bool) -> None:
         '''makes the shot stats page layout'''
         slide_register = self.pres.slide_layouts[4]
         slide = self.pres.slides.add_slide(slide_register)
@@ -455,7 +458,8 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = constants.nicknames[team]['short']
+            xg_string = f", XG: {round(self.stats.prints['expected goals'][team], 2)}"
+            bp1.text = f"{constants.nicknames[team]['short']}{xg_string * show_xg}"
             bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
 
             table_frame = slide.shapes.add_table(9, 4, x + Inches(5.1)*i, y, cx, cy)
@@ -513,6 +517,155 @@ class PP:
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
     
+    def make_season_report_long_shot_targets_page(self) -> None:
+        '''makes the targets of long shots stats page'''
+        slide_register = self.pres.slide_layouts[4]
+        slide = self.pres.slides.add_slide(slide_register)
+        #self.set_background_image(slide)
+        self.set_background_color(slide)
+        self.add_logo_images(slide, width = 1.5)
+        title = slide.shapes.title
+        title.text = 'Resultat av \nskott utifrån'
+
+        for i, team in enumerate(self.ordered_teams):
+            total_shots = sum(self.stats.prints['long shots outcomes'][team].values())
+            bpb = slide.shapes
+            bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
+            bp1.text = f"{constants.nicknames[team]['short']}: {total_shots} st"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
+            bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
+            res = bp2.text_frame.add_paragraph()
+            res.text = f"Mål: \n\t{self.stats.prints['long shots outcomes'][team]['mål']} ({round(self.stats.prints['long shots outcomes'][team]['mål']/total_shots * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            res.text = f"Utanför: \n\t{self.stats.prints['long shots outcomes'][team]['utanför']} ({round(self.stats.prints['long shots outcomes'][team]['utanför']/total_shots * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            res.text = f"Täckta: \n\t{self.stats.prints['long shots outcomes'][team]['täckt']} ({round(self.stats.prints['long shots outcomes'][team]['täckt']/total_shots * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            res.text = f"Räddningar: \n\t{self.stats.prints['long shots outcomes'][team]['räddning']} ({round(self.stats.prints['long shots outcomes'][team]['räddning']/total_shots * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+    
+    def make_season_report_possession_after_long_shots_page(self) -> None:
+        '''makes the possession after long shots stats page'''
+        slide_register = self.pres.slide_layouts[4]
+        slide = self.pres.slides.add_slide(slide_register)
+        #self.set_background_image(slide)
+        self.set_background_color(slide)
+        self.add_logo_images(slide, width = 1.5)
+        title = slide.shapes.title
+        title.text = 'Bollinnehav efter \nskott utifrån'
+
+        for i, team in enumerate(self.ordered_teams):
+            total_shots = sum(self.stats.prints['after long shots per teams'][team].values())
+            bpb = slide.shapes
+            bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
+            bp1.text = f"{constants.nicknames[team]['short']}: {total_shots} st"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
+            opponent = self.stats.opposite_team(team)
+            bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
+            res = bp2.text_frame.add_paragraph()
+            #res.text = f"Mål: \n\t{self.stats.prints['long shots outcomes'][team]['mål']} ({round(self.stats.prints['long shots outcomes'][team]['mål']/total_shots * 100)} %)"
+            res.text = f"{constants.nicknames[team]['short']}: \n\t{self.stats.prints['after long shots per teams'][team][team]} ({round(self.stats.prints['after long shots per teams'][team][team]/total_shots * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            res.text = f"{constants.nicknames[opponent]['short']}: \n\t{self.stats.prints['after long shots per teams'][team][opponent]} ({round(self.stats.prints['after long shots per teams'][team][opponent]/total_shots * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
+    def make_season_report_after_long_shots_attacking_team_page(self) -> None:
+        '''makes the attacking team long shots stats page'''
+        slide_register = self.pres.slide_layouts[4]
+        slide = self.pres.slides.add_slide(slide_register)
+        #self.set_background_image(slide)
+        self.set_background_color(slide)
+        self.add_logo_images(slide, width = 1.5)
+        title = slide.shapes.title
+        title.text = 'Händelsen efter skott\nutifrån: anfallare'
+        after = self.stats.prints['after long shots events']
+
+        for i, team in enumerate(self.ordered_teams):
+            attacker = after[team][team]
+            total_times = sum(self.stats.prints['after long shots per teams'][team].values())
+            bpb = slide.shapes
+            bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
+            bp1.text = f"{constants.nicknames[team]['short']}: {total_times} st"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
+            #opponent = self.stats.opposite_team(team)
+            bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
+            res = bp2.text_frame.add_paragraph()
+            goals = attacker['mål'] if 'mål' in attacker else 0
+            res.text = f"Mål: \n\t{goals} ({round(goals/total_times * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            shots = attacker['skott'] if 'skott' in attacker else 0
+            res.text = f"Skott: \n\t{shots + goals} ({round((shots + goals)/total_times * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            corner = attacker['hörna'] if 'skott' in attacker else 0
+            res.text = f"Hörnor: \n\t{corner} ({round(corner/total_times * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res = bp2.text_frame.add_paragraph()
+            other = total_times - goals - corner - shots
+            #res.text = f"Övrigt: \n\t{other} ({round(other/total_times * 100)} %)"
+            #res.level = 0
+            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
+    def make_season_report_after_long_shots_defending_team_page(self) -> None:
+        '''makes the defending team long shots stats page'''
+        slide_register = self.pres.slide_layouts[4]
+        slide = self.pres.slides.add_slide(slide_register)
+        #self.set_background_image(slide)
+        self.set_background_color(slide)
+        self.add_logo_images(slide, width = 1.5)
+        title = slide.shapes.title
+        title.text = 'Händelsen efter skott\nutifrån: försvarare'
+        after = self.stats.prints['after long shots events']
+
+        for i, team in enumerate(self.ordered_teams):
+            defender = after[self.stats.opposite_team(team)][team]
+            total_times = sum(self.stats.prints['after long shots per teams'][self.stats.opposite_team(team)].values())
+            bpb = slide.shapes
+            bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
+            bp1.text = f"{constants.nicknames[team]['short']}: {total_times} st"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
+            #opponent = self.stats.opposite_team(team)
+            bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
+            res = bp2.text_frame.add_paragraph()
+            throw = defender['utkast'] if 'utkast' in defender else 0
+            res.text = f"Utkast: \n\t{throw} ({round(throw/total_times * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            clean = defender['rensning'] if 'rensning' in defender else 0 # kul att kalla det clean
+            res.text = f"Rensning: \n\t{clean} ({round((clean)/total_times * 100)} %)"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res = bp2.text_frame.add_paragraph()
+            #corner = defender['hörna'] if 'skott' in defender else 0
+            #res.text = f"Hörnor: \n\t{corner} ({round(corner/total_times * 100)} %)"
+            #res.level = 0
+            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res = bp2.text_frame.add_paragraph()
+            #other = total_times - goals - corner - shots
+            #res.text = f"Övrigt: \n\t{other} ({round(other/total_times * 100)} %)"
+            #res.level = 0
+            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+
+
     def make_comparative_report_slot_for_page(self) -> None:
         ''''makes the offensive slots page for the comparison report'''
         slide_register = self.pres.slide_layouts[4]
@@ -727,9 +880,8 @@ class PP:
             res.text = f"Bollinnehav: \n\t{self.stats.prints['possession'][team]} ({round(gf.readable_to_sec(self.stats.prints['possession'][team])/(gf.readable_to_sec(self.stats.prints['possession'][team]) + gf.readable_to_sec(self.stats.prints['possession'][self.stats.opposite_team(team)]))* 100)} %)"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
-  
 
-    def make_game_report_shot_types_page(self) -> None:
+    def make_game_report_shot_types_page(self, show_xg: bool) -> None:
         '''makes the shots types stats page'''
         slide_register = self.pres.slide_layouts[4]
         slide = self.pres.slides.add_slide(slide_register)
@@ -741,9 +893,10 @@ class PP:
         # this is just all the shot types for both teams sorted in alphabetical order
         print_order = sorted(list({st for team in self.stats.prints['shot types'] for st in self.stats.prints['shot types'][team]}))
         for i, team in enumerate(self.ordered_teams):
+            xg_string = f", XG: {round(self.stats.prints['expected goals'][team], 2)}"
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = f"{constants.nicknames[team]['short']} - skottförsök: {sum(self.stats.prints['shot types'][team].values())}"
+            bp1.text = f"{constants.nicknames[team]['short']} - skott: {sum(self.stats.prints['shot types'][team].values())}{xg_string * show_xg}"
             bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4

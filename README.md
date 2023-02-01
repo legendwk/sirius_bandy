@@ -42,11 +42,11 @@ Jätteviktigt är att man inte kan ha snedstreck eller andra "konstiga" skiljete
 
 ### Händelser i Game.collector_raw
 Följande händelser och eventuella underhändelser är vi intresserade av. Varje händelse utom **stop** ska vara kopplat till ett lag. I vissa fall kan man vilja kringgå det, exempelvis när det blir ett längre avbrott bör **timeout** användas, då kan lag **0** anges. Helst bör zon (**z1**-**z9** även anges). 
-* **skott** - bollen skjuts mot mål
-  * **utanför** - skottet missar mål och går till utkast
-  * **räddning** - målvakten räddar
-  * **täckt** - skottet når inte mål då det täcks undan av spelare
-* **skottyp** - notera efter skott/mål för varje avslut
+* **skott** - bollen skjuts mot mål.
+  * **utanför** - skottet missar mål och går till utkast.
+  * **räddning** - målvakten räddar.
+  * **täckt** - skottet når inte mål då det täcks undan av spelare.
+* **skottyp** - notera efter skott/mål för varje avslut.
   * **friställande** - en längre passning når fram till en anfallspelare i ett läge där denna antingen är fri, eller i ett sådant läge att den snabbt kan ta sig fram till ett ohotat skottläge i straffområdet.
   * **inlägg** - bollen passas in i straffområdet från endera kant. 
   * **utifrån** - skott från håll. 
@@ -54,37 +54,38 @@ Följande händelser och eventuella underhändelser är vi intresserade av. Varj
   * **centralt** - ett anfall där flera spelare driver in bollen centralt i straffområde, ofta genom passningsspel såväl i som utanför straffområdet.
   * **fast** - fast situation. Exempelvis straff, hörna eller frislag. 
   * **retur** - skott efter retur. 
-* **mål** - det blir mål
-  * **spelmål** - målet tillkom i spel 
-  * **hörnmål** - målet tillkom på hörna, inklusive hörnretur
-  * **straffmål** - målet tillkom på straff, inklusive straffretur
-  * **frislagsmål** - målet tillkom på frislag, inklusive frislagsretur
-* **bolltapp** - en spelare förlorar bollen "av egen maskin"
-  * **tappad** - spelaren tappar bara kontrollen (ex dålig dribbling)
-  * **passförsök** - spelaren försöker sig på en passning och tappar bollen (dålig passning)
+* **mål** - det blir mål.
+  * **spelmål** - målet tillkom i spel.
+  * **hörnmål** - målet tillkom på hörna, inklusive hörnretur.
+  * **straffmål** - målet tillkom på straff, inklusive straffretur.
+  * **frislagsmål** - målet tillkom på frislag, inklusive frislagsretur.
+* **bolltapp** - en spelare förlorar bollen "av egen maskin".
+  * **tappad** - spelaren tappar bara kontrollen (ex dålig dribbling).
+  * **passförsök** - spelaren försöker sig på en passning och tappar bollen (dålig passning).
 * **närkamp** - det uppstår en närkampssituation som vinns av spelare i laget som anges. 
 * **brytning** - spelare i laget som anges bryter boll påväg till motståndare.
-* **frislag** - domaren dömer frislag
+* **frislag** - domaren dömer frislag.
 * **hörna** - domaren dömer hörna, zonen anger vilken sida hörnan slås från. 
-* **straff** - domaren dömer straff
+* **straff** - domaren dömer straff.
 * **40** - Sirius spelar bollen till Sune Gustafsson i eget straffområde. 
-* **utvisning** - domaren dömer utvisning
-  * **5** - fem minuters utvisning
-  * **10** - tio minuters utvisning 
-* **inslag** - bollen går ut och det blir inslag
-* **utkast** - bollen hamnar hos målvakten
-* **avslag** - det blir avslag
-* **passning** - ett lag spelar en intressant passning 
-  * **straffområde** - inlägg/inspel från kant in i straffområde
-  * **lång** - långboll 
+* **utvisning** - domaren dömer utvisning.
+  * **5** - fem minuters utvisning.
+  * **10** - tio minuters utvisning.
+* **inslag** - bollen går ut och det blir inslag.
+* **utkast** - bollen hamnar hos målvakten.
+* **avslag** - det blir avslag.
+* **passning** - ett lag spelar en intressant passning.
+  * **straffområde** - inlägg/inspel från kant in i straffområde.
+  * **lång** - långboll/lyft.
   * **farlig** - passningen ställer den anfallande spelaren fri eller relativt fri i farligt läge. 
 * **anfall** - ett lag har påbörjar ett anfall. 
-* **friläge** - spelare får ett friläge
-* **offside** - spelar i lag åker offside, motstådarna får bollen
-* **rensning** - laget i fråga rensar bort bollen, motståndarna får den utan närkamp
-* **stop** - halvleken slut, programmet avslutas
-* **boll** - laget har bollinnehav
+* **friläge** - spelare får ett friläge.
+* **offside** - spelar i lag åker offside, motstådarna får bollen.
+* **rensning** - laget i fråga rensar bort bollen, motståndarna får den utan närkamp.
+* **stop** - halvleken slut, programmet avslutas.
+* **boll** - laget har bollinnehav.
 * **timeout** - lag tar timeout. Kan även användas utan lag för valfritt (längre) matchstopp. 
+* **kontring** - lag har kontringsläge.
 
 ### Synca klockan i collector_raw:
 För att ändra tiden vid datainsamling i ```collector_raw``` (t.ex. om videon pausats) gör följande: 

@@ -13,13 +13,14 @@
             "justMyCode": true
         },
         {
-            "name": "Python: get data",
+            "name": "Python: runme",
             "type": "python",
             "request": "launch",
-            "program": "kod/get_data.py",
+            "program": "kod/runnme.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["--config=123"]
+            //"args": ["--config=123"]
         }
     ]
 }
+

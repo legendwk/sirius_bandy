@@ -3,6 +3,7 @@ import general_functions as gf
 from get_stats import Stats
 import numpy as np
 from get_data import Game
+import pandas as pd
 
 class CompileStats:
     def __init__(self, path_to_games: str, main_team = 'sirius', N = 1000) -> None:
@@ -37,6 +38,7 @@ class CompileStats:
         self.all_stats['before and after'] = self.get_before_and_after()
         self.all_stats['shot origins'] = self.get_shot_origins()
         self.all_stats['penalties'] = self.get_penalties()
+        self.all_stats['expected goals'] = self.get_expected_goals()
         return
     
     def summarize_stats(self) -> None:
@@ -61,6 +63,12 @@ class CompileStats:
         self.stats_summary['before and after'] = self.summarize_before_and_after()
         self.stats_summary['shot origins'] = self.summarize_shot_origins()
         self.stats_summary['penalties'] = self.summarize_penalties()
+        self.stats_summary['expected goals'] = self.summarize_expected_goals()
+        
+        before, after = self.investigate_long_shots()
+        self.stats_summary['long shots outcomes'] = before
+        self.stats_summary['after long shots events'] = after
+        self.stats_summary['after long shots per teams'] = {team: self.possession_event_dictionaries(after[team]) for team in self.teams}
         return 
 
     def returns_stats_obj(self) -> Stats:
@@ -82,6 +90,26 @@ class CompileStats:
         for game_link in l:
             self.games.append(Stats(game_link))
     
+    def train_expected_goals(self) -> dict:
+        '''returns an expected goals dict of all shot types'''
+        goals_dict = {st: sum([self.stats_summary['goal types'][team][st] for team in self.teams]) for st in Game.events_and_their_subevents['skottyp']}
+        shots_dict = {st: sum([self.stats_summary['shot types'][team][st] for team in self.teams]) for st in Game.events_and_their_subevents['skottyp']}
+        return {st : goals_dict[st]/shots_dict[st] for st in goals_dict}
+
+    def get_expected_goals(self) -> dict:
+        '''returns the expected goals dict for the games in self.games'''
+        xg_dict = {team: list() for team in self.teams}
+        for game in self.games:
+            for team in game.prints['expected goals']:
+                xg_dict[self.return_team(team)].append(game.prints['expected goals'][team])
+        return xg_dict
+
+    def summarize_expected_goals(self) -> dict:
+        '''summarizes the expected goals of the games in self.games'''
+        return {team: sum(self.all_stats['expected goals'][team]) for team in self.teams}
+        
+
+
     def get_goals(self) -> dict:
         '''returns the goals dict of the games in self.games'''
         score_dict = {team: list() for team in self.teams}
@@ -412,3 +440,45 @@ class CompileStats:
             for gt in self.all_stats['goal types'][team]:
                 gt_dict[team][gt] = sum(self.all_stats['goal types'][team][gt])
         return gt_dict
+
+    def investigate_long_shots(self): #,  team = None) -> dict:
+        '''investigates what happens with long shots (skottyp: utifrån)'''
+        #    if team == None both teams will be investigated'''
+        #team = self.teams if team == None else team
+        outcome_of_shots_dict = {team : {'mål': 0, 'utanför': 0, 'räddning': 0, 'täckt': 0} for team in self.teams}
+        outcome_after_shot_dict = {team: {t : {} for t in self.teams} for team in self.teams}
+        for game in self.games:
+            ls_df = game.get_long_shots_df()
+            for index, row in ls_df.iterrows():
+                previous_entry = game.big_df.loc[index - 1]
+                self.long_shot_outcome_of_shot(previous_entry, outcome_of_shots_dict)
+                if previous_entry['event'] != 'mål':
+                    shooting_team = self.return_team(row['team'])
+                    next_entry = game.big_df.loc[index + 1]
+                    self.long_shot_after_shot(shooting_team, next_entry, outcome_after_shot_dict)
+        
+        return outcome_of_shots_dict, outcome_after_shot_dict
+
+    def long_shot_outcome_of_shot(self, row: pd.core.series.Series, results_dict: dict) -> None:
+        '''alters the results_dict based on the outcome of a long shot (skottyp: utifrån)'''
+        current_team = self.return_team(row['team'])
+        outcome_of_shot = 'mål' if row['event'] == 'mål' else row['subevent']
+        results_dict[current_team][outcome_of_shot] += 1
+    
+    def long_shot_after_shot(self, shooting_team, row, results_dict) -> None:
+        '''alters the results_dict based on the outcome AFTER a long shot (skottyp: utifrån)'''
+        current_team = self.return_team(row['team'])
+        outcome_after_shot = row['event']
+        results_dict[shooting_team][current_team][outcome_after_shot] = results_dict[shooting_team][current_team][outcome_after_shot] + 1 if outcome_after_shot in results_dict[shooting_team][current_team] else 1
+    
+    def possession_event_dictionaries(self, event_dict: dict) -> dict:
+        '''returns a dict of team: N where 
+        for the number of events in which each team has possession'''
+        out_dict = {t: 0 for t in event_dict.keys()}
+        for team, events in event_dict.items():
+            for event in events:
+                if event in Stats.possession_gained or event in Stats.positive_events:
+                    out_dict[team] += events[event]
+                elif event in Stats.possession_lost:
+                    out_dict[self.return_team(team)] += events[event]
+        return out_dict

@@ -1,6 +1,7 @@
 import pandas as pd 
 from get_data import Game
 import general_functions as gf
+import constants
 from bisect import bisect_left
 import numpy as np 
 
@@ -19,7 +20,8 @@ class Stats:
     # used for coroners
     corner_sides = {'right': ['z1', 'z9'], 'left': ['z3', 'z7']}
     corner_zone_to_name = {'z1': 'right', 'z9': 'right', 'z3': 'left', 'z7': 'left'}
-
+    # used for possession after shot
+    positive_events = {'mål', 'hörna', 'straff'}
 # constructor
     def __init__(self, filename: str, dummy = False, main_team = 'sirius', N = 3) -> None:
         '''makes and calculates the Stats object. 
@@ -50,6 +52,7 @@ class Stats:
         '''returns the corner side from zone name
             does not accept non-zone entry'''
         return Stats.corner_zone_to_name[zone]
+
 
 # dunder add, for Stats() + Stats()
     def __add__(self, other) -> None:
@@ -82,7 +85,7 @@ class Stats:
         obj.prints['long passes'] = self.add_long_passes(other)
         obj.prints['penalties'] = self.add_penalties(other)
         obj.prints['goal types'] = self.add_goal_types(other)
-        
+        obj.prints['expected goals'] = self.add_expected_goals(other)
 
         return obj
 
@@ -109,6 +112,7 @@ class Stats:
         self.get_long_passes_dict()
         self.get_penalties_dict()
         self.get_goal_types()
+        self.get_expected_goals()
 
 
         # gör något åt detta, det ser förjävligt ut 
@@ -183,6 +187,20 @@ class Stats:
                 self.prints['sustained attacks'] = sustained_attacks_dict
             return self.prints['sustained attacks']
     
+    def get_expected_goals(self) -> dict:
+        '''calculates the XG for both teams and places it in prints'''
+        if 'expected goals' not in self.prints:
+            xg_dict = {team : sum([constants.expected_goals[st] * self.prints['shot types'][team][st] for st in self.prints['shot types'][team]]) for team in self.teams}
+            self.prints['expected goals'] = xg_dict
+        return self.prints['expected goals']
+
+    def add_expected_goals(self, other) -> dict:
+        '''handels the addition of the expected goals'''
+        xg_dict = {}
+        for team in self.prints['expected goals']:
+            xg_dict[team] = self.prints['expected goals'][team] + other.prints['expected goals'][team]
+        return xg_dict
+
     def make_40_list(self) -> list:
         '''makes the list of 40 situations for main_team''' 
         if '40' not in self.prints:
@@ -768,3 +786,10 @@ class Stats:
         if 'penalties' not in self.df_dict:
             self.df_dict['penalties'] = self.big_df.loc[self.big_df['event'] == 'utvisning']
         return self.df_dict['penalties'] 
+
+    def get_long_shots_df(self) -> pd.core.frame.DataFrame:
+        '''returns a ff with only the long shots (skottyp: utifrån)
+            populates the df_dict if not already done'''
+        if 'long shots' not in self.df_dict:
+            self.df_dict['long shots'] = self.big_df.loc[self.big_df['subevent'] == 'utifrån']
+        return self.df_dict['long shots'] 

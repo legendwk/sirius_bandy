@@ -1,0 +1,291 @@
+event,time
+avslag bro z5,0:00:00
+passnig lång bro z1,0:00:46
+passnig straffområde bro z2,0:00:49
+närkamp bro z2,0:00:52
+närkamp iks z1,0:01:00
+passning lång iks z8,0:01:15
+utkast bro z9,0:01:19
+frislag bro z3,0:01:48
+timeout ,0:01:56
+passning straffområde bro z2,0:02:22
+hörna bro z1,0:02:26
+del,0:03:14
+utkast iks ,0:03:28
+40 iks,0:03:51
+passning lång iks z7,0:04:00
+utkast bro z7,0:04:06
+brytning iks z2,0:04:26
+hörna iks z9,0:04:41
+iks z8 mål hörnmål,0:05:23
+iks z8 skott fast,0:05:27
+avslag bro ,0:05:50
+närkamp iks z1,0:06:09
+utkast iks z2,0:06:11
+passning lång iks z7,0:06:33
+passning strafofmårde iks z8,0:06:38
+utkast bro z9,0:06:42
+frislag bro z6,0:06:48
+utvisning 10 iks,0:07:55
+frislag bro z5,0:08:23
+passning lång bro z2,0:08:38
+brytning iks z2,0:08:40
+40 iks,0:08:55
+närlamp bro z3,0:09:15
+skott räddning bro z2,0:09:19
+skottyp utifrån bro z2,0:09:22
+utkast iks ,0:09:23
+passning lång iks z7,0:09:30
+passning straffområde iks z8,0:09:33
+närkamp bro z8,0:09:35
+passning straffområde bro z2,0:09:57
+utkast iks z3,0:09:59
+närkamp iks z8,0:10:14
+passning lång iks z7,0:10:40
+offside iks z7,0:10:43
+boll bro,0:10:45
+närkamp iks z2,0:11:10
+utkast iks z3,0:11:18
+passning lång iks z8,0:11:27
+utkast bro z9,0:11:31
+passning lång bro z2,0:12:01
+närkamp iks z2,0:12:06
+boll bro,0:12:14
+hörna bro z3,0:12:17
+bro z2 skott täckt,0:12:45
+skottyp fast bro z2,0:12:48
+timeout,0:13:15
+utkast iks z1,0:13:37
+närkamp bro z4,0:13:45
+bolltapp passförösk bro z2,0:13:52
+närkamp bro z6,0:13:56
+närkamp iks z5,0:14:04
+frislag bro z5,0:14:07
+passning lång bro z2,0:14:43
+utkast iks z1,0:14:48
+närkamp iks z4,0:14:56
+närkamp bro z4,0:15:00
+passning lång bro z1,0:15:17
+utkast iks z8,0:15:27
+rensning bro ,0:15:39
+utkast iks z3,0:15:43
+passning lång iks z8,0:15:52
+utkast bro z9,0:15:58
+brytning iks z2,0:16:18
+skott räddning iks z8,0:16:27
+skottyp dribbling iks z8,0:16:37
+hörna iks z9,0:16:39
+iks z8 skott utanför,0:17:01
+iks z8 skottyp fast ,0:17:05
+utkast bro ,0:17:08
+inslag bro z1,0:17:35
+hörna bro z1,0:17:49
+bro z2 skott täckt,0:18:12
+skottyp fast bro z2,0:18:18
+utkast iks z3,0:18:23
+passning lång iks z8,0:18:34
+utkast bro z9,0:18:37
+passning lång brp z2,0:18:46
+utkast iks z3,0:18:51
+passning lång iks z8,0:19:00
+närkamp bro z8,0:19:09
+rensnign bro ,0:19:11
+inslag iks z4,0:19:14
+hörna iks z7,0:19:27
+boll iks ,0:20:02
+utkast bro z9,0:20:12
+passning lång bro z2,0:20:18
+inslag bro z9,0:20:34
+närkamp bro z6,0:20:52
+passning lång bro z2,0:20:59
+utkast iks z3,0:21:04
+inslag iks z9,0:21:21
+passning lång iks z8,0:21:47
+utkast bro z5,0:21:56
+närkamp iks z6,0:22:02
+brytning bro z8,0:22:13
+skott utanför bro z2,0:22:22
+skottyp utifrån bro z2,0:22:25
+utkast iks ,0:22:30
+passning lång iks z8,0:22:40
+utkast bro,0:22:42
+frislag bro z4,0:22:50
+passning lång bro z2,0:23:18
+utkast iks z5,0:23:23
+närkamp iks z5,0:23:33
+oassning straffområde iks z8,0:23:44
+närkamp bro z8,0:23:46
+frislag bro z6,0:23:53
+brytning iks z5,0:24:10
+närkamp iks z7,0:24:20
+närkamp iks z4,0:24:29
+närkamp bro z8,0:24:34
+närkamp iks z7,0:24:46
+inslag iks z7,0:24:47
+el,0:24:49
+del,0:24:54
+boll bro ,0:24:58
+offside bro ,0:25:07
+utkast iks z5,0:25:12
+närkamp iks z5,0:25:21
+närkamp bro z4,0:25:25
+frislag iks z4,0:25:35
+rensning bro ,0:25:51
+passning straffområde iks z8,0:26:02
+passning straffområde iks z8,0:26:09
+frislag iks z8,0:26:20
+passning straffområde iks z8,0:26:41
+utkast bro z5,0:26:46
+utkast iks z6,0:26:56
+närkamp bro z5,0:27:06
+frislag bro z5,0:27:13
+del,0:27:14
+timeout,0:27:17
+boll bro,0:27:30
+närkamp iks z6,0:27:49
+inslag bro z6,0:27:56
+passning lång bro ,0:28:07
+utkast iks z3,0:28:12
+passning lång iks z6,0:28:17
+närkamp bro z6,0:28:21
+skott täckt bro z2,0:28:33
+skottyp fast bro z2,0:28:36
+del,0:28:37
+skottyp utifrån bro z2,0:28:40
+boll iks,0:28:41
+passning lång iks z8,0:28:46
+utkast bro z9,0:28:51
+närkamp iks z4,0:29:06
+passnign straffområde iks z8,0:29:17
+närkamp bro z9,0:29:24
+utkast bro z8,0:29:34
+passning lång bro ,0:29:46
+utkast iks ,0:29:48
+närkamp iks z8,0:29:58
+passning straffområde biks z8,0:30:08
+rensning bro ,0:30:10
+skott utanför iks z8,0:30:17
+skottyp utifrån iks z8,0:30:21
+utkast bro,0:30:23
+inslag iks z9,0:30:36
+närkamp bro z9,0:30:52
+närkamp iks z5,0:30:55
+närkamp bro z7,0:31:03
+insalg bro z4,0:31:11
+passning lång bro z2,0:31:30
+utkast iks z3,0:31:39
+åpassning lång iks z8,0:31:48
+närkamp iks z8,0:31:50
+skott täckt iks z8,0:31:52
+skottyp fast iks z8,0:31:55
+boll bro,0:32:00
+närkamp iks z3,0:32:04
+brytning bro z5,0:32:13
+brytning iks z4,0:32:20
+passning lång iks z5,0:32:32
+närkamp iks z8,0:32:37
+skott räddning iks z8,0:32:44
+skottyp utifrån iks z8,0:32:47
+skott täckt iks z8,0:32:55
+skottyp utifrån iks z8,0:32:58
+hörna iks z7,0:33:00
+iks z8 skott utanför,0:33:19
+skottyp fast iks z8,0:33:22
+utkast bro,0:33:28
+närkamp iks z6,0:33:40
+närkamp bro z4,0:33:50
+frislag bro z4,0:33:54
+passning lång bro z2,0:34:12
+rensning iks ,0:34:21
+offside bro ,0:34:25
+boll iks ,0:34:29
+passning lång iks z8,0:34:41
+närkamp bro z8,0:34:44
+passning lång bro z2,0:35:06
+mål spelmål bro z2,0:35:11
+skottyp friställande ,0:35:31
+del,0:35:33
+skottyp friställande bro z2,0:35:37
+avslag iks ,0:35:39
+inslag iks z1,0:35:51
+passning lång iks z5,0:35:56
+boll bro ,0:35:57
+närkamp iks z4,0:36:07
+närkamp bro z5,0:36:10
+skott räddning bro z2,0:36:18
+skottyp utifrån bro z2,0:36:21
+rensning iks ,0:36:23
+frislag iks z4,0:36:27
+inslag iks z7,0:36:47
+passning straffområde iks z8,0:37:02
+utkast bro z5,0:37:05
+närkamp bro z2,0:37:10
+skott utanför bro z2,0:37:14
+skottyp utifrån bro z2,0:37:18
+utkast iks ,0:37:27
+närkamp bro z5,0:37:32
+närkamp iks z5,0:37:39
+närkamp bro z1,0:37:59
+boll iks ,0:38:02
+inslag bro z4,0:38:05
+passning lång bro z2,0:38:25
+närkamp iks z5,0:38:27
+brynting bro z7,0:38:34
+närkamp iks z4,0:38:54
+utkast bro z5,0:39:12
+utkast iks z3,0:39:23
+skott utanför iks z8,0:39:46
+skottyp centralt iks z8,0:39:50
+utkast bro,0:39:58
+utkast iks z3,0:40:20
+brytnign bro z5,0:40:28
+brytnign iks z4,0:40:32
+timeout,0:40:53
+frislag bro z5,0:41:02
+passnign lång bro z2,0:41:06
+rensning iks ,0:41:08
+närkamp bro z4,0:41:24
+brytning iks z54,0:41:30
+närkamp bro z8,0:41:34
+närkamp iks z6,0:41:39
+nrkamp bri z7,0:41:56
+närkamp iks z4,0:41:59
+närkamp bro z7,0:42:05
+närkamp iks z4,0:42:16
+passning lång iks z9,0:42:20
+passnign straffområde iks z8,0:42:26
+närkamp iks z9,0:42:35
+frislag iks z9,0:42:42
+passning slång iks z8,0:42:47
+utkast bro 5,0:43:01
+närkamp iks z5,0:43:10
+rensning bro ,0:43:15
+utkast iks z5,0:43:30
+närkamp bro z5,0:43:36
+närkamp bro z3,0:43:45
+närkamp bro z3,0:43:58
+passninglång bro z2,0:44:05
+närkamp bro z2,0:44:14
+passnign straffområde bro z2,0:44:20
+boll iks ,0:44:23
+brytning bro z9,0:44:30
+närkamp iks z6,0:44:36
+närkamp bro z7,0:44:48
+inslag bro z7,0:44:56
+passning lång bro z5,0:45:10
+boll iks z5,0:45:18
+brytnign bro z5,0:45:20
+passnign lång bro z2,0:45:33
+skott utanför bro z2,0:45:38
+skottyp fristäakkdne bro z2,0:45:45
+utkast iks z4,0:45:47
+passning lång iks z8,0:45:57
+boll bro ,0:46:05
+närkamp bro z4,0:46:15
+timeout,0:46:17
+utvisning 10 bro,0:47:09
+utvisning 10 iks,0:47:14
+frislag bro z4,0:48:22
+boll isk z2,0:48:26
+närkamp bro z7,0:48:40
+stop,0:48:45

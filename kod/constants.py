@@ -52,4 +52,15 @@ nicknames = {
 color_scale = [RGBColor(0,55,100), RGBColor(0,74,152), 
                 RGBColor(0,85,184), RGBColor(0,154,222), RGBColor(94,179,228)]
 
-readable_numbers = {1: 'en', 2: 'två', 3: 'tre', 4: 'fyra', 5: 'fem', 6: 'sex', 7: 'sju', 8: 'åtta', 9: 'nio', 10: 'tio', 11: 'elva', 12: 'tolv'}
+readable_numbers = {
+    1: 'en', 2: 'två', 3: 'tre', 4: 'fyra', 5: 
+    'fem', 6: 'sex', 7: 'sju', 8: 'åtta', 9: 'nio', 
+    10: 'tio', 11: 'elva', 12: 'tolv'
+    }
+
+expected_goals = {
+    'centralt': 0.2, 'friställande': 0.5384615384615384, 
+    'inlägg': 0.21505376344086022, 'fast': 0.13069908814589665, 
+    'retur': 0.29577464788732394, 'dribbling': 0.19642857142857142, 
+    'utifrån': 0.05263157894736842
+}

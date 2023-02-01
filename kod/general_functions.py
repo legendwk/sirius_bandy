@@ -96,3 +96,4 @@ def clean_up() -> None:
         os.remove(f)
     os.chdir('..\\..')
     return
+
