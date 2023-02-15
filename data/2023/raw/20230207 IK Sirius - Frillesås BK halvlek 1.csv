@@ -1,0 +1,181 @@
+event,time
+avslag iks z5,0:00:00
+40 iiks z8,0:00:06
+40 iks ,0:00:26
+närkamp iks z8,0:00:34
+frislag iks z4,0:01:37
+passning lång iks z2,0:02:09
+offside iks z2,0:02:11
+boll fri ,0:02:19
+passning straffområde bol z8,0:03:02
+utkast iks z7,0:03:06
+brytning fri z4,0:03:28
+passning straffområde fri z8,0:03:41
+boll iks ,0:03:43
+passning lång iks z2,0:03:50
+brytning fri z2,0:03:54
+närkamp fri z3,0:04:01
+närkamp fri z5,0:04:17
+passning lång fri z8,0:05:19
+offside fri z8,0:05:22
+boll iks ,0:05:24
+skott räddnign iks z2,0:05:33
+skottyp utifrån iks z2,0:05:38
+utkast fri z1,0:05:40
+närkamp iks z7,0:06:11
+nrkamp fi z7,0:06:20
+frislag fri z9,0:07:07
+närkamp iks z7,0:07:25
+närkamp iks z5,0:07:33
+40 iks ,0:07:41
+brytning fri z2,0:07:53
+närkamp iks z4,0:08:07
+passning straffområde iks z2,0:08:29
+hörna iks z1,0:08:31
+iks z2 skott räddning ,0:09:07
+skottyp fast iks z2,0:09:10
+rensning fri,0:09:18
+boll iks,0:09:23
+närkamp fri z5,0:09:30
+skott räddning fri z8,0:09:40
+skottyp utifrån fri z8,0:09:43
+utkast iks ,0:09:46
+skott utanflr uks z2,0:10:24
+skottyp dribbling iks ,0:10:33
+utkast fri ,0:10:35
+närkamp iks z5,0:10:52
+boll fri ,0:10:58
+brytning iks z8 ,0:11:14
+brutning fri z6,0:12:05
+kontring fri ,0:12:07
+bolltapp tappad fri z8,0:12:11
+närkamp fri z7,0:12:22
+bryting iks z8,0:13:12
+åassmomg straffpm¨rde iks z2,0:13:55
+frislag iks z1,0:14:02
+närkamp fri z3,0:14:22
+utkast iks z9,0:14:35
+skott räddning iks z2,0:14:55
+sktotyp centralt iks z2,0:14:58
+närkamp fri z2,0:15:03
+frislag fri z1,0:15:07
+brytning iks z6,0:15:34
+straff iks z2,0:15:52
+utvisning 10 fri,0:16:19
+iks mål straffmål z2,0:16:41
+skottyp fast iks z2,0:16:45
+avslag fri z2,0:17:16
+skott räddning fri z8,0:17:54
+skkottyp dribbling fri z8,0:17:58
+skott utanför fri z8,0:18:04
+skottyp utifrån fri z8 ,0:18:11
+utkast iks ,0:18:13
+40 iks ,0:18:37
+passnign straffområde iks z2,0:18:49
+skott räddning iks z2,0:18:53
+skottyp centlrat iks z2,0:19:00
+boll iks ,0:19:12
+frislag iks z1,0:19:37
+närkamp iks z9,0:20:07
+utkast fri z3,0:20:22
+skott röddning fri z8,0:20:50
+skottyp utifrån fri z8,0:20:53
+utkast iks ,0:20:55
+40 iks ,0:21:09
+inslag iks z6,0:21:52
+frislag iks z1,0:22:17
+närkamp fri z4,0:22:49
+närkamp iks z2,0:22:56
+närkamp fri z5,0:23:29
+närkamp fri z9,0:24:10
+passning straffområde fri z8,0:24:15
+boll iks ,0:24:18
+kontring iks ,0:24:27
+passning farlig iks z2,0:24:30
+hörna iks z1,0:24:34
+iks z2 skott täckt ,0:24:58
+skottyp fast iks z2,0:25:01
+skott täckt iks z2,0:25:04
+skottyp retur iks z2,0:25:08
+utkast fri  z2 ,0:25:12
+passning lång fri z8,0:25:28
+boll iks ,0:25:30
+passning lpng ks z2,0:25:37
+närkamp fri z2,0:25:40
+bolltapp passförösk fri z4,0:25:52
+passning iks straffområe z2,0:26:36
+inslag fri z1,0:26:38
+bolltapp passförösk fri z4,0:26:58
+inslag iks z3,0:27:19
+närkamp fri z8 ,0:27:40
+närkamp iks z9,0:27:49
+frislag iks z9,0:28:02
+närkamp fri z2,0:28:38
+hörna iks z1,0:28:42
+iks z2 skott utanör ,0:29:06
+skottyp fast iks z2,0:29:09
+utkast fri ,0:29:11
+del,0:29:18
+närkamp fri z8,0:29:38
+rensnign iks ,0:29:40
+inslag fri z7,0:29:43
+passnign staffområde fri z8,0:30:01
+utkast iks z7,0:30:08
+passning lång iks z3,0:30:34
+boll fri,0:30:36
+skott räddning fri z8,0:31:00
+skottyp dribbling fri z8,0:31:04
+boll fri ,0:31:06
+passning lång fri ,0:31:36
+närkamp iks z9,0:31:44
+närkamp iks z2,0:32:04
+40 iks ,0:32:06
+passnning straffområde iks z2,0:32:30
+mål spelmål iks z2,0:32:34
+skottyp inlägg iks z2,0:32:38
+avslag fri ,0:32:53
+passning lång fri z2,0:33:21
+boll iks ,0:33:22
+närkamp fri z8,0:33:31
+frislag fri z5,0:33:34
+rensning iks z8,0:33:56
+utkast iks ,0:34:24
+frislag iks z6,0:34:38
+brytning fri z6,0:34:57
+inslag fri z4,0:35:09
+närkamp iks z9,0:35:46
+utkast iks ,0:36:07
+närkamp fri z3,0:36:27
+kontring fri ,0:36:30
+passnign farlig fri z8,0:36:47
+utkast iks ,0:36:49
+närkamp fri z6,0:36:57
+frislag fri z7,0:37:07
+hörna fri z7,0:37:33
+skott räddning fri z8,0:38:08
+skottyp fri fast,0:38:15
+rensning iks ,0:38:18
+frislag fri z7,0:38:57
+passnign straffområde fri z8,0:39:10
+passning straffområde fri z8,0:39:26
+inslag fri z6,0:39:41
+närkamp iks z7,0:40:26
+frislag iks z7,0:40:28
+40 iks ,0:41:09
+passning lång iks z5,0:41:20
+boll fri ,0:41:23
+rensning fri ,0:41:25
+närkamp fri z3,0:41:47
+inslag fri z6,0:41:52
+närkamp fri z5,0:43:17
+passning farlig fri z8,0:43:23
+utkast iks z7,0:43:27
+skott utanför iks z2,0:43:48
+skottyp iks utifrån z2,0:43:55
+utkast fri z3,0:43:57
+frislag fri z5,0:44:23
+passnign strafofmråde fri z8,0:44:47
+boll iks,0:44:51
+närkamp fri z7,0:44:54
+utkast iks ,0:45:00
+stop,0:45:04

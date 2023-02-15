@@ -57,6 +57,7 @@ class PP:
         #self.make_game_report_scimmages_page()
         self.make_game_report_before_and_after_table_page()
         self.make_game_report_shot_types_page(show_xg = True)
+        self.make_single_image_page(self.plot.make_expected_goals_over_time_image(main_team_color=gf.rgb255_to_rgb1(PP.image_color_main), other_team_color=gf.rgb255_to_rgb1(PP.image_color_opponent)), 'Mål och XG\n', from_top = 0)
         self.make_game_report_slot_page()
         #self.make_game_report_shot_origins_page()
         self.make_game_report_goals_stats_page()
@@ -865,6 +866,10 @@ class PP:
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Resultat: \n\t{sum(self.stats.prints['score'][team].values())}"
+            res.level = 0
+            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res = bp2.text_frame.add_paragraph()
+            res.text = f"XG: \n\t{round(self.stats.prints['expected goals'][team],2)}"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()

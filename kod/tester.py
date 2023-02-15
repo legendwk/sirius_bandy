@@ -32,6 +32,45 @@ if __name__ == '__main__':
     # dataobjekt
     cs = CompileStats(custom)
 
+
+    header = ['halvlek', 'mål iks', 'mål motståndare', 'xg sirius', 'xg motståndare']#, 
+    # 'xg-skillnad', 'bra försvar (xg mot - mål mot)', 'otur frammåt (xg för - mål för)', 
+    # 'resultatsskillnad (xg - resultat)']
+    values = [list() for i in range(len(header))]
+
+    cs = CompileStats(regular_season2223)
+
+    for game in cs.games:
+        half_list = game.out.split('\\')
+        half = ' '.join(half_list[2:].pop().split()[1:-1])
+        values[0].append(half)
+        goals_sirius = sum(game.prints['score']['sirius'].values())
+        values[1].append(goals_sirius)
+        goals_opp = sum(game.prints['score'][game.opposite_team('sirius')].values())
+        values[2].append(goals_opp)
+        # goal_diff = goals_sirius - goals_opp
+        # values[3].append(goal_diff)
+        xg_sirius = round(game.prints['expected goals']['sirius'], 3)
+        values[3].append(xg_sirius)
+        xg_opp = round(game.prints['expected goals'][game.opposite_team('sirius')], 3)
+        values[4].append(xg_opp)
+        # xg_diff = xg_sirius - xg_opp
+        # values[6].append(xg_diff)
+        # defense = xg_opp - goals_opp 
+        # values[7].append(defense)
+        # efficiency = xg_sirius - goals_sirius
+        # values[8].append(efficiency)
+        # diff_result = xg_diff - goal_diff 
+        # values[9].append(diff_result)
+
+
+
+    gf.save_data_to_csv('säsong', header, values)
+
+    print(os.getcwd())
+    '''
+
+
     # mål
     goals_sir = np.array(cs.all_stats['goals']['sirius'])
     goals_opp = np.array(cs.all_stats['goals']['opponent'])
@@ -60,7 +99,7 @@ if __name__ == '__main__':
 
 
     
-    '''
+  
     for grabb in cs.all_stats:
         print(grabb)
         print(cs.all_stats[grabb])
@@ -215,69 +254,4 @@ if __name__ == '__main__':
     plt.margins(x=0.02)
 
     plt.show()
-
-    
-
-
-    # sustained attacks
-    teams = {'sirius', 'frillesås'}
-    other = {'sirius': 'frillesås', 'frillesås': 'sirius'}
-    pl = [('sirius', '0:00:00'), ('frillesås', '0:02:02'), ('sirius', '0:02:23'), (None, '0:03:20'), ('sirius', '0:03:50'), ('frillesås', '0:04:13'), ('sirius', '0:04:24'), (None, '0:04:46'), ('sirius', '0:05:08'), ('frillesås', '0:05:15'), ('sirius', '0:06:16'), ('frillesås', '0:06:23'), ('sirius', '0:07:50'), ('frillesås', '0:08:14'), ('sirius', '0:09:42'), ('frillesås', '0:09:47'), (None, '0:11:04'), ('frillesås', '0:11:40'), ('sirius', '0:11:56'), ('frillesås', '0:12:34'), ('sirius', '0:12:41'), ('frillesås', '0:13:16'), ('sirius', '0:13:27'), (None, '0:13:40'), ('frillesås', '0:14:15'), ('sirius', '0:14:50'), ('frillesås', '0:16:16'), ('sirius', '0:17:07'), ('frillesås', '0:17:59'), (None, '0:18:04'), ('frillesås', '0:18:29'), ('sirius', '0:18:37'), (None, '0:19:18'), ('sirius', '0:19:27'), ('frillesås', '0:19:35'), ('sirius', '0:19:54'), (None, '0:20:18'), ('sirius', '0:20:49'), ('frillesås', '0:21:06'), ('sirius', '0:21:15'), ('frillesås', '0:21:43'), ('sirius', '0:21:55'), ('frillesås', '0:22:26'), ('sirius', '0:23:11'), ('frillesås', '0:23:56'), ('sirius', '0:24:21'), ('frillesås', '0:25:28'), (None, '0:25:54'), ('sirius', '0:26:25'), ('frillesås', '0:26:52'), ('sirius', '0:27:09'), ('frillesås', '0:27:23'), ('sirius', '0:27:42'), ('frillesås', '0:27:45'), (None, '0:28:04'), ('frillesås', '0:28:26'), ('sirius', '0:28:36'), ('frillesås', '0:28:41'), ('sirius', '0:29:10'), ('frillesås', '0:29:35'), ('sirius', '0:30:06'), (None, '0:30:55'), ('sirius', '0:31:19'), ('frillesås', '0:31:25'), (None, '0:31:51'), ('sirius', '0:32:40'), ('frillesås', '0:33:18'), ('sirius', '0:33:56'), ('frillesås', '0:34:08'), ('sirius', '0:34:14'), ('frillesås', '0:34:35'), ('sirius', '0:34:41'), (None, '0:36:16'), ('sirius', '0:36:23'), ('frillesås', '0:37:00'), ('sirius', '0:37:31'), (None, '0:37:52'), ('sirius', '0:38:18'), ('frillesås', '0:38:34'), ('sirius', '0:38:49'), ('frillesås', '0:39:01'), ('sirius', '0:39:09'), ('frillesås', '0:39:30'), ('sirius', '0:39:51'), ('frillesås', '0:39:59'), ('sirius', '0:40:05'), ('frillesås', '0:40:12'), ('sirius', '0:40:40'), ('frillesås', '0:40:46'), ('sirius', '0:40:57'), (None, '0:41:38'), ('sirius', '0:42:06'), ('frillesås', '0:42:19'), ('sirius', '0:43:24'), ('frillesås', '0:43:48'), (None, '0:44:22'), ('frillesås', '0:45:03'), (None, '0:45:10')]  
-    #pl = [('sirius', '0:00:00'),('frillesås', '0:00:15'),('sirius', '0:00:20'),(None, '0:00:50'),('sirius', '0:01:00'),('frillesås', '0:01:01'),('sirius', '0:01:10'),('frillesås', '0:02:00'),('sirius', '0:03:00'),(None, '0:03:10'),('frillesås', '0:04:00'),('sirius', '0:06:00'), (None, '0:07:10')]
-    tl = {team : [0 for i in range(gf.readable_to_sec(pl[-1][1])//60 + 1)] for team in teams}
-    i = 0 
-    min_length = 60
-    disruption_length = 10
-    while i < len(pl) - 1:
-        current_team, current_time = pl[i]
-        attack_time = 0 
-        for j in range(i, len(pl)):
-            following_team, following_time  = pl[j]
-            # team has the ball
-            if following_team == current_team:
-                attack_time += gf.readable_to_sec(pl[j+1][1])-gf.readable_to_sec(following_time)
-            # other team has the ball
-            elif following_team == other[current_team]:
-                # they have the ball long enough or get a break in play
-                if gf.readable_to_sec(pl[j+1][1])-gf.readable_to_sec(following_time) > disruption_length or pl[j+1][0] == None:
-                    break
-            else:
-                pass
-        if attack_time >= min_length:
-            tl[current_team][gf.readable_to_sec(current_time)//60] = attack_time
-        i = j
-
-    for t in tl:
-        print(f'{t}:{tl[t]}')
-        
-
-
-    
-    header = ['halvlek', 'mål iks', 'mål motståndare', 'närkamper iks', 'närkamper motståndare', 'närkampsprocent iks', 'bolltapp iks', 'bolltapp motståndare', 'skillnad bolltapp']
-    values = [list() for i in range(len(header))]
-
-    cs = CompileStats(regular_season2223)
-    for game in cs.games:
-        half_list = game.out.split('\\')
-        half = ' '.join(half_list[2:].pop().split()[1:-1])
-        values[0].append(half)
-        goals_iks = sum(game.prints['score']['sirius'].values())
-        values[1].append(goals_iks)
-        goals_opp = sum(game.prints['score'][game.opposite_team('sirius')].values())
-        values[2].append(goals_opp)
-        duels_iks = game.prints['duels']['sirius']
-        values[3].append(duels_iks)
-        duels_opp = game.prints['duels'][game.opposite_team('sirius')]
-        values[4].append(duels_opp)
-        duels_per = round(duels_iks/(duels_iks + duels_opp) * 100, 1)
-        values[5].append(duels_per)
-        lostballs_iks = game.prints['lost balls']['sirius']
-        values[6].append(lostballs_iks)
-        lostballs_opp = game.prints['lost balls'][game.opposite_team('sirius')]
-        values[7].append(lostballs_opp)
-        lostballs_diff = lostballs_opp-lostballs_iks
-        values[8].append(lostballs_diff)
-
-
-    gf.save_data_to_csv('alla matcher', header, values)
     '''

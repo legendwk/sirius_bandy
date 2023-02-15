@@ -211,5 +211,31 @@ class Plot:
         plt.close(fig)
         return output_image_link
 
-
+    def make_expected_goals_over_time_image(self, title = 'xg over time', 
+    main_team_color = 'k', other_team_color = 'r') -> str:
+        '''makes a plot of the xg change over time
+            returns link to image'''
+        x = self.stats.prints['expected goals list']['x']
+        main_team_values = self.stats.prints['expected goals list'][self.stats.main_team]
+        other_team_values = self.stats.prints['expected goals list'][self.stats.opposite_team(self.stats.main_team)]
+        main_team_goals = self.stats.prints['goals lists'][self.stats.main_team]
+        other_team_goals = self.stats.prints['goals lists'][self.stats.opposite_team(self.stats.main_team)]
+        
+        
+        x_axis = [i//60 + 1 for i in x]
     
+        fig, ax = plt.subplots()
+        plt.plot(x_axis,main_team_values, color = main_team_color, linewidth=2, label = f"{constants.nicknames[self.stats.main_team]['abbreviation']} XG")
+        plt.plot(x_axis,main_team_goals, '--', color = main_team_color, linewidth=2, label = f"{constants.nicknames[self.stats.main_team]['abbreviation']} mål")
+        plt.plot(x_axis,other_team_values, color = other_team_color, linewidth=2, label = f"{constants.nicknames[self.stats.opposite_team(self.stats.main_team)]['abbreviation']} XG")
+        plt.plot(x_axis,other_team_goals, '--', color = other_team_color, linewidth=2, label = f"{constants.nicknames[self.stats.opposite_team(self.stats.main_team)]['abbreviation']} mål")
+        plt.legend()
+        plt.xlabel('Minuter')
+        plt.ylabel('Mål')
+        output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]}{title}.png'
+        plt.savefig(output_image_link, transparent=self.transparent)
+        # done to save memory
+        plt.close(fig)
+
+        return output_image_link
+

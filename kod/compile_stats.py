@@ -38,6 +38,7 @@ class CompileStats:
         self.all_stats['before and after'] = self.get_before_and_after()
         self.all_stats['shot origins'] = self.get_shot_origins()
         self.all_stats['penalties'] = self.get_penalties()
+        self.all_stats['penalty shots'] = self.get_penalty_shots()
         self.all_stats['expected goals'] = self.get_expected_goals()
         return
     
@@ -63,6 +64,7 @@ class CompileStats:
         self.stats_summary['before and after'] = self.summarize_before_and_after()
         self.stats_summary['shot origins'] = self.summarize_shot_origins()
         self.stats_summary['penalties'] = self.summarize_penalties()
+        self.stats_summary['penalty shots'] = self.summarize_penalty_shots()
         self.stats_summary['expected goals'] = self.summarize_expected_goals()
         
         before, after = self.investigate_long_shots()
@@ -107,8 +109,6 @@ class CompileStats:
     def summarize_expected_goals(self) -> dict:
         '''summarizes the expected goals of the games in self.games'''
         return {team: sum(self.all_stats['expected goals'][team]) for team in self.teams}
-        
-
 
     def get_goals(self) -> dict:
         '''returns the goals dict of the games in self.games'''
@@ -125,6 +125,21 @@ class CompileStats:
             for team in game.prints['penalties']:
                 penalties_dict[self.return_team(team)].append(game.prints['penalties'][team])
         return penalties_dict
+    
+    def get_penalty_shots(self) -> dict:
+        '''returns the penalty shots (straff) dict of the games in self.games'''
+        penalties_dict = {team: list() for team in self.teams}
+        for game in self.games:
+            for team in game.prints['penalty shots']:
+                penalties_dict[self.return_team(team)].append(game.prints['penalty shots'][team])
+        return penalties_dict
+
+    def summarize_penalty_shots(self) -> dict:
+        '''summarizes the penalty shots (straff)'''
+        p_dict = {team : 0 for team in self.teams}
+        for team in self.all_stats['penalty shots']:
+            p_dict[team] = sum(self.all_stats['penalty shots'][team]) 
+        return p_dict
 
     def get_shot_attempts(self) -> dict:
         '''returns the shot attempts dict of the games in self.games'''

@@ -1,0 +1,14 @@
+﻿Lag,M,V,O,F,GM,IM,MS,P
+Villa Lidköping BK,24,21,2,1,171,62,109,44
+Västerås SK,24,15,2,7,119,82,37,32
+Bollnäs GoIF,24,15,2,7,97,83,14,32
+Sandvikens AIK,24,11,5,8,113,99,14,27
+Edsbyns IF,24,11,4,9,87,83,4,26
+Brobergs IF,24,9,7,8,109,104,5,25
+IFK Motala,24,11,2,11,86,89,-3,24
+Vetlanda BK,24,10,3,11,99,124,-25,23
+Hammarby IF,24,9,2,13,97,122,-25,20
+IK Sirius,24,9,1,14,80,109,-29,19
+IFK Vänersborg,24,6,2,16,89,114,-25,14
+GripenTrollhättan BK,24,5,4,15,65,100,-35,14
+Frillesås BK,24,4,4,16,75,116,-41,12

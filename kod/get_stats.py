@@ -32,6 +32,8 @@ class Stats:
         self.goal_origins_list = list()
         self.main_team = main_team
         self.out = filename
+        # mainly used for number of halves  
+        self.number_of_games = 1
         # number of parts the game will be split into
         self.N = N
         # dummy is only used when creating a custom object such as when adding two ojects  
@@ -65,6 +67,8 @@ class Stats:
         obj.goals_info_list = self.goals_info_list + other.goals_info_list
         obj.out = f'{self.out} och {other.out}'
         obj.teams = self.teams
+        obj.number_of_games = self.number_of_games + other.number_of_games
+        
         obj.prints['score'] = self.add_score(other)
         obj.prints['possession'] = self.add_possession(other)
         obj.prints['duels'] = self.add_duels(other)
@@ -86,7 +90,10 @@ class Stats:
         obj.prints['penalties'] = self.add_penalties(other)
         obj.prints['goal types'] = self.add_goal_types(other)
         obj.prints['expected goals'] = self.add_expected_goals(other)
-
+        obj.prints['expected goals list'] = self.add_expected_goals_lists(other)
+        obj.prints['goals lists'] = self.add_goals_list(other)
+        obj.prints['penalty shots'] = self.add_penalty_shots(other)
+        
         return obj
 
 # non-static methods
@@ -113,7 +120,9 @@ class Stats:
         self.get_penalties_dict()
         self.get_goal_types()
         self.get_expected_goals()
-
+        self.get_penalty_shots_dict()
+        self.get_expected_goals_lists()
+        self.get_goals_lists()
 
         # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
@@ -191,8 +200,59 @@ class Stats:
         '''calculates the XG for both teams and places it in prints'''
         if 'expected goals' not in self.prints:
             xg_dict = {team : sum([constants.expected_goals[st] * self.prints['shot types'][team][st] for st in self.prints['shot types'][team]]) for team in self.teams}
+            for team in xg_dict:
+                xg_dict[team] = xg_dict[team] - self.get_penalty_shots_dict()[team] * constants.expected_goals['fast'] + self.get_penalty_shots_dict()[team] * constants.expected_goals['straff']
             self.prints['expected goals'] = xg_dict
         return self.prints['expected goals']
+
+    def get_expected_goals_lists(self) -> dict:
+        '''calculates the expected goals change over time'''
+        if 'expected goals list' not in self.prints:
+            xgl_dict = {'x': [0], self.main_team: [0], self.opposite_team(self.main_team): [0]}
+            st_df = self.get_shottypes_df()
+            for index, row in st_df.iterrows():
+                xgl_dict['x'].append(gf.readable_to_sec(row['time']))
+                delta_xg = constants.expected_goals[row['subevent']]
+                # specialfall eftersom straff har skottyp fast, vi skriver över osv
+                if row['subevent'] == 'fast' and index > 2: # se till att vi inte råkar hamna i bråk med index
+                    if self.big_df.loc[index - 2]['event'] == 'straff' or self.big_df.loc[index - 3]['event'] == 'straff':
+                        delta_xg = constants.expected_goals['straff']
+                shooting_team_xg = xgl_dict[row['team']][-1] + delta_xg
+                xgl_dict[row['team']].append(shooting_team_xg)
+                xgl_dict[self.opposite_team(row['team'])].append(xgl_dict[self.opposite_team(row['team'])][-1])
+            self.prints['expected goals list'] = xgl_dict
+        return self.prints['expected goals list']
+    
+    def get_goals_lists(self) -> dict:
+        '''calculates the scored goals lists that are used with expected goals lists'''
+        if 'goals lists' not in self.prints:
+            g_df = {self.main_team: [0], self.opposite_team(self.main_team): [0]}
+            st_df = self.get_shottypes_df()
+            for index, row in st_df.iterrows():
+                goal_scored = self.big_df.loc[index - 1]['event'] == 'mål'
+                shooting_team_goals = g_df[row['team']][-1] + int(goal_scored)
+                g_df[row['team']].append(shooting_team_goals)
+                g_df[self.opposite_team(row['team'])].append(g_df[self.opposite_team(row['team'])][-1])
+            self.prints['goals lists'] = g_df
+        return self.prints['goals lists']
+
+    def add_expected_goals_lists(self, other) -> dict:
+        '''handels the addition of the expected goals lists'''
+        xgl_dict = dict()
+        for list_type in self.prints['expected goals list']:
+            max_value = self.prints['expected goals list'][list_type][-1]
+            second_list = [i + max_value for i in other.prints['expected goals list'][list_type]]
+            xgl_dict[list_type] = self.prints['expected goals list'][list_type] + second_list
+        return xgl_dict
+    
+    def add_goals_list(self, other) -> dict:
+        '''handels the addition of the goals lists'''
+        xgl_dict = dict()
+        for list_type in self.prints['goals lists']:
+            max_value = self.prints['goals lists'][list_type][-1]
+            second_list = [i + max_value for i in other.prints['goals lists'][list_type]]
+            xgl_dict[list_type] = self.prints['goals lists'][list_type] + second_list
+        return xgl_dict
 
     def add_expected_goals(self, other) -> dict:
         '''handels the addition of the expected goals'''
@@ -548,6 +608,25 @@ class Stats:
             return_dict[team] = gf.sec_to_readable(gf.readable_to_sec(self.prints['possession'][team]) + gf.readable_to_sec(other.prints['possession'][team]))
         return return_dict
 
+    def get_penalty_shots_dict(self) -> dict:
+        '''returns a dictionary of the penalty shots (straff) for each team
+            if need be if fills self.prints'''
+        if 'penalty shots' not in self.prints:
+            ps_dict = {team: 0 for team in self.teams}
+            ps_df = self.get_penalty_shot_df()
+            for team in ps_dict:
+                ps_dict[team] = len(ps_df.loc[ps_df['team'] == team].index)
+            self.prints['penalty shots'] = ps_dict
+        return self.prints['penalty shots']
+    
+    def add_penalty_shots(self, other) -> dict:
+        '''handels the addition of the penalty shots (straff)
+            expects type to already have been checked'''
+        return_dict = dict()
+        for team in self.prints['penalty shots']:
+            return_dict[team] = self.prints['penalty shots'][team] + other.prints['penalty shots'][team]
+        return return_dict
+
     def get_shottypes_dict(self) -> dict:
         '''returns a dictionary of the shot types
             if need be it fills self.prints'''
@@ -793,3 +872,10 @@ class Stats:
         if 'long shots' not in self.df_dict:
             self.df_dict['long shots'] = self.big_df.loc[self.big_df['subevent'] == 'utifrån']
         return self.df_dict['long shots'] 
+    
+    def get_penalty_shot_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the the penalty shots (straff)
+            populates the df_dict if not already done'''
+        if 'penalty shot' not in self.df_dict:
+            self.df_dict['penalty shot'] = self.big_df.loc[self.big_df['event'] == 'straff']
+        return self.df_dict['penalty shot'] 

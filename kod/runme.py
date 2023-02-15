@@ -11,6 +11,31 @@ import time
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
+
+# hämta data och gör presentation (avnänds typ live?)
+filename = '20230215 IFK Motala - IK Sirius halvlek 2'
+os.chdir(r"data\2023\raw")
+teams = {'iks', 'mot'}
+
+# # samla data
+# g = Game(teams)
+# g.collector_raw(filename)
+# g.clean_csv(filename)
+
+
+# skapa statsobjekt
+os.chdir(r"..\\clean")
+motala = Stats(filename + ' clean')
+
+# # gör presentation
+os.chdir(r"..\..\..\powerpointer\matchrapporter")
+pp = PP(motala)
+pp.make_game_report()
+
+'''
+
+
+
 # mappar med csvfiler
 season2223 = 'data\\compile\\säsong 2223'
 regular_season2223 = 'data\\compile\\grundserie 2223'
@@ -31,8 +56,25 @@ rapport_all = 'data\\compile\\rapport all'
 broberg = 'data\\compile\\broberg'
 left = 'data\\compile\\left'
 right = 'data\\compile\\right'
+motala = 'data\\compile\\motala'
 
-cs = CompileStats(regular_season2223)
+cs_motala = CompileStats(motala)
+pp_motala = PP(cs_motala.returns_stats_obj())
+# cs_before = CompileStats(custom)
+# pp_before = PP(cs_before.returns_stats_obj())
+# cs_left = CompileStats(left)
+# pp_left = PP(cs_left.returns_stats_obj())
+# cs_right = CompileStats(right)
+# pp_right = PP(cs_right.returns_stats_obj())
+
+
+
+os.chdir('powerpointer\\säsongsrapporter')
+
+pp_motala.make_season_report('säsongsrapport Motala')
+# pp_before.make_season_report('säsongsrapport innan annandagen')
+# pp_right.make_season_report('höger säsongsrapport')
+# pp_left.make_season_report('vänster säsongsrapport')
 
 
 after = cs.stats_summary['after long shots events']
@@ -48,8 +90,6 @@ os.chdir('powerpointer\\säsongsrapporter')
 
 rapport = PP(cs.returns_stats_obj())
 rapport.make_season_report('säsongsrapport grundserie')
-
-'''
 
 cs_left = CompileStats(left)
 cs_right = CompileStats(right)
@@ -114,24 +154,6 @@ pp_van2 = PP(van2)
 pp_van2.make_game_report()
 
 
-# hämta data och gör presentation (avnänds typ live?)
-filename = '20230131 IK Sirius - Vetlanda BK halvlek 2'
-os.chdir(r"data\2023\raw")
-teams = {'iks', 'vet'}
 
-# samla data
-#g = Game(teams)
-#g.collector_raw(filename)
-#g.clean_csv(filename)
-
-
-# skapa statsobjekt
-os.chdir(r"..\\clean")
-vet = Stats(filename + ' clean')
-
-# gör presentation
-os.chdir(r"..\..\..\powerpointer\matchrapporter")
-pp = PP(vet)
-pp.make_game_report()
 
 '''
