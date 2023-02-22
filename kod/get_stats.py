@@ -594,7 +594,10 @@ class Stats:
             self.make_per_time_lists()
             for d in self.prints['per time lists']['possession']:
                 for team in d:
-                    poss_dict[team] += gf.readable_to_sec(d[team]) 
+                    try:
+                        poss_dict[team] += gf.readable_to_sec(d[team]) 
+                    except:
+                        pass
             for team in poss_dict:
                 poss_dict[team] = gf.sec_to_readable(poss_dict[team])
             self.prints['possession'] = poss_dict

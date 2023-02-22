@@ -1,0 +1,242 @@
+event,time
+avslag villa z2,0:00:00
+nrkamp iks z8,0:00:15
+kontring iks ,0:00:22
+brytning villa z5,0:00:27
+brynting iks z9,0:01:04
+kontring iks ,0:01:07
+närkamp villa z2,0:01:15
+frislag villa z5,0:01:40
+närkam villa z5,0:01:56
+frislag villa z9,0:02:12
+utkast iks z9,0:02:43
+passning lång iks z5,0:02:51
+boll villa ,0:02:54
+utkast iks z7,0:03:17
+frislag iks z7,0:03:28
+skott utanför iks z2,0:03:40
+skottyp utifrån iks z2,0:03:45
+utkast villa z1,0:03:47
+skott räddning villa z8,0:03:59
+skottyp utfriån villa z8,0:04:02
+boll iks ,0:04:05
+skott täckt iks z2,0:04:16
+skottyp utifrån iks z2,0:04:19
+utkast villa z3,0:04:20
+brytning iks z8,0:04:34
+bolltapp tappad iks z4,0:04:43
+brytning iks z4,0:04:48
+skott utanför iks z2,0:04:56
+skottyp centralt iks z2,0:05:00
+utkast villa ,0:05:02
+hörna villa z9,0:05:15
+villa z8 skott räddning ,0:05:49
+skottyp fast villa z8,0:05:53
+skott täckt villa z8,0:05:57
+skottyp retur villa z8,0:06:00
+utast iks ,0:06:07
+närkamp villa z1,0:06:18
+brytnign iks z6,0:06:29
+40 iks ,0:06:47
+passnign farlig iks z2,0:06:58
+skott räddning iks z,0:07:01
+skottyp centralt iks z2,0:07:05
+utkast villa z3,0:07:09
+skott räddning villa z8,0:07:16
+skottyp utifrån villa z8,0:07:21
+utkast iks ,0:07:23
+offside iks ,0:07:29
+boll villa ,0:07:41
+passning straffområde villa z8,0:07:57
+boll iks z7,0:07:59
+brynting villa z5,0:08:05
+närkamp iks z7,0:08:10
+brytning villa z4,0:08:21
+skott täckt villa z8,0:08:33
+skottyp utifrån villa z8,0:08:37
+bolltapp passförsök villa z5,0:08:53
+närkamp villa z3,0:09:22
+frislag villa z3,0:09:26
+skott räddning villa z8,0:09:37
+skottyp utifrån villa z8,0:09:41
+boll iks ,0:09:42
+frislag iks 7z,0:09:51
+brynting villa z2,0:10:23
+utvisning 10 iks ,0:10:41
+frislag villa z4,0:11:08
+hörna villa z7,0:11:22
+villa z8 skott räddning ,0:11:47
+villa z8 skottyp fast ,0:11:51
+skott räddning villa z8,0:11:54
+skottyp retur villa z8,0:11:57
+utkast iks ,0:12:04
+skott utanför iks z2,0:12:18
+skottyp utifrån iks z2,0:12:22
+utkast villa ,0:12:23
+skott utanför villa z8,0:12:38
+skottyp centralt villa z8,0:12:43
+utkast iks ,0:12:45
+bolltapp passförösk iks z1,0:13:18
+utkast villa z1,0:13:27
+passning lång villa z8,0:13:35
+utkast iks z9,0:13:40
+40 iks ,0:14:07
+brytning villa z2,0:14:29
+närkamp iks z7,0:14:47
+närkamp villa z3,0:15:06
+skott utanför villa z8,0:15:20
+skottyp utifrån villa z8,0:15:24
+utkast iks ,0:15:27
+närkamp villa z5,0:15:31
+brytning iks z8,0:16:28
+utvisning 10 villa,0:16:42
+frislag iks z5,0:17:07
+frislag iks z2,0:17:19
+40 iks z8,0:17:46
+skott täckt iks z2,0:18:02
+skottyp utifrån iks z2,0:18:05
+hörna iks z3,0:18:07
+iks z2 skott täclt,0:18:32
+iks z2 skottyp fast ,0:18:35
+boll villa ,0:18:37
+kontring villa ,0:18:40
+skott räddning villa z8,0:18:47
+skottyp utifrån villa z8 ,0:18:51
+nörkamp iks z8,0:18:53
+timeout,0:19:02
+frislag iks z4,0:19:13
+40 iks z8,0:19:29
+brytnign villa z1,0:19:41
+skott utanför villa z8,0:20:03
+skottyp dribbling villa z8,0:20:06
+boll villa z5,0:20:10
+skott utanför villa z8,0:20:21
+skottyp utifrån villa z8,0:20:25
+utkast iks ,0:20:30
+40 iks z8,0:20:47
+närkamp villa z1,0:21:18
+kontring villa ,0:21:20
+passning straffområde villa z8,0:21:33
+närkamp iks z9,0:21:38
+skott räddning iks z2,0:21:54
+skottyp utifrån iks z2,0:22:00
+mål spelmål iks z2,0:22:04
+skottyp retur iks z2,0:22:11
+avslag villa ,0:22:27
+frislag villa z5,0:23:29
+brytning iks z7,0:23:54
+närkamp villa z3,0:24:12
+utkast iks z9,0:24:42
+passning farlig iks z2,0:25:04
+skott räddnign iks z2,0:25:08
+skottyp friställande iks z2,0:25:13
+hörna iks z3,0:25:18
+bolltapp tappad iks z2,0:25:42
+kontrign villa z8,0:25:49
+skott räddning villa z8,0:25:57
+skottyp centralt villa z8,0:26:01
+bolltapp tappad vlla z8,0:26:20
+närkamp villa z6,0:26:24
+närkamp iks z9,0:26:35
+kontring iks z,0:26:39
+närkamp villa z2,0:26:45
+närkamp iks z8,0:27:45
+passnign strafofmråde iks z2,0:27:55
+skott täckt iks z2,0:27:57
+skottyp inlägg iks z2,0:28:01
+skott täckt iks z2,0:28:10
+skottyp retur iks z2,0:28:14
+inslag villa z3,0:28:17
+nrkamp iks z5,0:28:22
+skott täckt iks z2,0:28:33
+skottyp utifrån iks z2,0:28:35
+utkast villa ,0:28:37
+frislag villa z5,0:28:48
+bolltapp passförösk villa z4,0:29:14
+frislag iks z5,0:29:26
+passning straffområde iks z2,0:29:54
+närkamp iks z1,0:29:59
+närkamp villa z1,0:30:01
+närkamp iks z4,0:30:05
+skott utanför iks z2,0:30:14
+skottyp utifrån iks z2,0:30:17
+utkast villa z3,0:30:19
+skott räddning villa z8,0:30:47
+skottyp utifrån villa z8,0:30:52
+utkast iks ,0:30:53
+passnign straffområde iks z2,0:31:03
+närkamp iks z1,0:31:07
+40 iks z5,0:31:13
+passning straffområde iks z2,0:31:32
+n,0:31:35
+rkamp villa z2,0:31:38
+närkamp iks z8,0:31:46
+närkamp villa z6,0:31:53
+skott räddning villa z8,0:32:05
+skottyp centralt villa z8,0:32:13
+utkast iks z8,0:32:15
+brytnign villa z2,0:32:31
+närkamp villa z7,0:32:47
+utvisning 10 iks ,0:33:23
+frislag villa z,0:34:05
+skott täckt villa z8,0:34:17
+skottyp utifrån villa z8,0:34:20
+boll iks ,0:34:22
+brytning villa z2,0:34:31
+frislag villa z6,0:34:46
+skott räddning villa z8,0:35:25
+skottyp utifrån villa z8,0:35:28
+utkast iks z7,0:35:30
+nörkamp villa z4,0:36:05
+kontring villa ,0:36:07
+skott täckt villa z8,0:36:14
+skottyp centralt villa z8,0:36:17
+hörna villa z7,0:36:22
+villa z8 skott räddnign ,0:36:45
+skottyp fast villa z8,0:36:48
+skott räddnign villa z8,0:36:52
+skottyp retur vila z8,0:36:56
+rensning iks ,0:36:58
+skott täckt villa z8,0:37:07
+skottyp dribbling villa z8,0:37:12
+rensning iks ,0:37:14
+närkamp iks z8,0:37:54
+rensning iks ,0:37:57
+frislag villa z8,0:38:05
+närkamp iks z8,0:38:14
+passnign straffområde iks z2,0:38:38
+mål spelmål iks z2,0:38:44
+skottyp inlägg iks z2,0:38:48
+utkast villa ,0:39:13
+del,0:39:15
+avslag villa ,0:39:17
+skott utanför villa z8,0:39:30
+skottyp utifrån vila z8,0:39:33
+timeout,0:39:37
+utkast iks z7,0:40:08
+närkamp villa z6,0:40:37
+hörna villa z9,0:41:37
+villa z8 skott utanför,0:42:08
+skottyp fast villa z8,0:42:14
+utkast iks z7,0:42:16
+närkamp villa z2,0:42:37
+närkamp villa z1,0:42:45
+skott räddnign villa z8,0:42:58
+skottyp centralt villa z8,0:43:02
+utkast iks z9,0:43:06
+skott räddning iks z2,0:43:26
+skottyp utifrån iks z2,0:43:29
+utkast villa,0:43:31
+närkamp villa z4,0:43:34
+närkamp iks z7,0:43:40
+närkamp villa z4,0:43:47
+frislag villa z4,0:43:51
+skott täckt villa z8,0:44:19
+skottyp utifrånvilla z8,0:44:24
+hörna villa z7,0:44:27
+villa z8 mål hörnmål,0:44:52
+skottyp fast villa z8,0:45:00
+avslag iks ,0:45:20
+skott räddning iks z2,0:45:43
+skottyp utifrån iks z2,0:45:46
+stop,0:45:47

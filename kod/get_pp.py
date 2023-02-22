@@ -63,7 +63,7 @@ class PP:
         self.make_game_report_goals_stats_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
         self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{constants.nicknames[self.stats.main_team]['full']} vunna närkamper och brytningar per zon")
-        self.make_game_report_per_time_page()
+        #self.make_game_report_per_time_page()
 
         #fourty_image = self.plot.make_per_minute_bars(self.stats.prints['40'], ylabel='40-spel (antal)', color=PP.image_color_main)
         #self.make_single_image_page(fourty_image, title_text=f"Spridning av {constants.nicknames[self.stats.main_team]['full']} {sum(self.stats.prints['40'])} st 40-spel", from_top=0.3)
@@ -808,9 +808,18 @@ class PP:
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
             res = bp2.text_frame.add_paragraph()
-            goal_percentage = round(self.stats.prints['goal types'][team]['inlägg']/(self.stats.prints['goal types'][team]['inlägg'] + self.stats.prints['goal types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)
-            shot_percentage = round(self.stats.prints['shot types'][team]['inlägg']/(self.stats.prints['shot types'][team]['inlägg'] + self.stats.prints['shot types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)
-            slot_pass_percentage = round(self.stats.prints['slot passes'][team]/(self.stats.prints['slot passes'][team] + self.stats.prints['slot passes'][self.stats.opposite_team(team)]) * 100, 1)
+            try:
+                goal_percentage = round(self.stats.prints['goal types'][team]['inlägg']/(self.stats.prints['goal types'][team]['inlägg'] + self.stats.prints['goal types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)
+            except ZeroDivisionError:
+                goal_percentage = 0
+            try:
+                shot_percentage = round(self.stats.prints['shot types'][team]['inlägg']/(self.stats.prints['shot types'][team]['inlägg'] + self.stats.prints['shot types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)
+            except ZeroDivisionError:
+                shot_percentage = 0
+            try:
+                slot_pass_percentage = round(self.stats.prints['slot passes'][team]/(self.stats.prints['slot passes'][team] + self.stats.prints['slot passes'][self.stats.opposite_team(team)]) * 100, 1)
+            except ZeroDivisionError:
+                slot_pass_percentage = 0
             #res.text = f"Totala % mål, skott, inspel: \n\t{0 if 'inlägg' not in self.stats.prints['goal types'][team]['inlägg'] else round(self.stats.prints['goal types'][team]['inlägg']/(self.stats.prints['goal types'][team]['inlägg'] + self.stats.prints['goal types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)} %,  {round(self.stats.prints['shot types'][team]['inlägg']/(self.stats.prints['shot types'][team]['inlägg'] + self.stats.prints['shot types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)} %, {round(self.stats.prints['slot passes'][team]/(self.stats.prints['slot passes'][team] + self.stats.prints['slot passes'][self.stats.opposite_team(team)]) * 100, 1)} %"
             res.text = f"Totala % mål, skott, inspel: \n\t{goal_percentage} % {shot_percentage} % {slot_pass_percentage} %"
             res.level = 0

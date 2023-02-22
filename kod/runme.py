@@ -11,30 +11,49 @@ import time
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
-
-# hämta data och gör presentation (avnänds typ live?)
-filename = '20230215 IFK Motala - IK Sirius halvlek 2'
+# # hämta data och gör presentation (avnänds typ live?)
+filename = '20230222 IK Sirius - Villa Lidköping BK halvlek 2'
 os.chdir(r"data\2023\raw")
-teams = {'iks', 'mot'}
+teams = {'iks', 'villa'}
 
 # # samla data
 # g = Game(teams)
 # g.collector_raw(filename)
 # g.clean_csv(filename)
 
-
 # skapa statsobjekt
 os.chdir(r"..\\clean")
-motala = Stats(filename + ' clean')
+stats = Stats(filename + ' clean')
 
-# # gör presentation
+# villa1 = Stats('20230220 Villa Lidköping BK - IK Sirius halvlek 1 clean')
+# villa2 = Stats('20230220 Villa Lidköping BK - IK Sirius halvlek 2 clean')
+# villa = villa1 + villa2
+
+
+# gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
-pp = PP(motala)
+pp = PP(stats)
 pp.make_game_report()
 
 '''
+os.chdir('data\\compile\\custom')
+pen1 = Stats('IKS - Villa MED utv halvlek 1')
 
 
+pen2 = Stats('IKS - Villa MED utv halvlek 2')
+pen = pen1 + pen2
+pen.out = 'utvisning'
+
+nopen1 = Stats('IKS - Villa EJ utv halvlek 1')
+nopen2 = Stats('IKS - Villa EJ utv halvlek 2')
+nopen = nopen1 + nopen2
+nopen.out = 'ingen utvisning'
+
+os.chdir(r"..\..\..\powerpointer\matchrapporter")
+pp = PP(pen)
+pp.make_game_report()
+pp = PP(nopen)
+pp.make_game_report()
 
 # mappar med csvfiler
 season2223 = 'data\\compile\\säsong 2223'
@@ -53,28 +72,18 @@ rapport_ute = 'data\\compile\\rapport utomhus'
 rapport_bad_ice = 'data\\compile\\rapport dålig is'
 rapport_good_ice = 'data\\compile\\rapport bra is'
 rapport_all = 'data\\compile\\rapport all'
-broberg = 'data\\compile\\broberg'
 left = 'data\\compile\\left'
 right = 'data\\compile\\right'
-motala = 'data\\compile\\motala'
+villa = 'data\\compile\\villa'
+saikvilla = 'data\\compile\saik villa'
 
-cs_motala = CompileStats(motala)
-pp_motala = PP(cs_motala.returns_stats_obj())
-# cs_before = CompileStats(custom)
-# pp_before = PP(cs_before.returns_stats_obj())
-# cs_left = CompileStats(left)
-# pp_left = PP(cs_left.returns_stats_obj())
-# cs_right = CompileStats(right)
-# pp_right = PP(cs_right.returns_stats_obj())
-
+cs_iksvilla = CompileStats(villa, N = 2)
+pp_iksvilla = PP(cs_iksvilla.returns_stats_obj())
 
 
 os.chdir('powerpointer\\säsongsrapporter')
 
-pp_motala.make_season_report('säsongsrapport Motala')
-# pp_before.make_season_report('säsongsrapport innan annandagen')
-# pp_right.make_season_report('höger säsongsrapport')
-# pp_left.make_season_report('vänster säsongsrapport')
+pp_iksvilla.make_season_report('säsongsrapport sista iks villa')
 
 
 after = cs.stats_summary['after long shots events']
