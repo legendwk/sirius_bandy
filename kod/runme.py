@@ -12,7 +12,7 @@ import time
 gf.clean_up()
 
 # # hämta data och gör presentation (avnänds typ live?)
-filename = '20230222 IK Sirius - Villa Lidköping BK halvlek 2'
+filename = '20230224 Villa Lidköping BK - IK Sirius halvlek 2'
 os.chdir(r"data\2023\raw")
 teams = {'iks', 'villa'}
 
@@ -25,17 +25,46 @@ teams = {'iks', 'villa'}
 os.chdir(r"..\\clean")
 stats = Stats(filename + ' clean')
 
-# villa1 = Stats('20230220 Villa Lidköping BK - IK Sirius halvlek 1 clean')
-# villa2 = Stats('20230220 Villa Lidköping BK - IK Sirius halvlek 2 clean')
-# villa = villa1 + villa2
-
-
 # gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
 pp = PP(stats)
 pp.make_game_report()
 
+
+
 '''
+# mappar med csvfiler
+season2223 = 'data\\compile\\säsong 2223'
+regular_season2223 = 'data\\compile\\grundserie 2223'
+all_games = 'data\\compile\\alla'
+cup2223 = 'data\\compile\\cupen 2223'
+all_45_min = 'data\\compile\\45 min'
+outdoors = 'data\\compile\\utomhus'
+indoors = 'data\\compile\\inomhus'
+bad_ice = 'data\\compile\\dålig is'
+playoff2122 = 'data\\compile\\slutspel 2122'
+playoff2223 = 'data\\compile\\slutspel 2223'
+custom = 'data\\compile\\custom'
+rapport_inne = 'data\\compile\\rapport inomhus'
+rapport_ute = 'data\\compile\\rapport utomhus'
+rapport_bad_ice = 'data\\compile\\rapport dålig is'
+rapport_good_ice = 'data\\compile\\rapport bra is'
+rapport_all = 'data\\compile\\rapport all'
+left = 'data\\compile\\left'
+right = 'data\\compile\\right'
+villa = 'data\\compile\\villa'
+saikvilla = 'data\\compile\saik villa'
+
+first = CompileStats(custom, N = 2)
+pp = PP(first.returns_stats_obj())
+
+
+os.chdir('powerpointer\\säsongsrapporter')
+
+pp.make_season_report('säsongsrapport iks villa tom 60 min')
+
+
+
 os.chdir('data\\compile\\custom')
 pen1 = Stats('IKS - Villa MED utv halvlek 1')
 
