@@ -62,8 +62,11 @@ class PP:
         #self.make_game_report_shot_origins_page()
         self.make_game_report_goals_stats_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
-        self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{constants.nicknames[self.stats.main_team]['full']} vunna närkamper och brytningar per zon")
-        #self.make_game_report_per_time_page()
+        self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')} vunna närkamper och brytningar per zon")
+        self.make_single_image_page(self.plot.make_all_freeshot_locations_image(number_text=True), 'Frislag per zon')
+        self.make_single_image_page(self.plot.make_freeshots_made_per_locations_image(text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')}s frislag per zon")
+
+        self.make_game_report_per_time_page()
 
         #fourty_image = self.plot.make_per_minute_bars(self.stats.prints['40'], ylabel='40-spel (antal)', color=PP.image_color_main)
         #self.make_single_image_page(fourty_image, title_text=f"Spridning av {constants.nicknames[self.stats.main_team]['full']} {sum(self.stats.prints['40'])} st 40-spel", from_top=0.3)
@@ -82,7 +85,7 @@ class PP:
         self.make_season_report_duels_page()
         self.make_game_report_before_and_after_table_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
-        self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{constants.nicknames[self.stats.main_team]['full']} vunna närkamper och brytningar per zon")
+        self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')} vunna närkamper och brytningar per zon")
         self.make_season_report_corners_page()
         self.make_season_report_long_shot_targets_page()
         self.make_season_report_possession_after_long_shots_page()
@@ -100,7 +103,6 @@ class PP:
         self.make_comparative_report_overview_stats_page()
         self.make_comparative_report_shots_for_page()
         self.make_comparative_report_shots_against_page()
-        # här är vi nu 
         self.make_comparative_report_slot_for_page()
         self.make_comparative_report_slot_against_page()
         
@@ -147,7 +149,7 @@ class PP:
         '''adds the logos of the teams to the slide
             units in Inches''' 
         for i, team in enumerate(self.ordered_teams):
-            img = PP.image_link + constants.logos[team]
+            img = PP.image_link + gf.get_logo_image(team)
             if i != 0: 
                 # converting to inches by dividing by 914400 ??????
                 from_left = self.pres.slide_width/914400 - from_left - width 
@@ -157,7 +159,7 @@ class PP:
         '''adds the logo of the main team to the slide
             units in Inches'''
         for i in range(2):
-            img = PP.image_link + constants.logos[self.stats.main_team]
+            img = PP.image_link + gf.get_logo_image(self.stats.main_team) 
             if i != 0: 
                 # converting to inches by dividing by 914400 ??????
                 from_left = self.pres.slide_width/914400 - from_left - width 
@@ -169,7 +171,7 @@ class PP:
         slide = self.pres.slides.add_slide(slide_register)
         self.set_background_color(slide)
         title = slide.shapes.title
-        title.text = " - ".join(constants.nicknames[team]['full'] for team in self.ordered_teams)
+        title.text = " - ".join(gf.get_nickname(team, 'full') for team in self.ordered_teams) 
         title.text_frame.paragraphs[0].font.color.rgb = PP.text_color
 
         subtitle = slide.placeholders[1]
@@ -186,7 +188,7 @@ class PP:
         self.add_main_team_logo(slide)
         title = slide.shapes.title
         #title.top = Inches(2)
-        title.text = f"Säsongsrapport för \n{constants.nicknames[self.stats.main_team]['full']}"
+        title.text = f"Säsongsrapport för \n{gf.get_nickname(self.stats.main_team, 'full')}"
         title.text_frame.paragraphs[0].font.color.rgb = PP.text_color
 
     def make_comparative_report_front_page(self) -> None:
@@ -199,7 +201,7 @@ class PP:
         title.text_frame.paragraphs[0].font.color.rgb = PP.text_color
 
         subtitle = slide.placeholders[1]
-        subtitle.text = f"{' - '.join(constants.nicknames[team]['full'] for team in self.ordered_teams)} och {self.other.number_of_games if self.other.number_of_games > 12 else constants.readable_numbers[self.other.number_of_games]} halvlekar"
+        subtitle.text = f"{' - '.join(gf.get_nickname(team, 'full') for team in self.ordered_teams)} och {gf.readable_number(self.other.number_of_games)} halvlekar"
         subtitle.text_frame.paragraphs[0].font.color.rgb = PP.text_color
         self.add_main_team_logo(slide, width = 2)
         #self.set_background_color(slide)
@@ -218,7 +220,7 @@ class PP:
         # vänster sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[1] # first 1, then 3  
-        bp1.text = f"{constants.nicknames[self.other.main_team]['short']} {self.other.number_of_games} halvlekar"
+        bp1.text = f"{gf.get_nickname(self.other.main_team, 'short')} {self.other.number_of_games} halvlekar"
         #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
 
         bp2 = bpb.placeholders[2]  # first 2, then 4
@@ -251,7 +253,7 @@ class PP:
         # höger sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[3] # first 1, then 3  
-        bp1.text = ' - '.join(constants.nicknames[team]['short'] for team in self.ordered_teams)
+        bp1.text = ' - '.join(gf.get_nickname(team, 'short') for team in self.ordered_teams)
         #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
 
         bp2 = bpb.placeholders[4]  # first 2, then 4
@@ -296,7 +298,7 @@ class PP:
         # vänster sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[1] # first 1, then 3  
-        bp1.text = f"{constants.nicknames[self.other.main_team]['short']} {self.other.number_of_games} halvlekar"
+        bp1.text = f"{gf.get_nickname(self.other.main_team,'short')} {self.other.number_of_games} halvlekar"
 
         table_frame = slide.shapes.add_table(9, 4, x + Inches(5.1)*0, y, cx, cy)
         table = table_frame.table
@@ -315,7 +317,7 @@ class PP:
         # höger sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[3] # first 1, then 3  
-        bp1.text = ' - '.join(constants.nicknames[team]['short'] for team in self.ordered_teams)
+        bp1.text = ' - '.join(gf.get_nickname(team,'short') for team in self.ordered_teams)
 
         table_frame = slide.shapes.add_table(9, 4, x + Inches(5.1)*1, y, cx, cy)
         table = table_frame.table
@@ -357,7 +359,7 @@ class PP:
         # vänster sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[1] # first 1, then 3  
-        bp1.text = f"{constants.nicknames[self.other.main_team]['short']} {self.other.number_of_games} halvlekar"
+        bp1.text = f"{gf.get_nickname(self.other.main_team,'short')} {self.other.number_of_games} halvlekar"
 
         table_frame = slide.shapes.add_table(9, 4, x + Inches(5.1)*0, y, cx, cy)
         table = table_frame.table
@@ -376,7 +378,7 @@ class PP:
         # höger sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[3] # first 1, then 3  
-        bp1.text = ' - '.join(constants.nicknames[team]['short'] for team in self.ordered_teams)
+        bp1.text = ' - '.join(gf.get_nickname(team,'short') for team in self.ordered_teams)
 
         table_frame = slide.shapes.add_table(9, 4, x + Inches(5.1)*1, y, cx, cy)
         table = table_frame.table
@@ -412,34 +414,34 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = constants.nicknames[team]['short']
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = gf.get_nickname(team,'short')
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Totala mål: \n\t{sum(self.stats.prints['goal types'][team].values())} - {round(sum(self.stats.prints['goal types'][team].values())/(sum(self.stats.prints['goal types'][team].values()) + sum(self.stats.prints['goal types'][self.stats.opposite_team(team)].values()))* 100)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Skott på mål (skottförsök): \n\t{self.stats.prints['shots on goal'][team]} ({self.stats.prints['shot attempts'][team]}) - {round(self.stats.prints['shots on goal'][team]/(self.stats.prints['shots on goal'][team] + self.stats.prints['shots on goal'][self.stats.opposite_team(team)]) * 100)} % ({round(self.stats.prints['shot attempts'][team]/(self.stats.prints['shot attempts'][team] + self.stats.prints['shot attempts'][self.stats.opposite_team(team)]) * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Närkamper och brytningar: \n\t{self.stats.prints['scrimmages'][team] + self.stats.prints['interceptions'][team]} - {round((self.stats.prints['scrimmages'][team] + self.stats.prints['interceptions'][team])/(self.stats.prints['scrimmages'][team] + self.stats.prints['interceptions'][team] + self.stats.prints['scrimmages'][self.stats.opposite_team(team)] + self.stats.prints['interceptions'][self.stats.opposite_team(team)]) * 100)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph() 
             res.text = f"Hörnornmål (hörnor): \n\t{self.stats.prints['score'][team]['hörnmål']} ({sum(self.stats.prints['corners'][team].values())}) - {round(self.stats.prints['score'][team]['hörnmål'] / (self.stats.prints['score'][team]['hörnmål'] + self.stats.prints['score'][self.stats.opposite_team(team)]['hörnmål'] )*100)} % ({round(sum(self.stats.prints['corners'][team].values()) / (sum(self.stats.prints['corners'][team].values()) + sum(self.stats.prints['corners'][self.stats.opposite_team(team)].values()) )*100)} %) "
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Bollinnehav: \n\t{self.stats.prints['possession'][team]} - {round(gf.readable_to_sec(self.stats.prints['possession'][team])/(gf.readable_to_sec(self.stats.prints['possession'][team]) + gf.readable_to_sec(self.stats.prints['possession'][self.stats.opposite_team(team)]))* 100)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             #res = bp2.text_frame.add_paragraph() # orkar inte göra turnary för noll
             #res.text = f"Utvisningar: \n\t{self.stats.prints['penalties'][team]}" # - {round(gf.readable_to_sec(self.stats.prints['possession'][team])/(gf.readable_to_sec(self.stats.prints['possession'][team]) + gf.readable_to_sec(self.stats.prints['possession'][self.stats.opposite_team(team)]))* 100)} %"
             #res.level = 0
-            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res.font.color.rgb = self.get_team_text_color(team) 
   
     def make_season_report_shots_page(self, show_xg: bool) -> None:
         '''makes the shot stats page layout'''
@@ -460,8 +462,8 @@ class PP:
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
             xg_string = f", XG: {round(self.stats.prints['expected goals'][team], 2)}"
-            bp1.text = f"{constants.nicknames[team]['short']}{xg_string * show_xg}"
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = f"{gf.get_nickname(team,'short')}{xg_string * show_xg}"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             table_frame = slide.shapes.add_table(9, 4, x + Inches(5.1)*i, y, cx, cy)
             table = table_frame.table
@@ -501,22 +503,22 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = constants.nicknames[team]['short']
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = gf.get_nickname(team,'short')
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Vunna närkamper: \n\t{self.stats.prints['scrimmages'][team]} ({round(self.stats.prints['scrimmages'][team] / (self.stats.prints['scrimmages'][team] + self.stats.prints['scrimmages'][self.stats.opposite_team(team)]) * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team)
             res = bp2.text_frame.add_paragraph()
             res.text = f"Brytningar: \n\t{self.stats.prints['interceptions'][team]} ({round(self.stats.prints['interceptions'][team] / (self.stats.prints['interceptions'][team] + self.stats.prints['interceptions'][self.stats.opposite_team(team)]) * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Bolltapp: \n\t{self.stats.prints['lost balls'][team]} ({round(self.stats.prints['lost balls'][team] / (self.stats.prints['lost balls'][team] + self.stats.prints['lost balls'][self.stats.opposite_team(team)]) * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
     
     def make_season_report_long_shot_targets_page(self) -> None:
         '''makes the targets of long shots stats page'''
@@ -532,26 +534,26 @@ class PP:
             total_shots = sum(self.stats.prints['long shots outcomes'][team].values())
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = f"{constants.nicknames[team]['short']}: {total_shots} st"
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = f"{gf.get_nickname(team,'short')}: {total_shots} st"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Mål: \n\t{self.stats.prints['long shots outcomes'][team]['mål']} ({round(self.stats.prints['long shots outcomes'][team]['mål']/total_shots * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Utanför: \n\t{self.stats.prints['long shots outcomes'][team]['utanför']} ({round(self.stats.prints['long shots outcomes'][team]['utanför']/total_shots * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Täckta: \n\t{self.stats.prints['long shots outcomes'][team]['täckt']} ({round(self.stats.prints['long shots outcomes'][team]['täckt']/total_shots * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Räddningar: \n\t{self.stats.prints['long shots outcomes'][team]['räddning']} ({round(self.stats.prints['long shots outcomes'][team]['räddning']/total_shots * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
     
     def make_season_report_possession_after_long_shots_page(self) -> None:
         '''makes the possession after long shots stats page'''
@@ -567,20 +569,20 @@ class PP:
             total_shots = sum(self.stats.prints['after long shots per teams'][team].values())
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = f"{constants.nicknames[team]['short']}: {total_shots} st"
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = f"{gf.get_nickname(team,'short')}: {total_shots} st"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             opponent = self.stats.opposite_team(team)
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             #res.text = f"Mål: \n\t{self.stats.prints['long shots outcomes'][team]['mål']} ({round(self.stats.prints['long shots outcomes'][team]['mål']/total_shots * 100)} %)"
-            res.text = f"{constants.nicknames[team]['short']}: \n\t{self.stats.prints['after long shots per teams'][team][team]} ({round(self.stats.prints['after long shots per teams'][team][team]/total_shots * 100)} %)"
+            res.text = f"{gf.get_nickname(team,'short')}: \n\t{self.stats.prints['after long shots per teams'][team][team]} ({round(self.stats.prints['after long shots per teams'][team][team]/total_shots * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
-            res.text = f"{constants.nicknames[opponent]['short']}: \n\t{self.stats.prints['after long shots per teams'][team][opponent]} ({round(self.stats.prints['after long shots per teams'][team][opponent]/total_shots * 100)} %)"
+            res.text = f"{gf.get_nickname(opponent,'short')}: \n\t{self.stats.prints['after long shots per teams'][team][opponent]} ({round(self.stats.prints['after long shots per teams'][team][opponent]/total_shots * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
 
     def make_season_report_after_long_shots_attacking_team_page(self) -> None:
         '''makes the attacking team long shots stats page'''
@@ -598,8 +600,8 @@ class PP:
             total_times = sum(self.stats.prints['after long shots per teams'][team].values())
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = f"{constants.nicknames[team]['short']}: {total_times} st"
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = f"{gf.get_nickname(team,'short')}: {total_times} st"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             #opponent = self.stats.opposite_team(team)
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
@@ -607,22 +609,22 @@ class PP:
             goals = attacker['mål'] if 'mål' in attacker else 0
             res.text = f"Mål: \n\t{goals} ({round(goals/total_times * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             shots = attacker['skott'] if 'skott' in attacker else 0
             res.text = f"Skott: \n\t{shots + goals} ({round((shots + goals)/total_times * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             corner = attacker['hörna'] if 'skott' in attacker else 0
             res.text = f"Hörnor: \n\t{corner} ({round(corner/total_times * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             #res = bp2.text_frame.add_paragraph()
             other = total_times - goals - corner - shots
             #res.text = f"Övrigt: \n\t{other} ({round(other/total_times * 100)} %)"
             #res.level = 0
-            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res.font.color.rgb = self.get_team_text_color(team) 
 
     def make_season_report_after_long_shots_defending_team_page(self) -> None:
         '''makes the defending team long shots stats page'''
@@ -640,8 +642,8 @@ class PP:
             total_times = sum(self.stats.prints['after long shots per teams'][self.stats.opposite_team(team)].values())
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = f"{constants.nicknames[team]['short']}: {total_times} st"
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = f"{gf.get_nickname(team,'short')}: {total_times} st"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             #opponent = self.stats.opposite_team(team)
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
@@ -649,22 +651,22 @@ class PP:
             throw = defender['utkast'] if 'utkast' in defender else 0
             res.text = f"Utkast: \n\t{throw} ({round(throw/total_times * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             clean = defender['rensning'] if 'rensning' in defender else 0 # kul att kalla det clean
             res.text = f"Rensning: \n\t{clean} ({round((clean)/total_times * 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             #res = bp2.text_frame.add_paragraph()
             #corner = defender['hörna'] if 'skott' in defender else 0
             #res.text = f"Hörnor: \n\t{corner} ({round(corner/total_times * 100)} %)"
             #res.level = 0
-            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res.font.color.rgb = self.get_team_text_color(team) 
             #res = bp2.text_frame.add_paragraph()
             #other = total_times - goals - corner - shots
             #res.text = f"Övrigt: \n\t{other} ({round(other/total_times * 100)} %)"
             #res.level = 0
-            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res.font.color.rgb = self.get_team_text_color(team) 
 
 
     def make_comparative_report_slot_for_page(self) -> None:
@@ -680,14 +682,14 @@ class PP:
         # vänster sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[1] # first 1, then 3  
-        bp1.text = f"{constants.nicknames[self.other.main_team]['short']} {self.other.number_of_games} halvlekar"
-        #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+        bp1.text = f"{gf.get_nickname(self.other.main_team,'short')} {self.other.number_of_games} halvlekar"
+        #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
         bp2 = bpb.placeholders[2]  # first 2, then 4
         res = bp2.text_frame.add_paragraph()
         res.text = f"Inspelsmål/inspelsskott: \n\t{round(self.other.prints['goal types'][self.other.main_team]['inlägg'] / self.other.number_of_games, 1) if 'inlägg' in self.other.prints['goal types'][self.other.main_team] else 0} / {round(self.other.prints['shot types'][self.other.main_team]['inlägg'] / self.other.number_of_games, 1) if 'inlägg' in self.other.prints['shot types'][self.other.main_team] else 0} = {round(self.other.prints['goal types'][self.other.main_team]['inlägg'] /self.other.prints['shot types'][self.other.main_team]['inlägg'], 1) * 100 if 'inlägg' in self.other.prints['goal types'][self.other.main_team] else 0} %" 
         res.level = 0
-        #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+        #res.font.color.rgb = self.get_team_text_color(team) 
         res = bp2.text_frame.add_paragraph()
         res.text = f"Inspelsskott/inspel: \n\t{round(self.other.prints['shot types'][self.other.main_team]['inlägg'] / self.other.number_of_games, 1) if 'inlägg' in self.other.prints['shot types'][self.other.main_team] else 0} / {round(self.other.prints['slot passes'][self.other.main_team] / self.other.number_of_games, 1)} = {round(self.other.prints['shot types'][self.other.main_team]['inlägg'] /self.other.prints['slot passes'][self.other.main_team], 1) * 100 if 'inlägg' in self.other.prints['goal types'][self.other.main_team] else 0} %" 
         res.level = 0 
@@ -695,14 +697,14 @@ class PP:
         # höger sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[3] # first 1, then 3  
-        bp1.text = ' - '.join(constants.nicknames[team]['short'] for team in self.ordered_teams)
-        #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+        bp1.text = ' - '.join(gf.get_nickname(team,'short') for team in self.ordered_teams)
+        #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
         bp2 = bpb.placeholders[4]  # first 2, then 4
         res = bp2.text_frame.add_paragraph()
         res.text = f"Inspelsmål/inspelsskott: \n\t{self.stats.prints['goal types'][self.stats.main_team]['inlägg'] if 'inlägg' in self.stats.prints['goal types'][self.stats.main_team] else 0} / {self.stats.prints['shot types'][self.stats.main_team]['inlägg'] if 'inlägg' in self.other.prints['shot types'][self.stats.main_team] else 0} = {round(self.stats.prints['goal types'][self.stats.main_team]['inlägg'] /self.stats.prints['shot types'][self.stats.main_team]['inlägg'], 1) * 100 if 'inlägg' in self.stats.prints['goal types'][self.stats.main_team] else 0} %" 
         res.level = 0
-        #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+        #res.font.color.rgb = self.get_team_text_color(team) 
         res = bp2.text_frame.add_paragraph()
         res.text = f"Inspelsskott/inspel: \n\t{self.stats.prints['shot types'][self.stats.main_team]['inlägg'] if 'inlägg' in self.stats.prints['shot types'][self.stats.main_team] else 0} / {self.stats.prints['slot passes'][self.stats.main_team]} = {round(self.stats.prints['shot types'][self.stats.main_team]['inlägg'] /self.stats.prints['slot passes'][self.stats.main_team], 1) * 100 if 'inlägg' in self.stats.prints['goal types'][self.stats.main_team] else 0} %" 
         res.level = 0 
@@ -720,14 +722,14 @@ class PP:
         # vänster sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[1] # first 1, then 3  
-        bp1.text = f"{constants.nicknames[self.other.main_team]['short']} {self.other.number_of_games} halvlekar"
-        #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+        bp1.text = f"{gf.get_nickname(self.other.main_team,'short')} {self.other.number_of_games} halvlekar"
+        #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
         bp2 = bpb.placeholders[2]  # first 2, then 4
         res = bp2.text_frame.add_paragraph()
         res.text = f"Inspelsmål/inspelsskott: \n\t{round(self.other.prints['goal types'][self.other.opposite_team(self.other.main_team)]['inlägg'] if 'inlägg' in self.other.prints['goal types'][self.other.opposite_team(self.other.main_team)] else 0 / self.other.number_of_games, 1)} / {round(self.other.prints['shot types'][self.other.opposite_team(self.other.main_team)]['inlägg'] if 'inlägg' in self.other.prints['shot types'][self.other.opposite_team(self.other.main_team)] else 0 / self.other.number_of_games, 1)} = {round(self.other.prints['goal types'][self.other.opposite_team(self.other.main_team)]['inlägg'] /self.other.prints['shot types'][self.other.opposite_team(self.other.main_team)]['inlägg'], 1) * 100 if 'inlägg' in self.other.prints['goal types'][self.other.opposite_team(self.other.main_team)] else 0} %" 
         res.level = 0
-        #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+        #res.font.color.rgb = self.get_team_text_color(team) 
         res = bp2.text_frame.add_paragraph()
         res.text = f"Inspelsskott/inspel: \n\t{round(self.other.prints['shot types'][self.other.opposite_team(self.other.main_team)]['inlägg'] if 'inlägg' in self.other.prints['shot types'][self.other.opposite_team(self.other.main_team)] else 0 / self.other.number_of_games, 1)} / {round(self.other.prints['slot passes'][self.other.opposite_team(self.other.main_team)] / self.other.number_of_games, 1)} = {round(self.other.prints['shot types'][self.other.opposite_team(self.other.main_team)]['inlägg'] /self.other.prints['slot passes'][self.other.opposite_team(self.other.main_team)], 1) * 100 if 'inlägg' in self.other.prints['goal types'][self.other.opposite_team(self.other.main_team)] else 0} %" 
         res.level = 0 
@@ -736,14 +738,14 @@ class PP:
         # höger sida
         bpb = slide.shapes
         bp1 = bpb.placeholders[3] # first 1, then 3  
-        bp1.text = ' - '.join(constants.nicknames[team]['short'] for team in self.ordered_teams)
-        #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+        bp1.text = ' - '.join(gf.get_nickname(team,'short') for team in self.ordered_teams)
+        #bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
         bp2 = bpb.placeholders[4]  # first 2, then 4
         res = bp2.text_frame.add_paragraph()
         res.text = f"Inspelsmål/inspelsskott: \n\t{self.stats.prints['goal types'][self.stats.opposite_team(self.stats.main_team)]['inlägg'] if 'inlägg' in self.stats.prints['goal types'][self.stats.opposite_team(self.stats.main_team)] else 0} / {self.stats.prints['shot types'][self.stats.opposite_team(self.stats.main_team)]['inlägg'] if 'inlägg' in self.stats.prints['shot types'][self.stats.opposite_team(self.stats.main_team)] else 0} = {round(self.stats.prints['goal types'][self.stats.opposite_team(self.stats.main_team)]['inlägg'] /self.stats.prints['shot types'][self.stats.opposite_team(self.stats.main_team)]['inlägg'], 1) * 100 if 'inlägg' in self.stats.prints['goal types'][self.stats.opposite_team(self.stats.main_team)] else 0} %" 
         res.level = 0
-        #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+        #res.font.color.rgb = self.get_team_text_color(team)  
         res = bp2.text_frame.add_paragraph()
         res.text = f"Inspelsskott/inspel: \n\t{self.stats.prints['shot types'][self.stats.opposite_team(self.stats.main_team)]['inlägg'] if 'inlägg' in self.stats.prints['shot types'][self.stats.opposite_team(self.stats.main_team)] else 0} / {self.stats.prints['slot passes'][self.stats.opposite_team(self.stats.main_team)]}  = {round(self.stats.prints['shot types'][self.stats.opposite_team(self.stats.main_team)]['inlägg'] /self.stats.prints['slot passes'][self.stats.opposite_team(self.stats.main_team)], 1) * 100 if 'inlägg' in self.stats.prints['goal types'][self.stats.opposite_team(self.stats.main_team)] else 0} %" 
         res.level = 0 
@@ -764,22 +766,22 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = constants.nicknames[team]['short']
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = gf.get_nickname(team,'short')
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Inspelsmål/inspelsskott: \n\t{slot_goals[team]}/{0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg']} = {round(0 if 'inlägg' not in self.stats.prints['shot types'][team] else slot_goals[team] / self.stats.prints['shot types'][team]['inlägg'] * 100)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team)  
             res = bp2.text_frame.add_paragraph()
             res.text = f"Inspelsskott/inspel: \n\t{0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg']}/{self.stats.prints['slot passes'][team]} = {round(0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg'] / self.stats.prints['slot passes'][team] * 100)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             #res = bp2.text_frame.add_paragraph()
             #res.text = f"Totala % mål, skott, inspel: \n\t{round(self.stats.prints['goal types'][team]['inlägg']/(self.stats.prints['goal types'][team]['inlägg'] + self.stats.prints['goal types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)} %,  {round(self.stats.prints['shot types'][team]['inlägg']/(self.stats.prints['shot types'][team]['inlägg'] + self.stats.prints['shot types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)} %, {round(self.stats.prints['slot passes'][team]/(self.stats.prints['slot passes'][team] + self.stats.prints['slot passes'][self.stats.opposite_team(team)]) * 100, 1)} %"
             #res.level = 0
-            #res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            #res.font.color.rgb = self.get_team_text_color(team) 
 
 
     def make_season_report_slot_page(self) -> None:
@@ -795,18 +797,18 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = constants.nicknames[team]['short']
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = gf.get_nickname(team,'short')
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Inspelsmål/inspelsskott: \n\t{self.stats.prints['goal types'][team]['inlägg']}/{self.stats.prints['shot types'][team]['inlägg']} = {round(0 if self.stats.prints['shot types'][team]['inlägg'] == 0 else self.stats.prints['goal types'][team]['inlägg'] / self.stats.prints['shot types'][team]['inlägg'] * 100, 1)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Inspelsskott/inspel: \n\t{self.stats.prints['shot types'][team]['inlägg']}/{self.stats.prints['slot passes'][team]} = {round(0 if self.stats.prints['slot passes'][team] == 0 else self.stats.prints['shot types'][team]['inlägg'] / self.stats.prints['slot passes'][team] * 100, 1)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             try:
                 goal_percentage = round(self.stats.prints['goal types'][team]['inlägg']/(self.stats.prints['goal types'][team]['inlägg'] + self.stats.prints['goal types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)
@@ -823,7 +825,7 @@ class PP:
             #res.text = f"Totala % mål, skott, inspel: \n\t{0 if 'inlägg' not in self.stats.prints['goal types'][team]['inlägg'] else round(self.stats.prints['goal types'][team]['inlägg']/(self.stats.prints['goal types'][team]['inlägg'] + self.stats.prints['goal types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)} %,  {round(self.stats.prints['shot types'][team]['inlägg']/(self.stats.prints['shot types'][team]['inlägg'] + self.stats.prints['shot types'][self.stats.opposite_team(team)]['inlägg'])* 100, 1)} %, {round(self.stats.prints['slot passes'][team]/(self.stats.prints['slot passes'][team] + self.stats.prints['slot passes'][self.stats.opposite_team(team)]) * 100, 1)} %"
             res.text = f"Totala % mål, skott, inspel: \n\t{goal_percentage} % {shot_percentage} % {slot_pass_percentage} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
 
     def make_season_report_corners_page(self) -> None:
         '''makes the corners stats page'''
@@ -838,22 +840,22 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = constants.nicknames[team]['short']
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = gf.get_nickname(team,'short')
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Högermål/högerhörnor: \n\t{self.stats.prints['corner goal sides'][team]['right']}/{self.stats.prints['corners'][team]['right']} = {round(0 if self.stats.prints['corners'][team]['right'] == 0 else self.stats.prints['corner goal sides'][team]['right'] / self.stats.prints['corners'][team]['right'] * 100)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Vänstermål/vänsterhörnor: \n\t{self.stats.prints['corner goal sides'][team]['left']}/{self.stats.prints['corners'][team]['left']} = {round(0 if self.stats.prints['corners'][team]['left'] == 0 else self.stats.prints['corner goal sides'][team]['left'] / self.stats.prints['corners'][team]['left'] * 100)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Mål/totala hörnor: \n\t{self.stats.prints['corner goal sides'][team]['left'] + self.stats.prints['corner goal sides'][team]['right']}/{self.stats.prints['corners'][team]['right'] + self.stats.prints['corners'][team]['left']} = {round(0 if (self.stats.prints['corners'][team]['left'] + self.stats.prints['corners'][team]['right']) == 0 else (self.stats.prints['corner goal sides'][team]['left'] + self.stats.prints['corner goal sides'][team]['right'])/ (self.stats.prints['corners'][team]['left'] + self.stats.prints['corners'][team]['right']) * 100)} %"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
 
 
     def make_game_report_overview_stats_page(self) -> None:
@@ -869,31 +871,31 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = constants.nicknames[team]['short']
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = gf.get_nickname(team,'short')
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Resultat: \n\t{sum(self.stats.prints['score'][team].values())}"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"XG: \n\t{round(self.stats.prints['expected goals'][team],2)}"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Skott på mål: \n\t{self.stats.prints['shots on goal'][team]}"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             corner_goals = self.stats.prints['score'][team]['hörnmål'] if 'hörnmål' in self.stats.prints['score'][team] else 0
             res.text = f"Hörnor (mål): \n\t{sum(self.stats.prints['corners'][team].values())} ({corner_goals})"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team)
             res = bp2.text_frame.add_paragraph()
             res.text = f"Bollinnehav: \n\t{self.stats.prints['possession'][team]} ({round(gf.readable_to_sec(self.stats.prints['possession'][team])/(gf.readable_to_sec(self.stats.prints['possession'][team]) + gf.readable_to_sec(self.stats.prints['possession'][self.stats.opposite_team(team)]))* 100)} %)"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
 
     def make_game_report_shot_types_page(self, show_xg: bool) -> None:
         '''makes the shots types stats page'''
@@ -910,8 +912,8 @@ class PP:
             xg_string = f", XG: {round(self.stats.prints['expected goals'][team], 2)}"
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = f"{constants.nicknames[team]['short']} - skott: {sum(self.stats.prints['shot types'][team].values())}{xg_string * show_xg}"
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = f"{gf.get_nickname(team,'short')} - skott: {sum(self.stats.prints['shot types'][team].values())}{xg_string * show_xg}"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             for st in print_order:
@@ -922,7 +924,7 @@ class PP:
                     i = 0
                 res.text = f"{st.title()}: {i}"
                 res.level = 0
-                res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+                res.font.color.rgb = self.get_team_text_color(team) 
 
     def make_game_report_duels_page(self) -> None:
         '''makes the duels stats page'''
@@ -937,22 +939,22 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = constants.nicknames[team]['short']
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = gf.get_nickname(team,'short')
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Vunna närkamper: \n\t{self.stats.prints['scrimmages'][team]}"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Brytningar: \n\t{self.stats.prints['interceptions'][team]}"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Bolltapp: \n\t{self.stats.prints['lost balls'][team]}"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
 
     def make_game_report_scimmages_page(self) -> None:
         '''makes the scrimmages stats page'''
@@ -967,16 +969,16 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = constants.nicknames[team]['short']
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = gf.get_nickname(team,'short')
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             res = bp2.text_frame.add_paragraph()
             res.text = f"Långvarig bollvinst: \n\t{self.stats.prints['possession changes'][team]['long']}"
             res.level = 0
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res = bp2.text_frame.add_paragraph()
             res.text = f"Kortvarig bollvinst: \n\t{self.stats.prints['possession changes'][team]['short']}"
-            res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            res.font.color.rgb = self.get_team_text_color(team) 
             res.level = 0
 
     def make_game_report_shot_origins_page(self) -> None:
@@ -995,8 +997,8 @@ class PP:
         for i, team in enumerate(self.ordered_teams):
             bpb = slide.shapes
             bp1 = bpb.placeholders[(i + 1)*2-1] # first 1, then 3  
-            bp1.text = f"{constants.nicknames[team]['short']} - skottförsök: {sum(self.stats.prints['shot origins'][team].values())}"
-            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+            bp1.text = f"{gf.get_nickname(team,'short')} - skottförsök: {sum(self.stats.prints['shot origins'][team].values())}"
+            bp1.text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             bp2 = bpb.placeholders[(i + 1)*2]  # first 2, then 4
             #bp2.text_frame.paragraphs[0].font.color.rgb = constants.colors[team][0]
@@ -1008,7 +1010,7 @@ class PP:
                     i = 0
                 res.text = f"{so.title()}: {i}"
                 res.level = 0
-                res.font.color.rgb = self.get_team_text_color(team) #constants.colors[team][0]
+                res.font.color.rgb = self.get_team_text_color(team) 
 
     def make_game_report_goals_stats_page(self) -> None:
         '''makes the goals stats page'''
@@ -1026,7 +1028,7 @@ class PP:
             res = bp1.text_frame.add_paragraph()
             # fixa det här med målens tid i andra halvlek
             res.text = f"{goal['time']}: {goal['origin']} -> {goal['shot type']} på {goal['attack time']}s."
-            res.font.color.rgb = self.get_team_text_color(goal['team']) #constants.colors[goal['team']][0]
+            res.font.color.rgb = self.get_team_text_color(goal['team']) 
             res.level = 0
 
     def make_game_report_before_and_after_table_page(self) -> None:
@@ -1046,11 +1048,11 @@ class PP:
         table_frame = slide.shapes.add_table(3,3, left_table, top_table, width_table, height_table)
         table = table_frame.table
         for i, team in enumerate(self.stats.prints['before and after']):
-            table.cell(i+1, 0).text = f"Före {constants.nicknames[team]['short']}"
-            table.cell(i+1, 0).text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][1]
+            table.cell(i+1, 0).text = f"Före {gf.get_nickname(team,'short')}"
+            table.cell(i+1, 0).text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
-            table.cell(0, i+1).text = f"Efter {constants.nicknames[team]['short']}"
-            table.cell(0, i+1).text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) #constants.colors[team][1]
+            table.cell(0, i+1).text = f"Efter {gf.get_nickname(team,'short')}"
+            table.cell(0, i+1).text_frame.paragraphs[0].font.color.rgb = self.get_team_text_color(team) 
 
             table.cell(i+1, i+1).text = f"{self.stats.prints['before and after'][team][team]}"
             table.cell(i+1, i+1).fill.solid()
@@ -1074,7 +1076,7 @@ class PP:
             duels_list[0][team] = self.stats.prints['before and after'][self.stats.main_team][team]
         for team in self.stats.prints['before and after'][self.stats.opposite_team(self.stats.main_team)]:
             duels_list[1][team] = self.stats.prints['before and after'][self.stats.opposite_team(self.stats.main_team)][team]
-        x_labels = [f"Fördel {constants.nicknames[self.stats.main_team]['full']}", f"Fördel {constants.nicknames[self.stats.opposite_team(self.stats.main_team)]['full']}"]
+        x_labels = [f"Fördel {gf.get_nickname(self.stats.main_team,'full')}", f"Fördel {gf.get_nickname(self.stats.opposite_team(self.stats.main_team),'full')}"]
         image = self.plot.make_value_vertical_bars(duels_list, title='Närkampers utfall givet lags innehav före', ylabel='Närkamper (antal)', xlabel='Spelförande lag innan närkamp', x_labels = x_labels, main_team_color=gf.rgb255_to_rgb1(PP.image_color_main), other_team_color=gf.rgb255_to_rgb1(PP.image_color_opponent)) #other_team_color=gf.rgb255_to_rgb1(constants.colors[self.stats.opposite_team(self.stats.main_team)][1]))
         slide.shapes.add_picture(image, width_table, top_table, width_table + Inches(0.5))
 
@@ -1123,7 +1125,7 @@ class PP:
         title = slide.shapes.title
         main_team_color = gf.rgb255_to_rgb1(PP.image_color_main)
         opponent_color = gf.rgb255_to_rgb1(PP.image_color_opponent)
-        title.text = f"Halvleken uppdelad i {constants.readable_numbers[self.stats.N]} delar"
+        title.text = f"Halvleken uppdelad i {gf.readable_number(self.stats.N)} delar"
         poss_image = self.plot.make_time_vertical_bars(self.stats.prints['per time lists']['possession'], xlabel='Halvleksdel', ylabel='Innehav (HH:MM:SS)', title='Bollinnehav', main_team_color = main_team_color, other_team_color= opponent_color)
         shots_image = self.plot.make_value_vertical_bars(self.stats.prints['per time lists']['shots'], xlabel='Halvleksdel', ylabel='Skottförsök (antal)', title='Skottförsök', main_team_color = main_team_color, other_team_color = opponent_color)
         duels_image = self.plot.make_value_vertical_bars(self.stats.prints['per time lists']['duels'], xlabel='Halvleksdel', ylabel='Närkamper och brytningar (antal)', title='Närkamper och brytningar', main_team_color = main_team_color, other_team_color = opponent_color)

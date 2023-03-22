@@ -80,6 +80,7 @@ class Stats:
         obj.prints['before and after'] = self.add_before_and_after(other)
         obj.prints['shots on goal'] = self.add_sog(other)
         obj.prints['duel zones'] = self.add_duel_zones(other)
+        obj.prints['freeshot zones'] = self.add_freeshot_zones(other)
         obj.prints['per time lists'] = self.add_per_time_lists(other)
         obj.prints['40'] = self.add_40_list(other)
         obj.prints['sustained attacks'] = self.add_sustained_attacks(other)
@@ -110,6 +111,7 @@ class Stats:
         self.get_sog_dict()
         self.get_before_and_after_dict()
         self.get_duel_zones_dict()
+        self.get_freeshot_zones_dict()
         self.make_per_time_lists()
         self.make_40_list()
         self.make_sustained_attacks()
@@ -334,6 +336,23 @@ class Stats:
             self.prints['duel zones'] = duel_zones
         return self.prints['duel zones']
 
+    def get_freeshot_zones_dict(self) -> dict:
+        '''returns a dictionary of where the freeshots (frislag) happened, and by whom
+            will alter to make sure that self.main_team always scores in z8'''
+        if 'freeshot zones' not in self.prints:
+            freeshot_zones = {'z' + str(i): {team: 0 for team in self.teams} for i in range(1, 10)}
+            change_dir = not self.team_attacks_up(team = self.main_team)
+            freeshots_df = self.get_freeshots_df()
+            for index, row in freeshots_df.iterrows():
+                if row['zone'] != '0':
+                    if change_dir:
+                        z = Stats.other_direction(row['zone'])
+                    else:
+                        z = row['zone']
+                    freeshot_zones[z][row['team']] += 1
+            self.prints['freeshot zones'] = freeshot_zones
+        return self.prints['freeshot zones']
+
     def get_goal_types(self) -> dict:
         '''returns the goal types dict of the object and populates prints'''
         if 'goal types' not in self.prints:
@@ -353,6 +372,14 @@ class Stats:
         for zone in self.prints['duel zones']:
             for team in self.prints['duel zones'][zone]:
                 return_dict[zone][team] = self.prints['duel zones'][zone][team] + other.prints['duel zones'][zone][team]
+        return return_dict
+
+    def add_freeshot_zones(self, other) -> dict:
+        '''returns the freeshot zones of the added objects'''
+        return_dict = {'z' + str(i): {team: 0 for team in self.teams} for i in range(1, 10)}
+        for zone in self.prints['freeshot zones']:
+            for team in self.prints['freeshot zones'][zone]:
+                return_dict[zone][team] = self.prints['freeshot zones'][zone][team] + other.prints['freeshot zones'][zone][team]
         return return_dict
 
     def get_score_dict(self) -> dict:
@@ -826,6 +853,13 @@ class Stats:
         if 'interceptions' not in self.df_dict:
             self.df_dict['interceptions'] = self.big_df.loc[self.big_df['event'] == 'brytning']
         return self.df_dict['interceptions'] 
+    
+    def get_freeshots_df(self) -> pd.core.frame.DataFrame:
+        '''returns a df with only the the freeshots (frislag)
+            populates the df_dict if not already done'''
+        if 'freeshots' not in self.df_dict:
+            self.df_dict['freeshots'] = self.big_df.loc[self.big_df['event'] == 'frislag']
+        return self.df_dict['freeshots'] 
 
     def get_lost_balls_df(self) -> pd.core.frame.DataFrame:
         '''returns a df with only the the lost balls

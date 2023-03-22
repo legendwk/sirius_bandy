@@ -3,6 +3,7 @@ import pandas as pd
 import time 
 import datetime
 import os
+import constants
 
 # other 
 def combine_dictionaries(dict_1: dict, dict_2: dict) -> dict:
@@ -54,8 +55,12 @@ def make_df(keys, values) -> pd.core.frame.DataFrame:
 
 # time 
 def readable_to_sec(t: str) -> int:
-    '''returns the readable time in seconds'''
-    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(t.split(':'))))  
+    '''returns the readable time in seconds
+        returns False if unable to convert t'''
+    try:
+        return sum(int(x) * 60 ** i for i, x in enumerate(reversed(t.split(':'))))  
+    except:
+        return False
 
 def sec_to_readable(t: float) -> str:
     '''returns the seconds as readable time'''
@@ -81,7 +86,6 @@ def rgb1_to_rgb255(rgb: tuple) -> tuple:
     '''converts an RGB color from [0, 1] to [0, 255]'''
     return tuple([x * 255 for x in rgb])
 
-
 # maintenance
 def clean_up() -> None:
     '''cleans the autogen image and game report powerpoint folders'''
@@ -97,3 +101,34 @@ def clean_up() -> None:
     os.chdir('..\\..')
     return
 
+# get data from constats
+def get_logo_image(team: str) -> str:
+    '''returns the logo of team
+        if team does not have one returns opponent logo'''
+    try:
+        return constants.logos[team]    
+    except KeyError:
+        return constants.logos['opponent']
+
+def get_nickname(team: str, length: str) -> str:
+    '''returns the nickname of type length for team
+        if team does not have one returns oppponent nickname'''
+    try:
+        return constants.nicknames[team][length]
+    except KeyError:
+        return constants.nicknames['opponent'][length]
+    
+def get_colors(team: str, index: int) -> tuple:
+    '''returns the color of team
+        if team does not have one returns opponent color'''
+    try:
+        return constants.colors[team][index]
+    except KeyError:
+        return constants.colors['opponent'][index]
+    
+def readable_number(num: int) -> str:
+    '''returns num as readable'''
+    try:
+        return constants.readable_numbers[num]
+    except KeyError:
+        str(num)

@@ -12,25 +12,24 @@ import time
 gf.clean_up()
 
 # # hämta data och gör presentation (avnänds typ live?)
-filename = '20230224 Villa Lidköping BK - IK Sirius halvlek 2'
+filename = '20230302 IK Sirius P19 - Edsbyns IF P19 halvlek 1'
 os.chdir(r"data\2023\raw")
-teams = {'iks', 'villa'}
+teams = {'iks', 'eds'}
 
-# # samla data
+# # # samla data
 # g = Game(teams)
 # g.collector_raw(filename)
 # g.clean_csv(filename)
 
 # skapa statsobjekt
 os.chdir(r"..\\clean")
-stats = Stats(filename + ' clean')
+stats = Stats('20230302 IK Sirius P19 - Edsbyns IF P19 halvlek 1 clean') + Stats('20230302 IK Sirius P19 - Edsbyns IF P19 halvlek 2 clean')
+
 
 # gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
 pp = PP(stats)
 pp.make_game_report()
-
-
 
 '''
 # mappar med csvfiler
@@ -54,14 +53,20 @@ left = 'data\\compile\\left'
 right = 'data\\compile\\right'
 villa = 'data\\compile\\villa'
 saikvilla = 'data\\compile\saik villa'
+halva1 = 'data\\compile\halva 1'
+halva2 = 'data\\compile\halva 2'
 
-first = CompileStats(custom, N = 2)
-pp = PP(first.returns_stats_obj())
+h1 = CompileStats(halva1)
+h2 = CompileStats(halva2)
+
+pp1 = PP(h1.returns_stats_obj())
+pp2 = PP(h2.returns_stats_obj())
 
 
 os.chdir('powerpointer\\säsongsrapporter')
 
-pp.make_season_report('säsongsrapport iks villa tom 60 min')
+pp1.make_season_report('säsongsrapport första halvan')
+pp2.make_season_report('säsongsrapport andra halvan')
 
 
 

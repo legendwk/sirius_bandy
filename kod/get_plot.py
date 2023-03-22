@@ -67,6 +67,33 @@ class Plot:
         # done to save memory
         plt.close(fig)
         return output_image_link
+    
+    def make_all_freeshot_locations_image(self, number_text = True) -> str:
+        '''creates an image of all the freeshots (frislag) at out_folder
+            returns the relative link to the image'''
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        d = self.stats.prints['freeshot zones']
+        max_duels = max([sum(d[x].values()) for x in d])
+        for zone in d:
+            frac = sum(d[zone].values())/max_duels
+            c = gf.rgb255_to_rgb1(gf.faded_rgb_color(Plot.color_many, frac, Plot.color_few))
+            ax.add_patch(Rectangle(Plot.xy_starting_zones[zone], Plot.dx, Plot.dy, color = c))
+            if number_text:
+                text = str(round(sum(d[zone].values())/self.N))
+                plt.text(Plot.xy_starting_zones[zone][0] + Plot.dx/3, Plot.xy_starting_zones[zone][1] + Plot.dy/2, text, fontsize=20)
+        self.make_color_palette(ax)
+        #plt.title('Närkamper och brytningar per zon')
+        # paint the transparent pitch image on top
+        im = plt.imread(Plot.pitch_image)
+        plt.imshow(im, alpha=1.0, zorder=1)
+        ax.axis('off')
+        output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]} all freeshot locations.png'
+        plt.savefig(output_image_link, transparent=self.transparent)
+        #plt.show()
+        # done to save memory
+        plt.close(fig)
+        return output_image_link
 
     def make_duel_winners_per_locations_image(self, text_type: str) -> str:
         '''creates an image of all the duel winners at out_folder
@@ -75,6 +102,39 @@ class Plot:
         fig = plt.figure()
         ax = fig.add_subplot(111)
         d = self.stats.prints['duel zones']
+        for zone in d:
+            if sum(d[zone].values()) != 0:
+                frac = d[zone][self.stats.main_team]/sum(d[zone].values())
+            else:
+                frac = 0 
+            c = gf.rgb255_to_rgb1(gf.faded_rgb_color(Plot.color_many, frac, Plot.color_few))
+            ax.add_patch(Rectangle(Plot.xy_starting_zones[zone], Plot.dx, Plot.dy, color = c))
+            if text_type == 'frac':
+                text = f'{d[zone][self.stats.main_team]}/{sum(d[zone].values())}'
+            elif text_type == 'procent':
+                text = f'{round(frac * 100)} %' 
+            else:
+                text = ''
+            plt.text(Plot.xy_starting_zones[zone][0] + Plot.dx/5, Plot.xy_starting_zones[zone][1] + Plot.dy * 1/2, text, fontsize=15)
+
+        self.make_color_palette(ax)
+        # paint the transparent pitch image on top
+        im = plt.imread(Plot.pitch_image)
+        plt.imshow(im, alpha=1.0, zorder=1)
+        ax.axis('off')
+        output_image_link = f'{Plot.out_folder}{self.stats.out[:-9]} team won duel locations.png'
+        plt.savefig(output_image_link, transparent=self.transparent)
+        # done to save memory
+        plt.close(fig)
+        return output_image_link
+    
+    def make_freeshots_made_per_locations_image(self, text_type: str) -> str:
+        '''creates an image of all the freeshot shooters at out_folder
+            returns the relative link to the image
+            text_type is frac, procent or anything else'''
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        d = self.stats.prints['freeshot zones']
         for zone in d:
             if sum(d[zone].values()) != 0:
                 frac = d[zone][self.stats.main_team]/sum(d[zone].values())
