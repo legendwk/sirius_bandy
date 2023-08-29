@@ -1,0 +1,10 @@
+name: battue
+channels:
+  - defaults
+dependencies:
+  - pandas
+  - numpy
+  - matplotlib
+  - conda-forge::scipy
+  - pip:
+    - pptx
