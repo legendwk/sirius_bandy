@@ -3,7 +3,7 @@ from pptx.dml.color import ColorFormat, RGBColor
 # colors according to: [main, second, third]
 # main should be the one best suited for text color (black or white)
 colors = {
-    'sirius': [RGBColor(0, 0, 0), RGBColor(20, 92, 172), RGBColor(250, 226, 12)],
+    'iks': [RGBColor(0, 0, 0), RGBColor(20, 92, 172), RGBColor(250, 226, 12)],
 'villa' : [RGBColor(255, 254, 254), RGBColor(44,45,132), RGBColor(226, 33, 33)],
 'aik': [RGBColor(143, 124, 79), RGBColor(7, 41, 74), RGBColor(253, 221, 5)], 
 'bollnäs': [RGBColor(243, 135, 85), RGBColor(14, 59, 82), RGBColor(255, 255, 255)],
@@ -23,29 +23,31 @@ colors = {
 
 # logo images wihout relative link 
 logos = {
-    'aik': 'aik logo.png', 'bollnäs': 'bollnas logo.png', 'broberg': 'broberg logo.png',
-    'edsbyn': 'edsbyn logo.png', 'frillesås': 'frillesas logo.png', 'gripen': 'gripen logo.png',
-    'hammarby': 'hammarby logo.png', 'motala': 'motala logo.png', 'saik': 'saik logo.png', 
-    'sirius': 'sirius logo.png', 'vänersborg': 'vanersborg logo.png', 'vetlanda': 'vetlanda logo.png',
-    'villa': 'villa logo.png', 'vsk': 'vsk logo.png', 'opponent': 'bandyförbundet logo.png' 
+    'aik': 'aik logo.png', 'bol': 'bollnas logo.png', 'bro': 'broberg logo.png',
+    'eds': 'edsbyn logo.png', 'fri': 'frillesas logo.png', 'gri': 'gripen logo.png',
+    'ham': 'hammarby logo.png', 'mot': 'motala logo.png', 'saik': 'saik logo.png', 
+    'iks': 'sirius logo.png', 'vän': 'vanersborg logo.png', 'vet': 'vetlanda logo.png',
+    'villa': 'villa logo.png', 'vsk': 'vsk logo.png', 'opponent': 'bandyförbundet logo.png',
+    'rät': 'rattvik logo.png'
 }
 
 nicknames = {
     'aik' : {'full': 'AIK Bandy', 'short': 'AIK', 'abbreviation': 'AIK'}, 
-    'bollnäs' : {'full': 'Bollnäs GIF', 'short': 'Bollnäs', 'abbreviation': 'BGIF'},
-    'broberg': {'full': 'Broberg/ Söderhamn Bandy IF', 'short': 'Broberg', 'abbreviation': 'BRO'},
-    'edsbyn': {'full': 'Edsbyns IF', 'short': 'Edsbyn', 'abbreviation': 'EIF'},
-    'frillesås': {'full': 'Frillesås Bandy', 'short': 'Frillesås', 'abbreviation': 'FBK'},
-    'gripen': {'full': 'Gripen Trollhättan BK', 'short': 'Gripen', 'abbreviation': 'GBK'},
-    'hammarby': {'full': 'Hammarby IF Bandy', 'short': 'Hammarby', 'abbreviation': 'HIF'},
-    'motala': {'full': 'IFK Motala', 'short': 'Motala', 'abbreviation': 'MOT'},
-    'vänersborg': {'full': 'IFK Vänersborg', 'short': 'Vänersborg', 'abbreviation': 'VÄN'},
-    'sirius': {'full': 'IK Sirius', 'short': 'Sirius', 'abbreviation': 'IKS'},
+    'bol' : {'full': 'Bollnäs GIF', 'short': 'Bollnäs', 'abbreviation': 'BGIF'},
+    'bro': {'full': 'Broberg/ Söderhamn Bandy IF', 'short': 'Broberg', 'abbreviation': 'BRO'},
+    'eds': {'full': 'Edsbyns IF', 'short': 'Edsbyn', 'abbreviation': 'EIF'},
+    'fri': {'full': 'Frillesås Bandy', 'short': 'Frillesås', 'abbreviation': 'FBK'},
+    'gri': {'full': 'Gripen Trollhättan BK', 'short': 'Gripen', 'abbreviation': 'GBK'},
+    'ham': {'full': 'Hammarby IF Bandy', 'short': 'Hammarby', 'abbreviation': 'HIF'},
+    'mot': {'full': 'IFK Motala', 'short': 'Motala', 'abbreviation': 'MOT'},
+    'vän': {'full': 'IFK Vänersborg', 'short': 'Vänersborg', 'abbreviation': 'VÄN'},
+    'iks': {'full': 'IK Sirius', 'short': 'Sirius', 'abbreviation': 'IKS'},
     'saik' : {'full': 'Sandvikens AIK Bandy', 'short': 'Sandviken', 'abbreviation': 'SAIK'},
-    'vetlanda' : {'full': 'Vetlanda BK', 'short': 'Vetlanda',  'abbreviation': 'VBK'},
+    'vet' : {'full': 'Vetlanda BK', 'short': 'Vetlanda',  'abbreviation': 'VBK'},
     'villa': {'full': 'Villa Lidköping BK', 'short': 'Villa Lidköping', 'abbreviation': 'VLBK'},
     'vsk': {'full' : 'Västerås SK Bandy', 'short': 'Västerås', 'abbreviation': 'VSK'},
-    'opponent' : {'full' : 'Motståndare', 'short': 'Mostståndare', 'abbreviation': 'ANNAN'}
+    'opponent' : {'full' : 'Motståndare', 'short': 'Mostståndare', 'abbreviation': 'ANNAN'},
+    'rät': {'full': 'IFK Rättvik', 'short': 'Rättvik', 'abbreviation': 'IFKR'}
 }
 
 # five colors from dark to light in Sirius blue 
@@ -63,4 +65,66 @@ expected_goals = {
     'inlägg': 0.21505376344086022, 'fast': 0.13069908814589665, 
     'retur': 0.29577464788732394, 'dribbling': 0.19642857142857142, 
     'utifrån': 0.05263157894736842, 'straff': 0.8
+}
+
+
+
+players = {
+    '13' : {
+        'name': 'Anton Andersson', 'position': 'målvakt', 'image' : 'anton.png'
+    },
+    '80' : {
+        'name': 'Axel Götlin', 'position': 'målvakt', 'image' : 'axel.png'
+    },
+        '12' : {
+        'name': 'Oscar Qvist', 'position': 'försvarare', 'image' : 'qvist.png'
+    }, 
+        '15' : {
+        'name': 'Jerker Ortman', 'position': 'försvarare', 'image' : 'jerke.png'
+    },
+        '40' : {
+        'name': 'Sune Gustafsson', 'position': 'försvarare', 'image' : 'sune.png'
+    },
+        '2' : {
+        'name': 'Stefan Kröller', 'position': 'försvarare', 'image' : 'kröller.png'
+    },
+        '6' : {
+        'name': 'David Thorén', 'position': 'ytterhalv', 'image' : 'davva.png'
+    },
+        '61' : {
+        'name': 'Ted Haraldsson', 'position': 'ytterhalv', 'image' : 'harald.png'
+    },
+        '7' : {
+        'name': 'Jimmy Jansson', 'position': 'mittfältare'
+    },
+        '17' : {
+        'name': 'Nils Bergström', 'position': 'mittfältare', 'image' : 'nisse.png'
+    },
+        '39' : {
+        'name': 'Arvid Tapper', 'position': 'mittfältare', 'image' : 'arvid.png'
+    },
+        '10' : {
+        'name': 'Ted Bergström', 'position': 'anfallare', 'image' : 'tedb.png'
+    },
+        '11' : {
+        'name': 'Albin Thomsen', 'position': 'anfallare', 'image' : 'albin.png'
+    },
+        '20' : {
+        'name': 'Kalle Mårtensson', 'position': 'anfallare', 'image' : 'kalle.png'
+    },
+        '70' : {
+        'name': 'Colin Dahlberg', 'position': 'anfallare', 'image' : 'colin.png'
+    }, 
+        '66' : {
+        'name': 'Alexander Karlgren', 'position': 'mittfältare' 
+    },
+        '98' : {
+        'name': 'Alexander Härndahl', 'position': 'anfallare'
+    },
+        '9' : {
+        'name': 'Emil Eskhult', 'position': 'anfallare'
+    },
+        '88' : {
+        'name' : 'Samuel Heeger', 'position': 'anfallare'
+    }
 }

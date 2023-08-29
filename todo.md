@@ -1,13 +1,10 @@
 # TODO
 
-## Allmänt: 
-
-### Läsa på:
-* https://soccermatics.readthedocs.io/en/latest/gallery/lesson2/plot_PassCompare.html
-* är vi dåliga på att skapa chanser eller minimera motståndarnas? 
-  * ingen kan veta
-  * 
-## Events
-* drag
-* spel på tre
-
+## NU: 
+  * lägg till spelarstatistik i constants
+	  * bara de "nya"
+## SEN:
+  * lägg till spelare i statistikobjektet
+	  * skott, mål, närkamp, passning?
+  * lägg till spelare i säsongssamanställning
+  * lägg gör någon form av spelarutvärdering?

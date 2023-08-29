@@ -8,22 +8,25 @@ import pandas as pd
 from compile_stats import CompileStats
 import time
 
+
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
-# # hämta data och gör presentation (avnänds typ live?)
-filename = '20230302 IK Sirius P19 - Edsbyns IF P19 halvlek 1'
-os.chdir(r"data\2023\raw")
-teams = {'iks', 'eds'}
+# # hämta data och gör presentation 
+filename = '20230829 Lag 1 - Lag 2 halvlek 1'
+os.chdir('data\\24\\raw')
+teams = {'iks', 'villa'}
 
-# # # samla data
-# g = Game(teams)
-# g.collector_raw(filename)
-# g.clean_csv(filename)
+# samla data
+g = Game(teams)
+
+g.collector_raw(filename)
+g.clean_csv(filename)
+
 
 # skapa statsobjekt
 os.chdir(r"..\\clean")
-stats = Stats('20230302 IK Sirius P19 - Edsbyns IF P19 halvlek 1 clean') + Stats('20230302 IK Sirius P19 - Edsbyns IF P19 halvlek 2 clean')
+stats = Stats(filename) 
 
 
 # gör presentation

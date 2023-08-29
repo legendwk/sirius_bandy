@@ -6,5 +6,6 @@ dependencies:
   - numpy
   - matplotlib
   - conda-forge::scipy
+  - pip
   - pip:
-    - pptx
+    - python-pptx

@@ -19,6 +19,9 @@ class Game:
     
     zones = {'z' + str(i) for i in range(1, 10)}
 
+    # nummer 1 till 99
+    players = {str(i) for i in range(1, 100)}
+
     # constructor
     def __init__(self, teams: set) -> None:
         self.teams = teams
@@ -76,7 +79,7 @@ class Game:
         '''
         # variables 
         filename_out = gf.append_clean(filename_in)
-        event_keys = ['time', 'team', 'event', 'subevent', 'zone']
+        event_keys = ['time', 'team', 'event', 'subevent', 'zone', 'player']
         event_values = [[] for i in range(len(event_keys))]
 
         df = gf.read_csv_as_df(filename_in)
@@ -93,9 +96,11 @@ class Game:
                     self.set_team(self.find_team(split_set), event_values)
                     event = self.find_event(split_set)
                     self.set_event(event, event_values)
+                    # vad fan är det frågan om?!?!!
                     self.set_subevent(event, split_set, event_values)
                     # if we want to answer which zone then change this method
                     self.set_zone(self.dont_ask_for_zone(split_set), event_values)
+                    self.set_player(self.find_player(split_set), event_values)
 
         gf.save_data_to_csv(filename_out, event_keys, event_values)
         return
@@ -108,7 +113,7 @@ class Game:
         return '0'
 
     def set_subevent(self, event: str, split_set: set, event_values: list) -> None:
-        '''sets subevent based on event'''
+        '''finds subevent based on event'''
         # the event has a subevent
         if event in Game.events_and_their_subevents:
             event_values[3].append(self.find_subevent(split_set, event))
@@ -123,6 +128,7 @@ class Game:
         event_values[2].append('stop')
         event_values[3].append('0')
         event_values[4].append('0')
+        event_values[5].append('0')
         return
 
     def set_time(self, time: str, event_values: list) -> None:
@@ -140,14 +146,20 @@ class Game:
         event_values[2].append(event)
         return
     
-    def set_subevent1(self, subevent: str, event_values: list) -> None:
-        '''sets event'''
-        event_values[3].append(subevent)
-        return
+    # måste ha råkat skriva den här!??!?!
+    # def set_subevent(self, subevent: str, event_values: list) -> None:
+    #     '''sets event'''
+    #     event_values[3].append(subevent)
+    #     return
 
     def set_zone(self, zone: str, event_values: list) -> None:
         '''sets zone'''
         event_values[4].append(zone)
+        return
+    
+    def set_player(self, player: str, event_values: list) -> None:
+        '''sets player'''
+        event_values[5].append(player)
         return
 
     def ask_for_team(self, entry: set) -> str:
@@ -178,6 +190,7 @@ class Game:
             inp = input(f'{entry} \n {Game.zones} \n what zone are we looking for? ')
             if inp in Game.zones or inp == '0':
                 return inp
+            
 
     def find_team(self, split_set: set) -> str:
         '''attempts to find team, if not successful asks user to do it manually'''
@@ -206,4 +219,11 @@ class Game:
             if zone in split_set:
                 return zone
         return self.ask_for_zone(split_set)
+    
+    def find_player(self, split_set: set) -> str:
+        ''''attempts to find player, if not successful returns 0'''
+        for word in split_set:
+            if word in Game.players:
+                return word
+        return '0'
 
