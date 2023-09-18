@@ -183,7 +183,7 @@ Om inget annat anges kommer alla filer i mappen (såvida det inte finns flera ä
 ## Presentation 
 Filen ```get_pp.py``` används för att skapa PowerPoint-presentationer med statsitik från ```Stats```-objekt, den använder sig av ```get_plot.py``` för att skapa diagram. Klassen ```PP``` har två huvudmetoder: ```PP.get_game_report``` och ```PP.get_season_report```. 
 
-Matchrapporten antas få ett ```Stats```-objekt med data från en halvlek eller match, medan säsongsrapporten från en längre period (från ett ```Compile_stats```-objekt, det vill säga). 
+Matchrapporten antas få ett ```Stats```-objekt med data från en halvlek eller match, medan säsongsrapporten från en längre period (från ett ```CompileStats```-objekt, det vill säga). 
 
 Dessa rapporter skapas på följande vis:
 ```

@@ -2,6 +2,8 @@ import pandas as pd
 import time
 import datetime
 import general_functions as gf
+from tkinter import *   
+from nicegui import ui
 
 class Game:
     
