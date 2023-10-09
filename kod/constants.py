@@ -6,18 +6,19 @@ colors = {
     'iks': [RGBColor(0, 0, 0), RGBColor(20, 92, 172), RGBColor(250, 226, 12)],
 'villa' : [RGBColor(255, 254, 254), RGBColor(44,45,132), RGBColor(226, 33, 33)],
 'aik': [RGBColor(143, 124, 79), RGBColor(7, 41, 74), RGBColor(253, 221, 5)], 
-'bollnäs': [RGBColor(243, 135, 85), RGBColor(14, 59, 82), RGBColor(255, 255, 255)],
-'broberg': [RGBColor(255, 213, 32), RGBColor(0, 116, 190), RGBColor(0, 0, 0)],
-'edsbyn': [RGBColor(228, 179, 78), RGBColor(3, 56, 99), RGBColor(255, 255, 255)],
-'frillesås': [RGBColor(254, 222, 1), RGBColor(0, 134, 76), RGBColor(0, 0, 0)],
-'gripen': [RGBColor(0, 0, 0), RGBColor(254, 221, 1), RGBColor(255, 255, 255)],
-'hammarby': [RGBColor(255, 255, 255,), RGBColor(1, 169, 87), RGBColor(254, 223, 25)],
-'motala': [RGBColor(255, 255, 255), RGBColor(0, 74, 146), RGBColor(255, 255, 255)], 
+'bol': [RGBColor(243, 135, 85), RGBColor(14, 59, 82), RGBColor(255, 255, 255)],
+'bro': [RGBColor(255, 213, 32), RGBColor(0, 116, 190), RGBColor(0, 0, 0)],
+'eds': [RGBColor(228, 179, 78), RGBColor(3, 56, 99), RGBColor(255, 255, 255)],
+'fri': [RGBColor(254, 222, 1), RGBColor(0, 134, 76), RGBColor(0, 0, 0)],
+'gri': [RGBColor(0, 0, 0), RGBColor(254, 221, 1), RGBColor(255, 255, 255)],
+'ham': [RGBColor(255, 255, 255,), RGBColor(1, 169, 87), RGBColor(254, 223, 25)],
+'mot': [RGBColor(255, 255, 255), RGBColor(0, 74, 146), RGBColor(255, 255, 255)], 
 'saik': [RGBColor(255, 255, 255), RGBColor(0, 0, 0), RGBColor(255, 255, 255)],
-'vänersborg': [RGBColor(255, 255, 255), RGBColor(0, 90, 155), RGBColor(255, 255, 255)],
-'vetlanda': [RGBColor(0, 0, 0), RGBColor(255, 243, 0), RGBColor(0, 0, 0)],
+'vän': [RGBColor(255, 255, 255), RGBColor(0, 90, 155), RGBColor(255, 255, 255)],
+'vet': [RGBColor(0, 0, 0), RGBColor(255, 243, 0), RGBColor(0, 0, 0)],
 'vsk': [RGBColor(255, 255, 255), RGBColor(1, 130, 72), RGBColor(255, 255, 255)],
-'opponent': [RGBColor(255, 255, 255), RGBColor(255, 255, 255), RGBColor(255, 255, 255)]
+'opponent': [RGBColor(255, 255, 255), RGBColor(255, 255, 255), RGBColor(255, 255, 255)],
+'rät' : [RGBColor(255, 255, 255), RGBColor(31, 80, 166), RGBColor(255, 255, 255)]
 
 }
 

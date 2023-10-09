@@ -13,9 +13,9 @@ import time
 gf.clean_up()
 
 # # hämta data och gör presentation 
-filename = '20230829 Lag 1 - Lag 2 halvlek 1'
-os.chdir('data\\24\\raw')
-teams = {'iks', 'villa'}
+filename = '2023-09-01 Svenska Cupen Bollnäs - Sirius halvlek 1'
+os.chdir('data\\2024\\raw')
+teams = {'iks', 'bol'}
 
 # samla data
 g = Game(teams)
@@ -23,10 +23,10 @@ g = Game(teams)
 g.collector_raw(filename)
 g.clean_csv(filename)
 
-
+'''
 # skapa statsobjekt
 os.chdir(r"..\\clean")
-stats = Stats(filename) 
+stats = Stats(filename + ' clean.csv') 
 
 
 # gör presentation
@@ -34,7 +34,7 @@ os.chdir(r"..\..\..\powerpointer\matchrapporter")
 pp = PP(stats)
 pp.make_game_report()
 
-'''
+
 # mappar med csvfiler
 season2223 = 'data\\compile\\säsong 2223'
 regular_season2223 = 'data\\compile\\grundserie 2223'
