@@ -2,14 +2,43 @@
 ## Generellt
 Kort instruktion för hur koden bör användas.  
 
-Koden är skriven i Python 3.9.5
+Koden är skriven i Python 3.9.5. 
 
+Tanken bakom insamlings- och sammanställningsverktyget är att det är uppdelat i tre fristående steg. 
+
+**Insamlingen** är indelad i två delmoment; datainsamlingen i ```Game.collector_raw``` där användaren under en match noterar vad som händer, och datarensningen i ```Game.clean_csv``` där den insamlade datan formateras på rätt sätt och användaren får korrigera eventuella felinmatningar.
+
+**Sammanställningen** av en match sker i ```Stats``` och av flera matcher i ```CompileStats```. Här räknar programmet ihop statistik utifrån en eller flera ```.csv```-filer från datainsamlingen.
+
+**Presentationen** skapas i ```PP```. Ska en matchrapport skapas används ```PP.make_game_report``` och för en säsongsrapport ```PP.make_season_report```. Här genereras en Powerpoint-presentation där statistiken från sammanställningen presenteras.
+
+### "Kommentera bort" kod
+I ```runme.py``` finns mycket överflödig och redudnat kod. En majoritet av denna kod utförs dock inte då filen körs. Detta är eftersom den "kommenterats bort", det vill säga den är markerad som en beskrivande kommentar och inte som kod att köra.
+
+Detta kan göras på två sätt:
+
+* För enstaka rader används ```#```, det gör så att resten av raden markeras som en kommentar enligt nedan:
+```
+# här kommer lite kommentarer
+# print('hello, world)
+x = 3 + 2 # x är 5
+```
+* För längre stycken påbörjas och avslutas en kommentar med tre "fnuttar", antingen ```"""``` eller ```'''```. Notera att den typen av "fnutt" som används för att starta kommentaren måste användas för att avsluta den enligt nedan:
+```
+'''
+inget av det som skrivs här kommer utföras.
+x = 3 + 2
+'''
+```
+Detta kan med fördel användas av användaren i ```rumme.py``` för att slippa ta bort och skriva om kod hela tiden.
+
+ 
 ### Använda biliotek
 ```
 pandas
 numpy
 matplotlib
-pptx
+python-pptx
 ```
 ### Import av egna filer 
 ```
@@ -30,7 +59,7 @@ Vi utgår från att filsökvägen till en början är ```sirius_bandy ```-folder
 ## Datainsamling
 Datainsamlingen kan startas genom:
 ```
-teams = {'sirius', 'vetlanda'}
+teams = {'iks', 'vet'}
 filename = '20221213 Vetlanda BK - IK Sirius halvlek 1'
 os.chdir('data\\2023\\raw')
 
@@ -40,8 +69,25 @@ g.clean_csv(filename)
 ```
 Jätteviktigt är att man inte kan ha snedstreck eller andra "konstiga" skiljetecken i filnamnet! Undvik helst alla skiljtetecken.
 
+### Förkortning -> lag
+Används dessa förkortningar vid inmatningen måste inte ```.csv```-filerna ändras vid rapportskapande. Notera att dessa endast förekommer i ```konstanter.py```-filen så de är relativt enkla att ändra.
+* *iks* -> Sirius
+* *bol* -> Bollnäs
+* *bro* -> Broberg
+* *eds* -> Edsbyn
+* *fri* -> Frillesås
+* *gri* -> Gripen
+* *ham* -> Hammarby
+* *mot* -> Motala
+* *rät* -> Rättvik
+* *vän* -> Vänersberg
+* *saik* -> Sandviken
+* *vet* -> Vetlanda
+* *villa* -> Villa Lidköping
+* *vsk* -> Västerås
+
 ### Händelser i Game.collector_raw
-Följande händelser och eventuella underhändelser är vi intresserade av. Varje händelse utom **stop** ska vara kopplat till ett lag. I vissa fall kan man vilja kringgå det, exempelvis när det blir ett längre avbrott bör **timeout** användas, då kan lag **0** anges. Helst bör zon (**z1**-**z9** även anges). 
+Följande händelser och eventuella underhändelser är vi intresserade av. Varje händelse utom **stop** ska vara kopplat till ett lag. I vissa fall kan man vilja kringgå det, exempelvis när det blir ett längre avbrott bör **timeout** användas (för att bollinnehavsstatistiken ska bli rätt) då kan lag **0** väljas. Helst bör zon (**z1**-**z9**) och spelare (**1-99**) även anges. 
 * **skott** - bollen skjuts mot mål.
   * **utanför** - skottet missar mål och går till utkast.
   * **räddning** - målvakten räddar.
@@ -78,7 +124,6 @@ Följande händelser och eventuella underhändelser är vi intresserade av. Varj
   * **straffområde** - inlägg/inspel från kant in i straffområde.
   * **lång** - långboll/lyft.
   * **farlig** - passningen ställer den anfallande spelaren fri eller relativt fri i farligt läge. 
-* **anfall** - ett lag har påbörjar ett anfall. 
 * **friläge** - spelare får ett friläge.
 * **offside** - spelar i lag åker offside, motstådarna får bollen.
 * **rensning** - laget i fråga rensar bort bollen, motståndarna får den utan närkamp.
@@ -87,18 +132,22 @@ Följande händelser och eventuella underhändelser är vi intresserade av. Varj
 * **timeout** - lag tar timeout. Kan även användas utan lag för valfritt (längre) matchstopp. 
 * **kontring** - lag har kontringsläge.
 
+### Spelare
+Alla events kan knytas till en spelare genom att dennes nummer anges. Programmet känner igen spelare som siffror mellan 1 och 99.  2023/24 års Siriusspelare finns sparade med nummer, namn, position och bild i ```constants.py``` för senare bruk.    
+
+
 ### Synca klockan i collector_raw:
 För att ändra tiden vid datainsamling i ```collector_raw``` (t.ex. om videon pausats) gör följande: 
 ```
 clock MM:SS
 ```
  klockslag över 45 minuter (```MM:SS```) kommer antas vara felinmatade tider från andra halvlek och ändras till ```MM:SS-45:00```). Vill man mot förmodan ändra klockan under tilläggstid får detta göras i CSV-filen i efterhand. 
-
+### Ta bort föregående inmatning i collector_raw
+Ta bort föregående inmatning genom att ange ```del``` direkt i ```collector_raw```. Detta ska anges utan några andra tecken. Vid behov kan rader tas bort manuellt ur ```.csv```-filerna.
 ### Game.clean_csv
 Kommer bara fungera ifall raw_csv:s sista rad är "stop, MM:SS".
 #### Ask for-metoderna
 * Man ska alltid kunna kringgå frågorna genom att ange 0. Jag har inaktiverat ```ask_for_zone```-metoden då man ofta inte anger det, och väldigt sällan skriver fel. 
-
 
 ## Sammanställning av statistik 
 Filen ```get_stats.py``` används för att skapa ett statistikojekt från en csv-fil enligt oavstående (notera att vi antas stå i mappen ```data\\2023\\raw```):
@@ -139,7 +188,9 @@ Om inget annat anges kommer alla filer i mappen (såvida det inte finns flera ä
 
 
 ## Presentation 
-Filen ```get_pp.py``` används för att skapa PowerPoint-presentationer med statsitik från ```Stats```-objekt, den använder sig av ```get_plot.py``` för att skapa diagram. Klassen ```PP``` har två huvudmetoder: ```PP.get_game_report``` och ```PP.get_season_report```. Matchrapporten antas få ett ```Stats```-objekt med data från en halvlek eller match, medan säsongsrapporten från en längre period. 
+Filen ```get_pp.py``` används för att skapa PowerPoint-presentationer med statsitik från ```Stats```-objekt, den använder sig av ```get_plot.py``` för att skapa diagram. Klassen ```PP``` har två huvudmetoder: ```PP.get_game_report``` och ```PP.get_season_report```. 
+
+Matchrapporten antas få ett ```Stats```-objekt med data från en halvlek eller match, medan säsongsrapporten från en längre period (från ett ```CompileStats```-objekt, det vill säga). 
 
 Dessa rapporter skapas på följande vis:
 ```
@@ -160,5 +211,5 @@ I filen ```general_functions.py``` finns en rad funktioner som används av de ol
 
 En av dem som kan anropas med jämna mellanrum är ```clean_up()```. Den raderar alla plot-bilder och PowerPoint-filer som autogenereras av de olika ```PP```-metoderna, förutsatt att rapporttyperna ligger i sina respektive mappar. 
 ### constants
-Filen ```constants.py``` innehåller en rad konstanter som används i de olika filerna. Bland annat alla Elitserieklubbars färger, fullständiga klubbnamn och relativ sökväg till en mapp med deras loggor. 
+Filen ```constants.py``` innehåller en rad konstanter som används i de olika filerna. Bland annat alla Elitserieklubbars färger, fullständiga klubbnamn och relativ sökväg till en mapp med deras loggor samt information om Sirius alla spelare. 
 

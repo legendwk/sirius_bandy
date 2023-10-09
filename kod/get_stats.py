@@ -23,7 +23,7 @@ class Stats:
     # used for possession after shot
     positive_events = {'mål', 'hörna', 'straff'}
 # constructor
-    def __init__(self, filename: str, dummy = False, main_team = 'sirius', N = 3) -> None:
+    def __init__(self, filename: str, dummy = False, main_team = 'iks', N = 3) -> None:
         '''makes and calculates the Stats object. 
         main_team is which team we highlight. N is how many parts the half is divided into for the per-part stats.
         Dummy is only used when we are creating a custom object for example by dunder add'''

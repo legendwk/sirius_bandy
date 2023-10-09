@@ -88,16 +88,26 @@ def rgb1_to_rgb255(rgb: tuple) -> tuple:
 
 # maintenance
 def clean_up() -> None:
-    '''cleans the autogen image and game report powerpoint folders'''
+    '''cleans the autogen image and game report powerpoint folders
+        will raise an exception if unable to remove (most likely due to it being open)'''
     os.chdir('powerpointer\matchrapporter')
     for f in os.listdir(os.getcwd()):
-        os.remove(f)
+        try:
+            os.remove(f)
+        except Exception as e:
+            print(e)
     os.chdir('..\\säsongsrapporter')
     for f in os.listdir(os.getcwd()):
-        os.remove(f)
+        try:
+            os.remove(f)
+        except Exception as e:
+            print(e)
     os.chdir('..\\..\\bilder\\autogen')
     for f in os.listdir(os.getcwd()):
-        os.remove(f)
+        try:
+            os.remove(f)
+        except Exception as e:
+            print(e)
     os.chdir('..\\..')
     return
 
