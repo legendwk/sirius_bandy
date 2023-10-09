@@ -4,7 +4,7 @@ Kort instruktion för hur koden bör användas.
 
 Koden är skriven i Python 3.9.5. 
 
-Tanken bakom insamlings- och sammanställningsverktyget är att den är uppdelad i fristående steg. 
+Tanken bakom insamlings- och sammanställningsverktyget är att det är uppdelat i tre fristående steg. 
 
 **Insamlingen** är indelad i två delmoment; datainsamlingen i ```Game.collector_raw``` där användaren under en match noterar vad som händer, och datarensningen i ```Game.clean_csv``` där den insamlade datan formateras på rätt sätt och användaren får korrigera eventuella felinmatningar.
 
