@@ -27,7 +27,7 @@ g.clean_csv(filename)
 '''
 # skapa statsobjekt
 os.chdir(r"..\\clean")
-stats = Stats(filename) 
+stats = Stats(filename + ' clean.csv') 
 
 
 # gör presentation
