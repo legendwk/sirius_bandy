@@ -34,9 +34,9 @@ def append_clean(filename: str, change_dirr = True) -> str:
 def read_csv_as_df(filename: str) -> pd.core.frame.DataFrame:
     '''returns the csv as a df object'''
     try:
-        return pd.read_csv(filename)
+        return pd.read_csv(filename, engine='python')
     except:
-        return pd.read_csv(filename + '.csv')
+        return pd.read_csv(filename + '.csv', engine='python')
 
 def save_data_to_csv(filename: str, keys: list, values: list) -> None:
     # makes sure path is good
@@ -46,7 +46,7 @@ def save_data_to_csv(filename: str, keys: list, values: list) -> None:
     df.to_csv(filename, index=False) 
     return
 
-def make_df(keys, values) -> pd.core.frame.DataFrame:
+def make_df(keys: list, values: list) -> pd.core.frame.DataFrame:
     '''converts the two lists into a dataframe object'''
     dic = dict()
     for i, key in enumerate(keys):

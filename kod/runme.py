@@ -11,11 +11,12 @@ import time
 
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
-
+print(os.getcwd())
 # # hämta data och gör presentation 
-filename = '2023-09-01 Svenska Cupen Bollnäs - Sirius halvlek 1'
+filename = '20230901 Svenska Cupen Bollnäs - Sirius halvlek 2'
 os.chdir('data\\2024\\raw')
 teams = {'iks', 'bol'}
+print(os.getcwd())
 
 # samla data
 g = Game(teams)

@@ -7,4 +7,4 @@
   * lägg till spelare i statistikobjektet
 	  * skott, mål, närkamp, passning?
   * lägg till spelare i säsongssamanställning
-  * lägg gör någon form av spelarutvärdering?
+  * gör någon form av spelarutvärdering?
