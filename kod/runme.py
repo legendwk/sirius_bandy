@@ -11,28 +11,52 @@ import time
 
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
-print(os.getcwd())
-# # hämta data och gör presentation 
-filename = '20230901 Svenska Cupen Bollnäs - Sirius halvlek 2'
-os.chdir('data\\2024\\raw')
-teams = {'iks', 'bol'}
-print(os.getcwd())
 
-# samla data
+# # hämta data och gör presentation 
+os.chdir('data\\2024\\raw')
+
+# skapa vår match
+filename = '20231107 Vetlanda BK - IK Sirius halvlek 1.csv'
+teams = {'iks', 'vet'}
 g = Game(teams)
 
-g.collector_raw(filename)
-g.clean_csv(filename)
+# # samla och rensa data
+# g.collector_raw(filename)
+# g.clean_csv(filename)
+
+os.chdir(r"..\\clean")
+gf.control_time('20231107 Vetlanda BK - IK Sirius halvlek 1 clean.csv')
 
 '''
+os.chdir('..')
+
+h = CompileStats('grundserie')
+
+pp1 = PP(h.returns_stats_obj())
+
+os.chdir('powerpointer\\säsongsrapporter')
+
+pp1.make_season_report('säsongsrapport grundserie tom Rättvik')
+
+
+
 # skapa statsobjekt
 os.chdir(r"..\\clean")
-stats = Stats(filename + ' clean.csv') 
 
+v1 = Stats('20231027 Villa Lidköping - IK Sirius halvlek 1 - Copy clean.csv') 
+v2 = Stats('20231027 Villa Lidköping - IK Sirius halvlek 2 clean.csv')
+v_hel = v1 + v2
 
 # gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
-pp = PP(stats)
+
+pp = PP(v1)
+pp.make_game_report()
+
+pp = PP(v2)
+pp.make_game_report()
+
+pp = PP(v_hel)
 pp.make_game_report()
 
 

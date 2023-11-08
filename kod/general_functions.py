@@ -142,3 +142,14 @@ def readable_number(num: int) -> str:
         return constants.readable_numbers[num]
     except KeyError:
         str(num)
+
+# manually check csv files
+def control_time(filename: str) -> None:
+    '''runs through the csv and checks that the timesstamps are in ascending order'''
+    df = read_csv_as_df(filename)
+
+    for i, row in df.iterrows():
+        if i != 0 and i != df.shape[0] - 1:
+            if row['time'] > df.loc[i+1]['time']:
+                print(f'fel på rad {i+2}')
+    return

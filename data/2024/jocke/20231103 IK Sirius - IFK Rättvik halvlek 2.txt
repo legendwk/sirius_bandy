@@ -1,0 +1,262 @@
+event,time
+Avslag RÄT z5,00:00
+Passning lÅng RÄT Z6,00:10 
+boll IKS Z6,00:10
+NÄrkamp RÄT z1,00:25
+Passning straffomrÅde RÄT z7,00:41
+Utkast IKS Z8,00:45
+Bolltapp passfÖrsÖk IKS Z2,01:00
+NÄrkamp IKS Z9,01:15 
+nÄrkamp RÄT Z5,01:24
+Frislag RÄT Z6,01:32
+NÄrkamp IKS z6,02:00
+Skott tÄckt IKS Z2,02:00
+skottyp utifrÅn Z2,02:00
+Boll RÄT Z2,02:00
+Inslag IKS Z3,02:20
+Bolltapp passfÖrsÖk IKS Z6,02:25
+MÅl spelmÅl RÄT Z8,02:40
+Skottyp utifrÅn RÄT Z8,02:40
+Avslag IKS Z5,03:05
+NÄrkamp RÄT Z3,03:20
+Utkast RÄT Z2,03:30
+NÄrkamp IKS Z5,03:40
+Passning straffomrÅde IKS Z1,04:00
+Skott utanfÖr IKS Z2,04:05
+skottyp central IKS Z2,04:05
+Utkast RÄT Z2,04:15
+Utkast IKS z8,04:45
+NÄrkamp IKS Z1,05:00
+NÄrkamp RÄT Z1,05:02
+Frislag RÄT Z7,05:25
+Skott rÄddning RÄT Z8,05:45
+Skottyp utifrÅn RÄT z8,05:45
+Rensning IKS z8,05:45
+Inslag RÄT Z9,05:50
+Bolltapp passfÖrsÖk RÄT Z9,05:51
+Passning lÅng IKS Z6,06:00
+Utkast RÄT z2,06:06
+NÄrkamp IKS z7,06:20
+NÄrkamp RÄT Z2,06:43
+Passning straffomrÅde RÄT Z8,06:55
+NÄrkamp RÄT Z7,07:00
+Passning lÅng RÄT Z6,07:10 
+boll IKS Z2,07:10
+NÄrkamp RÄT z8,07:20
+mÅl spelmÅl RÄT Z8,07:40
+Skottyp dribbling RÄT Z8,07:40
+Time out IKS
+Avslag IKS Z5,09:25
+NÄrkamp IKS z5,10:00
+Passning lÅng IKS Z5,10:19
+Utkast RÄT z2,10:22
+Bolltapp passfÖrsÖk RÄT z4,10:30
+Skott utanfÖr IKS Z3,10:35
+skottyp central IKS Z3,10:35
+Utkast RÄT z2,10:40
+Utkast IKS Z8,10:55
+Bolltapp tappad IKS Z5,11:05
+Skott tÄck RÄT Z8,11:15
+HÖrna RÄT Z9,11:20
+Skott rÄddning RÄT Z8,11:45
+Skottyp fast Z8,11:45
+Boll IKS Z8,11:47
+NÄrkamp IKS Z6,12:05
+Passning lÅng IKS z5,12:20
+HÖrna IKS Z1,12:21
+Skott rÄddning IKS Z2,12:55
+skottyp fast IKS Z2,12:55
+Utkast RÄT z2,13:00
+NÄrkamp RÄT Z7,13:30
+HÖrna RÄT Z7,13:35
+Skott utanfÖr RÄT Z8,14:10
+skottyp fast RÄT Z8,14:10
+Utkast IKS Z8,14:20
+Passning lÅng IKS Z6,14:25
+Utkast RÄT Z2,14:30
+nÄrkamp RÄT Z3,15:00
+Passning lÅng RÄT Z1,15:05
+NÄrkamp RÄT Z5,15:10
+NÄrkamp IKS Z7,15:15
+Skott tÄckt IKS z1,15:30
+skottyp utifrÅn IKS z1,15:30
+NÄrkamp RÄT Z1,15:40
+NÄrkamp IKS Z8,15:50
+NÄrkamp RÄT Z3,16:00
+NÄrkamp IKS Z3,16:05
+HÖrna IKS Z3,16:10
+Skott tÄckt IKS Z2,16:35
+skottyp fast IKS Z2,16:35
+Rensning RÄT Z2,16:37
+Passning straffomrÅde IKS Z3,16:45
+Skott tÄckt IKS Z2,17:10
+skottyp utifrÅn IKS Z2,17:10
+Offside IKS Z1,17:40
+Skott redning RÄT Z9,18:05
+Skottyp utifrÅn Z9,18:05
+NÄrkamp RÄT Z5,18:t
+Frislag RÄT Z4,18:20
+NÄrkamp RÄT z5,18:49
+Passning lÅng rÄttig Z5,18:40
+Utkast IKS Z8,18:55
+NÄrkamp IKS z5,19:05
+Passning straffomrÅde IKS Z5,19:10
+Utkast RÄT Z2,19:15
+Utkast IKS z8,19:20
+Passning straffomrÅde IKS Z2,19:40
+Rensning RÄT z2,19:50
+Passning lÅng IKS Z5,19:50
+HÖrna IKS Z1,20:00
+skott UtanfÖr IKS Z2,20:40
+skottyp fast  IKS Z2,20:40
+Utkast rÄtt z2,20:42
+Passning lÅng RÄT z4,20:50
+Inslag RÄT Z6,21:00
+Passning straffomrÅde RÄT z9,21:25
+Utkast IKS z8,21:30
+Offside IKS Z2,21:40
+NÄrkamp IKS z6,22:00
+Passning straffomrÅde IKS Z2,22:20
+Skott tÄckt IKS Z2,22:22
+skottyp utifrÅn IKS Z2,22:22
+frislag IKS Z3,22:30
+Passning straffomrÅde IKS Z1,23:00
+NÄrkamp IKS z6,23:05
+Skott tÄckt IKS Z2,23:48
+skottyp central IKS Z2,23:48
+Passning lÅng IKS Z6,24:10
+Utkast RÄT z2,24:15
+NÄrkamp IKS z7,24:25
+NÄrkamp IKS Z4,24:40
+NÄrkamp IKS Z5,24:58
+NÄrkamp IKS Z5,25:25
+Passning straffomrÅde IKS Z3,25:50
+Boll RÄT Z2,25:52
+NÄrkamp IKS Z8,26:15
+Utkast IKS z8,26:19
+Passning straffomrÅde IKS Z1,26:35
+Rensning RÄT Z2,26:37
+Inslag IKS Z6,26:45
+Frislag IKS Z5,26:00
+Passning straffomrÅde IKS Z1,27:10
+Utkast RÄT Z2,27:15
+Inslag IKS Z6,27:20
+Passning lÅng IKS Z6,27:25
+Utkast RÄT z2,27:35
+Passning straffomrÅde RÄT Z4,27:40
+Boll IKS Z8,27:41
+NÄrkamp RÄT z3,28:05
+Passning straffomrÅde RÄT z9,28:20
+Brytning IKS Z8,28:25
+Skott tÄckt IKS Z2,28:40
+skottyp dribbling IKS Z2,28:40 
+Rensning RÄT Z2,28:41
+Passning straffomrÅde IKS Z1,29:09
+Utkast RÄT Z2,29:25
+NÄrkamp RÄT z6,29:35
+FrilÄge RÄT Z8,29:40
+Skott rÄddning RÄT Z8 29:41
+Skottyp centralt Z8 29:41
+Utkast IKS Z8,29:50
+Skott tÄckt IKS Z3,30:00
+skottyp utifrÅn IKS Z3,30:00
+Inslag RÄT Z1,30:2020
+Passning lÅng RÄT Z1,30:20
+Boll IKS Z9,30:30
+NÄrkamp IKS Z3,31:08
+NÄrkamp RÄT Z2,31:30
+Skott utanfÖr RÄT Z8,31:45
+skottyp utifrÅn RÄT Z8,31:45
+Utkast IKS Z8,31:50
+NÄrkamp IKS Z3,32:20
+Frislag IKS Z1,32:45
+Pass straffomrÅde IKS Z2,33:05
+Utkast RÄT Z2,33:10
+Passning lÅng RÄT Z3,33:20
+Boll IKS z5,33:25
+NÄrkamp RÄT,33:45 
+NÄrkamp IKS Z3,33:50
+Skott tÄckt IKS Z2,34:10
+skottyp central IKS Z2,34:10
+Rensning RÄT z2,34:11
+Inslag IKS Z6,34:20
+Passning lÅng IKS Z5,34:30
+Rensning RÄT Z5,34:30
+Inslag RÄT Z1,34:55
+Bolltapp passfÖrsÖk RÄT Z1,35:04
+NÄrkamp RÄT Z5,35:05
+HÖrna RÄT z9,35:19
+Skott utanfÖr RÄT Z8,35:45
+skottyp fast RÄT Z8,35:45
+Utkast IKS Z8,35:55
+Passning lÅng IKS Z6,36:05
+Utkast RÄT Z2,36:12
+Brytning IKS Z7,36:35
+NÄrkamp RÄT Z1,36:48
+Inslag IKS Z4,36:59
+Passning straffomrÅde IKS z3,37:10
+nÄrkamp IKS Z2,37:18
+MÅl spelmÅl IKS Z2,37:20
+Skottyp dribbling Z2,37:20
+Avslag RÄT Z5,38:00
+Passning lÅng RÄT z6,38:02
+Boll IKS Z8,38:05
+Passning lÅng IKS Z6,38:10
+Utkast RÄT Z2,38:16
+Frislag RÄT Z4,38:35
+Inslag RÄT Z6,38:55
+Bolltapp tappad RÄT z6,39:25
+Skott utanfÖr IKS Z2,39:30
+skottyp central IKS Z2,39:30
+Utkast RÄT Z2,39:35
+Brytning IKS Z8,39:40
+HÖrna IKS z3,39:50
+Skott IKS Z2,40:25
+Skottyp fast IKS Z2,40:25
+Rensning RÄT Z2,40:25
+NÄrkamp IKS Z5,40:35
+Passning lÅng IKS Z4,40:48
+NÄrkamp IKS z4,40:50
+NÄrkamp RÄT Z4,40:55
+Passning lÅng RÄT Z4,40:50
+Boll IKS Z6,40:55
+Skott utanfÖr IKS Z2,41:10
+skottyp utifrÅn IKS Z2,41:10
+Utkast RÄT Z2,41:12
+Passning straffomrÅde RÄT Z4,41:30
+HÖrna RÄT Z7,41:35
+Skott tÄckt RÄT Z8,42:05
+skottyp fast RÄT Z8,42:05
+Time out RÄT
+Inslag RÄT Z9,43:50
+Rensning IKS Z8,43:52
+Skott tÄckt RÄT z9,44:00
+skottyp inspel RÄT z9,44:00
+HÖrna RÄT Z7,44:05
+Skott tÄckt RÄT Z8,44:35
+skottyp fast RÄT Z8,44:35
+Utkast IKS Z8,44:40
+Boll RÄT z2,44:50
+Bolltapp tappad RÄT Z7,45:05
+NÄrkamp IKS Z3,45:20
+Bolltapp tappad IKS Z5,45:35
+Utvisning 10 IKS 6 Z5,45:40
+Frislag RÄT Z5,46:15
+Passning lÅng RÄT Z5,46:16
+Boll IKS Z8,46:20
+Frislag IKS Z2,46:30
+Skott utanfÖr Z2,46:50
+skottyp fast Z2,46:50
+Utkast RÄT z2,46:58
+Passning straffomrÅde RÄT Z9,47:10
+Utkast IKS Z8,47:15
+Utkast RÄT z2,47:25
+Boll IKS z6,47:25
+Passning lÅng IKS Z9,47:40
+Boll RÄT z6,47:42
+Bolltapp passfÖrsÖk RÄT z6,47:48
+NÄrkamp IKS Z3,48:00
+Frislag IKS Z3,48:05
+NÄrkamp IKS Z4,48:23
+NÄrkamp IKS z1,48:33
+Stop,48:33
