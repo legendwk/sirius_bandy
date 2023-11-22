@@ -63,6 +63,9 @@ class PP:
         self.make_game_report_goals_stats_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
         self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')} vunna närkamper och brytningar per zon")
+        # make_duel_zones_per_team_image
+        self.make_single_image_page(self.plot.make_duel_zones_per_team_image(team_in_possession=self.stats.opposite_team(self.stats.main_team), number_text=True), 'Defensiva närkamper och brytningar per zon')
+        self.make_single_image_page(self.plot.make_duel_winners_per_zone_and_team_image(team_in_possession=self.stats.opposite_team(self.stats.main_team), text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')} vunna defensiva närkamper och brytningar per zon")
         self.make_single_image_page(self.plot.make_all_freeshot_locations_image(number_text=True), 'Frislag per zon')
         self.make_single_image_page(self.plot.make_freeshots_made_per_locations_image(text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')}s frislag per zon")
 

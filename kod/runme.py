@@ -16,32 +16,36 @@ gf.clean_up()
 os.chdir('data\\2024\\raw')
 
 # skapa vår match
-filename = '20231017 IK Sirius - Brobergs IF halvlek 2.csv'
-teams = {'iks', 'bro'}
-g = Game(teams)
+# filename = '20231117_IK_Sirius_-_Hammarby_IF_halvlek_2'
+# teams = {'iks', 'ham'}
+# g = Game(teams)
 
-# # samla och rensa data
+# samla och rensa data
 # g.collector_raw(filename)
 # g.clean_csv(filename)
 
 
 
-
 os.chdir(r"..\\clean")
-# gf.control_time('20231017 IK Sirius - Brobergs IF halvlek 2 clean.csv')
+# gf.control_time('20231117 IK Sirius - Hammarby IF halvlek 2 clean')
 
-v1 = Stats('20231017 IK Sirius - Brobergs IF halvlek 1 clean') 
-v2 = Stats('20231017 IK Sirius - Brobergs IF halvlek 2 clean')
+v1 = Stats('20231117 IK Sirius - Hammarby IF halvlek 1 clean') 
+
+
+
+v2 = Stats('20231117 IK Sirius - Hammarby IF halvlek 2 clean')
+
+# print(v2.prints['duel winners per zone and team'] )
 v_hel = v1 + v2
 
-# gör presentation
+# # gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
 
-pp = PP(v1)
-pp.make_game_report()
+# pp = PP(v1)
+# pp.make_game_report()
 
-pp = PP(v2)
-pp.make_game_report()
+# pp = PP(v2)
+# pp.make_game_report()
 
 pp = PP(v_hel)
 pp.make_game_report()

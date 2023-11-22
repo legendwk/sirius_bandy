@@ -95,8 +95,9 @@ class Game:
                 if 'del' not in set(str(df.iloc[[index + 1]]['event']).lower().split()):
                     # no 'del' -> POPULATE!
                     # handle the time
+                    t = row['time']
                     try:
-                        t = row['time'].strip()
+                        t.strip()
                         t = gf.sec_to_readable(gf.readable_to_sec(t))
                     except:
                         print(f'error with time conversion on row {index + 1}')

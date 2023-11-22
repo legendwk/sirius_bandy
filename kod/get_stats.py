@@ -16,8 +16,8 @@ class Stats:
     # used for shot origins
     start_of_play = {'avslag', 'frislag', 'inslag', 'utkast', 'skott', 'hörna', 'straff', 'boll'} # varför hade jag inte boll? för att den kommer med för ofta????
     # used for zone specific data, coverts zones 180 degrees
-    zone_change = {'z1':'z9', 'z2':'z8', 'z3': 'z7', 'z4':'z6', 'z5':'z5', 'z6':'z4', 'z7':'z3', 'z8':'z2', 'z9':'z1'}
-    # used for coroners
+    zone_change = {'z1':'z9', 'z2':'z8', 'z3': 'z7', 'z4':'z6', 'z5':'z5', 'z6':'z4', 'z7':'z3', 'z8':'z2', 'z9':'z1', '0': '0'}
+    # used for corners
     corner_sides = {'right': ['z1', 'z9'], 'left': ['z3', 'z7']}
     corner_zone_to_name = {'z1': 'right', 'z9': 'right', 'z3': 'left', 'z7': 'left'}
     # used for possession after shot
@@ -40,6 +40,9 @@ class Stats:
         if not dummy: 
             self.big_df = gf.read_csv_as_df(filename)
             self.teams = {team for team in self.big_df['team'].tolist() if team != '0'}
+            # ensures that main_team always scores in z8
+            self.flip_zones()
+
             self.df_dict = dict()
             self.compile_stats()
         return
@@ -94,6 +97,8 @@ class Stats:
         obj.prints['expected goals list'] = self.add_expected_goals_lists(other)
         obj.prints['goals lists'] = self.add_goals_list(other)
         obj.prints['penalty shots'] = self.add_penalty_shots(other)
+        obj.prints['duel zones per team'] = self.add_duel_zones_per_team(other)
+        obj.prints['duel winners per zone and team'] = self.add_duel_winners_per_zone_and_team(other)
         
         return obj
 
@@ -125,6 +130,8 @@ class Stats:
         self.get_penalty_shots_dict()
         self.get_expected_goals_lists()
         self.get_goals_lists()
+        self.get_duel_zones_per_team()
+        self.get_duel_winners_per_zone_and_team()
 
         # gör något åt detta, det ser förjävligt ut 
         self.goal_origins_list = self.get_goal_origins_list()
@@ -146,6 +153,12 @@ class Stats:
                 attacking_zone[row['team']]['down'] += 1
         # does team attack up and opposite down?
         return max(attacking_zone[team], key=attacking_zone[team].get) == 'up' and max(attacking_zone[self.opposite_team(team)], key=attacking_zone[self.opposite_team(team)].get) == 'down'
+    
+    def flip_zones(self) -> None:
+        '''ensures that main_team scores into z8, if not calls other_direction on all zones so it does'''
+        if not self.team_attacks_up(self.main_team):
+            for index, _ in self.big_df.iterrows():
+                self.big_df.at[index, 'zone'] = Stats.other_direction(self.big_df.at[index, 'zone'])
 
     def make_per_time_lists(self) -> None:
         '''populates the prints["per time lists"]'''
@@ -320,36 +333,24 @@ class Stats:
         return per_time_list
 
     def get_duel_zones_dict(self) -> dict:
-        '''returns a dictionary of where the duels happened, and who won them
-            will alter to make sure that self.main_team always scores in z8'''
+        '''returns a dictionary of where the duels happened, and who won them'''
         if 'duel zones' not in self.prints:
             duel_zones = {'z' + str(i): {team: 0 for team in self.teams} for i in range(1, 10)}
-            change_dir = not self.team_attacks_up(team = self.main_team)
             duels_df = self.get_duels_df()
             for index, row in duels_df.iterrows():
                 if row['zone'] != '0':
-                    if change_dir:
-                        z = Stats.other_direction(row['zone'])
-                    else:
-                        z = row['zone']
-                    duel_zones[z][row['team']] += 1
+                    duel_zones[row['zone']][row['team']] += 1
             self.prints['duel zones'] = duel_zones
         return self.prints['duel zones']
 
     def get_freeshot_zones_dict(self) -> dict:
-        '''returns a dictionary of where the freeshots (frislag) happened, and by whom
-            will alter to make sure that self.main_team always scores in z8'''
+        '''returns a dictionary of where the freeshots (frislag) happened, and by whom'''
         if 'freeshot zones' not in self.prints:
             freeshot_zones = {'z' + str(i): {team: 0 for team in self.teams} for i in range(1, 10)}
-            change_dir = not self.team_attacks_up(team = self.main_team)
             freeshots_df = self.get_freeshots_df()
             for index, row in freeshots_df.iterrows():
                 if row['zone'] != '0':
-                    if change_dir:
-                        z = Stats.other_direction(row['zone'])
-                    else:
-                        z = row['zone']
-                    freeshot_zones[z][row['team']] += 1
+                    freeshot_zones[row['zone']][row['team']] += 1
             self.prints['freeshot zones'] = freeshot_zones
         return self.prints['freeshot zones']
 
@@ -420,6 +421,49 @@ class Stats:
             self.prints['before and after'] = before_after_dict
         return self.prints['before and after']
     
+    def get_duel_zones_per_team(self) -> dict:
+        '''returns a dictionary of the zones of all duels based on each team's possession before 
+            if not already done, it'll fill self.prints'''
+        if 'duel zones per team' not in self.prints:
+            duels_df = self.get_duels_df()
+            duel_zones = {team : {z: 0 for z in Game.zones} for team in self.teams}   
+            time_list = [x[1] for x in self.possession_list]
+            for index, row in duels_df.iterrows():
+                if row['zone'] != '0':
+                    # binary search is O(logn)
+                    i = bisect_left(time_list, row['time'])
+                    # we find a possession change from duel
+                    if time_list[i] == row['time']:
+                        # other team used to have possession, now we do
+                        duel_zones[self.opposite_team(row['team'])][row['zone']] += 1
+                    # the duel didn't result in possession change
+                    else:
+                        duel_zones[row['team']][row['zone']] += 1
+            self.prints['duel zones per team'] = duel_zones
+        return self.prints['duel zones per team']
+    
+    def get_duel_winners_per_zone_and_team(self) -> dict:
+        '''returns a dictionary of the winner in each zone based on each team's possession before 
+            if not already done, it'll fill self.prints
+            dictionary of format d[team_before][zone][team_after]'''
+        if 'duel winners per zone and team' not in self.prints:
+            duels_df = self.get_duels_df()
+            duel_zones = {team :  {z: {t: 0 for t in self.teams} for z in Game.zones} for team in self.teams}
+            time_list = [x[1] for x in self.possession_list]
+            for index, row in duels_df.iterrows():
+                if row['zone'] != '0':
+                    # binary search is O(logn)
+                    i = bisect_left(time_list, row['time'])
+                    # we find a possession change from duel
+                    if time_list[i] == row['time']:
+                        # other team used to have possession, now we do
+                        duel_zones[self.opposite_team(row['team'])][row['zone']][row['team']] += 1
+                    # the duel didn't result in possession change
+                    else:
+                        duel_zones[row['team']][row['zone']][row['team']] += 1
+            self.prints['duel winners per zone and team'] = duel_zones
+        return self.prints['duel winners per zone and team']
+    
     def add_before_and_after(self, other) -> dict:
         '''handels addition for the before and after stats'''
         return_dict = {team: dict() for team in self.teams} 
@@ -427,7 +471,24 @@ class Stats:
             for after in self.prints['before and after'][before]:
                 return_dict[before][after] = self.prints['before and after'][before][after] + other.prints['before and after'][before][after]
         return return_dict
-
+    
+    def add_duel_winners_per_zone_and_team(self, other) -> dict:
+        '''handles the addition for the duel winners per zone and team'''
+        return_dict = {team: {z : {t: 0 for t in self.teams} for z in Game.zones} for team in self.teams}
+        for team in self.prints['duel winners per zone and team']:
+            for zone in self.prints['duel winners per zone and team'][team]:
+                for t in self.prints['duel winners per zone and team'][team][zone]:
+                    return_dict[team][zone][t] = self.prints['duel winners per zone and team'][team][zone][t] + other.prints['duel winners per zone and team'][team][zone][t]
+        return return_dict
+    
+    def add_duel_zones_per_team(self, other) -> dict:
+        '''handles the addition for the duel zones per teams'''
+        return_dict = {team: dict() for team in self.teams}
+        for team in self.prints['duel zones per team']:
+            for zone in self.prints['duel zones per team'][team]:
+                return_dict[team][zone] = self.prints['duel zones per team'][team][zone] + other.prints['duel zones per team'][team][zone]
+        return return_dict
+    
     def get_duels_dict(self) -> dict:
         '''returns a dictionary of the duels
             if need be it fills self.prints'''
