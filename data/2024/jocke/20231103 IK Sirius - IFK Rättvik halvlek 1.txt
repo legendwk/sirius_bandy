@@ -1,0 +1,223 @@
+event,time 
+Avslag Iks Z5,00:00 
+Passning lång Iks Z5,00:15 
+Rensning Rät Z7,00:16 
+Skott räddning Iks Z8,00:37 
+Skottyp utifrån iks z8,00:37 
+Utkast Rät Z8,00:47 
+Skott räddning Rät z2,00:59 
+skottyp inspel Rät z2,00:59
+rensning Iks z2,01:00
+Inslag Rät Z3,01:15 
+Bolltapp passförsök Rät Z2,01:43 
+Utkast Iks Z2,01:44 
+Passning lång Iks Z5,01:51 
+Utkast Rät Z8,01:54 
+Frislag Rät Z3,02:21 
+Frislag Rät Z3,02:23 
+Bolltapp passförsök Rät z1,02:44 
+Utkast Iks Z2,02:50 
+Mål spelmål Iks Z8,02:56 
+Skottyp centralt Z8,02:56
+Avslag Rät Z5,03:50 
+Närkamp Rät Z5,04:10 
+Frislag Z3,04:12 
+Bolltapp passförsök Rät Z6,04:47 
+Närkamp Rät z4,05:05 
+Närkamp Iks 08:05,15 
+Närkamp Rätttvik Z1,05:30 
+Hörna Rät Z1,05:32 
+Skott täckt Rät Z2,06:08 
+Skottyp fast Rät Z2,06:08
+Utkast Iks z2,06:20 
+Passning lång z3,06:40 
+Utkast Rät z8,06:50 
+Boll passförsök Rät,Z5,07:03 
+Utkast Iks Z2,07:05 
+Närkamp Iks Z5,07:24 
+Passning lång Iks Z5,07:26 
+Skott Iks Z8,07:28 
+skottyp utifrån  Iks Z8,07:28
+Utkast Rät z8,07:30 
+Utkast Iks z2,08:01 
+Passning lång Iks Z5,08:25 
+Skott Iks täckt Z9,09:00 
+Hörna Iks Z9,09:00 
+Skott täckt Iks Z8,09:19 
+skottyp fast iks Z8,09:19 
+boll Iks Z8,09:19
+Bolltapp passförsök Iks Z5,09:39 
+Bolltapp passförsök Rät z5,09:41 
+passning straffområde iks z8,09:57
+Utkast Rät z8,09:57 
+Skott utanför Rät Z2,10:07 
+kottyp utifrån rät z2, 10:07
+Utkast Iks Z2,10:15 
+Bolltapp passförsök Iks z8,10:25 
+Närkamp inslag Rät Z7,10:40 
+Närkamp Camp Iks Z5,11:00 
+Bolltapp passförsök Iks Z7,11:15 
+Utkast Rät Z8,11:16 
+Passning lång Rät Z6,11:27 
+Utkast Iks Z2,11:29 
+Bolltapp passförsök Iks Z9,11:48 
+Närkamp Rät Z8,11:50 
+Närkamp Iks Z2,12:01 
+Närkamp Rät Z8,12:10 
+Närkamp Iks z1,12:21 
+Passning farlig Iks Z8,12:48 
+Närkamp Rät Z8,12:50 
+Bolltapp passförsök Rät Z5,13:18 
+Utkast Iks Z2,13:25 
+Närkamp Iks Z9,13:46 
+Inslag Rät Z9,13:54 
+Brytning Iks Z5,14:09 
+Närkamp Iks Z5,14:12 
+Frislag Iks Z5,14:12 
+Skott utanför Iks Z7,15:05 
+Skottyp inlägg Iks Z7,15:05
+Utkast Rät z8,15:09 
+Närkamp Iks Z3,15:48 
+Närkamp Rät Z5,15:51 
+Närkamp Iks Z2,15:55 
+Närkamp Rät Z5,16:12 
+Närkamp Iks Z2,16:20 
+Frislag Rät Z2,16:22 
+Skott täckt Iks Z2,16:36 
+Skottyp inlägg Iks Z2,16:36
+Utkast Iks Z2,16:45 
+Närkamp Iks Z2,17:11 
+Skott Täckt Iks Z9,17:23
+skottyp utifrån iks Z9,17:23
+Hörna Iks Z9,17:24 
+Skott täckt Iks Z8,17:52 
+Skottyp fast Iks Z8,17:52
+Utkast Rät Z8,17:57 
+Skott Rät Z1,18:47 
+skottyp inlägg Rät Z1,18:47
+Skott täckt Rät Z2,18:51 
+skottyp central rät z2, 18:51
+Hörna Rät Z3,18:52 
+Mål hörnmål Rät Z2,19:18 
+Skottyp fast Rät Z2,19:18
+Avslag Iks Z5,19:48 
+Frislag Iks Z9,20:10 
+skottyp inlägg iks Z9,20:24
+Skott täckt  iks Z9,20:24 
+Skott utanför Iks Z8,20:27 
+skottyp centralt  Iks Z8,20:27
+Utkast Rät z8,20:30 
+Närkamp Iks Z1,20:38 
+Skott räddning Iks Z8,20:55 
+Utkast Rät Z8,20:58 
+Passning lång Rät Z4,21:08 
+Utkast Iks Z2,21:12 
+Passning farlig Iks Z4,21:30 
+Hörna Iks Z7,21:31 
+skott räddning Iks Z8,22:08 
+Skottyp fast Iks Z8,22:08
+Rensning Rät Z8,22:09 
+Boll Iks z5,22:10
+Passning farlig Iks Z8,22:35 
+skott täckt Iks Z8,22:39
+skottyp centralt iks z8, 22:39
+hörna Iks Z9,22:35 
+Mål hörnmål Iks z8,23:00 
+Skottyp fast Iks z8,23:00
+Avslag Rät Z5,23:45 
+Inslag Iks Z3,24:15 
+Närkamp Rät z7,24:35 
+Närkamp Rät Z8,25:50 
+Utkast Rät Z8,26:02 
+Närkamp Iks z3,26:20 
+Frislag Iks Z3,26:26 
+Närkamp Iks Z5,26:46 
+Bolltapp pass Z7,26:53 
+Närkamp Rät Z5,27:01 
+Hörna Rät Z1,27:11 
+Skott täckt Rät Z2,27:44 
+skottyp fast Rät Z2,27:44
+Utkast Iks Z2,27:46 
+Närkamp Iks Z5,27:50 
+Passning lång Iks Z4,28:08 
+Utkast rätt z8,28:15 
+Passning straffområde Rät Z1,28:
+Inslag Rät Z3,28:50 
+Passning straffområde Rät Z1,29:04 
+Närkamp Rät Z3,29:07 
+Frislag Rät Z3,29:12 
+Passning straffområde Z1 29:50 
+Boll Iks Z2 29:50
+Närkamp Rät z6,30:00 
+Närkamp Camp Rät Z7,30:15 
+Utkast Rät z8,30:25 
+Skott utanför Rät Z3,30:50 
+skottyp utifrån Rät Z3,30:50
+Utkast Iks,30:55 
+Närkamp kamp Iks 5,31:50 
+Närkamp Iks Z9,32:20 
+Bolltapp tappad iks Z2,32:26 
+Skott utanför Rät Z2,32:32 
+skottyp utifrån Rät Z2,32:32
+Utkast Iks Z2,32:35 
+Passning lång Iks Z5,32:56 
+Utkast Rät 8,33:004 
+Närkamp Iks Z2,33:22 
+Brytning Rät Z4,33:26 
+Bolltapp Rät 6,33:35 
+Närkamp Rät Z8,33:40 
+Brytning Iks Z6,33:55 
+Inslag Iks Z6,34:04 
+Bolltapp passförsök Z7 Iks,34:32 
+Utkast Iks Z2,34:50 
+Närkamp Iks Z5,35:35 
+passning farlig Iks Z6,35:40 
+Hörna Iks Z9,35:50 
+Skott täckt Iks Z8,36:25 
+skottyp fast Iks Z8,36:25
+Hörna Iks Z7,36:30 
+Skott Täckt Iks Z8,36:57 
+skottyp fast Iks Z8,36:57
+Utkast Rät Z8,40:20 41 
+Frislag Rät 6z,41:25 
+Närkamp Rät z3,41:55 
+Närkamp Iks Z3,41:55 
+Närkamp Rät z3:45:59 
+Närkamp Iks Z3,42:00 
+Närkamp rät Z7,42:20 
+Hörna Rät Z3,42:40 
+Skott täckt Rät Z2,43:10 
+Skottyp fast z2,43:10
+Skott räddning Rät Z2,43:20 
+skottyp utifrån Rät Z2,43:20
+Utkast Iks Z2,43:2 
+Närkamp Camp Iks Z7,43:45 
+Passning straffområde Iks z7,43:50 
+Utkast Rät z8,43:50 
+Närkamp Iks Z5,43:55 
+Brytning Rät Z8,:44:05 
+Bolltapp pass Rät Z5,44:15 
+Inslag Iks Z7,44:20 
+Passning lång Iks Z5,44:45 
+Boll Rät z8,44:50
+Bolltapp tappad Rät z5,45:00 
+Passning lång Iks Z5,45:05 
+Utkast Rät Z8,45:13 
+Utkast Iks Z2,45:20 
+Passning lång Iks Z4,45:40 
+Brytning Rät Z8,45:42 
+Närkamp Iks Z7,45:50 
+Närkamp Rät z7:45:55 
+Närkamp Iks z4,46:05 
+Hörna Iks Z9,46:20 
+Mål hörnmål Iks Z8,46:40 
+Skottyp fast iks Z8,46:40 
+Avslag Rät Z5,47:30 
+Bolltapp pass Rät Z6,47:39 
+Passning lång Iks z5,47:49 
+Utkast Rät z8,47:55 
+passning lång Rät Z4,48:44 
+Utkast Iks Z2,48:49 
+Passning lång Iks Z5,48:55 
+Boll Rät z8,49:00
+stop 

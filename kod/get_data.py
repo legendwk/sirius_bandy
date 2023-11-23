@@ -10,9 +10,9 @@ class Game:
     # class variables
     events = {'skott', 'frislag', 'bolltapp', 'närkamp', 'hörna', 'inslag', 'utkast',
      'avslag', 'mål', 'utvisning', 'stop', 'passning', 'friläge', 'straff',
-     'offside', 'rensning', 'timeout', 'boll', 'brytning', 'skottyp'}
+     'offside', 'rensning', 'timeout', 'boll', 'brytning', 'skottyp', 'kontring', '40'}
     events_and_their_subevents = {'skott': {'utanför', 'räddning', 'täckt'}, 
-                                    'skottyp': {'friställande', 'inlägg', 'utifrån', 'dribbling', 'centralt', 'fast', 'retur'},
+                                    'skottyp': {'friställande', 'inlägg', 'utifrån', 'dribbling', 'centralt', 'fast', 'retur', '0'},
                                     'bolltapp': {'tappad', 'passförsök'},
                                     'passning' : {'straffområde', 'lång', 'farlig'},
                                     'mål': {'spelmål', 'hörnmål', 'straffmål', 'frislagsmål'},
@@ -94,7 +94,14 @@ class Game:
                 # the or operator doesn't work with pandas (| also gives me errors)
                 if 'del' not in set(str(df.iloc[[index + 1]]['event']).lower().split()):
                     # no 'del' -> POPULATE!
-                    self.set_time(row['time'], event_values)
+                    # handle the time
+                    t = row['time']
+                    try:
+                        t.strip()
+                        t = gf.sec_to_readable(gf.readable_to_sec(t))
+                    except:
+                        print(f'error with time conversion on row {index + 1}')
+                    self.set_time(t, event_values)
                     self.set_team(self.find_team(split_set), event_values)
                     event = self.find_event(split_set)
                     self.set_event(event, event_values)

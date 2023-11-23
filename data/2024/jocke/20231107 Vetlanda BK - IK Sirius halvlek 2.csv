@@ -1,0 +1,186 @@
+event,time
+avslag iks z5, 0:00:00
+passning lång iks z5, 0:00:16
+utkast vet z2, 0:00:21
+passning straffområde vet z9, 0:00:56
+rensning iks z8, 0:01:00
+passning straffområde vet z9, 0:01:06
+hörna vet z9, 0:01:07
+skott utanför vet z8, 0:01:30
+skottyp fast vet z8, 0:01:30
+utkast iks z8, 0:01:43
+skott räddning iks z1, 0:02:19
+skottyp utifrån iks z1, 0:02:19
+utkast vet z2, 0:02:22
+skott räddning vet z8, 0:02:03
+skottyp dribbling vet z8, 0:02:03
+utkast iks z8, 0:02:07
+närkamp vet z6, 0:02:27
+skott räddning vet z8, 0:03:36
+skottyp utifrån vet z8, 0:03:36
+skott räddning vet z8, 0:03:38
+skottyp retur vet z8, 0:03:38
+hörna vet z9, 0:03:39
+hörnmål vet z8, 0:04:09
+skottyp fast vet z8, 0:04:09
+avslag iks z5, 0:04:43
+passning lång iks z5, 0:05:19
+utkast vet z2, 0:05:22
+passning straffområde vet z7, 0:05:34
+hörna vet z7, 0:05:35
+skott utanför vet z8, 0:06:02
+skottyp fast vet z8, 0:06:02
+utkast iks z8, 0:06:10
+passning lång iks z5, 0:06:18
+boll vet z1, 0:06:19
+skott räddning vet z8, 0:06:36
+skottyp utifrån vet z8, 0:06:36
+skott utanför vet z8, 0:06:40
+skottyp retur vet z8, 0:06:40
+utkast iks z8, 0:06:42
+närkamp iks z6, 0:07:12
+40 iks z8, 0:07:17
+frislag iks z5, 0:07:27
+40 iks z8, 0:08:04
+frislag iks z7, 0:08:43
+passning lång iks z5, 0:08:56
+skott räddning iks z1, 0:09:0
+inlägg iks z1, 0:09:00
+utkast vet z2, 0:09:04
+utkast iks z8, 0:09:19
+passning lång iks z5, 0:10:13
+timeout iks, 0:10:25
+utkast vet z2, 0:11:57
+inslag iks z4, 0:12:08
+närkamp vet z5, 0:12:34
+10 iks z5, 0:12:50
+frislag vet z6, 0:14:00
+passning straffområde vet z7, 0:14:10
+boll iks z9, 0:14:15
+närkamp vet z2, 0:15:10
+närkamp iks z8, 0:15:25
+närkamp iks z5, 0:15:37
+närkamp iks z3, 0:15:40
+närkamp iks z6, 0:16:15
+passning straffområde iks z1, 0:17:10
+hörna iks z1, 0:17:10
+skott räddning iks z2, 0:17:40
+skottyp fast iks z2, 0:17:40
+närkamp vet z1, 0:17:50
+närkamp iks z1, 0:18:5
+skott utanför iks z2, 0:18:10
+skottyp utifrån iks z2, 0:18:10
+närkamp iks z8, 0:18:28
+rensning vet z8, 0:18:28
+passning straffområde vet z9, 0:18:47
+utkast iks z8, 0:18:55
+skott räddning iks z3, 0:19:34
+skottyp utifrån iks z3, 0:19:34
+utkast vet z2, 0:19:37
+passning lång vet z9, 0:19:47
+utkast iks z8, 0:20:12
+skott utanför iks z1, 0:20:24
+skottyp utifrån iks z1, 0:20:24
+utkast vet z2, 0:20:29
+mål spelmål vet z8, 0:21:14
+skottyp dribbling vet z8, 0:21:14
+avslag iks z5, 0:21:54
+frislag iks z1, 0:22:56
+passning straffområde iks z1, 0:23:28
+bolltapp passförsök iks z5, 0:23:38
+skott räddning vet z8, 0:23:42
+skottyp centralt vet z8, 0:23:42
+boll iks z8, 0:23:42
+skott utanför iks z2, 0:23:57
+skottyp utifrån iks z2, 0:23:57
+utkast vet z2, 0:24:00
+mål spelmål vet z8, 0:24:10
+skottyp centralt vet z8, 0:24:10
+avslag iks z5, 0:24:45
+40 iks z8, 0:26:00
+närkamp vet z5, 0:26:30
+närkamp iks z5, 0:26:39
+närkamp iks z2, 0:26:57
+utkast vet z2, 0:27:06
+bolltapp tappad vet z5, 0:27:35
+närkamp iks z5, 0:27:40
+närkamp iks z6, 0:27:45
+skott räddning iks z2, 0:27:52
+skottyp utifrån iks z2, 0:27:52
+utkast vet z2, 0:27:56
+brytning iks z5, 0:28:28
+brytning vet z1, 0:28:38
+närkamp iks z1, 0:28:40
+hörna iks z1, 0:29:20
+bolltapp passförsök iks z2, 0:29:50
+boll iks z2, 0:29:50
+passning farlig vet z8, 0:30:07
+skott täckt vet z8, 0:30:09
+skottyp friställande vet z8, 0:30:09
+boll iks z9, 0:30:12
+skott räddning iks z2, 0:30:23
+skottyp dribbling iks z2, 0:30:23
+hörna iks z3, 0:30:29
+skott utanför iks z2, 0:30:50
+skottyp fast iks z2, 0:30:50
+utkast vet z2, 0:31:00
+offside vet z8, 0:31:40
+hörna iks z1, 0:32:02
+miss iks z2, 0:32:28
+närkamp vet z6, 0:32:53
+utkast iks z8, 0:33:10
+passning straffområde iks z1, 0:33:34
+boll vet z1, 0:33:34
+skott utanför vet z7, 0:34:13
+skottyp utifrån vet z7, 0:34:13
+utkast iks z8, 0:34:15
+bolltapp passförsök iks z5, 0:34:38
+mål spelmål vet z8, 0:34:48
+skottyp friställande vet z8, 0:34:48
+avslag iks z5, 0:35:24
+bolltapp tappad vet z3, 0:36:07
+närkamp vet z3, 0:36:09
+närkamp vet z9, 0:36:20
+utvisning 10 iks z9, 0:36:29
+bolltapp passförsök vet z2, 0:37:43
+passning farlig iks z2, 0:38:22
+skott räddning iks z2, 0:38:23
+skottyp centralt iks z2, 0:38:23
+hörna iks z1, 0:38:28
+skott räddning iks z2, 0:38:51
+skottyp fast iks z2, 0:38:51
+utkast vet z2, 0:39:06
+skott räddning vet z9, 0:39:22
+skottyp utifrån vet z9, 0:39:22
+utkast iks z8, 0:39:23
+passning straffområde iks z1, 0:39:36
+boll vet z2, 0:39:37
+inslag iks z7, 0:39:54
+passning lång iks z5, 0:40:08
+boll vet z2, 0:40:08
+närkamp iks z8, 0:40:52
+skott täckt iks z2, 0:41:17
+skottyp dribbling iks z2, 0:41:17
+hörna iks z3, 0:41:18
+skott täckt iks z2, 0:41:45
+skottyp fast iks z2, 0:41:45
+boll vet z2, 0:41:46
+kontring vet z6, 0:42:00
+utvisning 10 iks z9, 0:42:02
+utkast iks z8, 0:43:08
+bolltapp passförsök iks z4, 0:43:15
+skott räddning vet z9, 0:43:24
+skottyp utifrån vet z9, 0:43:24
+rensning iks z8, 0:43:25
+frislag vet z5, 0:43:49
+närkamp iks z8, 0:43:56
+frislag iks z5, 0:45:08
+bolltapp passförsök iks z8, 0:45:42
+passning straffområde vet z8, 0:45:46
+skott täckt vet z8, 0:45:46
+skottyp utifrån vet z8, 0:45:46
+passning straffområde vet z7, 0:46:30
+hörna vet z7, 0:46:07
+skott täckt vet z7, 0:46:55
+skottyp fast vet z7, 0:46:05
+Stop, 0:47:30

@@ -13,25 +13,71 @@ import time
 gf.clean_up()
 
 # # hämta data och gör presentation 
-filename = '2023-09-01 Svenska Cupen Bollnäs - Sirius halvlek 1'
 os.chdir('data\\2024\\raw')
-teams = {'iks', 'bol'}
 
-# samla data
-g = Game(teams)
+# skapa vår match
+# filename = '20231117_IK_Sirius_-_Hammarby_IF_halvlek_2'
+# teams = {'iks', 'ham'}
+# g = Game(teams)
 
-g.collector_raw(filename)
-g.clean_csv(filename)
+# samla och rensa data
+# g.collector_raw(filename)
+# g.clean_csv(filename)
+
+
+
+os.chdir(r"..\\clean")
+# gf.control_time('20231117 IK Sirius - Hammarby IF halvlek 2 clean')
+
+v1 = Stats('20231117 IK Sirius - Hammarby IF halvlek 1 clean') 
+
+
+
+v2 = Stats('20231117 IK Sirius - Hammarby IF halvlek 2 clean')
+
+# print(v2.prints['duel winners per zone and team'] )
+v_hel = v1 + v2
+
+# # gör presentation
+os.chdir(r"..\..\..\powerpointer\matchrapporter")
+
+# pp = PP(v1)
+# pp.make_game_report()
+
+# pp = PP(v2)
+# pp.make_game_report()
+
+pp = PP(v_hel)
+pp.make_game_report()
 
 '''
+h = CompileStats('grundserie')
+
+pp1 = PP(h.returns_stats_obj())
+
+os.chdir('powerpointer\\säsongsrapporter')
+
+pp1.make_season_report('säsongsrapport grundserie tom Rättvik')
+
+
+
 # skapa statsobjekt
 os.chdir(r"..\\clean")
-stats = Stats(filename + ' clean.csv') 
 
+v1 = Stats('20231027 Villa Lidköping - IK Sirius halvlek 1 - Copy clean.csv') 
+v2 = Stats('20231027 Villa Lidköping - IK Sirius halvlek 2 clean.csv')
+v_hel = v1 + v2
 
 # gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
-pp = PP(stats)
+
+pp = PP(v1)
+pp.make_game_report()
+
+pp = PP(v2)
+pp.make_game_report()
+
+pp = PP(v_hel)
 pp.make_game_report()
 
 

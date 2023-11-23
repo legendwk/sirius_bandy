@@ -1,0 +1,187 @@
+﻿event,time
+avslag iks,0:00:00
+bolltapp passförsök iks,0:00:15
+skott räddning bro,0:00:21
+skott utifrån bro z9,0:00:32
+skott räddning bro,0:00:56
+skott utifrån bro z7,0:01:08
+frislag bro z7,0:01:27
+rensning iks,0:01:38
+frislag bro z4,0:02:02
+närkamp brytning iks,0:02:42
+inslag iks,0:02:46
+bolltapp passförsök iks,0:04:20
+frislag iks z9,0:04:34
+frislag iks z2,0:00:11
+utvisning bro 10,0:00:20
+skott räddning iks,0:01:24
+skottyp centralt iks z2,0:01:30
+inslag bro,0:01:37
+skott utanför bro z9,0:02:04
+skottyp centralt bro,0:02:09
+passning lång iks,0:02:32
+mål spelmål bro,0:02:54
+skott dribbling bro z9,0:03:06
+bolltapp passförsök iks ,0:03:44
+skott täckt bro z7,0:03:55
+skottyp??????????
+närkamp iks,0:04:18
+skott täckt iks z1,0:04:44
+skottyp inspel iks,0:04:49
+närkamp brytning iks,0:05:16
+närkamp iks,0:05:23
+närkamp bro,0:05:26
+bolltapp tappad bro,0:05:53
+frislag iks z5,0:06:11
+frislag iks z4,0:06:42
+utvisning 10 bro,0:06:48
+passförsök lång iks,0:07:33
+skott utanför iks,0:07:47
+skottyp inspel iks z1,0:07:51
+bolltapp passförsök,0:08:15
+del,0:08:19
+bolltapp passförsök iks,0:08:24
+bolltapp tappad iks,0:08:34
+hörna bro,0:08:41
+mål hörnmål bro,0:09:24
+skottyp fast bro,0:09:34
+närkamp brytning iks,0:10:29
+skott täckt iks z1,0:10:42
+skottyp inspel iks,0:10:47
+skott täckt iks,0:11:09
+skottyp fast iks,0:11:15
+mål spelmål iks z2 97,0:11:30
+skott utifrån iks,0:11:41
+skottyp??????????
+närkamp bro,0:12:17
+närkamp brytning iks,0:12:36
+närkamp brytning bro,0:12:42
+bolltapp tappad iks,0:13:24
+närkamp brytning iks,0:13:37
+närkamp brytning bro,0:14:16
+bolltapp passförsök bro,0:14:40
+bolltapp passförsök iks,0:14:50
+frislag bro z4,0:14:57
+skott räddning bro,0:15:22
+skottyp centralt bro z9,0:15:32
+frislag bro z4,0:15:37
+frislag bro z7,0:15:47
+utvisning 10 iks,0:15:57
+bolltapp passförsök bro,0:16:39
+närkamp brytning iks,0:16:44
+passning lång bro,0:17:23
+offside bro,0:17:26
+bolltapp brytning iks,0:17:34
+hörna bro,0:17:39
+skott täckt bro,0:17:59
+skottyp fast bro,0:18:03
+skott räddning iks,0:18:33
+skottyp inspel iks z3,0:18:37
+frislag bro z6,0:18:48
+skott täckt iks z2,0:19:09
+skottyp centralt iks,0:19:13
+passning lång bro,0:19:24
+närkamp brytning iks,0:19:34
+bolltapp passförsök iks,0:19:51
+bolltapp tappad bro,0:20:28
+bolltapp tappad iks,0:20:47
+inslag bro,0:20:50
+passning lång bro,0:21:03
+närkamp brytning iks,0:21:22
+passförsök lång iks,0:21:32
+närkamp brytning iks,0:21:47
+närkamp brytning bro,0:21:58
+skott täckt bro,0:22:07
+skottyp inspel bro z9,0:22:14
+inslag iks,0:22:38
+närkamp brytning bro,0:23:11
+närkamp brytning bro,0:23:28
+boltapp passförsök bro,0:23:40
+skott räddning iks,0:23:47
+skottyp inspel iks,0:23:53
+skott räddning bro,0:24:02
+skottyp centralt bro z8,0:24:08
+närkamp brytning bro,0:24:22
+skott täckt bro,0:24:43
+skottyp inspel bro z7,0:24:48
+skott täckt bro z9,0:25:10
+skottyp inspel bro,0:25:14
+närkamp brytning iks,0:25:21
+skott räddning iks,0:25:35
+skottyp friställande iks z2,0:25:47
+skott utanför bro z8,0:26:03
+skottyp inspel bro,0:26:08
+passning lång iks,0:26:24
+närkamp brytning iks,0:26:37
+närkamp brytning iks,0:26:49
+närkamp brytning bro,0:26:58
+frislag bro z4,0:27:02
+skott täckt bro z9,0:27:17
+skottyp inspel bro,0:27:22
+rensning iks,0:27:30
+bolltapp tappad iks,0:27:47
+bolltapp passförsök iks,0:28:13
+rensning iks,0:28:16
+skott täckt iks,0:28:25
+skottyp inspel iks z3,0:28:32
+närkamp brytning bro,0:28:40
+bolltapp passförsök bro,0:28:52
+skott räddning bro,0:29:33
+skottyp inspel bro z9,0:29:41
+närkamp brytning iks ,0:30:09
+skott räddning iks,0:30:24
+skottyp centralt iks z2,0:30:32
+passförsök lång iks,0:31:02
+mål spelmål bro,0:31:44
+skottyp retur bro z8,0:31:58
+skott täckt iks,0:32:29
+skott utifrån iks z2,0:32:37
+passning lång bro,0:32:48
+frislag iks z5,0:33:00
+skott räddning iks,0:33:12
+skott utifrån z1 iks,0:33:17
+hörna bro,0:33:35
+Skott???
+Skottyp???
+del,0:33:54
+frislag bro,0:34:01
+bolltapp passförsök bro,0:34:15
+rensning iks,0:34:21
+inslag bro,0:34:34
+skott täckt bro,0:39:20
+skottyp inspel bro z8,0:39:24
+hörna bro,0:39:30
+Skott???
+Skottyp???
+frislag iks z9,0:40:17
+passförsök lång iks,0:40:34
+lagvarning bro,0:40:39
+skott räddning bro ,0:40:53
+skottyp centralt bro z8,0:41:00
+hörna bro,0:41:03
+skott täckt bro,0:41:18
+skottyp fast bro,0:41:22
+rensning iks,0:41:25
+skott räddning iks,0:41:31
+skottyp centralt iks z2,0:41:36
+närkamp brytning bro,0:41:46
+frislag iks z6,0:41:55
+närkamp brytning bro,0:42:15
+bolltapp passförsök bro,0:42:22
+bolltapp passförsök iks,0:42:35
+rensning iks,0:42:43
+skott täckt bro z9,0:43:14
+skottyp inspel bro,0:43:19
+närkamp brytning bro,0:43:43
+närkamp brytning iks,0:43:50
+inslag iks¨,0:43:53
+skott utanför iks z2,0:44:07
+skottyp centralt iks,0:44:14
+skott räddning iks,0:44:25
+del,0:44:28
+skott räddning bro,0:44:34
+skottyp inspel bro,0:44:42
+hörna bro,0:45:28
+skott täckt bro,0:45:55
+skottyp fast bro,0:46:00
+stop,0:46:04

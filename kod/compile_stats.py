@@ -6,7 +6,7 @@ from get_data import Game
 import pandas as pd
 
 class CompileStats:
-    def __init__(self, path_to_games: str, main_team = 'sirius', N = 1000) -> None:
+    def __init__(self, path_to_games: str, main_team = 'iks', N = 1000) -> None:
         self.path = path_to_games
         self.main_team = main_team
         self.teams = {self.main_team, 'opponent'}

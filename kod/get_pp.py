@@ -63,6 +63,9 @@ class PP:
         self.make_game_report_goals_stats_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
         self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')} vunna närkamper och brytningar per zon")
+        # make_duel_zones_per_team_image
+        self.make_single_image_page(self.plot.make_duel_zones_per_team_image(team_in_possession=self.stats.opposite_team(self.stats.main_team), number_text=True), 'Defensiva närkamper och brytningar per zon')
+        self.make_single_image_page(self.plot.make_duel_winners_per_zone_and_team_image(team_in_possession=self.stats.opposite_team(self.stats.main_team), text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')} vunna defensiva närkamper och brytningar per zon")
         self.make_single_image_page(self.plot.make_all_freeshot_locations_image(number_text=True), 'Frislag per zon')
         self.make_single_image_page(self.plot.make_freeshots_made_per_locations_image(text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')}s frislag per zon")
 
@@ -70,7 +73,7 @@ class PP:
 
         #fourty_image = self.plot.make_per_minute_bars(self.stats.prints['40'], ylabel='40-spel (antal)', color=PP.image_color_main)
         #self.make_single_image_page(fourty_image, title_text=f"Spridning av {constants.nicknames[self.stats.main_team]['full']} {sum(self.stats.prints['40'])} st 40-spel", from_top=0.3)
-        self.make_game_report_attacks_and_fourty_page()
+        #self.make_game_report_attacks_and_fourty_page()
 
         self.save_presentation()
 
@@ -775,7 +778,16 @@ class PP:
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team)  
             res = bp2.text_frame.add_paragraph()
-            res.text = f"Inspelsskott/inspel: \n\t{0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg']}/{self.stats.prints['slot passes'][team]} = {round(0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg'] / self.stats.prints['slot passes'][team] * 100)} %"
+            
+            inspel = inspel = self.stats.prints['slot passes'][team]
+            if inspel == 0:
+                skott = 0
+                andel = 0
+            else:
+                skott = 0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg']
+                andel = round(skott/inspel * 100, 1)
+            #res.text = f"Inspelsskott/inspel: \n\t{0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg']}/{self.stats.prints['slot passes'][team]} = {round(0 if 'inlägg' not in self.stats.prints['shot types'][team] else self.stats.prints['shot types'][team]['inlägg'] / self.stats.prints['slot passes'][team] * 100)} %"
+            res.text = f"Inspelsskott/inspel: \n\t{skott}/{inspel}={andel} %"
             res.level = 0
             res.font.color.rgb = self.get_team_text_color(team) 
             #res = bp2.text_frame.add_paragraph()
