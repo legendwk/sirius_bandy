@@ -20,7 +20,7 @@ Detta kan göras på två sätt:
 * För enstaka rader används ```#```, det gör så att resten av raden markeras som en kommentar enligt nedan:
 ```
 # här kommer lite kommentarer
-# print('hello, world)
+# print('hello, world')
 x = 3 + 2 # x är 5
 ```
 * För längre stycken påbörjas och avslutas en kommentar med tre "fnuttar", antingen ```"""``` eller ```'''```. Notera att den typen av "fnutt" som används för att starta kommentaren måste användas för att avsluta den enligt nedan:

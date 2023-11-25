@@ -29,29 +29,25 @@ os.chdir('data\\2024\\raw')
 os.chdir(r"..\\clean")
 # gf.control_time('20231117 IK Sirius - Hammarby IF halvlek 2 clean')
 
-v1 = Stats('20231117 IK Sirius - Hammarby IF halvlek 1 clean') 
+v1 = Stats('20231031 Västerås - Sirius halvlek 1 clean') 
+v2 = Stats('20231031 Västerås - Sirius halvlek 2 clean')
 
-
-
-v2 = Stats('20231117 IK Sirius - Hammarby IF halvlek 2 clean')
-
-# print(v2.prints['duel winners per zone and team'] )
 v_hel = v1 + v2
 
-# # gör presentation
+# gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
 
-# pp = PP(v1)
-# pp.make_game_report()
+# # pp = PP(v1)
+# # pp.make_game_report()
 
-# pp = PP(v2)
-# pp.make_game_report()
+# # pp = PP(v2)
+# # pp.make_game_report()
 
 pp = PP(v_hel)
 pp.make_game_report()
 
 '''
-h = CompileStats('grundserie')
+# h = CompileStats('grundserie')
 
 pp1 = PP(h.returns_stats_obj())
 
