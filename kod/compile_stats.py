@@ -17,7 +17,8 @@ class CompileStats:
         self.summarize_stats()
 
     def compile_all_stats(self) -> None:
-        '''fills self.all_stats'''
+        '''fills self.all_stats
+            this is a dictionry with the stats from each game in a list allowing us to get individual games's stats'''
         self.all_stats['goals'] = self.get_goals()
         self.all_stats['possession'] = self.get_possession()
         self.all_stats['scrimmages'] = self.get_scrimmages()
@@ -40,10 +41,15 @@ class CompileStats:
         self.all_stats['penalties'] = self.get_penalties()
         self.all_stats['penalty shots'] = self.get_penalty_shots()
         self.all_stats['expected goals'] = self.get_expected_goals()
+        # testa dessa 
+        self.all_stats['duel zones per team'] = self.get_duel_zones_per_team()
+        self.all_stats['duel winners per zone and team'] = self.get_duel_winners_per_zone_and_team()
+
         return
     
     def summarize_stats(self) -> None:
-        '''returns a dict of the summarized stats of the object'''
+        '''returns a dict of the summarized stats of the object
+            this is a dictionary of the stats combined allowing us to get the accumulated stats'''
         #self.stats_summary['score'] = self.summarize_score() 
         self.stats_summary['possession'] = self.summarize_possession()
         self.stats_summary['scrimmages'] = self.summarize_scrimmages()
@@ -65,8 +71,10 @@ class CompileStats:
         self.stats_summary['shot origins'] = self.summarize_shot_origins()
         self.stats_summary['penalties'] = self.summarize_penalties()
         self.stats_summary['penalty shots'] = self.summarize_penalty_shots()
-        self.stats_summary['expected goals'] = self.summarize_expected_goals()
-        
+        self.stats_summary['expected goals'] = self.summarize_expected_goals() 
+        self.stats_summary['duel zones per team'] = self.summarize_duel_zones_per_team()
+        self.stats_summary['duel winners per zone and team'] = self.summarize_duel_winners_per_zone_and_team()
+
         before, after = self.investigate_long_shots()
         self.stats_summary['long shots outcomes'] = before
         self.stats_summary['after long shots events'] = after
@@ -173,6 +181,26 @@ class CompileStats:
         for game in self.games:
             fourty_list.append(sum(game.prints['40']))
         return fourty_list
+    
+    def get_duel_zones_per_team(self) -> dict:
+        ''''returns the duel zones per team, where team is the team with possession before the duel, dict of the games in self.games'''
+        duel_zones = {team : {z: list() for z in Game.zones} for team in self.teams}
+        for game in self.games:
+            for team in game.prints['duel zones per team']:
+                for zone in game.prints['duel zones per team'][team]:
+                    duel_zones[self.return_team(team)][zone].append(game.prints['duel zones per team'][team][zone])
+        return duel_zones
+
+    def get_duel_winners_per_zone_and_team(self) -> dict: 
+        ''''returns a dictionary of the winner in each zone based on each team's possession before , dict of the games in self.games'''
+        duel_zones = {team :  {z: {t: list() for t in self.teams} for z in Game.zones} for team in self.teams}
+        for game in self.games:
+            for team in game.prints['duel winners per zone and team']:
+                for zone in game.prints['duel winners per zone and team'][team]:
+                    for t in game.prints['duel winners per zone and team'][team][zone]:
+                        duel_zones[self.return_team(team)][zone][self.return_team(t)].append(game.prints['duel winners per zone and team'][team][zone][t])
+        return duel_zones
+    
 
     def get_possession(self) -> dict:
         '''returns the possession dict of the games in self.games'''
@@ -375,7 +403,24 @@ class CompileStats:
         for team in self.all_stats['slot passes']:
             sp_dict[team] = sum(self.all_stats['slot passes'][team]) 
         return sp_dict
-
+    
+    def summarize_duel_zones_per_team(self) -> dict:
+        '''returns a dict of the combined the duel zones per team, where team is the team with possession before the duel, dict of the object'''
+        duel_zones = {team : {z: 0 for z in Game.zones} for team in self.teams}
+        for team in self.all_stats['duel zones per team']:
+            for zone in self.all_stats['duel zones per team'][team]:
+                duel_zones[team][zone] = sum(self.all_stats['duel zones per team'][team][zone]) 
+        return duel_zones
+    
+    def summarize_duel_winners_per_zone_and_team(self) -> dict:
+        '''returns a dict of the combined winner in each zone based on each team's possession before dict of the object'''
+        duel_zones = {team :  {z: {t: 0 for t in self.teams} for z in Game.zones} for team in self.teams}
+        for team in self.all_stats['duel winners per zone and team']:
+            for zone in self.all_stats['duel winners per zone and team'][team]:
+                for t in self.all_stats['duel winners per zone and team'][team][zone]:
+                    duel_zones[team][zone][t] = sum(self.all_stats['duel winners per zone and team'][team][zone][t]) 
+        return duel_zones
+    
     def summarize_long_passes(self) -> dict:
         '''returns a dict of the combined long passes (passning - lång, farlig) of the object'''
         lp_dict = {team : 0 for team in self.teams}
