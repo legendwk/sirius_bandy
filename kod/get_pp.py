@@ -81,6 +81,8 @@ class PP:
         '''calls the methods needed to make a season report presentation'''
         if filename != None:
             self.stats.out = filename
+        print(self.stats.opposite_team(self.stats.main_team))
+
         self.make_season_report_front_page()
         self.make_season_report_overview_stats_page()
         self.make_season_report_shots_page(show_xg=True)
@@ -89,6 +91,13 @@ class PP:
         self.make_game_report_before_and_after_table_page()
         self.make_single_image_page(self.plot.make_all_duels_locations_image(number_text=True), 'Alla närkamper och brytningar per zon')
         self.make_single_image_page(self.plot.make_duel_winners_per_locations_image(text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')} vunna närkamper och brytningar per zon")
+        # defensiva närkamper
+        self.make_single_image_page(self.plot.make_duel_zones_per_team_image(team_in_possession=self.stats.opposite_team(self.stats.main_team), number_text=True), f'{gf.get_nickname(self.stats.main_team,"full")} defensiva närkamper och brytningar per zon')
+        self.make_single_image_page(self.plot.make_duel_winners_per_zone_and_team_image(team_in_possession=self.stats.opposite_team(self.stats.main_team), text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')} vunna defensiva närkamper och brytningar per zon")        
+        # offensiva närkamper
+        self.make_single_image_page(self.plot.make_duel_zones_per_team_image(team_in_possession=self.stats.main_team, number_text=True), f'{gf.get_nickname(self.stats.main_team,"full")} offensiva närkamper och brytningar per zon')
+        self.make_single_image_page(self.plot.make_duel_winners_per_zone_and_team_image(team_in_possession=self.stats.main_team, text_type='procent'), f"{gf.get_nickname(self.stats.main_team,'full')} vunna offensiva närkamper och brytningar per zon")        
+        
         self.make_season_report_corners_page()
         self.make_season_report_long_shot_targets_page()
         self.make_season_report_possession_after_long_shots_page()
