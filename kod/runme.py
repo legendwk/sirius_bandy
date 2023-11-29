@@ -12,9 +12,6 @@ import time
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
-
-
-
 # hämta data  
 os.chdir('data\\2024\\raw')
 
@@ -48,9 +45,8 @@ pp.make_game_report()
 pp = PP(v_hel)
 pp.make_game_report()
 
-
-
 '''
+
 # mappar med csvfiler
 season2223 = 'data\\compile\\säsong 2223'
 regular_season2223 = 'data\\compile\\grundserie 2223'
