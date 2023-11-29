@@ -16,8 +16,8 @@ time,team,event,subevent,zone,player
 0:01:08,iks,bolltapp,tappad,z1,0
 0:01:12,iks,närkamp,0,z1,0
 0:01:35,iks,passning,straffområde,z9,0
-0:01:42,iks,mål,spelmål,z8,0
-0:01:42,iks,skottyp,centralt,z8,0
+0:01:42,iks,mål,spelmål,z8,6
+0:01:42,iks,skottyp,centralt,z8,6
 0:02:23,fri,avslag,0,z5,0
 0:03:28,iks,närkamp,0,z1,0
 0:03:37,iks,frislag,0,z4,0
@@ -86,8 +86,8 @@ time,team,event,subevent,zone,player
 0:15:55,fri,rensning,0,z4,0
 0:16:09,iks,passning,lång,z5,0
 0:16:11,iks,passning,farlig,z8,0
-0:16:12,iks,mål,spelmål,z8,0
-0:16:12,iks,skottyp,friställande,z8,0
+0:16:12,iks,mål,spelmål,z8,10
+0:16:12,iks,skottyp,friställande,z8,10
 0:16:45,fri,timeout,0,0,0
 0:18:19,fri,avslag,0,z5,0
 0:18:49,fri,bolltapp,passförsök,z5,0
@@ -130,8 +130,8 @@ time,team,event,subevent,zone,player
 0:25:52,iks,utkast,0,z2,0
 0:25:59,iks,passning,lång,z5,0
 0:26:06,iks,hörna,0,z7,0
-0:26:34,iks,mål,hörnmål,z8,0
-0:26:34,iks,skottyp,fast,z8,0
+0:26:34,iks,mål,hörnmål,z8,88
+0:26:34,iks,skottyp,fast,z8,88
 0:27:00,fri,avslag,0,z5,0
 0:27:21,fri,passning,straffområde,z1,0
 0:27:22,fri,närkamp,0,z2,0
@@ -226,7 +226,7 @@ time,team,event,subevent,zone,player
 0:45:38,iks,skott,täckt,z9,0
 0:45:38,iks,skottyp,utifrån,z9,0
 0:45:40,iks,hörna,0,z9,0
-0:46:35,iks,mål,hörnmål,z8,0
-0:46:35,iks,skottyp,fast,z8,0
+0:46:35,iks,mål,hörnmål,z8,97
+0:46:35,iks,skottyp,fast,z8,97
 0:47:08,fri,avslag,0,z5,0
 00:47:10,0,stop,0,0,0

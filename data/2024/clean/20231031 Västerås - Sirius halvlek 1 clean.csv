@@ -55,8 +55,8 @@ time,team,event,subevent,zone,player
 0:13:53,vsk,skottyp,centralt,z2,0
 0:14:03,iks,boll,0,0,0
 0:14:19,iks,passning,straffområde,z7,0
-0:14:59,iks,mål,spelmål,z7,0
-0:15:00,iks,skottyp,utifrån,z7,0
+0:14:59,iks,mål,spelmål,z7,17
+0:15:00,iks,skottyp,utifrån,z7,17
 0:15:13,vsk,avslag,0,0,0
 0:15:41,vsk,skott,räddning,z2,0
 0:15:42,vsk,skottyp,centralt,z2,0

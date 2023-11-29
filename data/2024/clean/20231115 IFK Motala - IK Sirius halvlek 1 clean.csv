@@ -119,8 +119,8 @@ time,team,event,subevent,zone,player
 0:22:02,iks,skott,täckt,z8,0
 0:22:02,iks,skottyp,centralt,z8,0
 0:22:02,iks,hörna,0,z9,0
-0:22:35,iks,mål,hörnmål,z8,0
-0:22:35,iks,skottyp,fast,z8,0
+0:22:35,iks,mål,hörnmål,z8,20
+0:22:35,iks,skottyp,fast,z8,20
 0:23:05,mot,avslag,0,z5,0
 0:23:13,mot,passning,lång,z7,0
 0:23:18,iks,brytning,0,z4,0

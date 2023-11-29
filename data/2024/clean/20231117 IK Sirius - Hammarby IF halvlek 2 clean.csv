@@ -88,8 +88,8 @@ time,team,event,subevent,zone,player
 0:19:08,iks,passning,straffområde,z3,0
 0:19:10,ham,rensning,0,z2,0
 0:19:18,iks,inslag,0,z4,0
-0:19:30,iks,mål,spelmål,z2,0
-0:19:30,iks,skottyp,utifrån,z2,0
+0:19:30,iks,mål,spelmål,z2,17
+0:19:30,iks,skottyp,utifrån,z2,17
 0:19:57,ham,avslag,0,z5,0
 0:20:10,ham,passning,lång,z4,0
 0:20:13,iks,brytning,0,z5,0
@@ -228,8 +228,8 @@ time,team,event,subevent,zone,player
 0:41:16,ham,bolltapp,passförsök,z5,0
 0:41:30,iks,skott,räddning,z5,0
 0:41:30,iks,skottyp,utifrån,z5,0
-0:41:33,iks,mål,spelmål,z2,0
-0:41:33,iks,skottyp,retur,z2,0
+0:41:33,iks,mål,spelmål,z2,20
+0:41:33,iks,skottyp,retur,z2,20
 0:41:50,ham,avslag,0,z5,0
 0:41:59,ham,mål,spelmål,z8,0
 0:41:59,ham,skottyp,utifrån,z8,0

@@ -148,8 +148,8 @@ time,team,event,subevent,zone,player
 0:35:25,iks,närkamp,0,z8,0
 0:35:26,iks,passning,straffområde,z7,0
 0:35:27,iks,hörna,0,z7,0
-0:35:57,iks,mål,hörnmål,z8,0
-0:35:57,iks,skottyp,fast,z8,0
+0:35:57,iks,mål,hörnmål,z8,39
+0:35:57,iks,skottyp,fast,z8,39
 0:36:28,ham,avslag,0,z5,0
 0:36:37,ham,bolltapp,passförsök,z5,0
 0:36:39,iks,hörna,0,z9,0

@@ -71,10 +71,10 @@ expected_goals = {
 
 
 players = {
-    '13' : {
+        '13' : {
         'name': 'Anton Andersson', 'position': 'målvakt', 'image' : 'anton.png'
     },
-    '80' : {
+        '80' : {
         'name': 'Axel Götlin', 'position': 'målvakt', 'image' : 'axel.png'
     },
         '12' : {
@@ -96,7 +96,7 @@ players = {
         'name': 'Ted Haraldsson', 'position': 'ytterhalv', 'image' : 'harald.png'
     },
         '7' : {
-        'name': 'Jimmy Jansson', 'position': 'mittfältare'
+        'name': 'Jimmy Jansson', 'position': 'mittfältare', 'image': 'jimmy.jpg'
     },
         '17' : {
         'name': 'Nils Bergström', 'position': 'mittfältare', 'image' : 'nisse.png'
@@ -117,15 +117,15 @@ players = {
         'name': 'Colin Dahlberg', 'position': 'anfallare', 'image' : 'colin.png'
     }, 
         '66' : {
-        'name': 'Alexander Karlgren', 'position': 'mittfältare' 
+        'name': 'Alexander Karlgren', 'position': 'mittfältare', 'image' : 'karlgren.jpg'
     },
-        '98' : {
-        'name': 'Alexander Härndahl', 'position': 'anfallare'
+        '97' : {
+        'name': 'Alexander Härndahl', 'position': 'anfallare', 'image' : 'harndahl.jpg'
     },
         '9' : {
-        'name': 'Emil Eskhult', 'position': 'anfallare'
+        'name': 'Emil Eskhult', 'position': 'anfallare', 'image' : 'emil.jpg'
     },
         '88' : {
-        'name' : 'Samuel Heeger', 'position': 'anfallare'
+        'name' : 'Samuel Heeger', 'position': 'anfallare', 'image' : 'heeger.png'
     }
 }

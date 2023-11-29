@@ -81,7 +81,6 @@ class PP:
         '''calls the methods needed to make a season report presentation'''
         if filename != None:
             self.stats.out = filename
-        print(self.stats.opposite_team(self.stats.main_team))
 
         self.make_season_report_front_page()
         self.make_season_report_overview_stats_page()

@@ -45,8 +45,8 @@ time,team,event,subevent,zone,player
 0:07:14,iks,friläge,0,z8,0
 0:07:14,bro,utvisning,10,z8,10
 0:07:15,iks,straff,0,z8,0
-0:08:01,iks,mål,straffmål,z8,0
-0:08:01,iks,skottyp,fast,z8,0
+0:08:01,iks,mål,straffmål,z8,10
+0:08:01,iks,skottyp,fast,z8,10
 0:08:36,bro,avslag,0,z5,0
 0:08:45,bro,passning,farlig,z6,0
 0:08:45,bro,friläge,0,z2,0
@@ -62,8 +62,8 @@ time,team,event,subevent,zone,player
 0:10:52,iks,skott,räddning,z8,0
 0:10:52,iks,skottyp,dribbling,z8,0
 0:11:00,iks,hörna,0,z9,0
-0:11:37,iks,mål,hörnmål,z8,0
-0:11:37,iks,skottyp,fast,z8,0
+0:11:37,iks,mål,hörnmål,z8,20
+0:11:37,iks,skottyp,fast,z8,20
 0:12:07,bro,avslag,0,z5,0
 0:12:20,bro,passning,lång,z4,0
 0:12:45,iks,brytning,0,z4,0
@@ -84,8 +84,8 @@ time,team,event,subevent,zone,player
 0:15:30,iks,utkast,0,z2,0
 0:15:37,iks,bolltapp,passförsök,z5,0
 0:15:45,iks,brytning,0,z9,0
-0:15:50,iks,mål,spelmål,z8,0
-0:15:50,iks,skottyp,utifrån,z8,0
+0:15:50,iks,mål,spelmål,z8,97
+0:15:50,iks,skottyp,utifrån,z8,97
 0:16:29,bro,avslag,0,z5,0
 0:16:36,iks,närkamp,0,z5,0
 0:16:45,iks,skott,täckt,z8,0
@@ -93,8 +93,8 @@ time,team,event,subevent,zone,player
 0:16:47,iks,hörna,0,z9,0
 0:17:20,iks,skott,räddning,z8,0
 0:17:20,iks,skottyp,fast,z8,0
-0:17:22,iks,mål,hörnmål,z8,0
-0:17:22,iks,skottyp,retur,z8,0
+0:17:22,iks,mål,hörnmål,z8,10
+0:17:22,iks,skottyp,retur,z8,10
 0:17:22,bro,timeout,0,0,0
 0:19:11,bro,avslag,0,z5,0
 0:19:18,iks,närkamp,0,z5,0
@@ -163,8 +163,8 @@ time,team,event,subevent,zone,player
 0:30:18,iks,kontring,0,z2,0
 0:30:27,iks,straff,0,z8,0
 0:30:27,bro,utvisning,10,z8,10
-0:31:32,iks,mål,straffmål,z8,0
-0:31:32,iks,skottyp,fast,z8,0
+0:31:32,iks,mål,straffmål,z8,10
+0:31:32,iks,skottyp,fast,z8,10
 0:32:10,bro,avslag,0,z5,0
 0:32:16,bro,frislag,0,z5,0
 0:32:43,bro,passning,straffområde,z3,0
