@@ -17,8 +17,8 @@ time,team,event,subevent,zone,player
 02:23,rät,frislag,0,z3,0
 02:44,rät,bolltapp,passförsök,z1,0
 02:50,iks,utkast,0,z2,0
-02:56,iks,mål,spelmål,z8,0
-02:56,iks,skottyp,centralt,z8,0
+02:56,iks,mål,spelmål,z8,66
+02:56,iks,skottyp,centralt,z8,66
 03:50,rät,avslag,0,z5,0
 04:10,rät,närkamp,0,z5,0
 04:12,rät,frislag,0,z3,0
@@ -122,8 +122,8 @@ time,team,event,subevent,zone,player
 22:39,iks,skott,täckt,z8,0
 22:39,iks,skottyp,centralt,z8,0
 22:35,iks,hörna,0,z9,0
-23:00,iks,mål,hörnmål,z8,0
-23:00,iks,skottyp,fast,z8,0
+23:00,iks,mål,hörnmål,z8,97
+23:00,iks,skottyp,fast,z8,97
 23:45,rät,avslag,0,z5,0
 24:15,iks,inslag,0,z3,0
 24:35,rät,närkamp,0,z7,0
@@ -210,8 +210,8 @@ time,team,event,subevent,zone,player
 45:55,rät,närkamp,0,z7,0
 46:05,iks,närkamp,0,z4,0
 46:20,iks,hörna,0,z9,0
-46:40,iks,mål,hörnmål,z8,0
-46:40,iks,skottyp,fast,z8,0
+46:40,iks,mål,hörnmål,z8,97
+46:40,iks,skottyp,fast,z8,97
 47:30,rät,avslag,0,z5,0
 47:39,rät,bolltapp,passförsök,z6,0
 47:49,iks,passning,lång,z5,0

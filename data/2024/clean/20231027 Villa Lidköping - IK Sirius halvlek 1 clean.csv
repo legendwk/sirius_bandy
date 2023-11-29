@@ -29,8 +29,8 @@ time,team,event,subevent,zone,player
 0:05:30,villa,skottyp,utifrån,z7,0
 0:05:52,iks,utkast,0,z8,0
 0:06:15,iks,närkamp,0,z9,0
-0:06:30,iks,mål,spelmål,z2,0
-0:06:30,iks,skottyp,dribbling,z2,0
+0:06:30,iks,mål,spelmål,z2,66
+0:06:30,iks,skottyp,dribbling,z2,66
 0:07:25,villa,avslag,0,z5,0
 0:07:35,iks,närkamp,0,z6,0
 0:07:40,iks,passning,lång,z5,0

@@ -71,8 +71,8 @@ time,team,event,subevent,zone,player
 0:15:08,iks,hörna,0,z1,0
 0:15:35,iks,skott,täckt,z2,0
 0:15:35,iks,skottyp,fast,z2,0
-0:15:46,iks,mål,spelmål,z2,0
-0:15:46,iks,skottyp,utifrån,z2,0
+0:15:46,iks,mål,spelmål,z2,97
+0:15:46,iks,skottyp,utifrån,z2,97
 0:16:30,bro,avslag,0,z5,0
 0:16:59,bro,närkamp,0,z5,0
 0:17:03,iks,närkamp,0,z4,0

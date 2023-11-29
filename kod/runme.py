@@ -76,19 +76,19 @@ halva1 = 'data\\compile\halva 1'
 halva2 = 'data\\compile\halva 2'
 grundserie2024 = 'data\\compile\\grundserie2324'
 
-# v = CompileStats(left)
-# h = CompileStats(right)
+v = CompileStats(left)
+h = CompileStats(right)
 s = CompileStats(grundserie2024)
 
-# v1 = PP(v.returns_stats_obj())
-# h1 = PP(h.returns_stats_obj())
+v1 = PP(v.returns_stats_obj())
+h1 = PP(h.returns_stats_obj())
 s1 = PP(s.returns_stats_obj())
 
 os.chdir('powerpointer\\säsongsrapporter')
 
-# v1.make_season_report('säsongsrapport stå vänster')
-# h1.make_season_report('säsongsrapport stå höger')
-s1.make_season_report('säsongsrapport grundserie 2024')
+v1.make_season_report('säsongsrapport stå vänster')
+h1.make_season_report('säsongsrapport stå höger')
+# s1.make_season_report('säsongsrapport grundserie 2024')
 
 
 '''

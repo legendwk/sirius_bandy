@@ -7,8 +7,8 @@ time,team,event,subevent,zone,player
 0:01:23,iks,frislag,0,z2,0
 0:01:49,iks,utkast,0,z2,0
 0:02:05,iks,passning,lång,z5,0
-0:02:44,iks,mål,spelmål,z8,0
-0:02:45,iks,skottyp,friställande,z8,0
+0:02:44,iks,mål,spelmål,z8,97
+0:02:45,iks,skottyp,friställande,z8,97
 0:02:49,vsk,avslag,0,z5,0
 0:02:58,vsk,närkamp,0,z4,0
 0:03:22,iks,brytning,0,z2,0
@@ -31,8 +31,8 @@ time,team,event,subevent,zone,player
 0:06:25,iks,bolltapp,tappad,z8,0
 0:06:39,vsk,frislag,0,z3,0
 0:07:10,iks,närkamp,0,z1,0
-0:07:32,iks,mål,spelmål,z8,0
-0:07:33,iks,skottyp,inlägg,z8,0
+0:07:32,iks,mål,spelmål,z8,39
+0:07:33,iks,skottyp,inlägg,z8,39
 0:08:06,vsk,avslag,0,z5,0
 0:08:17,vsk,mål,spelmål,z2,0
 0:08:18,vsk,skottyp,dribbling,z2,0
@@ -126,8 +126,8 @@ time,team,event,subevent,zone,player
 0:28:11,iks,bolltapp,passförsök,z7,0
 0:28:17,iks,närkamp,0,z5,0
 0:28:46,iks,närkamp,0,z5,0
-0:29:13,iks,mål,spelmål,z8,0
-0:29:14,iks,skottyp,inlägg,z8,0
+0:29:13,iks,mål,spelmål,z8,11
+0:29:14,iks,skottyp,inlägg,z8,11
 0:29:31,vsk,avslag,0,z5,0
 0:29:59,vsk,mål,spelmål,z3,0
 0:30:00,vsk,skottyp,utifrån,z3,0
