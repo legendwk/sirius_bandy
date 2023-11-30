@@ -11,6 +11,7 @@ class CompileStats:
         self.main_team = main_team
         self.teams = {self.main_team, 'opponent'}
         self.fill_games(N)
+        self.big_df = self.fill_df()
         self.all_stats = dict()
         self.stats_summary = dict()
         self.compile_all_stats()
@@ -82,11 +83,12 @@ class CompileStats:
         return 
 
     def returns_stats_obj(self) -> Stats:
-        '''returns a Stats object filled with data from self.stats_summary'''
+        '''returns a Stats object filled with data from self.stats_summary. has a df object'''
         stats = Stats(filename= f'summary of {len(self.games)} files', dummy= True, main_team= self.main_team)
         stats.teams = self.teams
         stats.prints = self.stats_summary
         stats.number_of_games = len(self.games)
+        stats.big_df = self.big_df
         return stats
 
     def return_team(self, team: str) -> str:
@@ -100,6 +102,10 @@ class CompileStats:
         for game_link in l:
             self.games.append(Stats(game_link, main_team = self.main_team))
     
+    def fill_df(self) -> pd.core.frame.DataFrame:
+        '''fills the self.big_df dataframe object by concatenating all the games' dfs'''
+        return pd.concat([game.big_df for game in self.games])
+
     def train_expected_goals(self) -> dict:
         '''returns an expected goals dict of all shot types'''
         goals_dict = {st: sum([self.stats_summary['goal types'][team][st] for team in self.teams]) for st in Game.events_and_their_subevents['skottyp']}

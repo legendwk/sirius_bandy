@@ -8,7 +8,27 @@ import pandas as pd
 import os
 from compile_stats import CompileStats
 
+os.chdir(r'C:\Users\viking.nilsson\Desktop')
+# Replace this with the path to your directory
+directory_path = 'clean'
 
+# Loop through all files in the directory
+for filename in os.listdir(directory_path):
+    if filename.endswith('.csv'):
+        print(filename)
+        file_path = os.path.join(directory_path, filename)
+        
+        # Read the CSV file
+        df = pd.read_csv(file_path)
+        teams = {team for team in df['team'].tolist() if team != '0'}
+        opp = teams.difference({'iks'}).pop()
+
+        # Applying the conditions
+        df.loc[(df['team'] == 'iks') & (df['event'] == 'utkast'), 'player'] = 13
+        df.loc[(df['team'] == opp) & ((df['event'] == 'skott') | (df['event'] == 'mål') | (df['event'] == 'skottyp')), 'player'] = 13
+
+        # Save the modified DataFrame back to the same CSV file
+        df.to_csv(file_path, index=False)
 
 
 
@@ -16,26 +36,7 @@ if __name__ == '__main__':
 
 
 
-    os.chdir(r'C:\Users\viking.nilsson\Desktop')
-    # Replace this with the path to your directory
-    directory_path = 'clean'
 
-    # Loop through all files in the directory
-    for filename in os.listdir(directory_path):
-        if filename.endswith('.csv'):
-            file_path = os.path.join(directory_path, filename)
-            
-            # Read the CSV file
-            df = pd.read_csv(file_path)
-            teams = {team for team in df['team'].tolist() if team != '0'}
-            opp = teams.difference({'iks'}).pop()
-
-            # Applying the conditions
-            df.loc[(df['team'] == 'iks') & (df['event'] == 'utkast'), 'player'] = 13
-            df.loc[(df['team'] == opp) & ((df['event'] == 'skott') | (df['event'] == 'mål') | (df['event'] == 'skottyp')), 'player'] = 13
-
-            # Save the modified DataFrame back to the same CSV file
-            df.to_csv(file_path, index=False)
 
 
 

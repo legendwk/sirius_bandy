@@ -9,6 +9,8 @@ from compile_stats import CompileStats
 import time
 
 
+# import tester
+
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
@@ -16,20 +18,20 @@ gf.clean_up()
 os.chdir('data\\2024\\raw')
 
 # skapa vår match
-# filename = '20231124 Frillesås BK - IK Sirius halvlek 2'
-# teams = {'iks', 'fri'}
-# g = Game(teams)
+filename = '20231128 IK Sirius - Edsbyns IF halvlek 2'
+teams = {'iks', 'eds'}
+g = Game(teams)
 
 # samla och rensa data
 # g.collector_raw(filename)
 # g.clean_csv(filename)
 
 os.chdir(r"..\\clean")
-# gf.control_time('20231124 Frillesås BK - IK Sirius halvlek 2 clean')
+# gf.control_time('20231128 IK Sirius - Edsbyns IF halvlek 2 clean')
 
 
-v1 = Stats('20231124 Frillesås BK - IK Sirius halvlek 1 clean') 
-v2 = Stats('20231124 Frillesås BK - IK Sirius halvlek 2 clean')
+v1 = Stats('20231128 IK Sirius - Edsbyns IF halvlek 1 clean') 
+v2 = Stats('20231128 IK Sirius - Edsbyns IF halvlek 2 clean')
 
 v_hel = v1 + v2
 
