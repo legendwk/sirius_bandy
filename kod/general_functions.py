@@ -128,6 +128,17 @@ def get_nickname(team: str, length: str) -> str:
     except KeyError:
         return constants.nicknames['opponent'][length]
     
+def get_player_info(player: str, info_type: str) -> str:
+    '''returns the info_type for said player
+        if player not in constants.players returns placeholder info
+        will convert to string if need be'''
+    if type(player) == int:
+        player = str(player)
+    try:
+        return constants.players[player][info_type]
+    except KeyError:
+        return constants.players['placeholder'][info_type]
+    
 def get_colors(team: str, index: int) -> tuple:
     '''returns the color of team
         if team does not have one returns opponent color'''
@@ -141,7 +152,7 @@ def readable_number(num: int) -> str:
     try:
         return constants.readable_numbers[num]
     except KeyError:
-        str(num)
+        return str(num)
 
 # manually check csv files
 def control_time(filename: str) -> None:

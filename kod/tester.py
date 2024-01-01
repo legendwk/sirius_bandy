@@ -8,6 +8,12 @@ import pandas as pd
 import os
 from compile_stats import CompileStats
 
+
+
+
+
+'''
+
 os.chdir(r'C:\Users\viking.nilsson\Desktop')
 # Replace this with the path to your directory
 directory_path = 'clean'
@@ -32,11 +38,23 @@ for filename in os.listdir(directory_path):
 
 
 
-if __name__ == '__main__':
+
+if __name__ != '__main__':
 
 
 
 
+# Load the CSV file
+df = pd.read_csv(r"C:\Users\viking.nilsson\Desktop\20231201 Vänersborg - IKS halvlek 1.csv")
+
+# Combine the specified columns into a single 'event' column
+df['event'] = df[['Event', 'Subevent', 'Zon', 'Lag', 'Spelare']].apply(lambda x: ' '.join(x.dropna().astype(str)), axis=1)
+
+# Create the new DataFrame with 'event' and 'time' columns
+new_df = df[['Tid', 'event']].rename(columns={'Tid': 'time'})
+
+# Save the new DataFrame to a new CSV file
+new_df.to_csv(r"C:\Users\viking.nilsson\Desktop\20231201 Vänersborg - IKS halvlek 1 raw.csv", index=False)
 
 
 
@@ -95,7 +113,7 @@ if __name__ == '__main__':
     gf.save_data_to_csv('säsong', header, values)
 
     print(os.getcwd())
-    '''
+    
 
 
     # mål

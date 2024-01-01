@@ -2,8 +2,6 @@ import pandas as pd
 import time
 import datetime
 import general_functions as gf
-from tkinter import *   
-from nicegui import ui
 
 class Game:
     
@@ -16,12 +14,11 @@ class Game:
                                     'bolltapp': {'tappad', 'passförsök'},
                                     'passning' : {'straffområde', 'lång', 'farlig'},
                                     'mål': {'spelmål', 'hörnmål', 'straffmål', 'frislagsmål'},
-                                    'utvisning': {'5', '10'}
+                                    'utvisning': {'5a', '10a'}
                                     }
     
     zones = {'z' + str(i) for i in range(1, 10)}
 
-    # nummer 1 till 99
     players = {str(i) for i in range(1, 100)}
 
     # constructor

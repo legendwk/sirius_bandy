@@ -31,11 +31,12 @@ class PP:
     image_color_main = RGBColor(255, 0, 0)
     image_color_opponent = RGBColor(0, 0, 0)
     background_color = RGBColor(255,255,255)  
-    background_image = "..\\..\\bilder\\pptx\\background.png"
+    background_image = "..\\..\\bilder\\pptx\\faded_background.png" #"..\\..\\bilder\\pptx\\background.png"
 
     # relative link to image folder
-    image_link = "..\\..\\bilder\\logos\\"
+    logo_image_link = "..\\..\\bilder\\logos\\"
     auto_image_link = "..\\..\\bilder\\autogen\\"
+    player_image_link = "..\\..\\bilder\\player_pics\\"   
 
     # contructor
     def __init__(self, stats: Stats, N: int = 1) -> None:
@@ -121,6 +122,15 @@ class PP:
 
         self.save_presentation()
 
+    def make_player_report(self, players: list, filename: str = 'spelarrapport') -> None:
+        '''creates a player report'''
+        self.stats.out = filename
+        self.make_player_report_front_page(players)
+        for player in players:
+            self.make_player_page(player)
+        self.save_presentation()
+        return 
+
     # static methods
     def iter_cells(table: pptx.table.Table) -> pptx.table._Cell:
         '''yeilds the cells of a table, 
@@ -128,6 +138,13 @@ class PP:
         for row in table.rows:
             for cell in row.cells:
                 yield cell
+
+    def remove_elemet(element) -> None:
+        '''removes element from PP'''
+        # ta_bort = slide.placeholders[1]
+        p = element._sp
+        parent_element = p.getparent()
+        parent_element.remove(p)
 
     # non-static methods
 
@@ -142,11 +159,12 @@ class PP:
         #fill.transparency = 0.1
         return   
 
-    def set_background_image(self, slide: pptx.slide.Slide) -> None:
+    def set_background_image(self, slide: pptx.slide.Slide, img_path: str = None) -> None:
         '''sets the background image of current slide to match
             class variable background_image'''  
         left = top = Inches(0)
-        img_path = PP.background_image
+        if img_path == None:
+            img_path = PP.background_image
         pic = slide.shapes.add_picture(img_path, left, top, width=self.pres.slide_width, height=self.pres.slide_height)
         # This moves it to the background
         slide.shapes._spTree.remove(pic._element)
@@ -160,7 +178,7 @@ class PP:
         '''adds the logos of the teams to the slide
             units in Inches''' 
         for i, team in enumerate(self.ordered_teams):
-            img = PP.image_link + gf.get_logo_image(team)
+            img = PP.logo_image_link + gf.get_logo_image(team)
             if i != 0: 
                 # converting to inches by dividing by 914400 ??????
                 from_left = self.pres.slide_width/914400 - from_left - width 
@@ -170,11 +188,20 @@ class PP:
         '''adds the logo of the main team to the slide
             units in Inches'''
         for i in range(2):
-            img = PP.image_link + gf.get_logo_image(self.stats.main_team) 
+            img = PP.logo_image_link + gf.get_logo_image(self.stats.main_team) 
             if i != 0: 
                 # converting to inches by dividing by 914400 ??????
                 from_left = self.pres.slide_width/914400 - from_left - width 
             slide.shapes.add_picture(img, Inches(from_left), Inches(from_top), Inches(width))
+    
+    def add_player_photo(self, player: int, slide, from_right = 0.7, from_top = 0.4, width = 5) -> None:
+        '''adds the photo of said player to the slide
+            untis in inches'''
+        img = PP.player_image_link + gf.get_player_info(player, 'image')
+        
+        # converting to inches by dividing by 914400 ??????
+        from_right = self.pres.slide_width/914400 - from_right - width 
+        slide.shapes.add_picture(img, Inches(from_right), Inches(from_top), Inches(width))
     
     def make_game_report_front_page(self) -> None:
         '''makes the front page layout'''
@@ -190,6 +217,22 @@ class PP:
         subtitle.text_frame.paragraphs[0].font.color.rgb = PP.text_color
         self.add_logo_images(slide, width = 2)
         #self.set_background_color(slide)
+
+    def make_player_report_front_page(self, players: list) -> None:
+        '''makes the player page layout'''
+        slide_register = self.pres.slide_layouts[0]
+        slide = self.pres.slides.add_slide(slide_register)
+        self.set_background_image(slide)
+        self.add_main_team_logo(slide, width=3)
+
+        title = slide.shapes.title
+        title.text = 'Spelarrapport' 
+        title.text_frame.paragraphs[0].font.color.rgb = PP.text_color
+
+        subtitle = slide.placeholders[1]
+        subtitle.text = f'Rapport för {gf.readable_number(len(players))} spelare'
+        # subtitle.text_frame.paragraphs[0].font.color.rgb = PP.text_color
+   
 
     def make_season_report_front_page(self) -> None:
         '''makes the front page layout'''
@@ -217,6 +260,43 @@ class PP:
         self.add_main_team_logo(slide, width = 2)
         #self.set_background_color(slide)
 
+    def make_player_page(self, player: int) -> None:
+        '''creates a player page, assumes that the player appears in the constants.players'''
+        slide_register = self.pres.slide_layouts[7]
+        slide = self.pres.slides.add_slide(slide_register)
+        self.set_background_image(slide)
+        #self.set_background_color(slide)
+        self.add_player_photo(player, slide)
+        title = slide.shapes.title 
+        title.text = f"{player}: {gf.get_player_info(player, 'name')}"
+        title.text_frame.paragraphs[0].font.size = Pt(27)
+
+        PP.remove_elemet(slide.placeholders[1])
+
+        player_text = slide.placeholders[2]
+        player_stats = self.stats.get_player_stats_dict(player)
+        rows_of_text = [
+          #  f"{gf.get_player_info(player, 'position')}",
+            f"Mål/XG: \n\t{player_stats['mål']}/{round(player_stats['xg'], 2)}",
+        ]
+        rows_of_text.append(f"Mål/skott: \n\tTotalt: {player_stats['mål']}/{player_stats['skott']}")
+        for st in player_stats['skottyp']:
+            goals = 0 if st not in player_stats['målskottyper'] else player_stats['målskottyper'][st]
+            shots = player_stats['skottyp'][st]
+            rows_of_text.append(f"\t{st}: {goals}/{shots}")
+        
+        rows_of_text.append(f"Passningar:")   
+        if len(player_stats['passning']) > 0:    
+            for p in player_stats['passning']:
+                rows_of_text.append(f"\t{p}: {player_stats['passning'][p]}")
+        else:
+            rows_of_text.append(f"\t0")
+        
+        rows_of_text.append(f"Fixade hörnor:")
+        rows_of_text.append(f"\t{player_stats['hörna']}")
+
+        player_text.text = "\n".join(rows_of_text)
+        player_text.text_frame.paragraphs[0].font.color.rgb = PP.text_color
 
     def make_comparative_report_overview_stats_page(self) -> None:
         '''makes the overview stats page layout'''

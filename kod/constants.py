@@ -47,7 +47,7 @@ nicknames = {
     'vet' : {'full': 'Vetlanda BK', 'short': 'Vetlanda',  'abbreviation': 'VBK'},
     'villa': {'full': 'Villa Lidköping BK', 'short': 'Villa Lidköping', 'abbreviation': 'VLBK'},
     'vsk': {'full' : 'Västerås SK Bandy', 'short': 'Västerås', 'abbreviation': 'VSK'},
-    'opponent' : {'full' : 'Motståndare', 'short': 'Mostståndare', 'abbreviation': 'ANNAN'},
+    'opponent' : {'full' : 'Motståndare', 'short': 'Motståndare', 'abbreviation': 'ANNAN'},
     'rät': {'full': 'IFK Rättvik', 'short': 'Rättvik', 'abbreviation': 'IFKR'}
 }
 
@@ -79,7 +79,7 @@ players = {
         'name': 'Oscar Qvist', 'position': 'försvarare', 'image': 'qvist.png'
     }, 
         '15' : {
-        'name': 'Jerker Ortman', 'position': 'försvarare', 'image': 'jerke.png'
+        'name': 'Jerker Ortman', 'position': 'försvarare', 'image': 'jerker.png'
     },
         '40' : {
         'name': 'Sune Gustafsson', 'position': 'försvarare', 'image': 'sune.png'
@@ -124,6 +124,9 @@ players = {
         'name': 'Emil Eskhult', 'position': 'anfallare', 'image': 'emil.jpg'
     },
         '88' : {
-        'name' : 'Samuel Heeger', 'position': 'anfallare', 'image': 'heeger.png'
-    }
+        'name': 'Samuel Heeger', 'position': 'anfallare', 'image': 'heeger.png'
+    },
+        'placeholder' : {
+            'name': 'Namn Namnsson', 'position': 'position', 'image': 'tom.png'
+        }
 }
