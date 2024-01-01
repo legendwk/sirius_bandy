@@ -14,6 +14,8 @@ import timedelta
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
 
+
+'''
 # hämta data
 os.chdir('data\\2024\\raw')
 
@@ -32,9 +34,9 @@ gf.control_time('20231230 IK Sirius - IFK Vänersborg halvlek 1 clean')
 
 
 v1 = Stats('20231230 IK Sirius - IFK Vänersborg halvlek 1 clean') 
-# v2 = Stats('20231230 IK Sirius - IFK Vänersborg halvlek 2 clean')
+v2 = Stats('20231230 IK Sirius - IFK Vänersborg halvlek 2 clean')
 
-# v_hel = v1 + v2
+v_hel = v1 + v2
 
 # gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
@@ -42,14 +44,14 @@ os.chdir(r"..\..\..\powerpointer\matchrapporter")
 pp = PP(v1)
 pp.make_game_report()
 
-# pp = PP(v2)
-# pp.make_game_report()
+pp = PP(v2)
+pp.make_game_report()
 
-# pp = PP(v_hel)
-# pp.make_game_report()
+pp = PP(v_hel)
+pp.make_game_report()
 
 
-'''
+
 # mappar med csvfiler
 season2223 = 'data\\compile\\säsong 2223'
 regular_season2223 = 'data\\compile\\grundserie 2223'
