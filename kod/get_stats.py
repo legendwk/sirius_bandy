@@ -3,7 +3,7 @@ from get_data import Game
 import general_functions as gf
 import constants
 from bisect import bisect_left
-import numpy as np 
+import numpy as np
 
 
 class Stats:
@@ -154,12 +154,32 @@ class Stats:
         # does team attack up and opposite down?
         return max(attacking_zone[team], key=attacking_zone[team].get) == 'up' and max(attacking_zone[self.opposite_team(team)], key=attacking_zone[self.opposite_team(team)].get) == 'down'
     
+    def get_player_stats_dict(self, player: str) -> dict:
+        '''calculates a dictionary of the player in question's stats'''
+        player_df = self.big_df.loc[self.big_df['player'] == int(player)]
+        stats_dict = dict()
+        stats_dict['mål'] = len(player_df.loc[player_df['event'] == 'mål'])
+        stats_dict['skott'] = len(player_df.loc[player_df['event'] == 'skottyp'])
+        stats_dict['målformer'] = player_df.loc[player_df['event'] == 'mål', 'subevent'].value_counts().to_dict()
+        stats_dict['skottyp'] = player_df.loc[player_df['event'] == 'skottyp', 'subevent'].value_counts().to_dict()
+        stats_dict['passning'] = player_df.loc[player_df['event'] == 'passning', 'subevent'].value_counts().to_dict()
+        stats_dict['hörna'] = len(player_df.loc[player_df['event'] == 'hörna'])
+
+        # skottyper för varje mål
+        goal_indices = player_df[player_df['event'] == 'mål'].index
+        next_indices = goal_indices + 1
+        stats_dict['målskottyper'] = player_df.loc[next_indices, 'subevent'].value_counts().to_dict()
+
+        stats_dict['xg'] = sum([constants.expected_goals[st] * stats_dict['skottyp'][st] for st in stats_dict['skottyp']])
+        return stats_dict
+
+    
     def flip_zones(self) -> None:
         '''ensures that main_team scores into z8, if not calls other_direction on all zones so it does'''
         if not self.team_attacks_up(self.main_team):
             for index, _ in self.big_df.iterrows():
                 self.big_df.at[index, 'zone'] = Stats.other_direction(self.big_df.at[index, 'zone'])
-
+    
     def make_per_time_lists(self) -> None:
         '''populates the prints["per time lists"]'''
         self.prints['per time lists'] = dict()

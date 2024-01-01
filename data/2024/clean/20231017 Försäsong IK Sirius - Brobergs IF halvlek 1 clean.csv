@@ -10,12 +10,12 @@ time,team,event,subevent,zone,player
  0:03:08,bro,passning,lång,z4,0
  0:03:12,iks,brytning,0,z2,0
  0:03:15,iks,bolltapp,passförsök,z2,0
- 0:03:23,bro,skott,utanför,z2,0
- 0:03:25,iks,utkast,0,z2,0
- 0:03:53,iks,utkast,0,z2,0
+ 0:03:23,bro,skott,utanför,z2,13
+ 0:03:25,iks,utkast,0,z2,13
+ 0:03:53,iks,utkast,0,z2,13
  0:04:05,iks,hörna,0,z1,0
- 0:04:19,bro,skott,räddning,z2,0
- 0:04:19,bro,skottyp,fast,z2,0
+ 0:04:19,bro,skott,räddning,z2,13
+ 0:04:19,bro,skottyp,fast,z2,13
  0:04:58,iks,närkamp,0,z2,0
  0:05:23,iks,skott,räddning,z8,0
  0:05:23,iks,skottyp,inlägg,z7,0
@@ -33,7 +33,7 @@ time,team,event,subevent,zone,player
  0:09:23,bro,brytning,0,z7,0
  0:09:34,iks,närkamp,0,z4,0
  0:09:48,iks,offside,0,z8,0
- 0:10:05,bro,mål,spelmål,z8,0
+ 0:10:05,bro,mål,spelmål,z8,13
  0:10:31,iks,avslag,0,z5,0
  0:11:01,iks,passning,lång,z5,0
  0:11:02,bro,brytning,0,z7,0
@@ -48,43 +48,43 @@ time,team,event,subevent,zone,player
  0:12:22,iks,mål,spelmål,z2,0
  0:12:49,bro,avslag,0,z5,0
  0:13:20,bro,hörna,0,z1,0
- 0:13:25,bro,skott,täckt,z2,0
- 0:13:25,bro,skottyp,fast,z2,0
+ 0:13:25,bro,skott,täckt,z2,13
+ 0:13:25,bro,skottyp,fast,z2,13
  0:13:59,bro,inslag,0,z3,0
  0:14:35,bro,passning,lång,z4,0
- 0:14:37,bro,skott,täckt,z1,0
+ 0:14:37,bro,skott,täckt,z1,13
  0:14:45,iks,närkamp,0,z1,0
  0:15:16,iks,närkamp,0,z1,0
  0:15:20,iks,frislag,0,z1,0
  0:16:00,iks,skott,räddning,z7,0
  0:16:02,iks,skott,räddning,z7,0
- 0:16:31,iks,utkast,0,z2,0
+ 0:16:31,iks,utkast,0,z2,13
  0:16:45,iks,skott,täckt,z8,0
  0:16:55,bro,frislag,0,z8,0
  0:17:06,iks,närkamp,0,z6,0
  0:17:11,iks,skott,täckt,z7,0
  0:17:41,iks,närkamp,0,z2,0
- 0:17:41,iks,utkast,0,z2,0
+ 0:17:41,iks,utkast,0,z2,13
  0:18:41,iks,bolltapp,passförsök,z4,0
  0:18:41,bro,utkast,0,z7,0
- 0:19:12,bro,skott,utanför,z2,0
- 0:19:13,iks,utkast,0,z2,0
+ 0:19:12,bro,skott,utanför,z2,13
+ 0:19:13,iks,utkast,0,z2,13
  0:19:50,iks,bolltapp,passförsök,z5,0
- 0:19:56,bro,skott,utanför,z2,0
- 0:19:57,iks,utkast,0,z2,0
+ 0:19:56,bro,skott,utanför,z2,13
+ 0:19:57,iks,utkast,0,z2,13
  0:20:22,iks,passning,straffområde,z8,0
  0:20:23,iks,offside,0,z8,0
  0:20:50,bro,bolltapp,passförsök,z5,0
  0:20:54,iks,bolltapp,passförsök,z2,0
  0:21:01,bro,hörna,0,0,0
- 0:21:36,bro,mål,hörnmål,z2,0
+ 0:21:36,bro,mål,hörnmål,z2,13
  0:22:15,iks,avslag,0,z5,0
  0:23:00,iks,frislag,0,z7,0
  0:23:38,iks,närkamp,0,z6,0
  0:24:10,bro,närkamp,0,z6,0
  0:24:23,bro,hörna,0,z3,0
- 0:24:51,bro,skott,utanför,z2,0
- 0:24:55,iks,utkast,0,z2,0
+ 0:24:51,bro,skott,utanför,z2,13
+ 0:24:55,iks,utkast,0,z2,13
  0:25:10,iks,passning,lång,z4,0
  0:25:12,bro,närkamp,0,z7,0
  0:25:46,bro,frislag,0,z3,0
@@ -95,7 +95,7 @@ time,team,event,subevent,zone,player
  0:28:30,bro,passning,lång,z4,0
  0:28:31,iks,brytning,0,z3,0
  0:28:47,iks,bolltapp,passförsök,z2,0
- 0:28:53,bro,skott,täckt,z2,0
+ 0:28:53,bro,skott,täckt,z2,13
  0:28:54,iks,närkamp,0,z2,0
  0:29:07,iks,frislag,0,z7,0
  0:29:49,iks,skott,utanför,z8,0
@@ -109,14 +109,14 @@ time,team,event,subevent,zone,player
  0:32:10,iks,brytning,0,z2,0
  0:32:11,iks,bolltapp,tappad,z2,0
  0:32:15,bro,passning,straffområde,z2,0
- 0:32:18,bro,skott,utanför,z2,0
- 0:32:23,iks,utkast,0,z2,0
+ 0:32:18,bro,skott,utanför,z2,13
+ 0:32:23,iks,utkast,0,z2,13
  0:32:40,iks,passning,lång,0,0
  0:32:45,bro,brytning,0,z8,0
  0:33:06,bro,hörna,0,z3,0
- 0:33:36,bro,skott,utanför,z2,0
- 0:33:36,bro,skottyp,fast,z2,0
- 0:33:43,iks,utkast,0,z2,0
+ 0:33:36,bro,skott,utanför,z2,13
+ 0:33:36,bro,skottyp,fast,z2,13
+ 0:33:43,iks,utkast,0,z2,13
  0:35:16,iks,bolltapp,passförsök,z8,0
  0:35:17,bro,brytning,0,z8,0
  0:35:25,iks,närkamp,0,z5,0
@@ -127,7 +127,7 @@ time,team,event,subevent,zone,player
  0:37:15,bro,utvisning,10,z4,10
  0:38:17,iks,bolltapp,passförsök,z8,0
  0:39:09,bro,bolltapp,passförsök,z4,0
- 0:39:10,iks,utkast,0,z2,0
+ 0:39:10,iks,utkast,0,z2,13
  0:39:46,iks,mål,spelmål,z8,0
  0:40:12,bro,avslag,0,z5,0
  0:41:07,bro,bolltapp,passförsök,z4,0
@@ -137,12 +137,12 @@ time,team,event,subevent,zone,player
  0:42:04,iks,skottyp,fast,z8,0
  0:42:07,iks,skott,utanför,z7,0
  0:42:12,bro,utkast,0,z8,0
- 0:43:04,bro,skott,utanför,z2,0
- 0:43:05,iks,utkast,0,z2,0
+ 0:43:04,bro,skott,utanför,z2,13
+ 0:43:05,iks,utkast,0,z2,13
  0:43:27,iks,bolltapp,passförsök,z8,0
  0:43:28,bro,brytning,0,z8,0
  0:43:39,bro,frislag,0,z5,0
- 0:44:29,bro,skott,täckt,z3,0
+ 0:44:29,bro,skott,täckt,z3,13
  0:44:32,iks,närkamp,0,z2,0
  0:44:59,iks,hörna,0,z7,0
  0:45:30,iks,skott,utanför,z8,0

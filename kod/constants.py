@@ -4,21 +4,21 @@ from pptx.dml.color import ColorFormat, RGBColor
 # main should be the one best suited for text color (black or white)
 colors = {
     'iks': [RGBColor(0, 0, 0), RGBColor(20, 92, 172), RGBColor(250, 226, 12)],
-'villa' : [RGBColor(255, 254, 254), RGBColor(44,45,132), RGBColor(226, 33, 33)],
-'aik': [RGBColor(143, 124, 79), RGBColor(7, 41, 74), RGBColor(253, 221, 5)], 
-'bol': [RGBColor(243, 135, 85), RGBColor(14, 59, 82), RGBColor(255, 255, 255)],
-'bro': [RGBColor(255, 213, 32), RGBColor(0, 116, 190), RGBColor(0, 0, 0)],
-'eds': [RGBColor(228, 179, 78), RGBColor(3, 56, 99), RGBColor(255, 255, 255)],
-'fri': [RGBColor(254, 222, 1), RGBColor(0, 134, 76), RGBColor(0, 0, 0)],
-'gri': [RGBColor(0, 0, 0), RGBColor(254, 221, 1), RGBColor(255, 255, 255)],
-'ham': [RGBColor(255, 255, 255,), RGBColor(1, 169, 87), RGBColor(254, 223, 25)],
-'mot': [RGBColor(255, 255, 255), RGBColor(0, 74, 146), RGBColor(255, 255, 255)], 
-'saik': [RGBColor(255, 255, 255), RGBColor(0, 0, 0), RGBColor(255, 255, 255)],
-'vän': [RGBColor(255, 255, 255), RGBColor(0, 90, 155), RGBColor(255, 255, 255)],
-'vet': [RGBColor(0, 0, 0), RGBColor(255, 243, 0), RGBColor(0, 0, 0)],
-'vsk': [RGBColor(255, 255, 255), RGBColor(1, 130, 72), RGBColor(255, 255, 255)],
-'opponent': [RGBColor(255, 255, 255), RGBColor(255, 255, 255), RGBColor(255, 255, 255)],
-'rät' : [RGBColor(255, 255, 255), RGBColor(31, 80, 166), RGBColor(255, 255, 255)]
+    'villa': [RGBColor(255, 254, 254), RGBColor(44,45,132), RGBColor(226, 33, 33)],
+    'aik': [RGBColor(143, 124, 79), RGBColor(7, 41, 74), RGBColor(253, 221, 5)], 
+    'bol': [RGBColor(243, 135, 85), RGBColor(14, 59, 82), RGBColor(255, 255, 255)],
+    'bro': [RGBColor(255, 213, 32), RGBColor(0, 116, 190), RGBColor(0, 0, 0)],
+    'eds': [RGBColor(228, 179, 78), RGBColor(3, 56, 99), RGBColor(255, 255, 255)],
+    'fri': [RGBColor(254, 222, 1), RGBColor(0, 134, 76), RGBColor(0, 0, 0)],
+    'gri': [RGBColor(0, 0, 0), RGBColor(254, 221, 1), RGBColor(255, 255, 255)],
+    'ham': [RGBColor(255, 255, 255,), RGBColor(1, 169, 87), RGBColor(254, 223, 25)],
+    'mot': [RGBColor(255, 255, 255), RGBColor(0, 74, 146), RGBColor(255, 255, 255)], 
+    'saik': [RGBColor(255, 255, 255), RGBColor(0, 0, 0), RGBColor(255, 255, 255)],
+    'vän': [RGBColor(255, 255, 255), RGBColor(0, 90, 155), RGBColor(255, 255, 255)],
+    'vet': [RGBColor(0, 0, 0), RGBColor(255, 243, 0), RGBColor(0, 0, 0)],
+    'vsk': [RGBColor(255, 255, 255), RGBColor(1, 130, 72), RGBColor(255, 255, 255)],
+    'opponent': [RGBColor(255, 255, 255), RGBColor(255, 255, 255), RGBColor(255, 255, 255)],
+    'rät' : [RGBColor(255, 255, 255), RGBColor(31, 80, 166), RGBColor(255, 255, 255)]
 
 }
 
@@ -47,7 +47,7 @@ nicknames = {
     'vet' : {'full': 'Vetlanda BK', 'short': 'Vetlanda',  'abbreviation': 'VBK'},
     'villa': {'full': 'Villa Lidköping BK', 'short': 'Villa Lidköping', 'abbreviation': 'VLBK'},
     'vsk': {'full' : 'Västerås SK Bandy', 'short': 'Västerås', 'abbreviation': 'VSK'},
-    'opponent' : {'full' : 'Motståndare', 'short': 'Mostståndare', 'abbreviation': 'ANNAN'},
+    'opponent' : {'full' : 'Motståndare', 'short': 'Motståndare', 'abbreviation': 'ANNAN'},
     'rät': {'full': 'IFK Rättvik', 'short': 'Rättvik', 'abbreviation': 'IFKR'}
 }
 
@@ -68,64 +68,65 @@ expected_goals = {
     'utifrån': 0.05263157894736842, 'straff': 0.8
 }
 
-
-
 players = {
         '13' : {
         'name': 'Anton Andersson', 'position': 'målvakt', 'image' : 'anton.png'
     },
         '80' : {
-        'name': 'Axel Götlin', 'position': 'målvakt', 'image' : 'axel.png'
+        'name': 'Axel Götlin', 'position': 'målvakt', 'image': 'axel.png'
     },
         '12' : {
-        'name': 'Oscar Qvist', 'position': 'försvarare', 'image' : 'qvist.png'
+        'name': 'Oscar Qvist', 'position': 'försvarare', 'image': 'qvist.png'
     }, 
         '15' : {
-        'name': 'Jerker Ortman', 'position': 'försvarare', 'image' : 'jerke.png'
+        'name': 'Jerker Ortman', 'position': 'försvarare', 'image': 'jerker.png'
     },
         '40' : {
-        'name': 'Sune Gustafsson', 'position': 'försvarare', 'image' : 'sune.png'
+        'name': 'Sune Gustafsson', 'position': 'försvarare', 'image': 'sune.png'
     },
         '2' : {
-        'name': 'Stefan Kröller', 'position': 'försvarare', 'image' : 'kröller.png'
+        'name': 'Stefan Kröller', 'position': 'försvarare', 'image': 'kröller.png'
     },
         '6' : {
-        'name': 'David Thorén', 'position': 'ytterhalv', 'image' : 'davva.png'
+        'name': 'David Thorén', 'position': 'ytterhalv', 'image': 'davva.png'
     },
         '61' : {
-        'name': 'Ted Haraldsson', 'position': 'ytterhalv', 'image' : 'harald.png'
+        'name': 'Ted Haraldsson', 'position': 'ytterhalv', 'image': 'harald.png'
     },
         '7' : {
         'name': 'Jimmy Jansson', 'position': 'mittfältare', 'image': 'jimmy.jpg'
     },
         '17' : {
-        'name': 'Nils Bergström', 'position': 'mittfältare', 'image' : 'nisse.png'
+        'name': 'Nils Bergström', 'position': 'mittfältare', 'image': 'nisse.png'
     },
         '39' : {
-        'name': 'Arvid Tapper', 'position': 'mittfältare', 'image' : 'arvid.png'
+        'name': 'Arvid Tapper', 'position': 'mittfältare', 'image': 'arvid.png'
     },
         '10' : {
-        'name': 'Ted Bergström', 'position': 'anfallare', 'image' : 'tedb.png'
+        'name': 'Ted Bergström', 'position': 'anfallare', 'image': 'tedb.png'
     },
         '11' : {
-        'name': 'Albin Thomsen', 'position': 'anfallare', 'image' : 'albin.png'
+        'name': 'Albin Thomsen', 'position': 'anfallare', 'image': 'albin.png'
     },
         '20' : {
-        'name': 'Kalle Mårtensson', 'position': 'anfallare', 'image' : 'kalle.png'
+        'name': 'Kalle Mårtensson', 'position': 'anfallare', 'image': 'kalle.png'
     },
         '70' : {
-        'name': 'Colin Dahlberg', 'position': 'anfallare', 'image' : 'colin.png'
+        'name': 'Colin Dahlberg', 'position': 'anfallare', 'image': 'colin.png'
     }, 
         '66' : {
-        'name': 'Alexander Karlgren', 'position': 'mittfältare', 'image' : 'karlgren.jpg'
+        'name': 'Alexander Karlgren', 'position': 'mittfältare', 'image': 'karlgren.jpg'
     },
         '97' : {
-        'name': 'Alexander Härndahl', 'position': 'anfallare', 'image' : 'harndahl.jpg'
+        'name': 'Alexander Härndahl', 'position': 'anfallare', 'image': 'harndahl.jpg'
     },
         '9' : {
-        'name': 'Emil Eskhult', 'position': 'anfallare', 'image' : 'emil.jpg'
+        'name': 'Emil Eskhult', 'position': 'anfallare', 'image': 'emil.jpg'
     },
         '88' : {
-        'name' : 'Samuel Heeger', 'position': 'anfallare', 'image' : 'heeger.png'
-    }
+        'name': 'Samuel Heeger', 'position': 'anfallare', 'image': 'heeger.png'
+    },
+        'placeholder' : {
+            'name': 'Namn Namnsson', 'position': 'position', 'image': 'tom.png'
+        }
 }
