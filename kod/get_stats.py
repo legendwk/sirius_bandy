@@ -177,8 +177,11 @@ class Stats:
     def flip_zones(self) -> None:
         '''ensures that main_team scores into z8, if not calls other_direction on all zones so it does'''
         if not self.team_attacks_up(self.main_team):
-            for index, _ in self.big_df.iterrows():
-                self.big_df.at[index, 'zone'] = Stats.other_direction(self.big_df.at[index, 'zone'])
+            for index, row in self.big_df.iterrows():
+                try:
+                    self.big_df.at[index, 'zone'] = Stats.other_direction(self.big_df.at[index, 'zone'])
+                except:
+                    print(f'fel på rad {index}, \n{row}')
     
     def make_per_time_lists(self) -> None:
         '''populates the prints["per time lists"]'''

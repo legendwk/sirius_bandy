@@ -10,49 +10,45 @@ from compile_stats import CompileStats
 import time
 import timedelta 
 
-
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
-
-
 '''
 # hämta data
 os.chdir('data\\2024\\raw')
 
 # # skapa vår match
-# filename = '20231220 IK Sirius - Gripen Trollhättan halvlek 2.csv'
-# teams = {'iks', 'gri'}
+# filename = '20240127 IK Sirius - Bollnäs GIF halvlek 1 clean'
+# teams = {'iks', 'bol'}
 # g = Game(teams)
 
-# # samla och rensa data
-# # g.collector_raw(filename)
+# samla och rensa data
+# g.collector_raw(filename)
 # g.clean_csv(filename)
 
 os.chdir(r"..\\clean")
-gf.control_time('20231230 IK Sirius - IFK Vänersborg halvlek 1 clean')
-# gf.control_time('20231230 IK Sirius - IFK Vänersborg halvlek 2 clean')
+# gf.control_time('20240127 IK Sirius - Bollnäs GIF halvlek 2 clean')
+# gf.control_time('20240113 Edsbyns IF - IK Sirius halvlek 2 clean')
 
+# v1 = Stats('20240127 IK Sirius - Bollnäs GIF halvlek 1 clean') 
+v2 = Stats('20240127 IK Sirius - Bollnäs GIF halvlek 2 clean')
 
-v1 = Stats('20231230 IK Sirius - IFK Vänersborg halvlek 1 clean') 
-v2 = Stats('20231230 IK Sirius - IFK Vänersborg halvlek 2 clean')
-
-v_hel = v1 + v2
+# v_hel = v1 + v2
 
 # gör presentation
 os.chdir(r"..\..\..\powerpointer\matchrapporter")
 
-pp = PP(v1)
-pp.make_game_report()
+# pp = PP(v1)
+# pp.make_game_report()
 
 pp = PP(v2)
 pp.make_game_report()
 
-pp = PP(v_hel)
-pp.make_game_report()
+# pp = PP(v_hel)
+# pp.make_game_report()
 
-
-
+'''
 # mappar med csvfiler
+# måste lägga till undermapp för att dessa ska funka 
 season2223 = 'data\\compile\\säsong 2223'
 regular_season2223 = 'data\\compile\\grundserie 2223'
 all_games = 'data\\compile\\alla'
@@ -76,26 +72,35 @@ saikvilla = 'data\\compile\saik villa'
 halva1 = 'data\\compile\halva 1'
 halva2 = 'data\\compile\halva 2'
 grundserie2024 = 'data\\compile\\grundserie2324'
-
-# v = CompileStats(left)
-# h = CompileStats(right)
-cs = CompileStats(grundserie2024)
-s = cs.returns_stats_obj()
-print(s.get_player_stats_dict('97'))
-os.chdir('powerpointer\\spelarrapporter')
-pp = PP(s)
-p = sorted((k for k in constants.players if k != 'placeholder'), key=lambda x: int(x))
-pp.make_player_report(players = p) 
-
-# v1 = PP(v.returns_stats_obj())
-# h1 = PP(h.returns_stats_obj())
+del1 = 'data\\compile\\2024\\del 1'
+del2 = 'data\\compile\\2024\\del 2'
+spelare = 'data\\compile\\2024\\spelare'
+uddamal = 'data\\compile\\2024\\jämna'
 
 
-# os.chdir('powerpointer\\säsongsrapporter')
 
-# v1.make_season_report('säsongsrapport stå vänster')
-# h1.make_season_report('säsongsrapport stå höger')
-# s1.make_season_report('säsongsrapport grundserie 2024')
+
+# spelarrapporter
+# cs = CompileStats(spelare)
+# s = cs.returns_stats_obj()
+# print(s.get_player_stats_dict('97'))
+# os.chdir('powerpointer\\spelarrapporter')
+# pp = PP(s)
+# p = sorted((k for k in constants.players if k != 'placeholder'), key=lambda x: int(x))
+# pp.make_player_report(players = p) 
+
+# säsongsrapporter
+# d1 = CompileStats(del1)
+d2 = CompileStats(uddamal)
+# d1 = PP(d1.returns_stats_obj())
+d2 = PP(d2.returns_stats_obj())
+
+
+os.chdir('powerpointer\\säsongsrapporter')
+
+# d1.make_season_report('säsongsrapport del 1')
+d2.make_season_report('uddamålsmatcher')
+# # s1.make_season_report('säsongsrapport grundserie 2024')
 
 
 
@@ -106,4 +111,3 @@ pp.make_player_report(players = p)
 
 # gör presentation
 # os.chdir(r"..\..\..\powerpointer\spelarrapporter")
-'''

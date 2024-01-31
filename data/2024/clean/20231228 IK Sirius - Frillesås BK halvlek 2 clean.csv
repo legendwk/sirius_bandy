@@ -40,7 +40,7 @@ time,team,event,subevent,zone,player
 0:08:22,fri,utkast,0,z8,0
 0:08:38,fri,skott,räddning,z2,13
 0:08:40,fri,skottyp,centralt,z2,13
-0:08:45,iks,utkast,0,z2,0
+0:08:45,iks,utkast,0,z2,13
 0:08:57,iks,passning,straffområde,z7,39
 0:09:00,iks,hörna,0,z7,0
 0:09:30,iks,skott,täckt,z7,66
@@ -56,7 +56,7 @@ time,team,event,subevent,zone,player
 0:11:18,fri,närkamp,0,z7,0
 0:11:23,fri,inslag,0,z4,0
 0:11:45,fri,passning,lång,z6,0
-0:11:47,iks,utkast,0,z2,0
+0:11:47,iks,utkast,0,z2,13
 0:12:06,iks,hörna,0,z7,0
 0:12:36,iks,skott,täckt,z7,66
 0:12:37,iks,skottyp,fast,z7,66
@@ -96,7 +96,7 @@ time,team,event,subevent,zone,player
 0:20:12,fri,hörna,0,z1,0
 0:20:39,iks,brytning,0,z2,2
 0:20:49,fri,passning,lång,z4,0
-0:20:53,iks,utkast,0,z2,0
+0:20:53,iks,utkast,0,z2,13
 0:21:31,iks,skott,utanför,z7,6
 0:21:32,iks,skottyp,utifrån,z7,6
 0:21:50,fri,utkast,0,z8,0
@@ -120,11 +120,11 @@ time,team,event,subevent,zone,player
 0:27:17,fri,skottyp,fast,z7,13
 0:27:22,fri,skott,utanför,z8,13
 0:27:23,fri,skottyp,utifrån,z8,13
-0:27:30,iks,utkast,0,z2,0
+0:27:30,iks,utkast,0,z2,13
 0:27:53,iks,bolltapp,tappad,z9,61
 0:28:02,fri,bolltapp,tappad,z3,0
 0:28:10,iks,timeout,0,0,0
-0:29:40,iks,utkast,0,z2,0
+0:29:40,iks,utkast,0,z2,13
 0:30:37,iks,frislag,0,z9,6
 0:30:55,fri,rensning,0,z8,0
 0:31:30,iks,passning,lång,z3,66
@@ -198,7 +198,7 @@ time,team,event,subevent,zone,player
 0:42:53,fri,skottyp,fast,z1,13
 0:42:56,fri,skott,täckt,z2,13
 0:42:57,fri,skottyp,retur,z2,13
-0:43:01,iks,utkast,0,z2,0
+0:43:01,iks,utkast,0,z2,13
 0:43:23,iks,bolltapp,passförsök,z5,0
 0:43:30,fri,skott,räddning,z2,13
 0:43:31,fri,skottyp,utifrån,z2,13

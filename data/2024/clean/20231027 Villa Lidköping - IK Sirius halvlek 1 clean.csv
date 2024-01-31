@@ -207,9 +207,9 @@ time,team,event,subevent,zone,player
 0:43:03,villa,skott,räddning,z7,13
 0:43:03,villa,skottyp,utifrån,z7,13
 0:43:10,iks,utkast,0,z7,13
-0:43:35,iks,passning,straffområde,z3,0
-0:43:38,iks,skott,utanför,z1,0
-0:43:38,iks,skottyp,inlägg,z1,0
+0:43:35,iks,passning,straffområde,z3,10
+0:43:38,iks,skott,utanför,z1,97
+0:43:38,iks,skottyp,inlägg,z1,97
 0:43:47,villa,närkamp,0,z3,0
 0:44:12,villa,närkamp,0,z9,0
 0:44:25,villa,offside,0,z8,0

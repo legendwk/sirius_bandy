@@ -100,6 +100,7 @@ class CompileStats:
         self.games = list()
         l = [f'{self.path}\\{x}' for x in sorted(os.listdir(self.path), reverse=True)[: N]]
         for game_link in l:
+            print(game_link)
             self.games.append(Stats(game_link, main_team = self.main_team))
     
     def fill_df(self) -> pd.core.frame.DataFrame:
