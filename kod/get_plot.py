@@ -102,6 +102,8 @@ class Plot:
         ax = fig.add_subplot(111)
         d = self.stats.prints['freeshot zones']
         max_duels = max([sum(d[x].values()) for x in d])
+        if max_duels == 0:
+            max_duels = 1
         for zone in d:
             frac = sum(d[zone].values())/max_duels
             c = gf.rgb255_to_rgb1(gf.faded_rgb_color(Plot.color_many, frac, Plot.color_few))

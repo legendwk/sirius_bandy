@@ -517,12 +517,15 @@ class CompileStats:
         for game in self.games:
             ls_df = game.get_long_shots_df()
             for index, row in ls_df.iterrows():
-                previous_entry = game.big_df.loc[index - 1]
-                self.long_shot_outcome_of_shot(previous_entry, outcome_of_shots_dict)
-                if previous_entry['event'] != 'mål':
-                    shooting_team = self.return_team(row['team'])
-                    next_entry = game.big_df.loc[index + 1]
-                    self.long_shot_after_shot(shooting_team, next_entry, outcome_after_shot_dict)
+                try:
+                    previous_entry = game.big_df.loc[index - 1]
+                    self.long_shot_outcome_of_shot(previous_entry, outcome_of_shots_dict)
+                    if previous_entry['event'] != 'mål':
+                        shooting_team = self.return_team(row['team'])
+                        next_entry = game.big_df.loc[index + 1]
+                        self.long_shot_after_shot(shooting_team, next_entry, outcome_after_shot_dict)
+                except:
+                    print(f'error at game: {game.out}\nindex: {index}\nrow:\n{row}')
         
         return outcome_of_shots_dict, outcome_after_shot_dict
 

@@ -12,13 +12,43 @@ import timedelta
 
 # kör den här typ hela tiden så slipper vi bråk 
 gf.clean_up()
+
+os.chdir(r'C:/Users/viking.nilsson/VSCode/Python/sirius_bandy/data/compile/2024/vetlanda hemma')
+v1 = Stats('Vetlanda hemma halvlek 1 första 15') 
+v2 = Stats('Vetlanda hemma halvlek 2 första 15') 
+v3 = Stats('Vetlanda hemma halvlek 1 15-30') 
+v4 = Stats('Vetlanda hemma halvlek 2 15-30') 
+v5 = Stats('Vetlanda hemma halvlek 1 30-45') 
+v6 = Stats('Vetlanda hemma halvlek 2 30-45') 
+v7 = Stats('Vetlanda hemma halvlek 1 15-45') 
+v8 = Stats('Vetlanda hemma halvlek 2 15-45') 
+
+os.chdir(r'C:/Users/viking.nilsson/VSCode/Python/sirius_bandy/powerpointer/matchrapporter')
+pp = PP(v1)
+pp.make_game_report()
+pp = PP(v2)
+pp.make_game_report()
+pp = PP(v3)
+pp.make_game_report()
+pp = PP(v4)
+pp.make_game_report()
+pp = PP(v5)
+pp.make_game_report()
+pp = PP(v6)
+pp.make_game_report()
+pp = PP(v7)
+pp.make_game_report()
+pp = PP(v8)
+pp.make_game_report()
+
+
 '''
 # hämta data
 os.chdir('data\\2024\\raw')
 
-# # skapa vår match
-# filename = '20240127 IK Sirius - Bollnäs GIF halvlek 1 clean'
-# teams = {'iks', 'bol'}
+# skapa vår match
+# filename = '20240206 IFK Rättvik - IK Sirius halvlek 2'
+# teams = {'iks', 'rät'}
 # g = Game(teams)
 
 # samla och rensa data
@@ -26,11 +56,13 @@ os.chdir('data\\2024\\raw')
 # g.clean_csv(filename)
 
 os.chdir(r"..\\clean")
-# gf.control_time('20240127 IK Sirius - Bollnäs GIF halvlek 2 clean')
+# gf.control_time('20240206 IFK Rättvik - IK Sirius halvlek 2 clean')
 # gf.control_time('20240113 Edsbyns IF - IK Sirius halvlek 2 clean')
 
-# v1 = Stats('20240127 IK Sirius - Bollnäs GIF halvlek 1 clean') 
-v2 = Stats('20240127 IK Sirius - Bollnäs GIF halvlek 2 clean')
+
+
+# v1 = Stats('20240206 IFK Rättvik - IK Sirius halvlek 1 clean') 
+# v2 = Stats('20240206 IFK Rättvik - IK Sirius halvlek 2 clean')
 
 # v_hel = v1 + v2
 
@@ -40,13 +72,13 @@ os.chdir(r"..\..\..\powerpointer\matchrapporter")
 # pp = PP(v1)
 # pp.make_game_report()
 
-pp = PP(v2)
-pp.make_game_report()
+# pp = PP(v2)
+# pp.make_game_report()
 
 # pp = PP(v_hel)
 # pp.make_game_report()
 
-'''
+
 # mappar med csvfiler
 # måste lägga till undermapp för att dessa ska funka 
 season2223 = 'data\\compile\\säsong 2223'
@@ -76,8 +108,8 @@ del1 = 'data\\compile\\2024\\del 1'
 del2 = 'data\\compile\\2024\\del 2'
 spelare = 'data\\compile\\2024\\spelare'
 uddamal = 'data\\compile\\2024\\jämna'
-
-
+senastefem = 'data\\compile\\2024\\senaste fem'
+senastefemejratt = 'data\\compile\\2024\\senaste fem ej rättvik'
 
 
 # spelarrapporter
@@ -90,20 +122,20 @@ uddamal = 'data\\compile\\2024\\jämna'
 # pp.make_player_report(players = p) 
 
 # säsongsrapporter
-# d1 = CompileStats(del1)
-d2 = CompileStats(uddamal)
-# d1 = PP(d1.returns_stats_obj())
+d1 = CompileStats(senastefem)
+d2 = CompileStats(senastefemejratt)
+d1 = PP(d1.returns_stats_obj())
 d2 = PP(d2.returns_stats_obj())
 
 
 os.chdir('powerpointer\\säsongsrapporter')
 
-# d1.make_season_report('säsongsrapport del 1')
-d2.make_season_report('uddamålsmatcher')
+d1.make_season_report('senaste fem')
+d2.make_season_report('ej rättvik senaste fem')
 # # s1.make_season_report('säsongsrapport grundserie 2024')
 
 
-
+'''
 # os.chdir('data\\2024\\clean')
 # v2 = Stats('20231031 Västerås - Sirius halvlek 2 clean')
 
