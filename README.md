@@ -1,4 +1,13 @@
 # Sirius Bandy
+## GUI för datainsamling
+Visuellt gränssnitt för datainsamling nås genom att öppna `data_entry.html` i en webläsare. Där anges först vilka lag som ska mötas och vad filen som skapas ska heta. 
+
+Det finns sedan en rad inställningar rörande vilka spelare som visas, vilka event som ska vara kopplade till spelare och när klockan ska räkna.
+
+Configfil för event, spelare och lag finns i `data_entry_config\data.js`.
+
+
+
 ## Generellt
 Kort instruktion för hur koden bör användas.  
 

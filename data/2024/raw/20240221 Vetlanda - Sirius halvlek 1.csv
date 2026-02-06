@@ -1,0 +1,221 @@
+event,time
+avslag iks z5,0:00:00
+passning lång iks z3,0:00:10
+frislag vet z8 ,0:00:15
+närkamp iks z9,0:00:38
+brytning vet z8,0:00:45
+närkamp vet z4,0:01:30
+skott räddning vet z2,0:01:36
+skottyp centralt vet 2,0:01:41
+reninsnig iks z2,0:01:44
+närkamp iks z7,0:01:51
+skott täckt iks z8,0:01:57
+skottyp utifrån iks z8,0:02:01
+hörna ikz 7,0:02:04
+del,0:02:08
+hörina iks z7,0:02:10
+iks z8 skott räddning,0:02:26
+skottyp fast iks z8,0:02:31
+boll iks z3,0:02:35
+pasnsing iks lång z8,0:03:06
+närkamp vet z8,0:03:09
+närkamp iks z2,0:03:14
+närkamp vet z4,0:03:25
+utkast iks z3,0:03:36
+pasnsing lång iks z8,0:03:46
+utkast vet z7,0:03:52
+skott utanför vet z2,0:04:47
+skottyp dribbling vet z2,0:04:51
+rensing iks ,0:04:58
+närkamp vet z5,0:05:04
+närkamp iks z1,0:05:08
+brytning vet z9,0:05:34
+närkamp iks z2,0:05:39
+passning lång iks z8,0:06:12
+utkast vet z7,0:06:15
+närekmap iks z5,0:06:48
+skott täckt iks z8,0:06:57
+skottyp utifrån iks z8,0:07:00
+boll vet z8,0:07:04
+närkamp vet z5,0:07:36
+näörkamp iks z3,0:07:58
+närkmap vet z<4,0:08:18
+del,0:08:21
+närkmap vet z4,0:08:24
+närkamp iks z3,0:08:28
+passning straffområde iks z9,0:08:43
+utkast vet z7,0:08:47
+närkamp iks z2,0:09:05
+närkamp vet za4,0:09:12
+del,0:09:16
+närkamp vet z4,0:09:19
+passning lång vet z2,0:09:32
+offside vet ,0:09:36
+boll iks z2,0:09:39
+passning straffområde iks z8,0:10:18
+skott iutanför iks z8,0:10:23
+skottyp inlägg iks z8,0:10:30
+utkast vet ,0:10:31
+skott räddning vet z2,0:11:17
+skottyp centralt vet z2,0:11:21
+utkast iks ,0:11:22
+passning lång iks z8,0:11:29
+boll vet,0:11:39
+närkamp iks z4,0:11:47
+skott utanflr iks z8,0:12:24
+skottyp utifrån iks z8,0:12:27
+utkast vet,0:12:36
+frislag vet z9,0:13:12
+passning straffområde vet z2,0:13:31
+skott räddning vet z2,0:13:34
+skotyp inlägg vet z2,0:13:39
+hörna vet z3,0:13:53
+vet z2 skott räddning,0:14:06
+skottyp fast vet z2,0:14:09
+skott täckt vet z2,0:14:13
+skottyp utifrån vet z2,0:14:16
+boll vet,0:14:21
+boll iks ,0:14:33
+närkamp vet z8,0:14:45
+närkamp iks z9,0:14:48
+närkamp iks z9,0:15:25
+frislag iks z6,0:15:38
+frislag iks z6,0:16:23
+närkamp vet z9,0:16:40
+utkast vet ,0:16:42
+närkamp iks z6,0:17:05
+frislag iks z5,0:17:12
+skott räddning iks z8,0:17:34
+skottyp utifrån iks z8,0:17:39
+hörna iks z7,0:17:43
+iks z8 skott täckt,0:18:10
+skottyp fast iks z8,0:18:14
+skott täckt iks z8,0:18:18
+skottyp utifrån iks z8,0:18:23
+hörna iks z7,0:18:29
+skott täckt iks z8,0:18:46
+skottyp fast iks z8,0:18:49
+boll iks ,0:18:50
+passning straffområde iks z8,0:18:58
+skottyp inlägg iks z8,0:19:01
+utkast vet ,0:19:04
+passning lång vet z1,0:19:23
+närkamp iks z2 2,0:19:31
+närkamp vet z1,0:19:38
+närkap iks z5,0:20:01
+passnign starffomnråde iks z8,0:20:17
+skott täckt iks z8,0:20:20
+skottyp utifrån iks z8,0:20:24
+boll vet,0:20:27
+utkast iks z2,0:20:38
+passning lång iks z9,0:21:08
+bolltapp iks z9 tappad,0:21:15
+utkast vet ,0:21:17
+närkamp iks z2,0:21:45
+närkamp vet z1,0:21:48
+brytning iks z5 ,0:22:30
+närkamp vet z8,0:22:39
+närkamp iks z6,0:22:44
+frislag iks z5,0:23:20
+skott räddning iks z8,0:23:43
+skottyp utifrån iks 97,0:23:50
+utkast vet,0:23:57
+bolltapp vet passförsök z1,0:24:05
+hörna iks z9 17,0:24:22
+skott täckt iks z8,0:24:56
+skottyp fast iks z8,0:24:58
+skott täckt iks z8 ,0:25:02
+skottyp retur iks z8,0:25:05
+timepout ,0:25:07
+utkast vet,0:26:22
+passing lång vet,0:27:16
+boll iks z5,0:27:17
+skott räddning iks z9,0:27:43
+skottyp utifrån iks z9,0:27:46
+utkast vet,0:27:48
+passing lång vet z2,0:28:08
+utkast iks z1,0:28:10
+skott utanför iks z8,0:28:50
+skottyp iks centrlat 97,0:28:56
+utkast vet,0:29:02
+frislag vet z6,0:29:34
+närkamp iks z1,0:29:58
+brytning vet z1,0:30:05
+närkamp iks z1,0:30:48
+passning straffområde iks z8,0:31:23
+skott täckt iks z8,0:31:28
+skottyp inlägg iks z8,0:31:31
+boll vet,0:31:34
+del,0:31:37
+boll iks ,0:31:39
+brytning vet z8,0:31:58
+straff vet ,0:32:07
+mål vet z2 straffmål,0:32:58
+skottyp fast vet z2,0:33:02
+avslag iks ,0:00:03
+närkamp iks z1,0:00:09
+brytning vet z4,0:00:16
+närkamp vet z8,0:00:44
+passning låpng vet z2,0:00:50
+närkamp iks z3,0:01:01
+utkast iks ,0:01:05
+passning lång iks ,0:01:26
+offside iks ,0:01:29
+boll vet,0:01:31
+utkast iks ,0:01:52
+passning straffområpde iks z8,0:02:15
+skott räddning iks z8,0:02:21
+skottyp inlägg iks ,0:02:24
+boll vet,0:02:25
+skott täckt vet z2,0:02:38
+skottyp utifrån vet z2,0:02:43
+rensing iks ,0:02:45
+närkamp iks z5,0:03:09
+del,0:03:11
+näkamps iks z3,0:03:23
+utvisning 5a vet ,0:03:27
+frislag iks z5,0:03:37
+närkamp vet z9,0:03:57
+utkast vet ,0:03:59
+skott räddning vet z2,0:04:32
+skottyp centralt vet z2,0:04:37
+uktkast iks ,0:04:38
+skott räddning iks z8,0:04:50
+skottyp 97 iks utifrån ,0:04:57
+utkast vet,0:05:00
+timeout,0:05:10
+boll iks ,0:39:53
+närkamp vet z9,0:40:06
+skott räddning vet z2,0:40:21
+skottyp dribbling vet z2,0:40:25
+hörna vet z1,0:40:28
+vet z2 skott täckt,0:40:51
+skottyp fast vet z2,0:40:55
+skott räddning vet z2,0:40:59
+skottyp utifrån vet z2,0:41:03
+skott utanför vet z2 ,0:41:10
+skottyp iutifrån vet z2,0:41:16
+utkast iks ,0:41:17
+närkamp vet z4,0:41:41
+inslag iks ,0:41:46
+passning farlig iks z2 7,0:42:20
+mål spelmål iks z8,0:42:24
+skottyp centralt iks z8,0:42:29
+avslag vet ,0:42:35
+del,0:42:37
+avslag et,0:43:08
+närkamp iks z2,0:43:14
+passnipng straffområde iks z8,0:43:35
+boll iks ,0:43:37
+passning lång iks ,0:44:38
+boll vet,0:44:40
+skott räddning vet z2,0:45:09
+skottyp utifrån vet z2,0:45:12
+mål spelmål vet z2,0:45:15
+skottyp retur vet za2,0:45:18
+avslag iks ,0:45:28
+del,0:45:31
+avslag iks ,0:01:04
+boll vet,0:01:07
+närkamp vet z6,0:01:22
+stop,0:01:33

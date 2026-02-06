@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandy Data</title>
+    <style>
+        *{box-sizing:border-box;font-family:'Segoe UI',sans-serif;user-select:none;margin:0;padding:0}
+        body{background:#1e1e24;color:#e8e8e8;height:100vh;overflow:hidden}
+
+        #setup{display:flex;align-items:center;justify-content:center;height:100vh}
+        .setup-box{background:#2a2a32;border-radius:8px;padding:20px;width:300px}
+        .setup-box h1{font-size:18px;margin-bottom:15px;font-weight:400;text-align:center;color:#ccc}
+        .field{margin-bottom:12px}
+        .field label{display:block;font-size:11px;color:#888;margin-bottom:4px;text-transform:uppercase}
+        .field input,.field select{width:100%;padding:10px 12px;font-size:14px;border:1px solid #444;border-radius:4px;background:#363640;color:#e8e8e8}
+        .team-preview{display:flex;align-items:center;justify-content:center;gap:20px;margin:15px 0;padding:15px;background:#1e1e24;border-radius:6px}
+        .team-preview img{width:50px;height:50px;object-fit:contain}
+        .team-preview .vs{color:#666;font-size:14px}
+        #startBtn{width:100%;padding:14px;font-size:14px;font-weight:600;background:#4a7cb5;color:#fff;border:none;border-radius:4px;cursor:pointer}
+        #startBtn:hover{background:#5889c2}
+
+        #game{display:none;height:100vh;flex-direction:column}
+        .header{display:flex;align-items:center;padding:8px 12px;background:#252530;gap:10px}
+        .clock{font-size:28px;font-family:monospace;font-weight:bold;color:#6cc070;cursor:pointer;padding:4px 12px;background:#1e1e24;border-radius:4px}
+        .clock.paused{color:#d97070}
+        .header-info{flex:1;color:#777;font-size:12px;text-align:center}
+        .header button{padding:12px 20px;font-size:14px;border:none;border-radius:5px;cursor:pointer;font-weight:600}
+        .btn-players{background:#4a5568;color:#e8e8e8}
+        .btn-players:hover{background:#5a6578}
+        .btn-undo{background:#c9a227;color:#1e1e24}
+        .btn-export{background:#5a9a5c;color:#1e1e24}
+        .btn-stop{background:#b54a4a;color:#fff}
+
+        .content{flex:1;display:flex;overflow:hidden;padding:8px;gap:8px}
+
+        .pitch-col{width:360px;display:flex;flex-direction:column;gap:4px}
+        .team-btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border:none;border-radius:6px;cursor:pointer}
+        .team-btn img{width:36px;height:36px;object-fit:contain}
+        .team-btn span{font-size:16px;font-weight:700}
+        .team-btn.selected{box-shadow:inset 0 0 0 3px #fff}
+        .team-btn .key-hint{position:absolute;top:6px;right:8px;font-size:11px;color:inherit;opacity:0.6;background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:3px}
+        .team-btn{position:relative}
+        .pitch-wrap{flex:1;display:flex;align-items:center;justify-content:center}
+        .pitch{width:100%;aspect-ratio:1.46;background:url('../bilder/pptx/bandyplan_transparent1.png') center/100% 100% no-repeat;position:relative}
+        .zones{position:absolute;top:3.5%;bottom:3.5%;left:4.5%;right:4.5%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr)}
+        .zone{cursor:pointer;transition:background 0.1s}
+        .zone:hover{background:rgba(74,124,181,0.3)}
+        .zone.selected{background:rgba(74,124,181,0.5)}
+
+        .controls{flex:1;display:flex;flex-direction:column;gap:6px}
+        .events{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+        .event-btn{padding:8px 4px;font-size:11px;font-weight:500;background:#363640;color:#aaa;border:none;border-radius:4px;cursor:pointer;position:relative}
+        .event-btn:hover{background:#454552;color:#e8e8e8}
+        .event-btn.selected{background:#4a7cb5;color:#fff}
+        .event-btn .key-hint{position:absolute;top:2px;right:2px;font-size:9px;color:#888;background:#252530;padding:1px 4px;border-radius:2px}
+        .event-btn.selected .key-hint{background:#3a6a9a;color:#ccc}
+        .bottom-bar{display:flex;gap:6px}
+        .counter{padding:10px 16px;font-size:13px;color:#777;background:#252530;border-radius:4px}
+        .counter strong{color:#aaa}
+        .last-event{flex:1;padding:10px 16px;font-size:13px;color:#6cc070;background:#252530;border-radius:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+        .last-event:empty::before{content:'No events yet';color:#555}
+        .btn-add{padding:10px 20px;font-size:14px;font-weight:600;background:#5a9a5c;color:#1e1e24;border:none;border-radius:4px;cursor:pointer}
+        .btn-add:hover{background:#6aaa6c}
+        .btn-add:disabled{background:#3a5a3c;color:#666;cursor:not-allowed}
+
+        .overlay{display:none;position:fixed;inset:0;background:rgba(20,20,26,0.95);align-items:center;justify-content:center;z-index:100}
+        .overlay.visible{display:flex}
+        .modal{background:#2a2a32;border:1px solid #444;border-radius:10px;padding:20px;text-align:center;max-width:90vw;max-height:90vh;overflow-y:auto}
+        .modal h3{font-size:13px;color:#888;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+        .sub-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+        .sub-btn{padding:14px 22px;font-size:14px;background:#454552;color:#e8e8e8;border:none;border-radius:6px;cursor:pointer;position:relative}
+        .sub-btn:hover{background:#4a7cb5}
+        .sub-btn .key-hint{position:absolute;top:4px;right:4px;font-size:10px;color:#888;background:#363640;padding:2px 5px;border-radius:3px}
+        .skip-btn{margin-top:12px;padding:10px 20px;font-size:12px;background:transparent;color:#777;border:1px solid #555;border-radius:4px;cursor:pointer}
+        .skip-btn:hover{color:#e8e8e8;border-color:#777}
+
+        .player-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+        .player-btn{display:flex;flex-direction:column;align-items:center;padding:10px 6px;background:#363640;border:1px solid #444;border-radius:6px;cursor:pointer}
+        .player-btn:hover{background:#454552;border-color:#4a7cb5}
+        .player-btn img{width:44px;height:44px;object-fit:cover;border-radius:50%;margin-bottom:5px}
+        .player-btn .num{font-size:16px;font-weight:bold;color:#6a9fd4}
+        .player-btn .name{font-size:10px;color:#999;text-align:center}
+        .player-btn .key-hint{position:absolute;top:4px;right:4px;font-size:10px;color:#888;background:#252530;padding:2px 5px;border-radius:3px}
+        .player-btn{position:relative}
+        .player-input-row{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:12px;padding-top:12px;border-top:1px solid #444}
+        .player-input-row input{width:70px;padding:10px;font-size:18px;text-align:center;background:#363640;border:1px solid #444;border-radius:5px;color:#e8e8e8}
+        .player-input-row button{padding:10px 20px;font-size:13px;border:none;border-radius:5px;cursor:pointer}
+        .ok-btn{background:#5a9a5c;color:#1e1e24;font-weight:600}
+
+        .clock-modal input{width:100px;padding:12px;font-size:24px;text-align:center;background:#363640;border:1px solid #444;border-radius:5px;color:#e8e8e8;margin-bottom:12px}
+        .clock-btns{display:flex;gap:8px;justify-content:center}
+        .clock-btns button{padding:10px 20px;font-size:13px;border:none;border-radius:5px;cursor:pointer}
+
+        .toast{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);background:#5a9a5c;color:#1e1e24;padding:8px 20px;border-radius:5px;font-size:13px;font-weight:500;opacity:0;transition:opacity 0.15s;z-index:200}
+        .toast.show{opacity:1}
+
+        .setup-btns{display:flex;gap:10px;margin-top:10px}
+        .setup-btns button{flex:1;padding:14px;font-size:14px;font-weight:600;border:none;border-radius:4px;cursor:pointer}
+        #settingsBtn,.btn-players-setup{background:#4a5568;color:#e8e8e8}
+        #settingsBtn:hover,.btn-players-setup:hover{background:#5a6578}
+
+        .settings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:15px;max-height:60vh;overflow-y:auto;padding:5px}
+        .player-checkbox{display:flex;align-items:center;gap:8px;padding:10px;background:#363640;border:1px solid #444;border-radius:6px;cursor:pointer;transition:all 0.15s}
+        .player-checkbox:hover{background:#454552;border-color:#4a7cb5}
+        .player-checkbox.checked{background:#3a4a5c;border-color:#4a7cb5}
+        .player-checkbox input{display:none}
+        .player-checkbox img{width:36px;height:36px;object-fit:cover;border-radius:50%}
+        .player-checkbox .info{display:flex;flex-direction:column;text-align:left}
+        .player-checkbox .num{font-size:14px;font-weight:bold;color:#6a9fd4}
+        .player-checkbox .name{font-size:11px;color:#999}
+        .player-checkbox .check{margin-left:auto;width:20px;height:20px;border:2px solid #666;border-radius:4px;display:flex;align-items:center;justify-content:center}
+        .player-checkbox.checked .check{background:#4a7cb5;border-color:#4a7cb5}
+        .player-checkbox.checked .check::after{content:'✓';color:#fff;font-size:14px}
+        .settings-actions{display:flex;gap:10px;justify-content:center;margin-top:15px}
+        .settings-actions button{padding:10px 25px;font-size:13px;border:none;border-radius:5px;cursor:pointer}
+        .btn-select-all{background:#4a5568;color:#e8e8e8}
+        .btn-select-none{background:#4a5568;color:#e8e8e8}
+        .btn-select-all:hover,.btn-select-none:hover{background:#5a6578}
+        .btn-save{background:#4a7cb5;color:#fff;font-weight:600}
+        .btn-save:hover{background:#5889c2}
+
+        .settings-tabs{display:flex;gap:6px;margin-bottom:15px;border-bottom:1px solid #444;padding-bottom:12px}
+        .settings-tab{padding:14px 28px;font-size:15px;background:transparent;color:#888;border:none;border-radius:6px 6px 0 0;cursor:pointer;font-weight:500}
+        .settings-tab:hover{color:#e8e8e8;background:#2a2a32}
+        .settings-tab.active{background:#363640;color:#e8e8e8}
+        .settings-panel{display:none}
+        .settings-panel.active{display:block}
+        .team-section{margin-bottom:20px;text-align:left}
+        .team-section-header{display:flex;align-items:center;gap:10px;padding:10px;background:#363640;border-radius:6px;margin-bottom:8px}
+        .team-section-header img{width:28px;height:28px;object-fit:contain}
+        .team-section-header span{font-size:14px;font-weight:600;color:#e8e8e8}
+        .team-checkbox{display:flex;align-items:center;gap:12px;padding:12px 15px;background:#363640;border:1px solid #444;border-radius:6px;cursor:pointer;margin-bottom:6px}
+        .team-checkbox:hover{background:#454552;border-color:#4a7cb5}
+        .team-checkbox.checked{background:#3a4a5c;border-color:#4a7cb5}
+        .team-checkbox input{display:none}
+        .team-checkbox img{width:32px;height:32px;object-fit:contain}
+        .team-checkbox .team-name{flex:1;font-size:14px;color:#e8e8e8}
+        .team-checkbox .check{width:20px;height:20px;border:2px solid #666;border-radius:4px;display:flex;align-items:center;justify-content:center}
+        .team-checkbox.checked .check{background:#4a7cb5;border-color:#4a7cb5}
+        .team-checkbox.checked .check::after{content:'✓';color:#fff;font-size:14px}
+
+        .keybindings-list{text-align:left}
+        .keybinding-group{margin-bottom:20px}
+        .keybinding-group h4{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #444}
+        .keybinding-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#363640;border-radius:4px;margin-bottom:4px;cursor:pointer}
+        .keybinding-row:hover{background:#404050}
+        .keybinding-row.editing{background:#4a5568;border:1px solid #4a7cb5}
+        .keybinding-action{font-size:13px;color:#ccc}
+        .keybinding-key{display:inline-flex;gap:4px}
+        .key{padding:4px 10px;font-size:12px;font-family:monospace;background:#252530;border:1px solid #555;border-radius:4px;color:#e8e8e8;min-width:28px;text-align:center}
+        .key.editing{background:#4a7cb5;border-color:#6a9fd4}
+        .no-players-toggle{display:flex;align-items:center;gap:10px;padding:12px;background:#4a3a3a;border:1px solid #6a4a4a;border-radius:6px;margin-bottom:12px;cursor:pointer}
+        .no-players-toggle:hover{background:#5a4a4a}
+        .no-players-toggle.active{background:#3a4a3a;border-color:#4a6a4a}
+        .no-players-toggle input{display:none}
+        .no-players-toggle .check{width:20px;height:20px;border:2px solid #666;border-radius:4px;display:flex;align-items:center;justify-content:center}
+        .no-players-toggle.active .check{background:#5a9a5c;border-color:#5a9a5c}
+        .no-players-toggle.active .check::after{content:'✓';color:#fff;font-size:14px}
+        .no-players-toggle span{font-size:13px;color:#ccc}
+    </style>
+</head>
+<body>
+    <div id="setup">
+        <div class="setup-box">
+            <h1>New Match</h1>
+            <div class="field"><label>Filename</label><input type="text" id="filename" placeholder="20240226 Sirius - Vetlanda"></div>
+            <div class="field"><label>Home</label><select id="homeTeam" onchange="updatePreview()"></select></div>
+            <div class="field"><label>Away</label><select id="awayTeam" onchange="updatePreview()"></select></div>
+            <div class="team-preview"><img id="homeLogo"><span class="vs">vs</span><img id="awayLogo"></div>
+            <div class="setup-btns">
+                <button id="settingsBtn" onclick="showSettings()">Settings</button>
+                <button id="startBtn" onclick="startGame()">Start</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game">
+        <div class="header">
+            <div class="clock paused" id="clock" onclick="showClockModal()">00:00</div>
+            <div class="header-info" id="info"></div>
+            <button class="btn-players" onclick="showSettings()">Settings</button>
+            <button class="btn-undo" onclick="undo()">Undo</button>
+            <button class="btn-export" onclick="exportCSV()">Export</button>
+            <button class="btn-stop" onclick="stopMatch()">Stop</button>
+        </div>
+        <div class="content">
+            <div class="pitch-col">
+                <button class="team-btn" id="homeBtn" onclick="selectTeam('home')"></button>
+                <div class="pitch-wrap"><div class="pitch"><div class="zones" id="zones"></div></div></div>
+                <button class="team-btn" id="awayBtn" onclick="selectTeam('away')"></button>
+            </div>
+            <div class="controls">
+                <div class="events" id="events"></div>
+                <div class="bottom-bar">
+                    <div class="counter"><strong id="counter">0</strong> events</div>
+                    <div class="last-event" id="lastEvent"></div>
+                    <button class="btn-add" id="addBtn" onclick="addEvent()">Add Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="subOverlay">
+        <div class="modal">
+            <h3 id="subTitle">-</h3>
+            <div class="sub-btns" id="subBtns"></div>
+            <button class="skip-btn" onclick="skipSub()">Skip</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="playerOverlay">
+        <div class="modal">
+            <h3>Player</h3>
+            <div class="player-grid" id="playerGrid"></div>
+            <div class="player-input-row">
+                <input type="number" id="playerInput" min="1" max="99" placeholder="#">
+                <button class="ok-btn" onclick="confirmPlayer()">OK</button>
+                <button class="skip-btn" onclick="skipPlayer()">Skip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="clockOverlay">
+        <div class="modal clock-modal">
+            <h3>Set Clock</h3>
+            <input type="text" id="clockInput" placeholder="MM:SS">
+            <div class="clock-btns">
+                <button class="ok-btn" onclick="setClock()">Set</button>
+                <button class="skip-btn" onclick="resetClock()">Reset</button>
+                <button class="skip-btn" onclick="closeClockModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="settingsOverlay">
+        <div class="modal" style="min-width:520px">
+            <h3>Settings</h3>
+            <div class="settings-tabs">
+                <button class="settings-tab active" onclick="showSettingsTab('players')">Players</button>
+                <button class="settings-tab" onclick="showSettingsTab('keys')">Keybindings</button>
+            </div>
+            <div class="settings-panel active" id="playersPanel">
+                <div id="playersContent"></div>
+            </div>
+            <div class="settings-panel" id="keysPanel">
+                <div class="keybindings-list" id="keybindingsList"></div>
+                <p style="font-size:11px;color:#666;margin-top:15px;text-align:center">Click a keybinding to change it</p>
+            </div>
+            <div class="settings-actions">
+                <button class="btn-save" onclick="saveSettings()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="data.js"></script>
+    <script>
+        function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+        function initActivePlayers(){
+            const active = new Set();
+            Object.entries(PLAYERS).forEach(([teamId, players])=>{
+                players.forEach(p => active.add(`${p.num}_${teamId}`));
+            });
+            return active;
+        }
+
+        function initAskForPlayers(){
+            const ask = new Set();
+            Object.keys(PLAYERS).forEach(teamId => ask.add(teamId));
+            return ask;
+        }
+
+        let state = {
+            filename:'',homeTeam:'',awayTeam:'',
+            clockRunning:false,clockSeconds:0,clockInterval:null,
+            events:[],
+            pending:{team:'',event:'',subevent:'0',zone:'0',player:'0'},
+            activePlayers: initActivePlayers(),
+            askForPlayers: initAskForPlayers()
+        };
+
+        document.addEventListener('DOMContentLoaded',()=>{
+            const h=document.getElementById('homeTeam'),a=document.getElementById('awayTeam');
+            Object.entries(TEAMS).forEach(([k,v])=>{h.innerHTML+=`<option value="${k}">${v.full}</option>`;a.innerHTML+=`<option value="${k}">${v.full}</option>`;});
+            a.value='vet';
+            updatePreview();
+        });
+
+        function updatePreview(){
+            const h=document.getElementById('homeTeam').value,a=document.getElementById('awayTeam').value;
+            document.getElementById('homeLogo').src=LOGO_PATH+TEAMS[h].logo;
+            document.getElementById('awayLogo').src=LOGO_PATH+TEAMS[a].logo;
+        }
+
+        function showSettingsTab(tab){
+            document.querySelectorAll('.settings-tab').forEach(t=>t.classList.remove('active'));
+            document.querySelectorAll('.settings-panel').forEach(p=>p.classList.remove('active'));
+            document.querySelector(`.settings-tab[onclick*="${tab}"]`).classList.add('active');
+            document.getElementById(tab+'Panel').classList.add('active');
+            if(tab==='players') renderPlayersPanel();
+            if(tab==='keys') renderKeybindingsPanel();
+        }
+
+        let editingKeybinding = null;
+
+        const keybindingDefs = [
+            {id:'home', label:'Select home team', key:'h', action:()=>selectTeam('home')},
+            {id:'away', label:'Select away team', key:'a', action:()=>selectTeam('away')},
+            {id:'skott', label:'Skott (shot)', key:'s', action:()=>selectEvent('skott')},
+            {id:'mål', label:'Mål (goal)', key:'g', action:()=>selectEvent('mål')},
+            {id:'närkamp', label:'Närkamp (duel)', key:'n', action:()=>selectEvent('närkamp')},
+            {id:'brytning', label:'Brytning (interception)', key:'b', action:()=>selectEvent('brytning')},
+            {id:'bolltapp', label:'Bolltapp (turnover)', key:'t', action:()=>selectEvent('bolltapp')},
+            {id:'passning', label:'Passning (pass)', key:'p', action:()=>selectEvent('passning')},
+            {id:'frislag', label:'Frislag (free hit)', key:'f', action:()=>selectEvent('frislag')},
+            {id:'hörna', label:'Hörna (corner)', key:'c', action:()=>selectEvent('hörna')}
+        ];
+
+        function getKeybindings(){
+            const kb = {};
+            keybindingDefs.forEach(def => { kb[def.key] = def.action; });
+            return kb;
+        }
+
+        function renderKeybindingsPanel(){
+            const list = document.getElementById('keybindingsList');
+            list.innerHTML = `<div class="keybinding-group"><h4>Teams & Events</h4></div>`;
+            const group = list.querySelector('.keybinding-group');
+            keybindingDefs.forEach(def => {
+                const row = document.createElement('div');
+                row.className = 'keybinding-row';
+                row.dataset.id = def.id;
+                row.innerHTML = `<span class="keybinding-action">${def.label}</span><span class="keybinding-key"><span class="key">${def.key.toUpperCase()}</span></span>`;
+                row.onclick = () => startEditingKeybinding(def.id, row);
+                group.appendChild(row);
+            });
+            list.innerHTML += `
+                <div class="keybinding-group"><h4>Fixed Keys</h4>
+                    <div class="keybinding-row" style="cursor:default;opacity:0.7"><span class="keybinding-action">Select zone 1-9</span><span class="keybinding-key"><span class="key">1</span>-<span class="key">9</span></span></div>
+                    <div class="keybinding-row" style="cursor:default;opacity:0.7"><span class="keybinding-action">Select subevent 1-4 (when open)</span><span class="keybinding-key"><span class="key">1</span>-<span class="key">4</span></span></div>
+                    <div class="keybinding-row" style="cursor:default;opacity:0.7"><span class="keybinding-action">Add event (no player)</span><span class="keybinding-key"><span class="key">Enter</span></span></div>
+                    <div class="keybinding-row" style="cursor:default;opacity:0.7"><span class="keybinding-action">Undo last event</span><span class="keybinding-key"><span class="key">Z</span></span></div>
+                    <div class="keybinding-row" style="cursor:default;opacity:0.7"><span class="keybinding-action">Clear selection</span><span class="keybinding-key"><span class="key">Esc</span></span></div>
+                    <div class="keybinding-row" style="cursor:default;opacity:0.7"><span class="keybinding-action">Play/pause clock</span><span class="keybinding-key"><span class="key">Space</span></span></div>
+                </div>`;
+        }
+
+        function startEditingKeybinding(id, row){
+            document.querySelectorAll('.keybinding-row.editing').forEach(r=>r.classList.remove('editing'));
+            row.classList.add('editing');
+            row.querySelector('.key').classList.add('editing');
+            row.querySelector('.key').textContent = '...';
+            editingKeybinding = id;
+        }
+
+        function renderPlayersPanel(){
+            const content = document.getElementById('playersContent');
+            content.innerHTML = '';
+            const teamsToShow = [state.homeTeam, state.awayTeam].filter(t => t && PLAYERS[t] && PLAYERS[t].length > 0);
+            if(teamsToShow.length === 0){
+                content.innerHTML = '<p style="color:#888;text-align:center;padding:20px">No players defined for selected teams.</p>';
+                return;
+            }
+            teamsToShow.forEach(teamId => {
+                const team = TEAMS[teamId];
+                const section = document.createElement('div');
+                section.className = 'team-section';
+                const noPlayersActive = !state.askForPlayers || !state.askForPlayers.has(teamId);
+                section.innerHTML = `<div class="team-section-header"><img src="${LOGO_PATH}${team.logo}" onerror="this.style.display='none'"><span>${team.short}</span></div>`;
+                const toggle = document.createElement('label');
+                toggle.className = 'no-players-toggle' + (noPlayersActive ? ' active' : '');
+                toggle.innerHTML = `<input type="checkbox" data-team="${teamId}" ${noPlayersActive ? 'checked' : ''}><span class="check"></span><span>Don't ask for players</span>`;
+                toggle.onclick = (e) => {
+                    e.preventDefault();
+                    const cb = toggle.querySelector('input');
+                    cb.checked = !cb.checked;
+                    toggle.classList.toggle('active', cb.checked);
+                    const grid = section.querySelector('.settings-grid');
+                    if(cb.checked){
+                        grid.querySelectorAll('.player-checkbox').forEach(l=>{l.classList.remove('checked');l.querySelector('input').checked=false;});
+                        grid.style.opacity='0.4';grid.style.pointerEvents='none';
+                    } else {
+                        grid.style.opacity='1';grid.style.pointerEvents='auto';
+                    }
+                };
+                section.appendChild(toggle);
+                const grid = document.createElement('div');
+                grid.className = 'settings-grid';
+                grid.dataset.team = teamId;
+                if(noPlayersActive){grid.style.opacity='0.4';grid.style.pointerEvents='none';}
+                PLAYERS[teamId].forEach(p => {
+                    const playerId = `${p.num}_${teamId}`;
+                    const isActive = state.activePlayers.has(playerId) && state.askForPlayers && state.askForPlayers.has(teamId);
+                    const label = document.createElement('label');
+                    label.className = 'player-checkbox' + (isActive ? ' checked' : '');
+                    label.innerHTML = `<input type="checkbox" value="${playerId}"${isActive ? ' checked' : ''}><img src="${PLAYER_PATH}${p.image || 'tom.png'}" onerror="this.src='${PLAYER_PATH}tom.png'"><div class="info"><span class="num">#${p.num}</span><span class="name">${p.name}</span></div><span class="check"></span>`;
+                    label.onclick = (e) => {e.preventDefault();const cb = label.querySelector('input');cb.checked = !cb.checked;label.classList.toggle('checked', cb.checked);};
+                    grid.appendChild(label);
+                });
+                section.appendChild(grid);
+                content.appendChild(section);
+            });
+        }
+
+        function showSettings(){
+            editingKeybinding = null;
+            showSettingsTab('players');
+            document.getElementById('settingsOverlay').classList.add('visible');
+        }
+
+        function saveSettings(){
+            state.askForPlayers = new Set();
+            document.querySelectorAll('.no-players-toggle input').forEach(cb=>{
+                if(!cb.checked) state.askForPlayers.add(cb.dataset.team);
+            });
+            state.activePlayers = new Set();
+            document.querySelectorAll('#playersContent .settings-grid input:checked').forEach(cb=>{
+                state.activePlayers.add(cb.value);
+            });
+            editingKeybinding = null;
+            document.getElementById('settingsOverlay').classList.remove('visible');
+        }
+
+        function startGame(){
+            state.filename=document.getElementById('filename').value||'match';
+            state.homeTeam=document.getElementById('homeTeam').value;
+            state.awayTeam=document.getElementById('awayTeam').value;
+            document.getElementById('setup').style.display='none';
+            document.getElementById('game').style.display='flex';
+            document.getElementById('info').textContent=state.filename;
+
+            const home=TEAMS[state.homeTeam],away=TEAMS[state.awayTeam];
+            document.getElementById('homeBtn').style.background=home.color;
+            document.getElementById('homeBtn').style.color=home.text;
+            document.getElementById('homeBtn').innerHTML=`<img src="${LOGO_PATH}${home.logo}"><span>${home.abbr}</span><span class="key-hint">H</span>`;
+            document.getElementById('awayBtn').style.background=away.color;
+            document.getElementById('awayBtn').style.color=away.text;
+            document.getElementById('awayBtn').innerHTML=`<img src="${LOGO_PATH}${away.logo}"><span>${away.abbr}</span><span class="key-hint">A</span>`;
+
+            const z=document.getElementById('zones');
+            ['z1','z4','z7','z2','z5','z8','z3','z6','z9'].forEach(zone=>{
+                const d=document.createElement('div');
+                d.className='zone';d.dataset.zone=zone;
+                d.onclick=()=>selectZone(zone);
+                z.appendChild(d);
+            });
+
+            const e=document.getElementById('events');
+            EVENTS.forEach(ev=>{
+                const b=document.createElement('button');
+                b.className='event-btn';b.dataset.event=ev;
+                const keyDef = keybindingDefs.find(d => d.id === ev);
+                const keyHint = keyDef ? `<span class="key-hint">${keyDef.key.toUpperCase()}</span>` : '';
+                b.innerHTML=cap(ev)+keyHint;
+                b.onclick=()=>selectEvent(ev);
+                e.appendChild(b);
+            });
+        }
+
+        function startClock(){
+            if(!state.clockRunning){
+                state.clockRunning=true;
+                document.getElementById('clock').classList.remove('paused');
+                state.clockInterval=setInterval(()=>{state.clockSeconds++;updateClockDisplay();},1000);
+            }
+        }
+        function stopClock(){
+            state.clockRunning=false;
+            document.getElementById('clock').classList.add('paused');
+            clearInterval(state.clockInterval);
+        }
+        function updateClockDisplay(){
+            const m=String(Math.floor(state.clockSeconds/60)).padStart(2,'0'),s=String(state.clockSeconds%60).padStart(2,'0');
+            document.getElementById('clock').textContent=`${m}:${s}`;
+        }
+        function getTime(){
+            const m=String(Math.floor(state.clockSeconds/60)).padStart(2,'0'),s=String(state.clockSeconds%60).padStart(2,'0');
+            return`${m}:${s}`;
+        }
+        function showClockModal(){
+            stopClock();
+            document.getElementById('clockInput').value=getTime();
+            document.getElementById('clockOverlay').classList.add('visible');
+            document.getElementById('clockInput').select();
+        }
+        function closeClockModal(){
+            document.getElementById('clockOverlay').classList.remove('visible');
+            if(state.events.length>0)startClock();
+        }
+        function setClock(){
+            const val=document.getElementById('clockInput').value;
+            const parts=val.split(':');
+            if(parts.length===2){
+                const m=parseInt(parts[0])||0,s=parseInt(parts[1])||0;
+                state.clockSeconds=m*60+s;
+                updateClockDisplay();
+            }
+            closeClockModal();
+        }
+        function resetClock(){
+            state.clockSeconds=0;
+            updateClockDisplay();
+            closeClockModal();
+        }
+
+        function selectTeam(which){
+            state.pending.team=(which==='home')?state.homeTeam:state.awayTeam;
+            document.querySelectorAll('.team-btn').forEach(b=>b.classList.remove('selected'));
+            document.getElementById(which==='home'?'homeBtn':'awayBtn').classList.add('selected');
+            tryRecord();
+        }
+        function selectZone(zone){
+            state.pending.zone=zone;
+            document.querySelectorAll('.zone').forEach(z=>z.classList.remove('selected'));
+            document.querySelector(`[data-zone="${zone}"]`).classList.add('selected');
+            tryRecord();
+        }
+        function selectEvent(event){
+            state.pending.event=event;
+            document.querySelectorAll('.event-btn').forEach(b=>b.classList.remove('selected'));
+            document.querySelector(`[data-event="${event}"]`).classList.add('selected');
+            if(SUBEVENTS[event])showSubs(event);
+            else{state.pending.subevent='0';tryRecord();}
+        }
+
+        function showSubs(event){
+            document.getElementById('subTitle').textContent=cap(event);
+            const btns=document.getElementById('subBtns');btns.innerHTML='';
+            SUBEVENTS[event].forEach((sub, idx)=>{
+                const b=document.createElement('button');b.className='sub-btn';
+                const keyNum = idx < 4 ? idx + 1 : 0;
+                b.innerHTML=cap(sub)+(keyNum > 0 ? `<span class="key-hint">${keyNum}</span>` : '');
+                b.onclick=()=>{state.pending.subevent=sub;document.getElementById('subOverlay').classList.remove('visible');tryRecord();};
+                btns.appendChild(b);
+            });
+            document.getElementById('subOverlay').classList.add('visible');
+        }
+        function skipSub(){state.pending.subevent='0';document.getElementById('subOverlay').classList.remove('visible');tryRecord();}
+
+        function tryRecord(){
+            if(state.pending.team&&state.pending.event){
+                showPlayerPicker();
+            }
+        }
+
+        let currentPlayerList = [];
+
+        function showPlayerPicker(){
+            const currentTeam = state.pending.team;
+            currentPlayerList = [];
+
+            if(!state.askForPlayers.has(currentTeam)){
+                state.pending.player = '0';
+                record();
+                return;
+            }
+
+            const grid=document.getElementById('playerGrid');
+            grid.innerHTML='';
+
+            if(PLAYERS[currentTeam] && PLAYERS[currentTeam].length > 0){
+                const activePlayers = PLAYERS[currentTeam]
+                    .filter(p => state.activePlayers.has(`${p.num}_${currentTeam}`))
+                    .sort((a,b) => parseInt(a.num) - parseInt(b.num));
+
+                if(activePlayers.length === 0){
+                    state.pending.player = '0';
+                    record();
+                    return;
+                }
+
+                currentPlayerList = activePlayers;
+
+                activePlayers.forEach((p, idx) => {
+                    const btn=document.createElement('button');
+                    btn.className='player-btn';
+                    const keyNum = idx < 9 ? idx + 1 : 0;
+                    btn.innerHTML=`<img src="${PLAYER_PATH}${p.image || 'tom.png'}" onerror="this.src='${PLAYER_PATH}tom.png'"><span class="num">${p.num}</span><span class="name">${p.name.split(' ')[1]||p.name}</span>${keyNum > 0 ? `<span class="key-hint">${keyNum}</span>` : ''}`;
+                    btn.onclick=()=>{
+                        state.pending.player=`${p.name}_${currentTeam}`;
+                        document.getElementById('playerOverlay').classList.remove('visible');
+                        record();
+                    };
+                    grid.appendChild(btn);
+                });
+                grid.style.display='grid';
+            }else{
+                grid.style.display='none';
+            }
+            document.getElementById('playerInput').value='';
+            document.getElementById('playerOverlay').classList.add('visible');
+        }
+
+        function confirmPlayer(){
+            const val = document.getElementById('playerInput').value;
+            if(val){
+                const currentTeam = state.pending.team;
+                // Try to find player name by number
+                let playerName = val;
+                if(PLAYERS[currentTeam]){
+                    const found = PLAYERS[currentTeam].find(p => p.num === val);
+                    if(found) playerName = found.name;
+                }
+                state.pending.player = `${playerName}_${currentTeam}`;
+            }else{
+                state.pending.player = '0';
+            }
+            document.getElementById('playerOverlay').classList.remove('visible');
+            record();
+        }
+        function skipPlayer(){
+            state.pending.player='0';
+            document.getElementById('playerOverlay').classList.remove('visible');
+            record();
+        }
+
+        function updateLastEvent(){
+            const el=document.getElementById('lastEvent');
+            if(state.events.length===0){el.textContent='';return;}
+            const e=state.events[state.events.length-1];
+            const parts=[e.time,e.team.toUpperCase(),cap(e.event)];
+            if(e.subevent!=='0')parts.push(cap(e.subevent));
+            if(e.zone!=='0')parts.push(e.zone);
+            if(e.player!=='0'){
+                const [name] = e.player.split('_');
+                parts.push(name);
+            }
+            el.textContent=parts.join(' ');
+        }
+
+        function record(){
+            if(state.events.length===0)startClock();
+            state.events.push({time:getTime(),team:state.pending.team,event:state.pending.event,subevent:state.pending.subevent,zone:state.pending.zone,player:state.pending.player});
+            toast(`${state.pending.team.toUpperCase()} ${cap(state.pending.event)}`);
+            document.getElementById('counter').textContent=state.events.length;
+            updateLastEvent();
+            clearSelection();
+        }
+        function clearSelection(){
+            state.pending={team:'',event:'',subevent:'0',zone:'0',player:'0'};
+            document.querySelectorAll('.team-btn,.event-btn,.zone').forEach(b=>b.classList.remove('selected'));
+        }
+        function undo(){
+            if(state.events.length){
+                state.events.pop();
+                document.getElementById('counter').textContent=state.events.length;
+                updateLastEvent();
+                toast('Undo');
+            }
+        }
+
+        function addEvent(){
+            if(!state.pending.team || !state.pending.event){
+                toast('Select team & event');
+                return;
+            }
+            state.pending.player = '0';
+            record();
+        }
+
+        function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),800);}
+
+        function stopMatch(){
+            if(confirm('End?')){
+                stopClock();
+                state.events.push({time:getTime(),team:'0',event:'stop',subevent:'0',zone:'0',player:'0'});
+                exportCSV();
+            }
+        }
+        function exportCSV(){
+            if(!state.events.length){alert('No events');return;}
+            const csv=['time,team,event,subevent,zone,player'];
+            state.events.forEach(e=>csv.push([e.time,e.team,e.event,e.subevent,e.zone,e.player].join(',')));
+            const a=document.createElement('a');
+            a.href=URL.createObjectURL(new Blob([csv.join('\n')],{type:'text/csv'}));
+            a.download=state.filename+'.csv';a.click();
+            toast('Exported!');
+        }
+
+        document.addEventListener('keydown',e=>{
+            if(document.getElementById('settingsOverlay').classList.contains('visible')){
+                if(editingKeybinding){
+                    e.preventDefault();
+                    const newKey = e.key.toLowerCase();
+                    if(newKey.length === 1 && newKey.match(/[a-z]/)){
+                        const def = keybindingDefs.find(d => d.id === editingKeybinding);
+                        if(def){
+                            def.key = newKey;
+                            renderKeybindingsPanel();
+                        }
+                    }
+                    editingKeybinding = null;
+                    return;
+                }
+                if(e.key==='Escape')saveSettings();
+                return;
+            }
+            if(document.getElementById('clockOverlay').classList.contains('visible')){
+                if(e.key==='Enter')setClock();
+                if(e.key==='Escape')closeClockModal();
+                return;
+            }
+            if(document.getElementById('playerOverlay').classList.contains('visible')){
+                if(e.key>='1'&&e.key<='9'){
+                    const idx = parseInt(e.key) - 1;
+                    if(currentPlayerList[idx]){
+                        const p = currentPlayerList[idx];
+                        state.pending.player = `${p.name}_${state.pending.team}`;
+                        document.getElementById('playerOverlay').classList.remove('visible');
+                        record();
+                    }
+                    return;
+                }
+                if(e.key==='Enter')confirmPlayer();
+                if(e.key==='Escape')skipPlayer();
+                return;
+            }
+            if(document.getElementById('subOverlay').classList.contains('visible')){
+                if(e.key>='1'&&e.key<='4'){
+                    const btns=document.querySelectorAll('#subBtns .sub-btn');
+                    const idx=parseInt(e.key)-1;
+                    if(btns[idx])btns[idx].click();
+                }
+                if(e.key==='Escape')skipSub();
+                return;
+            }
+            if(e.key>='1'&&e.key<='9'){selectZone('z'+e.key);return;}
+            const key = e.key.toLowerCase();
+            const kb = getKeybindings();
+            if(kb[key]){e.preventDefault();kb[key]();return;}
+            if(e.key==='Enter'){e.preventDefault();addEvent();return;}
+            if(e.key===' '){e.preventDefault();state.clockRunning?stopClock():startClock();}
+            if(e.key==='z')undo();
+            if(e.key==='Escape')clearSelection();
+        });
+    </script>
+</body>
+</html>
